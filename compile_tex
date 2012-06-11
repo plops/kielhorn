@@ -1,0 +1,11 @@
+cp kielhorn_memi.tex build
+cd build
+latex kielhorn_memi
+makeindex kielhorn_memi.nlo -s /usr/share/texmf-texlive/makeindex/nomencl/nomencl.ist -o kielhorn_memi.nls
+latex kielhorn_memi
+bibtex kielhorn_memi
+latex kielhorn_memi
+latex kielhorn_memi
+latex kielhorn_memi
+dvips kielhorn_memi
+dvipdf kielhorn_memi

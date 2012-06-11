@@ -1,0 +1,662 @@
+
+\section{Conventional microscopes}
+\begin{summary}
+  Microscopes that are in common use today do not optimally excite
+  fluorophores within the specimen. In this section we outline how
+  these microscopes work. We explain how out-of-focus blur severely
+  limits the performance of the widefield microscope. Then we discuss
+  how confocal microscopy improves the sectioning capability at the
+  cost of increasing the phototoxic load on the specimen.
+\end{summary}
+The basic building block of microscopes are lenses. A lens is a piece
+of glass with two polished spherical (a shape of lower symmetry is
+much harder to manufacture) surfaces. Light is slower in glass than in
+air. The shape of a lens redirects photons and the thickness of the
+material can delay them. A lens focuses a parallel beam of light into
+a spot on its focal plane. The distance between focal plane and the
+region where the rays start to converge is called focal length.
+\begin{figure}[!hbt]
+  \centering
+  \input{widefield-microscope.eps_tex}
+  \caption{{\bf a)} Schematic of a modern microscope. The sample is in
+    the front focal plane of the objective. The detection tubelens TL1
+    forms a magnified image on the camera. {\bf b)} Widefield
+    epifluorescence excitation. The excitation tubelens focuses a
+    laser into the back focal plane (BFP). The beam is reflected by a
+    dichroic beam splitter (BS) towards the objective. An extended
+    area in the specimen is illuminated. Fluorescence light of lower
+    wavelength returns through the objective, is transmitted through
+    BS and forms an image on the camera. {\bf c)} Confocal
+    microscope. A pinhole PH2 is imaged as a diffraction limited spot
+    into the specimen. Returning fluorescence light is only detected
+    when it passes through an aligned pinhole PH1. This configuration
+    rejects light that doesn't originate from the front focal plane
+    (green) of the objective.}
+  \label{fig:widefield-microscope}
+\end{figure}
+
+The yellow beam in \figref{fig:widefield-microscope}~a) represents
+rays that start from the intersection $O$ of the optical axis and the
+front focal plane of the objective. The objective collects the rays
+and collimates them into a beam that is parallel to the optical
+axis. After traversing the tube length $f+f_\textrm{TL}$ the detection
+tube lens TL1 focuses the rays on the intersection $O'$ of its focal
+plane (the intermediate image plane) and the optical axis.
+
+The blue beam corresponds to rays that start from an off-axis point
+$P$ in the front focal plane of the objective. Behind the objective
+the blue beam is a parallel beam. However, the beam isn't parallel to
+the optical axis. The tube lens TL1 focuses the blue beam into a spot
+at $P'$ on its focal plane. Using the theorem of intercepting lines
+one obtains for the magnification $M$:
+\begin{align}
+  M=\frac{\overline{O'P'}}{\overline{OP}}=\frac{f_\textrm{TL}}{f}.
+\end{align}
+In our microscope we use an objective with magnification $M=63$. The
+focal length of the tube lens is \unit[164.5]{mm} for most Zeiss
+microscopes. Therefor the focal length of our objective is
+$f=\unit[2.61]{mm}$.
+
+Assuming we have a metal mirror with two small
+($\diameter<\unit[120]{nm}$) holes in the reflective coating with
+$\unit[2]{\mu m}$ distance between them.  We put this object into the
+front focal plane of the objective and position a camera on $O'$. When
+illuminating the mirror from the side opposite to the objective, the
+camera will show two spots with $\unit[126]{\mu m}$ distance.
+
+Note that \figref{fig:widefield-microscope} depicts a thin-lens
+model. A real objective contains in the order of ten coated lenses of
+different glass and crystalline materials. Their curvatures, positions
+and materials were all carefully chosen, taking into account
+manufacturing tolerances and wavelengths, so that the microscope
+behaves exactly as the thin-lens model predicts. Diffraction defines
+how well objective and thin-lens model have to match.
+
+It is quite possible that heating to \unit[37]{${}^\circ$C} will ruin
+such a high-precision instrument. A related source of aberrations
+(departure of design performance) is the refractive index inside of
+the specimen. Later in this work \todo{add reference} %FIXME reference
+we will describe a more complicated model that can predict the effect
+of embedding the sample in water (instead of immersion oil with the
+same refractive index as the glass).
+
+\subsection{Widefield epifluorescence microscope}
+Fluorescence photons are emitted in all directions, independent of the
+original illumination direction. Therefor it is convenient to use the
+objective for excitation as well as detection. This mode of microscopy
+is called epifluorescence (Greek: $\varepsilon\pi\iota$; on, above).
+One advantage is that even (the frontal side of) opaque specimen can
+be imaged. Furthermore it is beneficial that the illumination needs to
+be aligned only once.
+
+\nomenclature{BFP}{Back focal plane}
+
+The red beam in \figref{fig:widefield-microscope}~b) is a parallel
+laser. The excitation tube lens TL2 focuses the beam into the back
+focal plane (BFP) of the objective. The beam is reflected at a
+dichroic beam splitter (BS). This is a glass plate that has been
+coated with dielectric layers. The refractive index, thickness and
+sequence of the layers are designed so that the excitation light is
+reflected towards the objective but lower energy fluorescence light
+returning from the objective is transmitted towards the camera. Behind
+the objective the beam is parallel and illuminates the specimen.
+\subsubsection*{Non-uniformity due to coherent interference}
+Note that tiny dirt particles and coherent interference in laser beams
+can produce unwanted non-uniformities in the illumination. As a remedy
+sometimes the spatial coherence of the laser is reduced. Often
+incoherent light emitting diodes, mercury or xenon arc lamps are used
+instead of lasers. In the latter case the dichroic beam splitter is
+preceded by a band pass filter that selects the useful part of the
+lamp's spectrum.
+
+However, independent of the choice of the light source, the widefield
+microscope in epifluorescence configuration exposes many layers of the
+sample. This leads to fluorescence of out-of-focus fluorophores
+(molecules that are not in the front focal plane). The objective
+collects their light and forms a blurred image on the camera.
+\subsubsection*{Deconvolution}
+When a stack of several slices of an object is obtained, it is
+possible to suppress the blurred part of each image in all the
+others. These algorithms (deconvolution) can improve the perceived
+quality of images in some stacks. However, there are two fundamental
+problems:
+
+First the ``missing cone problem'' prevents focusing on a homogeneous
+fluorescent plane. Physics dictates that there always is a gap in the
+transfer function of the objective when the fluorescence process is
+linear and the objective collects only photons from one half space.
+
+Second: Even with ideal detectors there is photon shot noise in the
+image. In deconvolution algorithms the image of one slice is improved
+by subtracting blurred versions of the other slices. When the blurred
+intensity is large, its shot noise is high as well. The noise isn't
+reduced by subtraction and a faint in-focus image can be severely
+deteriorated by the noise of the out-of-focus light.
+\subsection{Confocal microscope}
+One way of addressing both problems of the widefield microscope is
+depicted in \figref{fig:widefield-microscope}~c). In the confocal
+microscope the field of view isn't illuminated instantaneously.  The
+excitation tube lens TL2 collimates the light coming from a pinhole
+PH2 and illuminates the full back focal plane of the objective. In the
+front focal plane of the objective the red beam then converges to
+illuminate the smallest possible (by diffraction) single
+spot. However, out-of-focus fluorophores are still being excited by
+the hour-glass shaped illumination.
+
+The eponymous idea of the confocal microscope is to replace the camera
+with a pinhole PH1. This pinhole doesn't affect the light detected
+from in-focus fluorophores. However, an out-of-focus fluorophore that
+is defocused by $\Delta z$ towards the objective will lead to a
+diverging beam (green) at the tube lens and will be imaged into a point
+behind the focal plane of the tube lens. The pin hole only transmits a
+part of the circle of confusion. Hence defocused fluorophores
+contribute less to the sensor signal.
+
+An image of the in-focus fluorophores is obtained by scanning the
+pinholes over the field of view and measuring intensity at each
+position individually. The optical removal of out-of-focus light
+prevents degradation of the signal by its shot noise and improves the
+point-spread function of the objective (fixing the ``missing cone''
+problem). Note however, that some information is lost which would be
+obtained in a widefield microscope with deconvolution.
+
+The confocal microscope was invented in 1955 \todo{check patent
+  citation} \citep{Minsky1961,Minsky1988} to reduce the influence of
+scattering effects in neuron samples stained by Golgi's method. This
+invention preceded the laser and was unfortunately not put into
+practical use until three decades later \citep{Amos1987}.
+\subsection{Phototoxicity in conventional microscopes}
+When imaging living specimen we should distinguish between useful and
+unnecessary excitation. Taking into account the detection capabilities
+of objective lenses we should maximize the ratio of in-focus to
+out-of-focus fluorescence. The epifluorescent widefield and confocal
+microscope surely do not represent an optimum in this regard.
+
+The following chapter will introduce other microscopy techniques that
+are more considerate of where to deposit excitation power within the
+specimen.
+\subsection{Two photon laser scanning fluorescence microscopy}
+If an intense subpicosecond pulse of infrared light is focused into a
+spot in the sample, non-linear two photon absorption can occur
+\citep{Denk1990}. Infrared light is scattered less than light of half
+the wavelength. The phototoxicity in the focus is higher than in a
+single-photon microscope with comparable excitation rate. However
+there is no excitation in the out-of-focus region. Therefor a
+detection pin hole is not required.
+
+This technique has greatly improved depth of penetration and
+sensitivity of in situ imaging. %  sentence from otsu 2008
+\chapter{Other approaches of light control}
+\nomenclature{CLEM}{Controlled light exposure microscopy}%
+\begin{summary}
+  This chapter gives an overview of current microscopy techniques that
+  reduce unnecessary fluorescence excitation and reduce
+  phototoxicity. In \emph{light sheet microscopy} an oblique sheet of
+  light illuminates the sample without exposing too many out-of-focus
+  fluorophores. \emph{Controlled light exposure microscopy}
+  (CLEM) takes
+  into account the in-focus fluorophore distribution and iteratively
+  improves the signal to noise ratio of the measurement.  Finally
+  \emph{light field microscopy} allows instantaneous and complete
+  control of all parameters of the incoherent light exposure.
+\end{summary}
+\section{Light sheet fluorescence microscopy}
+\begin{summary}
+  Light sheets can be directly created with separate optics to
+  illuminate the sample from an orthogonal direction. Another
+  promising method to create a sheet is to use a high numerical
+  aperture objective near the total internal reflection
+  angle. Diffraction couples the minimum width of the sheet and the
+  extent of the area, where the sheet's with is constant. There is a
+  trade-off between sheet width and field of view.
+\end{summary}
+The idea of illuminating a sample from the side dates back quite
+far into the history of microscopy. Already one hundred years ago an
+objective perpendicular to the detection objective was used for
+illumination of the focal plane in the specimen. This dark field
+technique was used to characterize gold nano particles in gold ruby
+glass \citep{Siedentopf1903}.
+
+Eventually this technique was applied to fluorescence
+microscopy. First to analyze cochlea specimen \citep{Voie1993} and
+more recently for the development of embryos
+\citep{Huisken2004}. Results in the latter paper have sparked interest
+in the technique at many labs \citep{Santi2011}.
+\subsection{Light sheet generation with cylindrical lens}
+\begin{figure}[!hbt]
+  \centering
+  %\bild{spim}
+  \input{spim-sketch.eps_tex}
+  \caption{Schematic of SPIM (selective plane illumination
+    microscopy). A cylindrical lens illuminates the specimen with a
+    thin sheet of light along the focal plane of the
+    objective. Rotating the sample and/or moving it along the axis
+    allows to reconstruct a sectioned 3D volume of the fluorophore
+    concentration with improved light utilization compared to
+    conventional microscopes.}
+  \label{fig:spim}
+\end{figure}
+\figref{fig:spim} shows how the light sheet can be focused into the
+specimen using a cylindrical lens. \cite{Huisken2004} employ a water
+dipping objective with long working distance (\unit[1\ldots 2]{mm})
+and comparatively low NA for detection. A $10\times$ objective with
+$\unit[660]{\mu m}$ field of view diameter is used with a sheet that
+varies less than $42\%$ in thickness ($\unit[6\ldots 8]{\mu m}$). The
+light sheet not only improves sectioning and contrast but also
+improves the axial resolution from originally $\unit[14]{\mu m}$ by
+nearly a factor of two.
+
+\nomenclature{SPIM}{Selective plane illumination microscopy}
+
+The axial resolution of detection objectives of higher numerical
+aperture isn't improved so easily over an extended field of
+view. Shading effects, diffraction and refraction can deteriorate the
+light sheet. As an improvement of the technique it was suggested to
+rotate the specimen or illuminate with multiple sheets of light from
+different directions.
+
+Other improvements involve a Bessel beam that is scanned to illuminate
+a plane. This intensity distribution is ``self-reconstructing'' and
+can compensate better for obstacles in its path. It comes with the
+cost that the light sheet isn't as confined. Simultaneous structured
+illumination and 2 photon effects were suggested to improve this.
+
+
+\subsection{Light sheet generation using the detection objective}
+\begin{figure}[!hbt]
+  \centering
+  %\bild{dunsby}
+  \caption{Schematic of oblique plane microscopy (OPM). An index
+    matched sample is excited using an oblique plane of light. As the
+    illumination plane isn't lying in the focal plane, out-of-focus
+    fluorophores on the periphery of the field of view are
+    excited. Two additional objectives in the detection path are used
+    to reconstruct an aberration free image of all the excited
+    fluorophores (drawing from \cite{Dunsby2008}).}
+  \label{fig:dunsby}
+\end{figure}
+Modern high numerical aperture objectives allow to illuminate an
+\emph{index matched} sample with a half angle of up to
+$70^\circ$. This enables illumination of an oblique and thin sheet of
+light in the sample just as in selective plane illumination
+microscopy. However this technique (oblique plane microscopy, OPM) has
+the advantage, that only one objective is needed to be close to the
+sample and it will work with specimen in conventional microscope
+slides. One difficulty is that the excited fluorophores are severely
+defocused in the intermediate image plane. is that (see
+\figref{fig:dunsby}). \cite{Dunsby2008} describe\todo{redraw}\ how to
+rotate the observational plane optically in order to recover an
+aberration free image from the oblique illumination plane. They
+reimage the sample through two additional objectives.
+
+\nomenclature{OPM}{Oblique plane microscopy}
+
+\begin{figure}[!hbt]
+  \centering
+  \input{hilo-sketch.eps_tex}
+  \caption{Schematic of rays in HILO (highly inclined and laminated
+    optical sheet) technique. The specimen is embedded in a medium of
+    lower optical density than the cover slip. For a very high
+    illumination angle (point on the periphery of the back focal
+    plane) the light would be reflected at the cover slip-medium
+    interface due to total internal reflection. For HILO a point on
+    the back focal plane, that is closer to the optic axis is
+    illuminated. The light enters the embedding medium in a highly
+    inclined angle and only a thin sheet in the focal plane is
+    illuminated (after \cite{Tokunaga2008}).}
+  \label{fig:hilo}
+\end{figure}
+
+Biological specimen are often not index matched but have a lower index
+$n_e\approx 1.33$ than the immersion oil $n=1.52$. As indicated in
+\figref{fig:hilo} the refraction at the interface between cover slip
+glass and embedding medium can be exploited to illuminate specimen
+with a light sheet that is nearly parallel to the focal plane.  This
+technique is called highly inclined and laminated optical sheet
+microscopy (HILO) \citep{Tokunaga2008, Konopka2008}.
+
+\nomenclature{HILO}{Highly inclined and laminated optical sheet microscopy}
+
+Note that the index mismatch between embedding and immersion medium
+will introduce aberrations (mostly spherical) which will limit the
+imaging depth into the sample.
+\section{Scanning techniques for improving light utilization}
+\subsection{Controlled light exposure microscopy (CLEM)}
+\label{sec:CLEM}
+The confocal microscope (see \figref{fig:widefield-microscope}~c)
+allows another adaptive illumination technique. A slice of a specimen
+is partitioned into three different regions. Areas with no
+fluorophores (A), high concentration of fluorophores (C) or a
+concentration in between (B).
+
+Ideally, areas A that don't contain fluorophores should only be
+exposed until fluorophore content is ruled out. The other two classes
+B and C should be exposed until the same number of fluorescence
+photons have been detected. This would result in an image with
+constant signal to noise ratio. Unfortunately due to the photon nature
+of light sometime a region of type B is incorrectly treated as A which
+introduces dark pixel artifacts in the image
+\citep{Hoebe2010}\todo{read reference}.
+
+In conventional microscopes areas of class C with high fluorophore
+concentration are generally exposed too much. Their signal to
+noise ratio would be high but this doesn't increase perceived image
+quality. Furthermore regions above and below the focal plane have been
+unnecessarily subjected to high exposure.
+
+
+This technique was first presented in \citep{Hoebe2007} \todo{was that
+  first, get} followed by an independent similar version with adaptive
+control of the laser power for two photon microscopy
+\citep{Chu2007}. 
+
+\subsection{Acousto-optic deflectors for fast beam steering}
+In a conventional confocal microscope the beam is steered by two
+galvanometer mirrors. This technique offers very good light throughput
+and is sufficient to obtain rectangular images. However the inertia of
+the mirrors severely limit the access rate of spots in the focal
+plane.
+
+Replacing the mechanical mirrors with an acoustic wave in a
+transparent material (TeO$_2$) enables $\unit[4]{\mu s}$ switching
+time \citep{Otsu2008} and even allows focusing to points outside of
+the focal plane \citep{Reddy2008}. These acousto-optic deflectors have
+lower efficiency (70\% for two AODs) and show chromatic aberrations.
+
+However as descanning isn't necessary in two photon microscopy the
+lower efficiency (in the excitation path) is hardly an issue. Therefor
+this technique for the first time enables ``random access'' of 3D
+coordinates in the sample.
+
+\begin{figure}[!hbt]
+  \centering
+  %\bild{aod} 
+  \caption{Schematic of an acousto-optic deflector (AOD) illumination
+    system with z focusing. Figure taken from \citep{Reddy2008}}
+% in focusing single s highly preferred http://www.future-perfect.co.uk/grammartips/grammar-tip-focussed-focused.asp
+  \label{fig:aod}
+\end{figure}
+
+
+\nomenclature{AOD}{Acousto-optic deflector}
+\nomenclature{AOM}{Acousto-optic modulator}
+\section{Non-scanning}
+\subsection{Direct illumination}
+An obvious method for doing spatial control is to image a
+two-dimensional array of high-power micro-LEDs into the specimen.
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=7cm]{led-array} 
+  \caption{Overlay combining widefield micro-LED illumination and
+    fluorescence imaging YFP tag expressed in neurons, taken from
+    \citep{grossman2010}.}
+  \label{fig:led-array}
+\end{figure}
+However the problem is to achieve sufficient \emph{irradiance} (LEDs
+angular emission profile is often lambertian, i.e.\ the back focal
+plane of the objective would be over-illuminated and a lot of light
+lost) and \emph{fill factor} (it is difficult to put a lot of LEDs
+close together). The technique has been demonstrated using a
+$64\times64$ array of $\unit[20]{\mu m}$ micro-emitters with
+$\unit[50]{\mu m}$ pitch \citep{grossman2010}.  The LEDs can be
+switched at millisecond speed and emit at $\unit[(470\pm22)]{nm}$.
+
+\nomenclature{GFP}{Green fluorescent protein}
+\nomenclature{EGFP}{Enhanced green fluorescent protein}
+\nomenclature{YFP}{Yellow fluorescent protein}
+\nomenclature{VCSEL}{Vertical-cavity surface-emitting laser}
+\nomenclature{LED}{Light-emitting diode}
+\nomenclature{MMA}{micro-mirror array}
+\nomenclature{LCoS}{Liquid crystal on silcon (display)}
+\nomenclature{DPSS}{Diode-pumped solid-state (laser)}
+
+This technique enables interesting experiments where processes are
+influenced by light (optogenetics) but the targets ideally have to be
+located in the focal plane. Also it must be verified that the
+illumination cone of each LED image doesn't affect the measurement,
+i.e.\ activate the specimen in out-of-focus regions.
+
+Nevertheless once the LED (or VCSEL) arrays become available in
+interesting spectral ranges we might see the direct illumination
+techniques more often.
+
+\subsection{Intensity modulation}
+\subsubsection{Programmable array microscopy}
+A technique similar to controlled light exposure microscopy (CLEM,
+section \ref{sec:CLEM}) has been implemented in a programmable array
+microscope (PAM) \citep{Caarls2011} (minimized light exposure PAM,
+MLE-PAM). Like our microscope the PAM images a pattern into the sample
+using a spatial light modulator. In addition to our system the same
+SLM is used in the detection path to recover an image of only the
+in-focus fluorophores.
+
+\begin{figure}[!hbt]
+  \centering
+  \input{pam-sketch.eps_tex}
+  \caption{Schematic of a programmable array microscope (PAM) (after
+    \cite{Verveer1998}). A digital micromirror device (DMD) containing
+    an array of tiltable mirrors is imaged into the focal plane of the
+    objective. Returning fluorescent light from out-of-focus
+    fluorophores is distributed onto both cameras. In-focus
+    fluorescence is only imaged onto camera 1.}
+  \label{fig:pam-sketch}
+\end{figure}
+
+
+\nomenclature{PAM}{Programmable array microscopy}%
+\nomenclature{DMD}{Digital micromirror device}%
+\nomenclature{MLE-PAM}{Minimized light exposure programmable array microscope}%
+
+\subsubsection{Light field microscopy}
+Interesting work on light fields originally started in the macroscopic
+domain of cameras \citep{Lippmann1908 %,Sokolov1911
+} and was eventually
+applied as a technique for microscopy
+\citep{Levoy2006,Levoy2009}. This approach is built on imaging through
+an array of microlenses.
+\begin{figure}[!hbt]
+  \centering
+  %\includegraphics[width=7cm]{microlens-levoy-sketch} %FIXME redraw
+  \input{microlens-levoy-sketch.eps_tex}
+  \caption{Schematic of microlenses in intermediate image plane (after
+    \citep{Levoy2006})}
+  \label{fig:microlens-levoy-sketch}
+\end{figure}
+
+A microlens array is placed behind the intermediate image plane (see
+\figref{fig:microlens-levoy-sketch}). The light that illuminates one
+microlens corresponds to one spot in the focal plane of the
+sample. The camera is positioned in the focal plane of the microlenses
+and captures an image of the back focal plane behind each microlens
+(see dashed ray bundle).
+
+The camera captures the four dimensional light field leaving the
+specimen with spatial coordinates $(s,t)$ and angular coordinates
+$(u,v)$. This data enables computational viewpoint shifting,
+refocusing, extended depth of field and aberration correction of the
+detected fluorescence emission.
+
+
+\begin{figure}[!hbt]
+  \centering
+  \input{microlens-levoy-sketch_2.eps_tex}
+  \caption{Construction of an out-of-focus bundle through the light
+    field microscope. In order to improve the readability of the
+    drawing, the magnification in the microscope was set to $1:1$
+    (focal lengths of tube lens and objective are equal). An on-axis
+    sample point originating from below the focal plane of the
+    objective is imaged into an on axis point between tubelens and
+    microlens array. Three of the microlenses reimage the point into
+    three points behind the plane of the camera.}
+  \label{fig:microlens-levoy-sketch_2}
+\end{figure}
+
+\figref{fig:microlens-levoy-sketch_2} shows bundles originating from
+an out-of-focus point. Each of the microlenses that are hit by the
+circle of confusion reimage a fraction of the of the angular range of
+into their images.  This process is crucial because here a lot of the
+original image information is lost. The intensities from the
+sub-images on the camera can't later be recombined in order to,
+e.g. recover a high resolution image of the defocused point
+(R.~Heintzmann, personal communication, November 22, 2011).
+
+The light field microscope doesn't utilize the full resolution of
+high-NA objectives. This will prevent the use of this technique in its
+current form for the detection path of microscopes.
+
+However, the same ideas can be applied in the excitation path. For
+illumination purposes lower resolution will often suffice. The light
+field technique allows unique control of excitation light intensity
+and angles in each point of the sample plane.
+
+
+{\color{red}
+Note that the ray model isn't necessarily sufficient to describe a
+light field microscope when the micro lens dimension get close to the
+size of the airy pattern of the micro objective. The underlying wave
+model can be described by Wigner distributions.
+
+The four dimensional Wigner \todo{don't explain any of the Wigner stuff} distribution $W_U$ of a scalar field
+$U(x,y,\tau)$ of narrowband polychromatic light in a plane $z=z_0$ is
+defined as the Fourier transform of the mutual intensity $J_U$:
+%FIXME is that the spatial coherence function?
+\begin{align}
+  J_U(x,y,\xi,\eta)&=\left\langle U\left(x+\frac{\xi}{2},y+\frac{\eta}{2},\tau\right) U^*\left(x-\frac{\xi}{2},y-\frac{\eta}{2},\tau\right) \right\rangle_\tau,\\
+  W_U(x,y,f_\xi,f_\eta)&=\int\!\!\!\!\int J_U(x,y,\xi,\eta)\ e^{-j2\pi(f_\xi\xi+f_\eta\eta)}\ \textrm{d}\xi\textrm{d}\eta.
+\end{align}
+In order to express a radiance function it is useful to write the Wigner distribution in its slope-form $W_U^{(\lambda)}$:
+\begin{align}
+  \label{eq:wigner-slope}
+  W_U^{(\lambda)}(x,y,u,v)&:=W_U(x,y,\xi/\lambda,\eta/\lambda),\\
+  u&=\xi/\lambda, \quad v=\eta/\lambda.
+\end{align}
+The observable light field $l^{(T)}(s,t,u,v)$ is obtained by
+convolving the Wigner distribution of the scalar field $U$ with the
+Wigner distribution the microlens aperture function $T$
+\citep{Zhang2009}. 
+\begin{align}
+  \label{eq:lightfield}
+  l^{(T)}(s,t,u,v)
+  &=
+  W_U^{(\lambda)}(s,t,u,v)\otimes
+  W_T^{(\lambda)}(-s,-t,u,v)  
+\end{align}
+The Fourier uncertainty relates the blur of the $s$ and $u$ directions
+\begin{align}
+  \label{eq:uncertainty}
+  \sigma_s^2\sigma_u^2&\ge\frac{\lambda^2}{16\pi^2}
+\end{align}
+where the variance $\sigma_x^2$ of a signal $h(x)$ along an axis $x$
+represents its ``blur'' and is defined as:
+\begin{align}
+  \label{eq:variance}
+  \sigma_x^2&=\int x^2|h(x)|^2\textrm{d}x.
+\end{align}
+}
+
+\subsection{Temporal focusing}
+\begin{figure}[!hbt]
+  \centering
+  %\bild{oron} 
+  \input{temporal-focus-sketch.eps_tex}
+  \caption{Schematic of temporal focusing (after \citep{Oron2005}). A
+    grating in the intermediate image plane separates the pulse into
+    its spectral components. Out-of-focus areas of the specimen are
+    illuminated with a longer pulse. Only the in the focal plane all
+    spectral components interfere coherently and form a short
+    intensive pulse.}
+  \label{fig:oron}
+\end{figure}
+The axial extent of ultra-short laser pulses can be as thin as a few
+microns. A parallel beam can be split into different spectral
+components by a grating in the intermediate image plane
+\citep{Oron2005}. The tube lens focuses the diffraction pattern into a
+line in the back focal plane of the objective.
+
+The objective, which has to be corrected for chromatic aberration and
+dispersion, then focuses all the beams into the focal plane. Different
+spectral components arrive in the focal plane at the same
+time. Out-of-focus points see an extended illumination. For a high NA
+objective a pulse duration of $\tau=\unit[20]{fs}$ results in slice of
+$z\approx\tau c/2\approx\unit[3]{\mu m}$ thickness around the focus,
+where the beam has significant intensity.
+
+Using this technique it is possible to build a widefield two photon
+microscope. That only excites fluorophores within the focal plane. The
+technique can be further improved by spatially modulating the beam
+in the intermediate image plane for CLEM like performance.
+
+\subsection{Phase modulation}
+\subsubsection{Digital holography}
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[height=5cm]{phase-holo} 
+  \caption{Schematic of spatial illumination by phase holography
+    \todo[inline]{redraw}}
+  \label{fig:phase-holo}
+\end{figure}
+Certain types of liquid crystal spatial light modulators can be used
+to modify the phase of light. When such a device is placed into the
+back focal plane of a lens, it is possible to control the light
+distribution in its front focal plane. An iterative algorithm
+(iterative Fourier transform algorithm, IFTA) can be used to establish
+a phase image on the liquid crystal display that will result in an
+intensity distribution in front of the lens.
+
+\nomenclature{IFTA}{Iterative Fourier transform algorithm}
+
+This approach has been used to excite a two-dimensional pattern in the
+specimen \citep{Lutz2008,Zahid2010} and is advantageous especially for
+cases where only small parts of the specimen ought to be
+illuminated. As opposed to conventional intensity spatial light
+modulators the light can be redirected from dark areas into the bright
+areas.
+
+% single photon 405nm uncaging, ifta,
+% spherical wave approximation
+There is also a limited possibility to create three-dimensional
+patterns, e.g.\ several points below, in and above the focal plane by
+displaying Fresnel zone planes.  For illumination usually a laser with
+non-zero interference length is employed. However, this illumination
+contains an unwanted ``speckle'' pattern -- noisy non-uniformities. To
+a certain extent the contrast of the speckle pattern can be reduced by
+controlling spatial and temporal coherence of the illumination
+(sweeping the frequency of the laser or changing illumination
+direction while the detector is integrating).
+
+Holographic control can be used with two photon excitation as well
+\citep{Nikolenko2008} % two photon
+but this exacerbates the effect of speckles.
+\subsubsection{Generalised phase contrast (GPC)}
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=14cm]{phase} % FIXME redraw
+  \caption{schematic of generalized phase contrast \citep{Rodrigo2008}}
+  \label{fig:phase}
+\end{figure}
+A phase contrast microscope objective \todo{modified ?} can be used to
+convert a phase image from the intermediate image plane into an
+intensity image in the specimen \citep{Rodrigo2008}\todo{read more of
+  this}. Compared to digital holography hardly any computation is
+necessary. Yet the phase spatial light modulator allows concentrating
+a lot of light even into a small region of the specimen as opposed to
+other techniques which involve intensity modulation and loose the
+light of dark areas.
+
+The generalised phase contrast method is suitable even with spatially
+incoherent illumination\todo{slightly ?}.
+\subsubsection{Generalised phase contrast and temporal focusing (TF-GPC)}
+The combination of generalised phase contrast and temporal focusing
+allows selective uniform illumination of in-focus areas
+\citep{Papagiakoumou2010}. Usage of a phase spatial light modulator
+results in high light efficiency compared to intensity modulation.
+Splitting and recombination of the spectral components of the pulse
+reduce speckle noise considerably.
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=11cm]{tf-gpc} 
+  \caption{Schematic of phase contrast with temporal focusing (TF-GPC)
+    from \citep{Papagiakoumou2010}, PCF is a phase contrast filter}
+  \label{fig:tf-gpc}
+\end{figure}
+\nomenclature{PCF}{Phase contrast filter}

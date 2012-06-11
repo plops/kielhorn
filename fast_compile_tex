@@ -1,0 +1,3 @@
+cp kielhorn_memi.tex build
+cd build
+latex kielhorn_memi

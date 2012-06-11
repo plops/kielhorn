@@ -1,0 +1,7 @@
+#drawing is by Josef Wenisch
+
+#convert png file into jpg and then
+#convert img.jpg ps3:img.eps
+
+for i in state-of-the-art/svg/*.svg ; do inkscape $i --export-latex -E build/`basename $i .svg`.eps  ;done
+

@@ -1,0 +1,98 @@
+%\documentclass[DIV19]{scrartcl}
+%\usepackage[paper size={90mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
+% FIXME try prettyref
+\documentclass[oneside,a4paper,12pt,BCOR20mm,DIV14]{scrbook}
+%\documentclass{book}
+% this gives a bit more than 2cm margin right and 4cm left
+% koma-script.pdf: A4 is 210mmx297mm, BCOR is substraced before the page
+% width is divided into DIV parts (HLU), a one sided leaves 1.5 HLU
+% HLU*DIV=210-BCOR -> DIV=(210-BCOR)/HLU
+% I want BCOR= 20mm 1.5 HLU = 20 mm 
+% -> DIV=truncate(190*1.5/20) = truncate(14.25)=14
+% I could use headinclude so that the header isn't printed into the margin
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[onehalfspacing]{setspace} 
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{hyperref}
+\usepackage{units}
+\usepackage{todonotes}
+\usepackage{lineno}
+\usepackage{nomencl}
+
+%\usepackage[utf8x]{inputenc} 
+%\usepackage[T2A]{fontenc} % for the russian reference
+\usepackage{wasysym} %diameter
+% http://www.andy-roberts.net/misc/latex/latextutorial3.html
+\usepackage{natbib}
+\bibpunct{(}{)}{;}{a}{}{,}
+\makenomenclature
+\newcommand{\vect}[1]{\mathbf{#1}}
+\renewcommand{\r}{\vect r}
+\renewcommand{\a}{\vect a}
+\newcommand{\s}{\vect s}
+\def\k{\vect k}
+\def\d{\vect d}
+\def\e{\vect e}
+\def\f{\vect f}
+\def\c{\vect c}
+\def\x{\vect x}
+\def\y{\vect y}
+\def\z{\vect z}
+\def\q{\vect q}
+\def\p{\vect p}
+\def\l{\vect l}
+
+\newcommand{\nvect}[1]{\vect{\hat{#1}}}
+%\renewcommand{\i}{\nvect i}
+\newcommand{\vi}{\nvect \i}
+\def\hc{\nvect c}
+\def\hs{\nvect s}
+\def\hd{\nvect d}
+\def\hx{\nvect x}
+\def\hy{\nvect y}
+
+\def\hz{\nvect z}
+\def\n{\nvect n}
+\def\t{\nvect t}
+\def\m{\nvect m}
+\def\vrho{\boldsymbol\rho}
+\def\abs#1{\mathopen| #1 \mathclose|}
+
+\newcommand{\bild}[1]{\includegraphics[width=12cm]{#1}}
+
+\DeclareMathOperator{\sign}{sign}
+
+% reference to picture
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+
+% short summary at the beginning of a section
+\newenvironment{summary}{\begin{quote}\small}{\end{quote}}
+
+\begin{document}
+\listoftodos
+\linenumbers
+\newpage
+\input{../abstract}
+%\setcounter{tocdepth}{3}
+\tableofcontents
+\printnomenclature
+\newpage
+\input{../introduction}
+\newpage
+\input{../state-of-the-art}
+\input{../setup}
+\bibliographystyle{plainnat}
+\bibliography{../state-of-art}
+\end{document}
+
+
+
