@@ -1,0 +1,95 @@
+\chapter{Sim Angle}
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=12cm]{screen_memi-sim}
+  \caption{}
+  \label{fig:screen_memi-sim}
+\end{figure}
+
+{\small
+\begin{verbatim}
+n = 128;
+nh = n/2;
+rad=20;
+
+ka = sinc(rr(n,n,n));
+a = ift(ka);
+% spherical shell of 1px thickness
+% a = xor(rr(n,n,n)<rad,rr(n,n,n)<rad+1);
+
+% select top of the shell, optionally blur
+% if bottom half isnt cut away, ke will contain
+% rotation symmetric sinc=sin(r)/r
+%e = gaussf(a & zz(a)>=0) ; %.2*rad;
+e = a * (zz(a)>0);
+
+% show kx-kz display of ewald-sphere
+e(:,nh,:)
+
+ke = ift(e);
+
+% xz section of electric field
+ke(:,nh,:)
+
+% phase display in xz section of electric field
+phase(ke(:,nh,:))
+
+% magnitude in back focal plane of in-focus field
+% note that the image isnt uniform due to projection of
+% the spherical shell onto a plane
+abs(ft(ke(:,:,nh)))
+
+% project sphere shell and threshold to obtain bfp disk
+disk = squeeze(max(abs(e),[],3))>.1;
+
+% phase in back focal plane of in-focus field (is zero)
+c = ft(squeeze(ke(:,:,nh)));
+phase(c) * disk
+
+% transform a defocused slice into back focal plane
+defocus=squeeze(ke(:,:,nh-63));
+c2 = ft(defocus);
+pc2 = phase(c2) * disk
+
+% increase the disk size
+zoom = 4;
+bigdisk = resample(1.0*disk,[zoom zoom],[0 0],'zoh')
+% zero padding to increase sampling of bfp
+pc3 = phase(ft(extract(defocus,[zoom*n zoom*n]))) * bigdisk
+
+% resample(real(defocus),[4 4],[0 0],'4-cubic')+j*resample(imag(defocus),[4 4],[0 0],'4-cubic')
+
+% define an lcos pattern
+lcx = 0;
+lcy = 10;
+lw = 32;
+lh = 32;
+lsx = lcx-lw/2;
+lex = lcx+lw/2;
+lsy = lcy-lh/2;
+ley = lcy+lh/2;
+lcos= lsx<=xx(n,n) & xx(n,n)<lex & lsy<=yy(n,n) & yy(n,n)<ley
+
+
+% define an mma image (with quite low resolution)
+mmazoom = 4;
+mman = n / mmazoom;
+mma = (xx(mman,mman)-3)^2+(yy(mman,mman)-0)^2 < 4^2 ;
+intens = newim(n,n,n);
+% visit each point in the mma image
+for i=0:mman-1
+    for j=0:mman-1
+        if mma(i,j)
+            rphase=newim(n,n);
+            rphase(mmazoom*i,mmazoom*j) = 1.0;
+            % create corresponding illumination direction on lcos plane
+            bfp=ft(lcos .* ift(rphase));
+            field=ift(repmat(bfp,[1 1 n]) .* e);
+            % accumulate intensity image (incoherent)
+            intens = intens+field.*conj(field);
+        end
+    end
+end
+
+intens(:,nh,:)
+\end{verbatim}}
