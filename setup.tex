@@ -243,12 +243,25 @@ reached its target position.
     system during camera integration.}
   \label{fig:memi-electronics}
 \end{figure}
+
 \newpage
+
 \section{Ray-based illumination optimization}
 In order to make use of the spatio-angular illumination system it is
 necessary to produce masks for the two spatial light modulators, that
 will reduce unnecessary illumination in the sample.
 
-One useful simple model is spheres.
+One useful simple model is spheres. They can model fluorescent beads
+or nuclei in a \emph{C.~elegans} embryo.
 
-\imagw{12cm}{optimization_3}{Tracing rays from the peri}
+
+Simultaneously the LCoS should display a mask that selects the
+target region. In order to suppress ringing in the focal plane it is
+helpful to display a smooth image on the MMA.
+
+
+\imagw{12cm}{optimization_3}{Tracing rays from the periphery of out of
+  focus spheres through an in-focus target point into the back focal
+  plane of the objective results in a shadow map for the MMA. Several
+  such maps for different target locations (e.g.\ in a region with
+  \unit[3]{$\mu$m} diameter) can be combined and displayed on the MMA.}
