@@ -10,7 +10,7 @@
 
 \newcommand{\imag}[2]{\imagw{16cm}{#1}{#2}}
 
-\chapter{Setup for spatio-angular illumination}
+\chapter{A prototype for spatio-angular illumination}
 \begin{summary}
   We build something
 \end{summary}
@@ -19,12 +19,10 @@
   project reference 215597.}
 \section{Overview}
 \figref{fig:memi-simple} shows a simplified schematic of our optical
-system. A laser light source is scrambled by a rotating microlens
-array and mixed in an integrating tunnel with a quadratic cross
-section. The uniform light distribution from the end of the tunnel is
-imaged into the specimen. Two spatial light modulators allow to modify
-the light intensity and angular distribution of the light within the
-sample.
+system. The uniform light distribution from the end of a light mixing
+tunnel is imaged into the specimen. Two spatial light modulators allow
+to modify the light intensity and angular distribution of the light
+within the sample.
 
 \begin{figure}[!hbt]
   \centering
@@ -42,7 +40,7 @@ sample.
 sample illumination. If the LCoS illuminates one in-focus
 bead\footnote{Note that the LCoS acts as a Fourier filter on the
   information coming from the MMA. Therefor if all but a single pixel
-  of the LCoS block the light, no angular control is possible.}, the
+  of the LCoS block the light, no angular control is possible (see also Appendix~\ref{sec:sim-angle}).}, the
 MMA can be used to prevent exposure of the out of focus bead in
 \figref{fig:hourglass-all}~(a). Not exciting the out-of-focus bead has
 two advantages:
@@ -85,51 +83,91 @@ single neurons are triggered by light without exposing its neighbours.
     bead.}
   \label{fig:hourglass-all}
 \end{figure}
-
-\section{Details}
+\newpage
+\section{Detailed explanation of the optical components}
 
 In the real system the spatial light modulators are reflective. 
 Also both displays are not direct intensity modulators.
+\figref{fig:memi-real} shows a schematic of the light path in
+the combined angular and spatial control system.
 
+A laser light source is scrambled by a rotating microlens array and
+mixed in an integrating tunnel with a quadratic cross section.
 
-\figref{fig:setup-gimp} shows a schematic of the light path in
-the combined angular and spatial control system. The distance between
-either source or MMA and the lens L1 is equal to the focal distance ofo
-L1. Therefor if all mirrors of the MMA are flat, an image of the
-source is formed in the plane of the aperture B1. The size of the
-aperture is chosen to transmit just this image. When mirrors of the
-MMA are tilted, they will slightly deflect the light, so that it no
-longer passes through the aperture.  In the schematic the left half of
-the MMA mirrors are tilted. Therefore the right part of the back focal
-plane of the objective L5 is not illuminated and the light pattern
-that excites the fluorophores in the sample is only half of the
-conventional "hourglass" double cone.
+The distance between the exit of the integration tunnel and the lens
+$L_1$ is equal to the focal distance of $L_1$. The MMA is positioned
+in the other focal plane of $L_1$. The micro mirror array consists of
+$256\times 256$ mirrors with a pitch of \unit[16]{$\mu$m} (see
+\figref{fig:mma} and \figref{fig:mma-closeup}). Each mirror hangs on
+two thin hinges and can be tilted by up to $2^\circ$ by electrostatic
+fields. CMOS circuits below each mirror allow to maintain a constant
+tilt for hundreds of milliseconds. A dedicated control board can set
+new analogue voltages with 10 bit resolution for each mirror in
+\unit[850]{$\mu$s}. This enables framerates of up to \unit[1]{kHz} at
+duty cycles up to \unit[50]{\%}.
 
-The lenses L2 and L3 relay the image of the source from B1 into the
-LCoS plane.  The incoming light is linearly polarized and its electric
-field vibrates in the plane of the paper. Depending its state (on or
-off) the LCoS pixel can rotate the polarization of the returning
-light, so that it is reflected towards the objective L5 by the
-polarizing beam splitter PBS.
+When all mirrors of the MMA are flat, an image of the tunnel exit $F'''$
+is formed in the plane of the aperture $B_1$. The size of the aperture
+is chosen to transmit just this image. When mirrors of the MMA are
+tilted, they will slightly deflect the light, so that it no longer
+passes through the aperture $B_1$. $B_1$ acts as a Fourier filter (or
+Schlieren optics).
 
-fig:memi-sketch
+If the mirrors of half of the device are deflected to fulfill the
+blaze conditions\footnote{This is limited by the maximum tilt angle
+  and possible for wavelengths up to \unit[800]{nm}} then the
+corresponding area in the Fourier filtered image in $P'$ will be dark.
 
+The lenses $L_2$ and $L_3$ relay the image of the tunnel exit $F'''$
+from $F''$ into the plane $F'$ with the LCoS. The polarizing beam
+splitter ($45^\circ$ wire grid polarizing beam splitter, Moxtek)
+reflects linearly polarized light towards the LCoS\footnote{In order
+  to prevent spurious reflections at the PBS surface without wire grid
+  and to improve contrast, the incoming light should already be
+  polarized}. The electric field vibrates perpendicular to the paper
+plane. Depending on the LCoS pixel state (on or off) an LCoS pixel can
+rotate the polarization of the returning light, so that it is
+transmitted\footnote{As it is used in transmission a curvature of the
+  PBS doesn't affect the quality of the LCoS image in the sample $F$
+  as if the PBS was used in reflection.}  into the illumination tube
+lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
+an photograph showing tube lens, PBS and LCoS).
 
-In the front focal plane of the objective L5 an image of the pattern
-on the LCoS is formed. Excited fluorophores emit fluorescence photons
-of which a certain solid angle is collected by the objective L5
-(depicted as green ray bundle). The dichroic beam splitter D1 reflects
-these photons down. The tube lens L4 forms an image of the fluorescent
-object in the camera plane.
+The LCoS is ferroelectric. Its liquid crystalls can swap very fast
+between two stable orientations. In order to prevent a net current,
+which would eventually destroy the device, its driver always displays
+an inverted image after the wanted one. Therefor it is necessary to
+shutter the light source accordingly.
+
+The lenses $L_3$ and $\textrm{TL}_\textrm{ill}$ relay the Fourier
+filtered MMA image from $P'$ into the pupil $P$ of the objective. In
+order to accommodate objectives with various back focal plane
+diameters, the illumination tube lens is built out of three lens
+groups. Its focal length can be varied from \unit[222.8]{mm} up to
+\unit[445.4]{mm} (see \figref{fig:memi-sketch} for a drawing with the
+focal length of the other lenses). The lens groups move such, that the
+image of the LCoS behind $\textrm{TL}_\textrm{ill}$ stays in infinity
+and the the MMA (plane $P''$) is imaged into the pupil $P$, which is
+\unit[250]{mm} behind behind the tubelens. \figref{fig:tubelens-bfp}
+shows the pupil plane $P$ for two different settings of the focal
+length of the tube lens.
+
+Fluorescent light returns from the objective and is reflected by the
+dichroitic beam splitter (DBS) through the detection tube lens
+$\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
+detection works with full efficiency.
 
 \begin{figure}[!hbt]
   \centering
   \def\svgscale{2}
   \input{memi-real.eps_tex}
-  \caption{Schematic of the light path through our
-  microscope. M1 and M2 are mirrors.  L1, L2, L3, L4 and L5 are
-  lenses. B1 is an adjustable circular aperture. PBS is a polarizing
-  beam splitter. D1 is a dichroitic beam splitter.}
+  \caption{Schematic of the light path through our microscope. Laser
+    light enters from the lower left, is scrambled and homogenized to
+    illuminate the full MMA and LCoS. $F$ is the field plane in the
+    sample and its primed versions are conjugated planes. $P$ is the
+    pupil of the objective. $B_1$ is an adjustable circular
+    aperture. PBS is a polarizing beam splitter. DBS is a dichroitic
+    beam splitter.}
   \label{fig:memi-real}
 \end{figure}
 
@@ -137,16 +175,17 @@ object in the camera plane.
 \imag{setup-photo-blueprint}{The widefield epi-fluorescent microscope
   with attached illumination head. The positions of the two spatial
   light modulators (Micro mirror array (MMA) and liquid crystal on
-  silicon display (LCoS)) are indicated.}
+  silicon display (LCoS)) are indicated. Drawing by Josef
+  Wenisch (In-Vision, Austria).}
 
 \imag{mma}{{\bf left:} Scanning electron microscope image of the
   micro-mirror array (MMA).  The pixel pitch of the device is
   \unit[0.016]{mm}. The hinges for the tilt movement and the
   electrodes are clearly visible. {\bf middle:} Optical reflective
   microscope image of the MMA. {\bf right:} exaggerated rendering of
-  how a 8x8 checker board pattern would be displayed on the device.}
-
-\imagw{8cm}{optimization}{bnla lba}
+  how a 8x8 checker board pattern would be displayed on the
+  device. Electron and optical micrograph by Fraunhofer IPMS Dresden
+  (Germany)} 
 
 \begin{figure}[!hbt]
   \centering
@@ -163,9 +202,53 @@ object in the camera plane.
   \includegraphics[width=7cm]{bfp1}
   \includegraphics[width=7cm]{bfp2}
   \caption{Images of the micro mirror array in the back focal plane
-    with different settings of the variable tubelens.}
-  \label{fig:mma-closeup}
+    with different settings of the variable tubelens. The micro mirror
+    array displays the same image (a disk) in both cases.}
+  \label{fig:tubelens-bfp}
 \end{figure}
 
-\imagw{5cm}{lcos}{lcos}
+\imagw{5cm}{lcos}{The black cylinder on the left is the variable tube
+  lens. Behind this is the polarizing beam splitter and the
+  ferroelectric liquid crystal on silicon display.}
+\newpage
+\section{Electronics for synchronization}
+Both spatial light modulators can run at most with $50\%$ duty
+cycle. Therefor it is necessary to synchronize the displays. Their
+controllers allow to upload several hundred frames of image data
+before an experiment and keep them in local storage. Images can then
+be selected by fast function calls over USB (LCoS) or ethernet (MMA).
 
+The camera (Andor Clara) as the slowest device is chosen as the
+master. The camera provides two TTL outputs. The output ``fire'' is
+high while the camera is integrating. The output ``shutter'' goes high
+\unit[1]{ms} before ``fire'' and provides enough time
+(\unit[$>850$]{$\mu$s}) for the MMA controller to tilt and let the
+mirrors settle.
+
+The LCoS controller can only be programmed to a limited number of
+discrete image times (\unit[20]{ms}, \unit[10]{ms}, \unit[5]{ms},
+\unit[200]{$\mu$s}) and it is not straight forward to change this via
+USB interface. Therefor we always work with a fixed integration time
+of \unit[20]{ms}. The ``fire'' output of the camera also switches the
+laser on using an acousto optic modulator (AOM).
+
+When the z-stage is used, the camera is stopped until the stage has
+reached its target position.
+
+\begin{figure}[!hbt]
+  \centering
+  \input{memi-electronics.eps_tex}
+  \caption{The camera triggers both spatial light modulators with its
+    TTL outputs. The acousto optic modulator sends light into the
+    system during camera integration.}
+  \label{fig:memi-electronics}
+\end{figure}
+\newpage
+\section{Ray-based illumination optimization}
+In order to make use of the spatio-angular illumination system it is
+necessary to produce masks for the two spatial light modulators, that
+will reduce unnecessary illumination in the sample.
+
+One useful simple model is spheres.
+
+\imagw{12cm}{optimization_3}{Tracing rays from the peri}
