@@ -9,11 +9,11 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="246.61014"
-   height="98.550186"
+   width="253.35458"
+   height="114.64783"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="memi-sketch.svg">
   <defs
      id="defs4">
@@ -166,8 +166,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="117.24815"
-     inkscape:cy="17.387683"
+     inkscape:cx="123.67449"
+     inkscape:cy="31.387659"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -189,7 +189,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -197,7 +197,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-1.1353955,-879.68256)">
+     transform="translate(2.9220822,-877.5849)">
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 1.6353955,914.98144 244.5977045,0"
@@ -385,7 +385,7 @@
          id="tspan4640"
          x="181.0506"
          y="880.7099"
-         style="font-size:4px">bigger MMA in BFP</tspan></text>
+         style="font-size:4px">{\small bigger MMA in BFP}</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.29999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Mend-74)"
        d="m 189.53872,885.2148 -2.88503,4.75389"
@@ -443,28 +443,6 @@
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="4.2857141"
-       y="945.18024"
-       id="text5301"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5303"
-         x="4.2857141"
-         y="945.18024">2</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="94.285713"
-       y="945.23492"
-       id="text5305"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5307"
-         x="94.285713"
-         y="945.23492">1.76</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="76.428574"
        y="75.022484"
        id="text5309"
@@ -490,57 +468,57 @@
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="166.42859"
-       y="953.44141"
+       y="967.44141"
        id="text5313"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5315"
          x="166.42859"
-         y="953.44141">400: 4.36</tspan></text>
+         y="967.44141">400: 4.36</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="166.26062"
-       y="978.07648"
+       y="992.07648"
        id="text5317"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5319"
          x="166.26062"
-         y="978.07648">223: 2.43</tspan></text>
+         y="992.07648">223: 2.43</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="166.37781"
-       y="970.01843"
+       y="984.01843"
        id="text5321"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5323"
          x="166.37781"
-         y="970.01843">330: 3.60 (for NA=1.38)</tspan></text>
+         y="984.01843">330: 3.60 (for 63x/NA1.38)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="166.37781"
-       y="961.80414"
+       y="975.80414"
        id="text5329"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5331"
          x="166.37781"
-         y="961.80414">352: 3.84 (for NA=1.47)</tspan></text>
+         y="975.80414">352: 3.84 (for 63x/NA1.47)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
        x="166.42859"
-       y="945.2193"
+       y="959.2193"
        id="text5333"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5335"
          x="166.42859"
-         y="945.2193">445: 4.85</tspan></text>
+         y="959.2193">445: 4.85</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -553,5 +531,72 @@
          id="tspan5418"
          x="182.14285"
          y="128.19304" /></text>
-  </g>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="166.59494"
+       y="947.84625"
+       id="text5333-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5335-5"
+         x="166.59494"
+         y="947.84625">$f_\textrm{TL}$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="226.78571"
+       y="68.550186"
+       id="text3092"
+       sodipodi:linespacing="125%"
+       transform="translate(1.1353955,879.68256)"><tspan
+         sodipodi:role="line"
+         id="tspan3094"
+         x="226.78571"
+         y="68.550186"></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="182.09019"
+       y="947.84625"
+       id="text5333-8-4"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5335-5-5"
+         x="182.09019"
+         y="947.84625">$r''_\textrm{MMA}$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="-3.2658322"
+       y="947.84625"
+       id="text5333-8-4-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5335-5-5-2"
+         x="-3.2658322"
+         y="947.84625">$r_\textrm{MMA}=2$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="92.315643"
+       y="947.84625"
+       id="text5333-8-4-1-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5335-5-5-2-6"
+         x="92.315643"
+         y="947.84625">$r'_\textrm{MMA}=1.76$</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3159"
+       style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       transform="translate(-2.9220822,877.68256)"><flowRegion
+         id="flowRegion3161"><rect
+           id="rect3163"
+           width="21.428572"
+           height="24.285715"
+           x="101.78571"
+           y="139.33589" /></flowRegion><flowPara
+         id="flowPara3165"></flowPara></flowRoot>  </g>
 </svg>

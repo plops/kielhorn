@@ -1,11 +1,4 @@
 
-\chapter{Setup}
-\begin{summary}
-  We build something
-\end{summary}
-
-
-
 \newcommand{\imagw}[3]{
   \begin{figure}[!hbt]
     \centering
@@ -17,9 +10,45 @@
 
 \newcommand{\imag}[2]{\imagw{16cm}{#1}{#2}}
 
+\chapter{Setup for spatio-angular illumination}
+\begin{summary}
+  We build something
+\end{summary}
+
+\nomenclature{MEMI}{Micro-mirror enhanced micro-imaging. EU FP7
+  project reference 215597.}
+
+
+\begin{figure}[!hbt]
+  \centering
+  \def\svgscale{1.5}
+  \input{memi-simple.eps_tex}
+  \caption{Simplified schematic of the MEMI system. Light coming from
+    the source is homogenized in an integrating tunnel. The light then
+    traverses two spatial light modulators. The first of which (MMA)
+    is imaged into the back focal plane of the objective and the
+    second (LCoS) into the sample.}
+  \label{fig:memi-simple}
+\end{figure}
+
+
+
+\begin{figure}
+   \centering
+   \def\svgscale{2}
+   \input{memi-sketch.eps_tex}
+   \caption{Schematic of the lenses in the MEMI system and their focal
+     lengths. The focal length $f_\textrm{TL}$ of the tubelens can be
+     varied. This allows to scale the second intermediate image
+     $r''_\textrm{MMA}$ of the micro mirror array to fit the back
+     focal plane of different objectives. Dimensions in mm.}
+   \label{fig:memi-sketch}
+ \end{figure}
+
+
 \figref{fig:setup-gimp} shows a schematic of the light path in
 the combined angular and spatial control system. The distance between
-either source or MMA and the lens L1 is equal to the focal distance of
+either source or MMA and the lens L1 is equal to the focal distance ofo
 L1. Therefore if all mirrors of the MMA are flat, an image of the
 source is formed in the plane of the aperture B1. The size of the
 aperture is chosen to transmit just this image. When mirrors of the
