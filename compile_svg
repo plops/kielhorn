@@ -1,4 +1,4 @@
-for i in {state-of-the-art/*,setup/{memi-real,ray/hourglass-all},rigid/calib-align,raytrace/*}.svg ; do
+for i in `find {state-of-the-art/*,setup/{memi-real,ray/hourglass-all},rigid/calib-align,raytrace/*}.svg -printf "%C@ %p\n"|sort -nr|cut -d " " -f 2` ; do
     echo $i;
     inkscape $i --export-latex --export-eps=build/`basename $i .svg`.eps;
     inkscape $i --export-latex --export-pdf=build/`basename $i .svg`.pdf;
