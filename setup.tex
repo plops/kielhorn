@@ -131,7 +131,7 @@ transmitted\footnote{As it is used in transmission a curvature of the
   PBS doesn't affect the quality of the LCoS image in the sample $F$
   as if the PBS was used in reflection.}  into the illumination tube
 lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
-an photograph showing tube lens, PBS and LCoS).
+a photograph showing tube lens, PBS and LCoS).
 
 The LCoS is ferroelectric. Its liquid crystalls can swap very fast
 between two stable orientations. In order to prevent a net current,
@@ -172,20 +172,20 @@ detection works with full efficiency.
 \end{figure}
 
 
-\imag{setup-photo-blueprint}{The widefield epi-fluorescent microscope
-  with attached illumination head. The positions of the two spatial
-  light modulators (Micro mirror array (MMA) and liquid crystal on
-  silicon display (LCoS)) are indicated. Drawing by Josef
+\imagw{14cm}{setup-photo-blueprint}{The widefield epi-fluorescent
+  microscope with attached illumination head. The positions of the two
+  spatial light modulators (Micro mirror array (MMA) and liquid
+  crystal on silicon display (LCoS)) are indicated. Drawing by Josef
   Wenisch (In-Vision, Austria).}
 
-\imag{mma}{{\bf left:} Scanning electron microscope image of the
-  micro-mirror array (MMA).  The pixel pitch of the device is
+\imagw{14cm}{mma}{{\bf left:} Scanning electron microscope image of
+  the micro-mirror array (MMA).  The pixel pitch of the device is
   \unit[0.016]{mm}. The hinges for the tilt movement and the
   electrodes are clearly visible. {\bf middle:} Optical reflective
   microscope image of the MMA. {\bf right:} exaggerated rendering of
   how a 8x8 checker board pattern would be displayed on the
   device. Electron and optical micrograph by Fraunhofer IPMS Dresden
-  (Germany)} 
+  (Germany)}
 
 \begin{figure}[!hbt]
   \centering
@@ -244,24 +244,73 @@ reached its target position.
   \label{fig:memi-electronics}
 \end{figure}
 
-\newpage
-
 \section{Ray-based illumination optimization}
 In order to make use of the spatio-angular illumination system it is
 necessary to produce masks for the two spatial light modulators, that
 will reduce unnecessary illumination in the sample.
 
+\subsection{Index matched sphere model}
 One useful simple model is spheres. They can model fluorescent beads
-or nuclei in a \emph{C.~elegans} embryo.
+or nuclei in a \emph{C.~elegans} embryo. First we assume the beads are
+embedded in index matched medium. Then rays only refract at the
+gaussian sphere of the objective lens and it is insignificant how far
+the target bead is from the interface between coverslip and medium
+(see left drawing in \figref{fig:optimization_3}).
 
+Suppose bead zero should be excited but the out of focus beads one to
+five should not be illuminated. One could then trace the cones from
+the periphery of the out of focus beads through the target points into
+the back focal plane of the objective. This gives a shadow map and
+when one illuminates this particular target point using this mask on
+the MMA, the out of focus beads are protected.
 
-Simultaneously the LCoS should display a mask that selects the
-target region. In order to suppress ringing in the focal plane it is
-helpful to display a smooth image on the MMA.
+However, the last sentence isn't true for our system. If only one
+pixel of the LCoS was enabled, hardly any information of the MMA mask
+would reach the back focal plane. Instead the target area should be
+increased, so that the LCoS doesn't act as a pinhole.
+
+Then several shadow maps for different target locations (e.g.\ in a
+region with \unit[3]{$\mu$m} diameter) can be combined and displayed
+on the MMA.  Simultaneously the LCoS should display a mask that
+selects the target region. In order to suppress ringing in the focal
+plane it is helpful to display a smooth image on the MMA.
 
 
 \imagw{12cm}{optimization_3}{Tracing rays from the periphery of out of
   focus spheres through an in-focus target point into the back focal
-  plane of the objective results in a shadow map for the MMA. Several
-  such maps for different target locations (e.g.\ in a region with
-  \unit[3]{$\mu$m} diameter) can be combined and displayed on the MMA.}
+  plane of the objective results in a shadow map for the MMA.}
+
+\subsection{Index mismatch}
+
+Biological samples are often embedded in water. For spatio-angular
+illumination the additional refraction at the glass--water interface
+has to be taken into account.
+
+Analoguous to the HILO technique (see section \ref{sec:hilo}) a thin
+sheet of light can be generated with an MMA mask that transmits close
+to the TIRF angle. A window on the LCoS can be used to steer the beam
+further. When taking into account the refractive index difference, the
+depth and position of the target below the coverslip and the angle,
+one can find the point on the LCoS that will giv
+
+\begin{figure}[!hbt]
+  \centering
+  \def\svgscale{.3}
+  \input{screen_0_lines.eps_tex} \quad \input{aberration-sketch.eps_tex}
+  \caption{{\bf left:} Rays are starting from periphery of
+    out-of-focus nucleus, hitting the target and refracted at the
+    water--coverslip interface. {\bf right:} Due to spherical
+    aberrations, rays from an on-axis point are shifted to $q(r)$ on
+    the camera (where $r$ relates to the angle of the ray in the
+    sample). }
+\end{figure}
+ 
+\begin{figure}[!hbt]
+  \centering
+  \bild{screen_microscope-aberrate}
+  \caption{Raytracing through an objective followed by a tubelens. The
+    focal length of the tubelens in this simulation is \unit[16]{mm}
+    (as opposed to the usual \unit[160]{mm}) so that the plot fits
+    into an unscaled image. The water depth is \unit[10]{$\mu$m}.}
+  \label{fig:screen_microscope-aberrate-front}
+\end{figure}
