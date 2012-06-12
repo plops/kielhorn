@@ -1,4 +1,4 @@
-for i in {state-of-the-art/*.png,setup/ray/optimization.png,sim-angle/*.png,rigid/*.png} ; do
+for i in {state-of-the-art/*,setup/ray/optimization,sim-angle/*,rigid/*,raytrace/*}.png ; do
     convert $i /dev/shm/bla.jpg;
     convert /dev/shm/bla.jpg ps3:build/`basename $i .png`.eps;
 done

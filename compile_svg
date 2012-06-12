@@ -1,3 +1,6 @@
-for i in {state-of-the-art/*.svg,rigid/calib-align.svg} ; do
-    inkscape $i --export-latex -E build/`basename $i .svg`.eps;
+for i in {state-of-the-art/*,rigid/calib-align,raytrace/*}.svg ; do
+    echo $i;
+    inkscape $i --export-latex --export-eps=build/`basename $i .svg`.eps;
+    inkscape $i --export-latex --export-pdf=build/`basename $i .svg`.pdf;
+    pdftops -level3 -eps build/`basename $i .svg`.pdf build/`basename $i .svg`.eps;
 done
