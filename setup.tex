@@ -17,7 +17,14 @@
 
 \nomenclature{MEMI}{Micro-mirror enhanced micro-imaging. EU FP7
   project reference 215597.}
-
+\section{Overview}
+\figref{fig:memi-simple} shows a simplified schematic of our optical
+system. A laser light source is scrambled by a rotating microlens
+array and mixed in an integrating tunnel with a quadratic cross
+section. The uniform light distribution from the end of the tunnel is
+imaged into the specimen. Two spatial light modulators allow to modify
+the light intensity and angular distribution of the light within the
+sample.
 
 \begin{figure}[!hbt]
   \centering
@@ -31,6 +38,53 @@
   \label{fig:memi-simple}
 \end{figure}
 
+\figref{fig:hourglass-all} visualizes how our optical system improves
+sample illumination. If the LCoS illuminates one in-focus
+bead\footnote{Note that the LCoS acts as a Fourier filter on the
+  information coming from the MMA. Therefor if all but a single pixel
+  of the LCoS block the light, no angular control is possible.}, the
+MMA can be used to prevent exposure of the out of focus bead in
+\figref{fig:hourglass-all}~(a). Not exciting the out-of-focus bead has
+two advantages:
+\begin{enumerate}
+\item There is less background light in the camera image, leading to a
+  clearer image of the in-focus information. It would be possible to
+  computationally distinguish and subtract out-of-focus light by
+  structured illumination methods but these methods will not remove
+  the poisson distributed photon noise of the out-of-focus light.
+\item Not exciting the out-of-focus areas is especially important for
+  biological specimen in order to reduce the phototoxicity of the
+  imaging.
+\end{enumerate}
+If an extended in-focus area should be imaged
+(\figref{fig:hourglass-all}~(d)). Then multiple exposures, each with
+different patterns on LCoS and MMA, can be combined into an image of
+the in-focus information with minimal exposure of out-of-focus
+fluorophores.
+
+This technique requires prior knowledge about the fluorophore
+distribution in the sample. In 3D time lapse imaging of developing
+embryos a good estimate is available when the stacks are acquired with
+high enough temporal resolution. Opto-genetics experiments can be
+designed such, that the 3D distribution of neurons is known before
+single neurons are triggered by light without exposing its neighbours.
+
+\begin{figure}[!hbt]
+  \centering
+  \def\svgscale{.43}
+  \input{hourglass-all.eps_tex}
+  \caption{{\bf (a)} Two fluorescent beads are illuminated by all
+    angles that an objective can deliver. The sharp image of the
+    in-focus bead is deteriorated by blurry fluorescence of the out of
+    focus bead. {\bf (b)} Angular control allows selective
+    illumination of the in-focus bead and results in a better image on
+    the camera. {\bf (c)} Angular control is insufficient, when an
+    extended in focus area is illuminated. {\bf (d)} However,
+    simultaneous spatial and angular control allows sequential
+    excitation of the in-focus beads while excluding the out of focus
+    bead.}
+  \label{fig:hourglass-all}
+\end{figure}
 
 
 \begin{figure}
