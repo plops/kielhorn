@@ -244,6 +244,31 @@ reached its target position.
   \label{fig:memi-electronics}
 \end{figure}
 
+\section{Alignment of the displays}
+
+In order to be able to predict which position on the camera will be
+illuminated by a particular pixel of the LCoS a calibration procedure
+is run. For this a fluorescent plane is selected as a specimen. Then
+single spots are scanned for a grid of $10\times10$ positions over the
+LCoS. The resulting spots on the camera are located and four
+parameters defining the rigid transform between camera and LCoS are
+estimated (scale, rotation angle, translation in x and y, see
+Appendix~\ref{sec:rigid}).
+
+Using these parameters one can then convert between camera and LCoS
+coordinates (see \figref{fig:screen_lcos-calib}). Changing the focal
+length of the illumination tubelens or a change on the camera position
+generally requires a new calibration.
+
+\imagw{7cm}{screen_lcos-calib}{{\bf left:} Mask that is displayed on
+  the LCoS. {\bf right:} Camera image of fluorescent plane illuminated
+  by mask. The orange lines indicate the borders of the original
+  pattern.}
+
+The MMA is aligned by displaying an annular ring on the MMA and
+matching it to the ring of a phase objective.
+
+
 \section{Ray-based illumination optimization}
 In order to make use of the spatio-angular illumination system it is
 necessary to produce masks for the two spatial light modulators, that
@@ -279,6 +304,8 @@ plane it is helpful to display a smooth image on the MMA.
 \imagw{12cm}{optimization_3}{Tracing rays from the periphery of out of
   focus spheres through an in-focus target point into the back focal
   plane of the objective results in a shadow map for the MMA.}
+
+
 
 \subsection{Index mismatch}
 
