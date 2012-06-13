@@ -1,7 +1,10 @@
 % 0609/scan
 \chapter{Camera}
 \label{sec:rigid}
-The affine transformation between display and camera is defined as: 
+In order to relate coordinates on the LCoS display with pixel
+positions on the camera, we found it suffices to use a rigid
+transform. The rigid transform between display and camera is defined
+as:
 \begin{align}
   \r^d&=s \textrm{R}_\phi \r^c + \vect t\\
   \textrm{R}_\theta&=\begin{pmatrix}
@@ -9,44 +12,30 @@ The affine transformation between display and camera is defined as:
   -\sin\phi & q\cos\phi \\ 
   \end{pmatrix}
 \end{align}
-where $q$ can be either $+1$ or $-1$ dependent on if there is a
+where $\r^d$ is a point on the display, $\r^c$ is a point on the
+camera and $q$ can be either $+1$ or $-1$ dependent on if there is a
 reflection.
 
 \begin{figure}[!hbt]
   \centering
   \input{calib-align.eps_tex}
-  \caption{Given $n>2$ camera images of a display showing one point it
-    is possible to calculate the parameters of the affine
-    transformation scaling $s$, rotation angle $\phi$, translation
-    vector $\vect t$.}
+  \caption{Given $n>3$ camera images of a display showing one point it
+    is possible to calculate the parameters of the rigid transform
+    parameters scaling $s$, rotation angle $\phi$, translation vector
+    $\vect t$.}
   \label{fig:calib-align}
 \end{figure}
 
 
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=7cm]{o102}
-  \includegraphics[width=7cm]{o035}
-  \caption{dfaxs}
-  \label{fig:rigid-pics}
-\end{figure}
 
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=12cm]{screen_rigid-transform}
-  \caption{dfaxs}
-  \label{fig:screen_rigid-transform}
-\end{figure}
-
-
-Minimize
+One can find the transform parameters scaling $s$, rotation angle
+$\phi$, translation vector $\vect t$ by minimizing
 \begin{align}
   \sum_i^n \abs{s \textrm{R}_\phi \r^c_i+\vect t -\r^d_i}^2
 \end{align}
 for all $n$ points on the display $\r^d_i$ and there corresponding
-camera positions $\r^c_i$. 
-
-Each term of the sum can be expressed as two scalar terms:
+camera positions $\r^c_i$.  Each term of the sum can be expressed as
+two scalar terms:
 \begin{align*}
   \sum_i^n&
   \abs{s(\cos\phi r^c_{ix}+q\sin\phi r^c_{iy})+t_x-r^d_{ix}}^2\\
@@ -77,7 +66,7 @@ coordinates.
 
 The function \verb!minpack_lsquares! calls the subroutine \verb!lmder!
 from the Fortran package \verb!minpack!.
-{\tiny
+{\small
 \begin{verbatim}
 c     subroutine lmder (http://www.netlib.org/minpack/lmder.f)
 c
@@ -93,9 +82,95 @@ c                        maxfev,diag,mode,factor,nprint,info,nfev,
 c                        njev,ipvt,qtf,wa1,wa2,wa3,wa4)
 \end{verbatim}}
 
-Maxima protects us from this horrible Fortran mess (look at the number
-of arguments) and conveniently calculates the symbolic jacobian for
-our problem.
+An advantage of using Maxima is, that it conveniently calculates
+the symbolic jacobian for the problem.
+
+The following Common Lisp code shows how the result of the
+optimization can be used to initialize the OpenGL modelview matrix to
+transform objects in its buffer, so that they will appear at the given
+positions on the camera.
+
+{\small\begin{verbatim}
+(defun load-cam-to-lcos-matrix (&optional (x 0s0) (y 0s0))
+  (let* ((s 0.828333873909549)
+         (sx  s)
+         (sy  (- s))
+         (phi -3.101722728951688)
+         (sp (sin phi))
+         (cp (cos phi))
+         (tx 608.4330743004457)
+         (ty 168.9188383630887)
+         (a (make-array
+             (list 4 4) :element-type 'single-float
+             :initial-contents
+             (list (list (* sx cp)    (* sy sp)  .0  (+ x tx))
+                   (list (* -1 sx sp) (* sy cp)  .0  (+ y ty))
+                   (list .0     .0   1.0  .0)
+                   (list .0     .0    .0 1.0)))))
+    (gl:load-transpose-matrix (sb-ext:array-storage-vector a))))    
+\end{verbatim}}
+  
+  Alternatively, here is the equivalent code in C:
+
+{\small\begin{verbatim}
+float m[4*4]; // OpenGL Modelview Matrix
+float s=-.8749328910202312,
+      sx=s,sy=-s,phi=-.8052030670943575,
+      cp=cos(phi),sp=sin(phi),
+      tx=1456.71806436377,
+      ty=910.4787738693659;
+  m[0]=sx*cp;
+  m[1]=-1*sx*sp;
+  m[2]=0;
+  m[3]=0;
+  
+  m[4]=sy*sp;
+  m[5]=sy*cp;
+  m[6]=0.;
+  m[7]=0.;
+
+  m[8]=0;
+  m[9]=0;
+  m[10]=1;
+  m[11]=0;
+  
+  m[12]=tx;
+  m[13]=ty;
+  m[14]=0;
+  m[15]=1;
+glMatrixMode(GL_MODELVIEW);
+glLoadMatrixf(m);
+\end{verbatim}}
+
+For the calibration a fluorescent plane like in
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=7cm]{o102}
+  \includegraphics[width=7cm]{o035}
+  \caption{{\bf left:} Uniformly illuminated flourescent plane (mono
+    and double layer of yellow beads with \unit[110]{nm} diameter,
+    excited with \unit[473]{nm} laser in a 63x/1.47 objective). {\bf
+      right:} Image with the the LCoS displaying a disk with 24 pixels
+    diameter (corresponding to $\unit[2.4]{\mu m}$ in the sample)
+    centered at LCoS position $(550,750)$. For this image all mirrors
+    on the MMA are undeflected and its Fourier apertures $B_0$ and
+    $B_1$ completely open.}
+  \label{fig:rigid-pics}
+\end{figure}
+
+% i believe the TL_ill is set to r_MMA=3.84mm in BFP 
+% f_TLill = 352 mm
+% mag_real = mag / f_zeiss * f_TLill 
+% pixel-pitch-lcos / mag_real
+% one pixel is: 13.62 / 63 * 164.5 / 352 = 101nm
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=12cm]{screen_rigid-transform}
+  \caption{dfaxs}
+  \label{fig:screen_rigid-transform}
+\end{figure}
 
 
 {\small
@@ -208,31 +283,3 @@ hold on;
 plot(mapped(11:end,1),mapped(11:end,2),'r+');
 % plot([0 1280],[0 1024],'+'); % show full display
 \end{verbatim}}
-
-
-
-The following Common Lisp code shows how the result of the
-optimization can be used to initialize the OpenGL state to transform
-objects onto the display so that they will appear at the given
-positions on the camera.
-{\small
-\begin{verbatim}
-(defun load-cam-to-lcos-matrix (&optional (x 0s0) (y 0s0))
-  (let* ((s 0.828333873909549)
-         (sx  s)
-         (sy  (- s))
-         (phi -3.101722728951688)
-         (sp (sin phi))
-         (cp (cos phi))
-         (tx 608.4330743004457)
-         (ty 168.9188383630887)
-         (a (make-array
-             (list 4 4) :element-type 'single-float
-             :initial-contents
-             (list (list (* sx cp)    (* sy sp)  .0  (+ x tx))
-                   (list (* -1 sx sp) (* sy cp)  .0  (+ y ty))
-                   (list .0     .0   1.0  .0)
-                   (list .0     .0    .0 1.0)))))
-    (gl:load-transpose-matrix (sb-ext:array-storage-vector a))))    
-\end{verbatim}}
-
