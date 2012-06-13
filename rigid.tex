@@ -1,5 +1,5 @@
 % 0609/scan
-\chapter{Camera}
+\chapter{Transforming camera coordinates into LCoS coordinates}
 \label{sec:rigid}
 In order to relate coordinates on the LCoS display with pixel
 positions on the camera, we found it suffices to use a rigid
@@ -66,6 +66,7 @@ coordinates.
 
 The function \verb!minpack_lsquares! calls the subroutine \verb!lmder!
 from the Fortran package \verb!minpack!.
+
 {\small
 \begin{verbatim}
 c     subroutine lmder (http://www.netlib.org/minpack/lmder.f)
@@ -80,17 +81,19 @@ c
 c       subroutine lmder(fcn,m,n,x,fvec,fjac,ldfjac,ftol,xtol,gtol,
 c                        maxfev,diag,mode,factor,nprint,info,nfev,
 c                        njev,ipvt,qtf,wa1,wa2,wa3,wa4)
-\end{verbatim}}
+\end{verbatim}
+}
 
-An advantage of using Maxima is, that it conveniently calculates
-the symbolic jacobian for the problem.
+An advantage of using Maxima is, that it conveniently calculates the
+symbolic jacobian for the problem.
 
 The following Common Lisp code shows how the result of the
 optimization can be used to initialize the OpenGL modelview matrix to
 transform objects in its buffer, so that they will appear at the given
 positions on the camera.
 
-{\small\begin{verbatim}
+{\small
+\begin{verbatim}
 (defun load-cam-to-lcos-matrix (&optional (x 0s0) (y 0s0))
   (let* ((s 0.828333873909549)
          (sx  s)
@@ -108,11 +111,13 @@ positions on the camera.
                    (list .0     .0   1.0  .0)
                    (list .0     .0    .0 1.0)))))
     (gl:load-transpose-matrix (sb-ext:array-storage-vector a))))    
-\end{verbatim}}
+\end{verbatim}
+}
   
-  Alternatively, here is the equivalent code in C:
+Alternatively, here is the equivalent code in C:
 
-{\small\begin{verbatim}
+{\small
+\begin{verbatim}
 float m[4*4]; // OpenGL Modelview Matrix
 float s=-.8749328910202312,
       sx=s,sy=-s,phi=-.8052030670943575,
@@ -140,9 +145,16 @@ float s=-.8749328910202312,
   m[15]=1;
 glMatrixMode(GL_MODELVIEW);
 glLoadMatrixf(m);
-\end{verbatim}}
+\end{verbatim}
+}
 
-For the calibration a fluorescent plane like in
+For the calibration a fluorescent plane (see
+\figref{fig:rigid-pics}~left for a uniform widefield image) is imaged
+with the LCoS display showing spots in the illuminated area.  Ideally
+for this measurement all mirrors on the MMA are undeflected and the
+apertures $B_0$ and $B_1$ completely open (see
+\figref{fig:memi-real}). Then the square exit of the integrating
+tunnel illuminates the biggest possible area on the LCoS.
 
 \begin{figure}[!hbt]
   \centering
@@ -153,9 +165,7 @@ For the calibration a fluorescent plane like in
     excited with \unit[473]{nm} laser in a 63x/1.47 objective). {\bf
       right:} Image with the the LCoS displaying a disk with 24 pixels
     diameter (corresponding to $\unit[2.4]{\mu m}$ in the sample)
-    centered at LCoS position $(550,750)$. For this image all mirrors
-    on the MMA are undeflected and its Fourier apertures $B_0$ and
-    $B_1$ completely open.}
+    centered at LCoS position $(550,750)$.}
   \label{fig:rigid-pics}
 \end{figure}
 
@@ -167,44 +177,48 @@ For the calibration a fluorescent plane like in
 
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=12cm]{screen_rigid-transform}
-  \caption{dfaxs}
-  \label{fig:screen_rigid-transform}
+  \includegraphics[width=12cm]{../rigid/rigid-compare}
+  \caption{Red ``$+$'' signs indicate where the spots that were
+    localized in the camera images end up after a rigid
+    transform. There is sufficient aggreement with the original
+    display positions.}
+  \label{fig:rigid-compare}
 \end{figure}
 
+For the calibration $10\times10$ images were captured with a disk of
+24 pixels diameter at the positions $(400+50i,500+50j)\ \forall i,j\in
+[0,99]$. Furthermore, one uniformly illuminated image is used to
+correct for intensity fluctuations in the fluorescent plane.  The
+following Matlab/DipImage code is used to normalize the images and
+localize the spots. The coordinates are then assembled into the Maxima
+command that finds the parameters of the rigid transform. Finally the
+transformed spot positions from the camera images are compared with
+the original LCoS pixel positions.
 
+% cd /mnt/scan 
 {\small
 \begin{verbatim}
 %% load the files
-cd /mnt/scan
+% 0 .. 99 spot images
+% only 10..99 usable because the first are on border and not illuminated
 a = newim(1392,1040,103);
-tic % 51s
 for i=0:102
-    % the values are negative, maybe fits can't be read correctly
+    % Andor's FITS format isn't read correctly
+    % correct this by adding 2^15
     a(:,:,i) = 2^15 + readim(sprintf('o%03d.fits',i));
 end
-toc
 
-% 0 .. 99 spot images
-% only from 10.99 usable because the first are on border
-% 100 small disk in center
-% 101 should be different disk but looks weird
-% 102 uniform illumination
+%% bright image is at position 102 in the stack
+% diphist(a(:,:,102),[min(a),max(a)])
 
-%% bright image is at 102
-diphist(a(:,:,102),[min(a),max(a)])
-
-%% minimum at -3.2e4 (or 800)
+%% bright image has minimum at 800 ADU
 bright = squeeze(a(:,:,102));
+% create mask with illuminated area
 mask = gaussf(bright,8) > 800;
 
-%% i forgot to capture a dark image, but from the histogram of the
-%% first spot image i estimate the background to be 510
-diphist(a(:,:,0),[min(a),max(a)])   
-%%
+%% the background is be 510 ADU
+% diphist(a(:,:,0),[min(a),max(a)])   
 bg = 510;
-%%
-% (a - bg) / repmat(bright,[1 1 103]) * repmat(mask,[1 1 103])
 
 posmax = newim(100,2);
 for i = 10:99
@@ -222,7 +236,7 @@ q = double(posmax)';
 save /dev/shm/o.mat q -ASCII  -DOUBLE
 
 %% create maxima input for optimization
-c = double(posmax)'; % camera
+c = double(posmax)';
 
 cmd = '';
 for i=10:99
@@ -240,10 +254,10 @@ cmd(:,end) = []; % delete last comma
 pre = 'load(minpack)$ q:-1; g(s,p,tx,ty):=[';
 % now put cmd between
 % call the fitting function and store the parameters into /dev/shm/max.out
-cod = [']$ fit:minpack_lsquares(g(s,p,x,y),[s,p,x,y],[.88,-1.3,1200,-20]); write_data(fit[1],"/home/martin/max.out");']
+cod = [']$ fit:minpack_lsquares(g(s,p,x,y),[s,p,x,y],[.88,-1.3,1200,-20]);' ...
+ 'write_data(fit[1],"/home/martin/max.out");']
 
-
-%% write maxima commands into file
+%% write maxima commands into file and execute
 fid = fopen('/dev/shm/fit.max','w');
 fwrite(fid,[pre cmd cod]);
 fclose(fid);
@@ -251,10 +265,8 @@ fclose(fid);
 
 %% load rigid transformation parameters from the file into matlab
 params = load('/home/martin/max.out')';
-scale = params(1);
-phi = params(2);
-tx = params(3);
-ty = params(4);
+scale = params(1); phi = params(2);
+tx = params(3);    ty = params(4);
 
 mirr = -1;
 R = [cos(phi),mirr*sin(phi);
@@ -262,24 +274,18 @@ R = [cos(phi),mirr*sin(phi);
 T = [tx ty]';
 
 %% plot the two grids on top of each other
-
-% transform camera coordinates into display coordinates
 mapped = zeros(100,2);
-for i=11:100
+for i=11:100 % camera coordinates into display coordinates
     mapped(i,:) = (scale*R*q(i,:)'+T)';
 end
 
-% calculate display points
 dpos = zeros(100,2);
-for i=0:99
+for i=0:99 % calculate display points
     dpos(i+1,1) = 400+50*mod(i,10);
     dpos(i+1,2) = 500+50*floor(i./10);
 end
 
-
-hold off;
-plot(dpos(:,1),dpos(:,2),'.');
-hold on;
-plot(mapped(11:end,1),mapped(11:end,2),'r+');
-% plot([0 1280],[0 1024],'+'); % show full display
+hold off;  plot(dpos(:,1),dpos(:,2),'.');
+hold on;   plot(mapped(11:end,1),mapped(11:end,2),'r+');
 \end{verbatim}}
+% print -depsc2 /home/martin/thesis/kielhorn/rigid/rigid-compare
