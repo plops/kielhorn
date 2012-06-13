@@ -216,6 +216,40 @@ Now we consider the oil objective in the reverse direction (see
 \figref{fig:obj-ref-full}). We have a ray starting within the sample
 and want to know the transmitted ray in the pupil.
 
+\subsection{Easy case: back focal plane positions only}
+If we are only interested in positions of rays in the back focal
+plane, we don't have to do full raytracing. If we are imaging beads in
+index matched embedding medium and we want to calculate shadow maps
+for the MMA (see section \ref{sec:shadow-map}), we don't need a full
+raytrace. Instead it is sufficient to ignore ray origins and just
+consider their directions.
+
+A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
+into a position $\r_b=(x',y')^T$ in the back focal plane of the
+objective. The azimuthal angle $\phi$ isn't changed when going through
+the objective. The polar angle $\theta$ defines how far off axis the
+back focal plane is hit.
+\begin{align}
+  \phi'&=\phi=\arctan(y/x)\\
+  \theta&=\arcsin(\sqrt{x'^2+y'^2})\\
+  r_b&=nf\sin\theta\\
+  \r_b&=r_b(\cos\phi',\sin\phi')^T
+\end{align}
+ \begin{figure}[!hbt]
+   \centering
+   \input{obj-rev.eps_tex}
+   \caption{Schematic for tracing a ray direction $\i$ from sample
+     space into the back focal plane. The bigger the angle between
+     $\i$ and the optical axis, the further outside the ray will pass
+     through the back focal plane.}
+ \end{figure}
+\subsection{Full raytrace}
+If we are also interested in the angles of the transmitted rays in the
+back focal plane, when we want to trace the rays further into the
+camera or if we want to consider aberrations due to an index mismatch
+of the embedding medium, we will have to calculate a full raytrace, as
+describted below.
+
 The position of the objective is defined by its principal point $\c$
 and the normal $\n$ (directed along optical axis towards sample
 space). The incident ray is defined by its starting point $\p$ and the
@@ -272,46 +306,6 @@ transmitted ray in the pupil.
    \caption{Construction that treats the interface between embedding
      and immersion medium}
  \end{figure}
-\newpage
-\section{Tracing from sample space into the back focal plane}
-\subsection{Unaberrated objective}
-A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
-into a position $\r_b=(x',y')^T$ in the back focal plane of the
-objective. This result was first produced in D6.8a.  The azimuthal
-angle $\phi$ isn't changed when going through the objective. The angle
-$\theta$ defines how far off axis the back focal plane is hit.
-\begin{align}
-  \phi'&=\phi=\arctan(y/x)\\
-  \theta&=\arcsin(\sqrt{x'^2+y'^2})\\
-  r_b&=nf\sin\theta\\
-  \r_b&=r_b(\cos\phi',\sin\phi')^T
-\end{align}
- \begin{figure}[!hbt]
-   \centering
-   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
-   \input{obj-rev.eps_tex}
-   \caption{Schematic for tracing a ray direction $\i$ from sample
-     space into the back focal plane. The bigger the angle between
-     $\i$ and the optical axis, the further outside the ray will pass
-     through the back focal plane.}
- \end{figure}
- We are not interested, in what angle the back focal plane is
- hit. Therefore we don't have to consider the object position.
-\subsection{Aberrated objective}
-We can use the formulas from above to trace through an embedding
-medium of non-matching refractive index $n_e$. Then the ray direction
-$\i$ is to be taken after the ray was refracted through the interface
-between the embedding medium and the immersion oil. In this case the
-position on the back focal plane will depend on sample position.
- \begin{figure}[!hbt]
-   \centering
-   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
-   \input{obj-rev-emb.eps_tex}
-   \caption{Schematic for tracing a ray from inside an embedding
-     medium that has a different refractive index than the immersion
-     oil.}
- \end{figure}
-\newpage
 \section{Nucleus projection}
 \begin{itemize}
 \item project each out of focus nucleus through each in-focus nucleus 
