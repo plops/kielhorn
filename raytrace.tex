@@ -1,4 +1,5 @@
 % ~/from-hp2-notebook/0331/lens
+% there is also code
 \chapter{Raytracing for spatio-angular microscopy}
 \label{sec:raytrace}
 \renewcommand{\i}{\nvect i}
@@ -154,7 +155,7 @@ can be used to calculate the length $\abs{\overline{BC}}$:
 Given its length, the vector $\overline{CB}$ can now calculated,
 because we know its direction to be along $\vrho$. With this vector
 and $\i$ we can now obtain the (arbitrarily scaled) transmitted vector
-$\r'$. One could normalize it but it turns out to be useful for the
+$\r'$. We could normalize it but it turns out to be useful for the
 high NA immersion lens to find the vector $\r$, that ends in the focal
 plane.  The procedure from above is condensed in the following
 equations:
@@ -166,22 +167,21 @@ equations:
   \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
 \end{align}
 
-\section{Refraction through oil objective (from pupil into sample
-  space)}
+\section{Refraction through oil objective (illumination)}
 \begin{figure}[!hbt]
   \centering
   \input{obj-fwd.eps_tex}
   \caption{Construction of a ray on an high numerical aperture oil
     immersion objective. As opposed to a thin air lens the objective's
     focal length needs to be corrected by the focus difference vector
-    $\a$ to accommodate for the immersion and one must take into
+    $\a$ to accommodate for the immersion and we must take into
     account spherical principal surface.}
 \end{figure}
 It is possible to augment the results of the calculation from the
 previous chapter to treat an aplanatic immersion objective
 \citep{Hwang2008}.
 
-One accounts for the immersion medium by shifting the focal plane in
+We account for the immersion medium by shifting the focal plane in
 sample space to $nf$ using the focus difference vector $\a$.
 \begin{align}
   \a &= \boxed{f (n-1) \hz} \\
@@ -204,38 +204,52 @@ demonstrate the viability of this approximation by comparing its
 results with a full raytrace through a $100\times\,1.41$
 objective. Focus displacement errors are less than \unit[130]{nm} for
 a field of $\unit[86.4]{\mu m}$ radius. This is sufficient for our
-problem.
+problem. As we anyway have the code for a ray--sphere intersection, we
+can use it here as well and calculate an exact vector $\s$.
 
 The final ray exiting the objective has the direction $\r_0$:
 \begin{align}
   \r_0 &= \boxed{\r + \a - \s}.
 \end{align}
-\section{Reverse path through oil objective}
-\begin{itemize}
-\item draw line at center of lens
-\item mark left and right of that line the (non-immersion) focal
-  planes in $f$ distance
-\item on the left draw the gaussian circle of radius $nf$ that touches
-  the center of the lens on the optical axis
-\item draw the real focal plane in distance $nf$ from center of the
-  lens
-\item start ray anywhere on the left side
-\item extend the ray to hit the real front focal plane as well as the
-  gaussian circle
-\item translate the intersection between ray and real front focal
-  plane along optical axis onto the non-immersion focal plane
-\item draw a line from this point on the non-immersion focal plane
-  through the center of the lens
-\item this ray isn't influenced by the lens and defines the angle of
-  the other ray as well
-\end{itemize}
+\section{Reverse path through oil objective (detection)}
+Now we consider the oil objective in the reverse direction (see
+\figref{fig:obj-ref-full}). We have a ray starting within the sample
+and want to know the transmitted ray in the pupil.
+
+The position of the objective is defined by its principal point $\c$
+and the normal $\n$ (directed along optical axis towards sample
+space). The incident ray is defined by its starting point $\p$ and the
+direction $\i$. First we calculate the center of the gaussian sphere
+$\vect g$:
+\begin{align}
+  \vect g &= \c + nf \n.
+\end{align}
+Then we obtain the position $\p'$ by intersecting the incident ray and
+the plane perpendicular to the optical axis through $\vect{g}$.  The focus
+difference vector is defined by its length and the optical axis. It
+can be used to calculate an intermediate point $\p''$.
+\begin{align}
+  \a &= -f(n-1)\n \\
+  \p'' &= \p' + a.
+\end{align}
+The point $\p''$ has now been shifted, so that a thin air lens would
+image it exactly as the oil objective would image $\p'$. We can use
+$\p''$ to find the direction $\t$ of the transmitted ray. It is just
+the normalized difference vector $\vect m$ to the principal point.
+\begin{align}
+  \vect m &= \c - \p'' \\
+  \t &= \vect m / \abs{\vect m}.
+\end{align}
+As a last step we calculate the starting point $\e$ of the transmitted
+ray by intersecting the incident ray with the gaussian sphere.
  \begin{figure}[!hbt]
    \centering
    \input{obj-rev-full.eps_tex}
-   \caption{Construction to find the outgoing ray for a point from the
-     immersed side.}
+   \caption{Construction to find the transmitted ray through an oil
+     immersion objective from a point within the sample.}
+   \label{fig:obj-ref-full}
  \end{figure}
-\subsection{Treatment of aberration}
+ \subsection{Treatment of aberration (detection)}
 \begin{itemize}
 \item given a ray with starting point $\p$ and direction $\i$
 \item find intersection $\f$ of ray with interface and refract to
@@ -481,27 +495,8 @@ simulation coordinate system.
     angles that are collected by the objective.}
   \label{fig:rays-from-out-of-focus}
 
-FIXME maybe compare to ./cyberpower-store/0314/zeiss-patents/20080106795-correction-ring.pdf 
-or US7268953-63x.pdf
+%FIXME maybe compare to ./cyberpower-store/0314/zeiss-patents/20080106795-correction-ring.pdf 
+%or US7268953-63x.pdf
 
 \end{figure}
 
-
-\newpage
-\section{Ferroelectric liquid crystals}
-(See 1991Saleh p.~722 and Goodman 192)
-
-\section{Align MEMI without microlens array}
-\begin{itemize}
-\item make sure the laser beam is polarized perpendicular to the table
-\item adjust laser to be parallel to table and is in the same height
-  as the tunnel entrance
-\item put two mirrors between laser and integrator rod
-\item adjust mirror 1 (closest to laser) so that beam stays parallel to table
-\item adjust mirror 2 that beam stays parallel to table
-\item in order to go straight through the tunnel (without reflections)
-  use mirror 1 to send the beam over the tunnel
-\item adjust beam parallel to tunnel using mirror 2
-\item move down again with mirror 1
-
-\end{itemize}
