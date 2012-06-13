@@ -306,48 +306,48 @@ transmitted ray in the pupil.
    \caption{Construction that treats the interface between embedding
      and immersion medium}
  \end{figure}
-\section{Nucleus projection}
-\begin{itemize}
-\item project each out of focus nucleus through each in-focus nucleus 
-\item estimate where out of focus nuclei will end up in the BFP
-\item the in focus target nucleus is sampled in several points
-\item such a target point $\c$ and an out of focus nucleus define a
-  double-cone bounded by the tangents
-\item we call the center of the out of focus nucleus $\s$
-\item construct the tangents on the out of focus nucleus by
-  intersecting a sphere around $\c$ with radius $R=\abs{\c-\s}$ and
-  the sphere of the out of focus nucleus centered at $\s$ with radius
-  $r$
-\item the intersection point is $\e$
-\end{itemize}
+\section{Sphere projection}
+When we model our sample as a collection of spheres, it is useful to
+trace rays from the periphery of these spheres through an in focus
+target $\c$ into the back focal plane. Here we construct the rays.
 
+The tangents of an out of focus sphere $S^\s_r$ centered at $\s$ with
+radius $r$ that pass through the target $\c$ form a double cone
+(assuming $\c$ is outside of $S^\s_r$. The tangents touch the surface
+of the sphere $S^\s_r$ at the circular intersection $C$ with the sphere
+$S^\c_R$ centered at $\c$ with radius $R=\abs{\c-\s}$. Radius $R$ is
+the distance from the target to the center of the out of focus sphere.
 \begin{figure}[!hbt]
   \centering
   \input{touch-cone.eps_tex}
   \caption{Schematic of how an out of focus nucleus defines a cone of
-    rays.}
+    tangential rays.}
 \end{figure}
-It is sufficient to solve the following equation in a 2D coordinate
-system with the origin in the center of the out of focus nucleus:
+In order to find a point $\e$ where a tangent touches the out of focus
+sphere, it is sufficient to solve the following equation in a 2D
+coordinate system with the origin in the center $\s$ of the out of
+focus sphere:
 \begin{align}
   (x-R)^2+y^2&=R^2\\
   x^2+y^2=r^2
 \end{align}
-Leading to two solutions:
+There are two solutions:
 \begin{align}
-  x_1&=\frac{r^2}{2R}\\
-  y_{1/2}&=\pm\frac{r}{2R}\sqrt{4R^2-r^2}
+  x_1&=\frac{r^2}{2R}\label{eqn:x1}\\ 
+  y_{1/2}&=\pm\frac{r}{2R}\sqrt{4R^2-r^2} \label{eqn:y1}
 \end{align}
 In the case $R<r$ the out of focus nucleus is intersecting the target,
 obliviating the reason to do the projection in the first place.
 
-The (unnormalized) direction $\x$ of the x-axis of this coordinate
-system is given by the difference vector of the target $\c$ and the
-nucleus center $\s$. The direction $\y$ must be perpendicular to $\x$
-and is obtained by calculating the cross product with another vector
-$\q$.  It must be ensured that $\q$ isn't colinear with $\x$. The
-vectors $\q$ and $\x$ are colinear, when the absolute value of their
-scalar product equals the square of the length $\abs{\q\x}=\x^2$.
+We construct two vectors $\hx$ and $\hy$ in order to transform the
+solution from 2D into 3D. The (unnormalized) direction $\x$ of the
+x-axis of this coordinate system is given by the difference vector of
+the target $\c$ and the nucleus center $\s$. The direction $\y$ must
+be perpendicular to $\x$ and is obtained by calculating the cross
+product with another vector $\q$.  We ensure that $\q$ and $\x$ are
+not colinear. The vectors $\q$ and $\x$ are colinear, when the
+absolute value of their scalar product equals the square of the length
+$\abs{\q\x}=\x^2$.
 \begin{align}
   \x&=\c-\s\\
   \q&=\begin{cases}
@@ -358,28 +358,28 @@ scalar product equals the square of the length $\abs{\q\x}=\x^2$.
   \hx&=\x/\abs{\x}\\
   \hy&=\y/\abs{\y}
 \end{align}
-\subsection{Generate points on the out of focus nucleus}
-\begin{itemize}
-\item the cone defines a bill board circle
-\item we want to sample this circle
-\end{itemize}
-Let $R_\phi^\hc$ be a rotation matrix that rotates a vector by angle
-$\phi$ around an axis $\hc$. This we can use to obtain a point $\e$
-on the bill board circle. Then we can find a ray direction $\f$ on the
-cone.
+
+
+Now we can sample the intersection circle $C$ in order to create
+viable starting points $\e$ for tangential rays.  Let $R_\phi^\hc$ be
+a rotation matrix that rotates a vector by angle $\phi$ around an axis
+$\hc$. A point $\e$ on the circle is then defined using one solution
+from equations \ref{eqn:x1} and \ref{eqn:y1}. The ray direction $\f$
+is then easily obtained:
 \begin{align}
   \e&=\s+x_1\hx+y_1R_\phi^\hx\hy\\
-  \f&=\c-\e
+  \f&=\c-\e.
 \end{align}
 Tracing a sufficient number of rays (e.g.\ 16) with direction $\f$ for
 different angles $\phi$ to the back focal plane gives the projection
-of the bill board.
+of the intersection circle $C$. Note that this projection in general
+is not a circle anymore.
 
 For practical reasons its useful to project vector $\x$ as well. It
 can be used as the center of the (distorted) shape on the back focal
-plane to render it as a fan of triangles.
+plane to rasterize it as a fan of triangles.
 
-\subsection{Defocus due to aberrations}
+\section{Defocus due to aberrations}
 \begin{itemize}
 \item think of a photon traveling along the optical axis from
   objective towards sample (see \figref{fig:aberration-sketch})
