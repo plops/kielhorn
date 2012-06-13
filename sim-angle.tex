@@ -1,67 +1,86 @@
-\chapter{Sim Angle}
+\chapter{Wave optical simulation of the spatio-angular microscope}
 \label{sec:sim-angle}
 
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=12cm]{screen_memi-sim}
-  \caption{}
-  \label{fig:screen_memi-sim}
+  \def\svgscale{1.5}
+  \input{memi-simple.eps_tex}
+  \caption{Given two masks for MMA and LCoS plane, it is possible to
+    predict the light intensity in the sample by propagating fields
+    from each MMA pixel into sample space and integrating an
+    incoherent sum there.}
+  \label{fig:memi-simple-app}
 \end{figure}
+
+The objective of an optical microscope is defined by its support on
+the Ewald sphere, i.e. the set of angles at which $k-$vectors
+contribute to the image. In the following we assume an ideal air
+objective with unit numerical aperture. This objective collects all
+light emitted into one half space and therefor half the Ewald sphere.
+
+The following code calculates the amplitude point spread function of
+such an objective (see \figref{fig:simple-apsf}~right for a display of its
+$x-z$~section).
 
 {\small
 \begin{verbatim}
 n = 128;
 nh = n/2;
-rad=20;
 
-ka = sinc(rr(n,n,n));
-a = ift(ka);
-% spherical shell of 1px thickness
-% a = xor(rr(n,n,n)<rad,rr(n,n,n)<rad+1);
+% generate spherical shell in k-space
+a = sinc(rr(n,n,n));
+ka = ift(a);
 
-% select top of the shell, optionally blur
-% if bottom half isnt cut away, ke will contain
-% rotation symmetric sinc=sin(r)/r
-%e = gaussf(a & zz(a)>=0) ; %.2*rad;
-e = a * (zz(a)>0);
+% select top of the shell (NA=n):
+ke = ka * (zz(ka)<0);
 
-% show kx-kz display of ewald-sphere
-e(:,nh,:)
-
-ke = ift(e);
-
-% xz section of electric field
+% show kx-kz section of ewald-sphere
 ke(:,nh,:)
 
-% phase display in xz section of electric field
-phase(ke(:,nh,:))
+e = ift(ke);
 
-% magnitude in back focal plane of in-focus field
-% note that the image isnt uniform due to projection of
-% the spherical shell onto a plane
-abs(ft(ke(:,:,nh)))
+% xz section of electric field
+e(:,nh,:)
+\end{verbatim}
+% writeim(255/max(abs(ke(:,nh,:)))*abs(squeeze(ke(:,nh,:))),'/home/martin/thesis/kielhorn/sim-angle/ewald_xz.jpg','JPEG')
+% writeim(255/max(abs(e(:,nh,:)))*abs(squeeze(e(:,nh,:))),'/home/martin/thesis/kielhorn/sim-angle/field_xz.jpg','JPEG')
 
-% project sphere shell and threshold to obtain bfp disk
-disk = squeeze(max(abs(e),[],3))>.1;
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4cm]{ewald_xz}
+  \quad\quad
+  \includegraphics[width=4cm]{field_xz}
+  \caption{{\bf left:} $k_x-k_z$~section of the Ewald sphere -- the
+    $k-$vectors that can traverse the objective lens. {\bf
+      right:} $x-z$~section of
+    electric field in sample space (amplitude point spread function).}
+  \label{fig:simple-apsf}
+\end{figure}
 
-% phase in back focal plane of in-focus field (is zero)
-c = ft(squeeze(ke(:,:,nh)));
-phase(c) * disk
+If the microscope would contain no MMA but just the LCoS being
+illuminated by a parallel plane, then the 3D field distribution in the
+sample plane could be obtained by propagating the field from the LCoS
+plane into the back focal plane of the objective (by a single 2D
+Fourier transform). Then one multiplies each of the points of the
+Ewald sphere with the corresponding complex value of the illumination
+field. A 3D Fourier transform then results in the 3D field
+distribution within the sample. By calculating the absolute square of
+the field one obtains the 3D light intensity distribution in sample
+space.
 
-% transform a defocused slice into back focal plane
-defocus=squeeze(ke(:,:,nh-63));
-c2 = ft(defocus);
-pc2 = phase(c2) * disk
+In the case of our spatio-angular microscope each of the pixels of the
+MMA can be assumed to be an independent coherent source. In the
+following code their fields are separately propagated into sample
+space and then incoherently summed into the 3D intensity distribution.
 
-% increase the disk size
-zoom = 4;
-bigdisk = resample(1.0*disk,[zoom zoom],[0 0],'zoh')
-% zero padding to increase sampling of bfp
-pc3 = phase(ft(extract(defocus,[zoom*n zoom*n]))) * bigdisk
+The right picture in \figref{fig:sim-bfp-intens} displays an
+$x-z$~section of the intensity distribution for the masks shown in in
+\figref{fig:mma-lcos-window}. Note that the MMA window is shifted
+slightly to the right. The intensity distribution clearly shows that
+some angles are missing.
 
-% resample(real(defocus),[4 4],[0 0],'4-cubic')+j*resample(imag(defocus),[4 4],[0 0],'4-cubic')
-
-% define an lcos pattern
+\begin{verbatim}
+% define rectangular window as an lcos pattern
 lcx = 0;
 lcy = 10;
 lw = 32;
@@ -72,11 +91,25 @@ lsy = lcy-lh/2;
 ley = lcy+lh/2;
 lcos= lsx<=xx(n,n) & xx(n,n)<lex & lsy<=yy(n,n) & yy(n,n)<ley
 
-
-% define an mma image (with quite low resolution)
+% define a circular window as an mma image (with quite low resolution)
 mmazoom = 4;
 mman = n / mmazoom;
-mma = (xx(mman,mman)-3)^2+(yy(mman,mman)-0)^2 < 4^2 ;
+mma = (xx(mman,mman)-3)^2+(yy(mman,mman)-0)^2 < 4^2
+\end{verbatim}
+% writeim(255*lcos,'/home/martin/thesis/kielhorn/sim-angle/sim-lcos-window.jpg','JPEG'); writeim(255*mma,'/home/martin/thesis/kielhorn/sim-angle/sim-mma-window.jpg','JPEG')
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4cm]{sim-mma-window}
+  \quad\quad
+  \includegraphics[width=4cm]{sim-lcos-window}
+  \caption{{\bf left:} circular MMA window with 45 ``on'' pixels. {\bf
+      right:} Rectangular mask for LCoS.}
+  \label{fig:mma-lcos-window}
+\end{figure}
+
+
+\begin{verbatim}
 intens = newim(n,n,n);
 % visit each point in the mma image
 for i=0:mman-1
@@ -86,7 +119,7 @@ for i=0:mman-1
             rphase(mmazoom*i,mmazoom*j) = 1.0;
             % create corresponding illumination direction on lcos plane
             bfp=ft(lcos .* ift(rphase));
-            field=ift(repmat(bfp,[1 1 n]) .* e);
+            field=ift(repmat(bfp,[1 1 n]) .* ke);
             % accumulate intensity image (incoherent)
             intens = intens+field.*conj(field);
         end
@@ -95,3 +128,14 @@ end
 
 intens(:,nh,:)
 \end{verbatim}}
+% writeim(255*abs(bfp)/max(abs(bfp)),'/home/martin/thesis/kielhorn/sim-angle/sim-bfp.jpg','JPEG'); writeim(255*abs(squeeze(intens(:,nh,:)))/max(abs(intens(:,nh,:))),'/home/martin/thesis/kielhorn/sim-angle/sim-intens.jpg','JPEG')
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4cm]{sim-bfp}
+  \quad\quad
+  \includegraphics[width=4cm]{sim-intens}
+  \caption{{\bf left:} BFP image for one particular of the ``on'' MMA
+    pixels. {\bf right:} $x-z$ section through the intensity
+    distribution in sample space.}
+  \label{fig:sim-bfp-intens}
+\end{figure}

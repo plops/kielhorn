@@ -1,3 +1,3 @@
-for i in {setup/{setup-gimp,setup-photo-blueprint,mma,mma/mma-ill,mma/{bfp{1,2},mma-plain},lcos/lcos,ray/{oil,water,air}},rigid/*}.jpg ; do
+for i in {setup/{setup-gimp,setup-photo-blueprint,mma,mma/mma-ill,mma/{bfp{1,2},mma-plain},lcos/lcos,ray/{oil,water,air}},rigid/*,sim-angle/*}.jpg ; do
     convert $i ps3:build/`basename $i .jpg`.eps;
 done

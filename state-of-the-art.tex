@@ -453,7 +453,7 @@ Interesting work on light fields originally started in the macroscopic
 domain of cameras \citep{Lippmann1908%,Sokolov1911
 } and was eventually
 applied as a technique for microscopy
-\citep{Levoy2006,Levoy2009}. This approach is built on imaging through
+\citep{Levoy2006,Levoy2009,Zhang2009}. This approach is built on imaging through
 an array of microlenses.
 \begin{figure}[!hbt]
   \centering
@@ -509,51 +509,6 @@ However, the same ideas can be applied in the excitation path. For
 illumination purposes lower resolution will often suffice. The light
 field technique allows unique control of excitation light intensity
 and angles in each point of the sample plane.
-
-
-{\color{red}
-Note that the ray model isn't necessarily sufficient to describe a
-light field microscope when the micro lens dimension get close to the
-size of the airy pattern of the micro objective. The underlying wave
-model can be described by Wigner distributions.
-
-The four dimensional Wigner \todo{don't explain any of the Wigner stuff} distribution $W_U$ of a scalar field
-$U(x,y,\tau)$ of narrowband polychromatic light in a plane $z=z_0$ is
-defined as the Fourier transform of the mutual intensity $J_U$:
-%FIXME is that the spatial coherence function?
-\begin{align}
-  J_U(x,y,\xi,\eta)&=\left\langle U\left(x+\frac{\xi}{2},y+\frac{\eta}{2},\tau\right) U^*\left(x-\frac{\xi}{2},y-\frac{\eta}{2},\tau\right) \right\rangle_\tau,\\
-  W_U(x,y,f_\xi,f_\eta)&=\int\!\!\!\!\int J_U(x,y,\xi,\eta)\ e^{-j2\pi(f_\xi\xi+f_\eta\eta)}\ \textrm{d}\xi\textrm{d}\eta.
-\end{align}
-In order to express a radiance function it is useful to write the Wigner distribution in its slope-form $W_U^{(\lambda)}$:
-\begin{align}
-  \label{eq:wigner-slope}
-  W_U^{(\lambda)}(x,y,u,v)&:=W_U(x,y,\xi/\lambda,\eta/\lambda),\\
-  u&=\xi/\lambda, \quad v=\eta/\lambda.
-\end{align}
-The observable light field $l^{(T)}(s,t,u,v)$ is obtained by
-convolving the Wigner distribution of the scalar field $U$ with the
-Wigner distribution the microlens aperture function $T$
-\citep{Zhang2009}. 
-\begin{align}
-  \label{eq:lightfield}
-  l^{(T)}(s,t,u,v)
-  &=
-  W_U^{(\lambda)}(s,t,u,v)\otimes
-  W_T^{(\lambda)}(-s,-t,u,v)  
-\end{align}
-The Fourier uncertainty relates the blur of the $s$ and $u$ directions
-\begin{align}
-  \label{eq:uncertainty}
-  \sigma_s^2\sigma_u^2&\ge\frac{\lambda^2}{16\pi^2}
-\end{align}
-where the variance $\sigma_x^2$ of a signal $h(x)$ along an axis $x$
-represents its ``blur'' and is defined as:
-\begin{align}
-  \label{eq:variance}
-  \sigma_x^2&=\int x^2|h(x)|^2\textrm{d}x.
-\end{align}
-}
 
 \subsection{Temporal focusing}
 \begin{figure}[!hbt]
