@@ -93,9 +93,8 @@ the parameter $\tau$:
    \caption{Schematic for describing the plane-ray intersection.}
  \end{figure}
 \section{Intersection of a ray and a sphere}
-A ray may start at a point $\s$ and may have the direction $\hd$.  A
-sphere is defined by its center $\c$ and its radius $R$.  The two
-equations
+Let a ray start at a point $\s$ with direction $\hd$.  Let a sphere
+sphere be centered in $\c$ with radius $R$. Their two equations
 \begin{align}
   (\r-\c)^2&=R^2\\
   \r&=\s+\tau\hd
@@ -112,7 +111,7 @@ quadratic equation for $\tau$:
 If the determinant $d$ is negative the ray misses the sphere and there
 is no solution. If the determinant is zero the ray touches the
 periphery and there is only one solution. A positive determinant
-corresponds to two solutions.
+corresponds to two solutions. In order to prevent numerical errors the following solution should be used \citep{Press1997}: 
 \begin{align}
   d&:=\boxed{b^2-4ac}\\
   q&:=\boxed{-\frac{b+\sqrt{d}\sign b}{2}}\\
@@ -124,40 +123,49 @@ corresponds to two solutions.
   \end{cases}}
 \end{align}
 \section{Refraction on thin lens}
-%\bild{thin-lens.jpg}
 \begin{figure}[!hbt]
   \centering
-  % \def\svgwidth{\columnwidth} % sets the image width, this is optional
   \input{lens-fwd.eps_tex}
-  \caption{Construction of a ray on a thin lens.}
+  \caption{Construction of a ray on a thin lens. The incident beam
+    with direction $\i$ hits the lens at the point $\vrho$.}
 \end{figure}
-\begin{itemize}
-\item calculate intersection $\vrho$ of incident ray which is defined
-  by its direction $\i$ and some start position
-\item draw a line with direction $\i$ through the center of the lens,
-  its intersection with the focal plane defines the direction $\r$ of
-  the exiting ray
-\item the length of the hypothenuse $\overline{OF}$ is $f/\cos\theta$
-\item triangle $ABC$ is similar to triangle $FOA$, therefor we can
-  obtain the length $\abs{\overline{BC}}$ 
-  \begin{align}
-    \frac{\abs{\overline{BC}}}{\abs{\overline{BA}}}&=
-    \frac{\abs{\overline{OA}}}{\abs{\overline{OF}}}\\
-    \frac{\abs{\overline{BC}}}{1}&=
-    \frac{\rho}{f/cos\theta}
-  \end{align}
-\item the result can be used to calculate the direction $\r'$
-\item using the two similar triangles again, $\r'$ can be scaled to
-  obtain $\r$
-\end{itemize}
-(See 2008Hwang)
+The incident beam with direction $\i$ hits the lens at the point
+$\vrho$. A line parallel to $\i$ through the center of the lens
+defines the point on the focal plane, which will be intersected by the
+transmitted ray $\r$ as well.
+
+The triangle $ABC$ is similar to triangle $FOA$. All three angles are
+identical because each of the lines are parallel:
+$\overline{CB} \parallel \overline{OA} \parallel \vrho$,
+$\overline{FA} \parallel \overline{CA}$ and $\overline{AB} \parallel
+\overline{OF} \parallel \i$. The side $\overline{OF}$ is hypothenuse
+of a right angled triangle. Its ancathete with respect to the angle
+$\theta$ has length $f$. Therefor the we can deduce the length
+$\abs{\overline{OF}}=f/\cos\theta$.
+
+Between the two similar triangles, the following relation holds and
+can be used to calculate the length $\abs{\overline{BC}}$:
+\begin{align}
+  \frac{\abs{\overline{BC}}}{\abs{\overline{BA}}}&=
+  \frac{\abs{\overline{OA}}}{\abs{\overline{OF}}}\\
+  \frac{\abs{\overline{CB}}}{1}&=
+  \frac{\rho}{f/\cos(\theta)}.
+\end{align}
+Given its length, the vector $\overline{CB}$ can now calculated,
+because we know its direction to be along $\vrho$. With this vector
+and $\i$ we can now obtain the (arbitrarily scaled) transmitted vector
+$\r'$. One could normalize it but it turns out to be useful for the
+high NA immersion lens to find the vector $\r$, that ends in the focal
+plane.  The procedure from above is condensed in the following
+equations:
 \begin{align}
   \vrho&=(x_0,y_0,0)^T=\rho (\cos\phi,\sin\phi,0)^T\\
   \phi&=\arctan(y_0/x_0)\\
   \cos\theta&=\boxed{\i\hz}\\
   \r'&=\i- \frac{\cos\theta}{f}\vrho\\
-   \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
+  \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
 \end{align}
+
 \section{Refraction through oil objective (from BFP towards FFP)}
 %\bild{objective.jpg}
 \begin{figure}[!hbt]
