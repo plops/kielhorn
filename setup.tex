@@ -192,7 +192,7 @@ detection works with full efficiency.
   \includegraphics[width=7cm]{mma-plain}
   \includegraphics[width=7cm]{mma-ill}
   \caption{{\bf left:} Micro mirror array chip during installation of
-    the optics. {\bf right:} Illuminated micro mirror array in the
+    the optics. {\bf right:}~Illuminated micro mirror array in the
     aligned system.}
   \label{fig:mma-closeup}
 \end{figure}
@@ -313,12 +313,19 @@ Biological samples are often embedded in water. For spatio-angular
 illumination the additional refraction at the glass--water interface
 has to be taken into account.
 
-Analoguous to the HILO technique (see section \ref{sec:hilo}) a thin
-sheet of light can be generated with an MMA mask that transmits close
-to the TIRF angle. A window on the LCoS can be used to steer the beam
-further. When taking into account the refractive index difference, the
-depth and position of the target below the coverslip and the angle,
-one can find the point on the LCoS that will giv
+The task of predicting where to mask the MMA in order to protect out
+of focus beads is more complicated due to the spherical
+aberrations. One would have to split the angular range and shift the
+illumination spot on the LCoS correcing for the transversal focus
+shift. For this one must have a good estimate of the distance of the
+sample from the coverslip--water interface. See
+Appendix~\ref{sec:raytrace} for a description of the raytrace
+algorithm.
+
+Another option is to use the HILO technique (see section
+\ref{sec:hilo}) and generate a thin sheet of light with an MMA mask
+that transmits close to the TIRF angle.
+
 
 \begin{figure}[!hbt]
   \centering
