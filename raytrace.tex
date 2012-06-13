@@ -242,25 +242,30 @@ the normalized difference vector $\vect m$ to the principal point.
 \end{align}
 As a last step we calculate the starting point $\e$ of the transmitted
 ray by intersecting the incident ray with the gaussian sphere.
- \begin{figure}[!hbt]
-   \centering
-   \input{obj-rev-full.eps_tex}
-   \caption{Construction to find the transmitted ray through an oil
-     immersion objective from a point within the sample.}
-   \label{fig:obj-ref-full}
- \end{figure}
- \subsection{Treatment of aberration (detection)}
-\begin{itemize}
-\item given a ray with starting point $\p$ and direction $\i$
-\item find intersection $\f$ of ray with interface and refract to
-  obtain $\i'$
-\item calculate the duration $t$ a photon would travel from $\p$ to
-  the interface $\f$: $t=\abs{\f-\p}n_ec$
-\item extend path of the photon backward along $\i'$ by $t/(cn)$, this
-  results in the corrected position $\p'$
-\item apply the method of the previous section to obtain the ray
-  leaving the objective
-\end{itemize}
+\begin{figure}[!hbt]
+  \centering
+  \input{obj-rev-full.eps_tex}
+  \caption{Construction to find the transmitted ray through an oil
+    immersion objective from a point within the sample.}
+  \label{fig:obj-ref-full}
+\end{figure}
+\subsection{Treatment of aberration (detection)}
+Now we consider a ray originating in point $\p$ with direction $\i$
+within an immersion of index $n_e$. We want to treat the problem of a
+non-matched embedding medium $n_e\not=n$. We find the intersection
+$\f$ of the ray with the coverslip--embedding interface and refract to
+obtain $\i'$. We calculate the time $t$ a photon takes, to travel from
+$\p$ to the interface $\p$:
+\begin{align}
+  t = \abs{\f - \p} n_e c
+\end{align}
+and extend the path of the photon backward along $\i'$ by
+$t/(cn)$. This results in the corrected position $\p'$ that indicates
+where the photon would have originated if the embedding would have
+been index matched.  Now we can apply the equations from the previous
+sections on the ray defined by $\p'$ and $\i'$ to obtain the
+transmitted ray in the pupil.
+
  \begin{figure}[!hbt]
    \centering
    \input{obj-rev-full-emb.eps_tex}
