@@ -283,24 +283,46 @@ will reduce unnecessary illumination in the sample.
 \subsection{Index matched sphere model}
 \label{sec:shadow-map}
 One useful simple model is spheres. They can model fluorescent beads
-or nuclei in a \emph{C.~elegans} embryo (see \figref{fig:render} for a
-model constructed from confocal data). First we assume the beads are
-embedded in index matched medium. Then rays only refract at the
-gaussian sphere of the objective lens and it is insignificant how far
-the target bead is from the interface between coverslip and medium
-(see left drawing in \figref{fig:optimization_3}).
+or nuclei in a \emph{C.~elegans} embryo. \figref{fig:render} displays
+a model constructed from 3D data of a confocal microscope. The nuclei
+are relatively sparse. In order to illuminate one or a few nuclei we
+might be able to find a path for the excitation light that doesn't
+intersect out of focus nuclei -- or at least avoids them. In our
+spatio-angular microscope the illumination pattern is represented by
+two masks. One for the LCoS and another one for the MMA. In the
+following we will construct an algorithm to find such optimized
+illumination patterns. For example the red rectangle (with
+$\sim\unit[4]{\mu m}$ on the side) would be selected for illumination
+with the LCoS. The red cylinder indicates the angle that would be
+least obscured by out of focus nuclei.
+
+\imagw{8cm}{render}{Rendering of a sphere model, fitted to one time
+  frame of a 3D confocal video of a developing \emph{C. elegans}
+  embryo (strain AZ212, data provided by Jean-Yves Tinevez (Institut
+  Pasteur, Paris) by finding local maxima in the difference of
+  gaussian filtered data \citep{Santella2010}.}
+
+\subsection{Tracing in illumination direction}
+\imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{}
+
+First we assume the beads are embedded in index matched medium. Then
+rays only refract at the gaussian sphere of the objective lens and it
+is insignificant how far the target bead is from the interface between
+coverslip and medium (see left drawing in
+\figref{fig:optimization_3}).
+
 
 Suppose bead number zero should be excited but the out of focus beads
-one to five should not be illuminated. One could then trace the cones
-from the periphery of the out of focus beads through the target points
-into the back focal plane of the objective. This gives a shadow map
-and when one illuminates this particular target point using this mask
-on the MMA, the out of focus beads are protected.
+one to five should not be illuminated. We trace the cones from the
+periphery of the out of focus beads through the target points into the
+back focal plane of the objective. This gives a shadow map and when we
+illuminates those target point using this mask on the MMA, the out of
+focus beads are protected from exposure.
 
-However, the last sentence isn't true for our system. If only one
-pixel of the LCoS was enabled, hardly any information of the MMA mask
-would reach the back focal plane. Instead the target area should be
-increased, so that the LCoS doesn't act as a pinhole.
+However, the last sentence isn't always true in our system. If only
+one pixel of the LCoS was enabled, hardly any information of the MMA
+mask would reach the back focal plane. Instead the target area should
+be increased, so that the LCoS doesn't act as a pinhole.
 
 Then several shadow maps for different target locations (e.g.\ in a
 region with \unit[3]{$\mu$m} diameter) can be combined and displayed
@@ -308,18 +330,12 @@ on the MMA.  Simultaneously the LCoS should display a mask that
 selects the target region. In order to suppress ringing in the focal
 plane it is helpful to display a smooth image on the MMA.
 
-\imagw{8cm}{render}{Rendering of a sphere model, fitted to one time
-  frame of a 3D confocal video of a developing \emph{C. elegans}
-  embryo (strain AZ212, data provided by Jean-Yves Tinevez (Institut
-  Pasteur, Paris) by finding local maxima in the difference of
-  gaussian filtered data \citep{Santella2010}. The red rectangle would
-  be selected for illumination with the LCoS. The red cylinder
-  indicates the angle that would be least obscured by out of focus
-  nuclei.}
 
-\imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big}{}
 
-\imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big}{}
+\imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big_label}{}
+\imagw{12cm}{structured}{Images of a $\unit[3]{\mu m}$ bead within
+  slightly fluorescent embedding medium under different illumination
+  conditions using a $63\times/1.38$ objective.}
 
 
 
