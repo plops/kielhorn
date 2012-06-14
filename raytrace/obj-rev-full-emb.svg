@@ -13,7 +13,7 @@
    height="178.79233"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="obj-rev-full-emb.svg">
   <defs
      id="defs4">
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,7 +81,7 @@
        sodipodi:cy="77.165344"
        sodipodi:rx="31.428572"
        sodipodi:ry="31.428572"
-       d="m 78.573704,58.600456 a 31.428572,31.428572 0 0 1 4.421282,28.608047"
+       d="m 78.573704,58.600456 c 6.039072,8.249301 7.688276,18.920524 4.421282,28.608047"
        transform="matrix(2.4246353,0,0,2.4243555,-54.174754,710.65248)"
        sodipodi:start="5.651258"
        sodipodi:end="6.6084452"
@@ -283,7 +283,7 @@
          sodipodi:role="line"
          id="tspan3029"
          x="126.75056"
-         y="885.84821">$\m$</tspan></text>
+         y="885.84821">$\vect m$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 40.714285,79.863757 6.428572,1.25 -6.428572,1.428572"
