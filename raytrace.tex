@@ -358,8 +358,6 @@ $\abs{\q\x}=\x^2$.
   \hx&=\x/\abs{\x}\\
   \hy&=\y/\abs{\y}
 \end{align}
-
-
 Now we can sample the intersection circle $C$ in order to create
 viable starting points $\e$ for tangential rays.  Let $R_\phi^\hc$ be
 a rotation matrix that rotates a vector by angle $\phi$ around an axis
@@ -379,123 +377,7 @@ For practical reasons its useful to project vector $\x$ as well. It
 can be used as the center of the (distorted) shape on the back focal
 plane to rasterize it as a fan of triangles.
 
-\section{Defocus due to aberrations}
-\begin{itemize}
-\item think of a photon traveling along the optical axis from
-  objective towards sample (see \figref{fig:aberration-sketch})
-\item in the unaberrated case the focal plane would be at the center
-  of the gaussian sphere at $nf$ optical length from intersection of sphere
-  with optical axis
-\item in the aberrated case the optical length inside glass/oil is $n(f-h)$,
-  where $h$ is the water depth; the optical length in water is $n_eh$
-\item we are interested in how the displacement $q$ varies with the
-  intersection $r$ of the ray in the back focal plane (for a defined
-  water depth $h$) (see \figref{fig:focus-displacement} for results of
-  a simulation)
-\item here we only show the result an on-axis point in the sample,
-  shifting the sample doesn't seem to influence the shape of $q(r)$
-\item the maximum value for $r$ is $R_\textrm{BFP}=f\textrm{NA}$
-\item notice that $q(r)$ isn't bijective, rays that leave the sample
-  in a very high angle are bent more than rays of moderate angle (see
-  also \figref{fig:screen_microscope-aberrate})
-\item {\color{red}for our application this means that if the MMA is
-    adjusted to bright at the border of the back focal plane a bright
-    spot on the LCoS will lead to two discrete illumination angles.}
-  this could potentially be a problem
-\item the simulation can be quite wrong for high angles as the
-  coverslip will probably not be perfectly plane
-\item the zoomed plot in \figref{fig:screen_microscope-aberrate} shows
-  the focus displacement for moderate angles that exit the sample
-\item the aberrations are stronger when the sample is embedded deeper
-  in water
-\item for a water depth of \unit[100]{$\mu$m} a ray that intersects
-  the back focal plane at \unit[2]{mm} distance off-axis is shifted by
-  \unit[0.5]{mm} in the image (\unit[8.2]{$\mu$m} in the sample)
-\item rays further off-axis are aberrated even more
-\end{itemize}
-\begin{figure}
-   \centering
-   \input{aberration-sketch.eps_tex}
-   \caption{Schematic depicting the variables involved in focus
-     displacement due to aberrations at a water-coverslip
-     interface. The variable $h$ is the depth of the water, $q$ is the
-     focus displacement in the image.}
-   \label{fig:aberration-sketch}
- \end{figure}
- 
-\begin{figure}[!hbt]
-  \centering
-  \bild{screen_microscope-aberrate}
-  \caption{Raytracing through an objective followed by a tubelens. The
-    focal length of the tubelens in this simulation is \unit[16]{mm}
-    (as opposed to the usual \unit[160]{mm}) so that the plot fits
-    into an unscaled image. The water depth is \unit[10]{$\mu$m}.}
-  \label{fig:screen_microscope-aberrate}
-\end{figure}
-
-\begin{figure}[!hbt]
-  \centering
-  \bild{../raytrace/focus-displacement}
-  \bild{../raytrace/focus-displacement-zoomed}
-  \caption{Plot of the focus displacement of a point on the optical
-    axis for rays that intersect the back focal plane in different
-    positions. The tubelength for this simulation was
-    \unit[160]{mm}. Note that rays the intersect the back focal plane
-    at \unit[50]{mm} distance to the optical axis don't enter the
-    tubelens. Parameters: the objective focal length is
-    \unit[2.61]{mm}, the tubelength is \unit[160]{mm}, the immersion
-    index is $n=1.52$ and the embedding index is $n_e=1.33$ }
-  \label{fig:focus-displacement}
-\end{figure}
-\def\NA{\textrm{NA}}
-
-\newpage
-\section{Test}
-Set the target point $\c=(0,0,0)^T$ and the nucleus center to
-$\s=\unit[(-6,0,-7)^T]{n_e \mu m}$ with a nucleus radius
-$r=\unit[1.2]{n_e \mu m}$. Note that dimensions are \emph{optical}
-path lengths and must be multiplied with the refractive index
-$n_e=1.33$. 
-
-\begin{figure}[!hbt]
-  \centering
-  \input{projection-schematic.eps_tex}
-  \caption{Schematic that indicates placement of different optical
-    entities for the projection simulation.}
-  \label{fig:projection-schematic}
-\end{figure}
-
-
-The focal length of the tubelens is $f_\textrm{TL}=\unit[164.5]{mm}$
-and the objective's is $f=f_\textrm{TL}/63=\unit[2.61]{mm}$. The
-numerical aperture of the objective is $\textrm{NA}=1.38$. The radius
-of the back focal plane is $R=f \NA=\unit[3.6]{mm}$.
-
-We set the waterdepth to $h=\unit[10]{\mu m}$. The immersion index is
-$n=1.52$. The focal plane is therefore at the following distance $d$
-left of the objective center:
-\begin{align*}
-  d&=n_eh+n(f-h)\\
-  %&=\unit[(1.33*.01+1.52*(164.5/63-.01))]{mm}\\
-  &=\unit[3.9669]{mm}
-\end{align*}
-as opposed to $nf=\unit[3.9688]{mm}$ for an unabberated objective. The
-water layer shifts the focus axially by \unit[1.9]{$\mu$m} in the
-simulation coordinate system.
-
-
-\begin{figure}[!hbt]
-  \centering
-  \bild{screen_1}
-  \caption{Rays from the out-of-focus nucleus are projected into the
-    back focal plane. The area they circumscribe shouldn't be
-    illuminated in order to protect the out-of-focus nucleus from
-    exposure. The red area of the gaussian sphere corresponds to
-    angles that are collected by the objective.}
-  \label{fig:rays-from-out-of-focus}
-
 %FIXME maybe compare to ./cyberpower-store/0314/zeiss-patents/20080106795-correction-ring.pdf 
 %or US7268953-63x.pdf
 
-\end{figure}
 
