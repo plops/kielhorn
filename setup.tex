@@ -43,8 +43,9 @@ within the sample.
 sample illumination. If the LCoS illuminates one in-focus
 bead\footnote{Note that the LCoS acts as a Fourier filter on the
   information coming from the MMA. Therefor if all but a single pixel
-  of the LCoS block the light, no angular control is possible (see also Appendix~\ref{sec:sim-angle}).}, the
-MMA can be used to prevent exposure of the out of focus bead in
+  of the LCoS block the light, no angular control is possible (see
+  also Appendix~\ref{sec:sim-angle}).}, the MMA can be used to prevent
+exposure of the out of focus bead in
 \figref{fig:hourglass-all}~(a). Not exciting the out-of-focus bead has
 two advantages:
 \begin{enumerate}
@@ -282,7 +283,8 @@ will reduce unnecessary illumination in the sample.
 \subsection{Index matched sphere model}
 \label{sec:shadow-map}
 One useful simple model is spheres. They can model fluorescent beads
-or nuclei in a \emph{C.~elegans} embryo. First we assume the beads are
+or nuclei in a \emph{C.~elegans} embryo (see \figref{fig:render} for a
+model constructed from confocal data). First we assume the beads are
 embedded in index matched medium. Then rays only refract at the
 gaussian sphere of the objective lens and it is insignificant how far
 the target bead is from the interface between coverslip and medium
@@ -305,6 +307,20 @@ region with \unit[3]{$\mu$m} diameter) can be combined and displayed
 on the MMA.  Simultaneously the LCoS should display a mask that
 selects the target region. In order to suppress ringing in the focal
 plane it is helpful to display a smooth image on the MMA.
+
+\imagw{8cm}{render}{Rendering of a sphere model, fitted to one time
+  frame of a 3D confocal video of a developing \emph{C. elegans}
+  embryo (strain AZ212, data provided by Jean-Yves Tinevez (Institut
+  Pasteur, Paris) by finding local maxima in the difference of
+  gaussian filtered data \citep{Santella2010}. The red rectangle would
+  be selected for illumination with the LCoS. The red cylinder
+  indicates the angle that would be least obscured by out of focus
+  nuclei.}
+
+\imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big}{}
+
+\imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big}{}
+
 
 
 \imagw{12cm}{optimization_3}{Tracing rays from the periphery of out of
