@@ -15,28 +15,30 @@
 \renewcommand{\O}{\textsf{O}}
 % /mnt/backup/safe-with-time/torben/safed/y2009/0411
 \section{Fundamentals of fluorescence}
-Fluorescence of molecules is a field of science on its own. Books on
-molecular physics like \cite{2006Haken} go much more into detail. This
-section just gives a basic overview of the theory.
-
-Lets think of a really simple molecule. We take two hydrogen atoms,
-grab their nucleii and move them slowly together. When the nucleii
-have a big distance the atoms exist as two separate entities without
+\begin{summary}
+  Here we give a short overview of the field of fluorescence of
+  molecules in order to introduce the terms Stokes shift, triplett
+  state and photo bleaching.
+\end{summary}
+First we consider a really simple molecule: We move the nucleii of two
+hydrogen atoms and move them slowly together. When the nucleii have a
+big distance, the atoms exist as two separate entities without
 influence on each other. In the other extreme case the two nucleii are
 at the same position and the electrons have the orbitals of a helium
 atom.
+
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=7cm]{flu-potential}
-  \caption{Electron density maps and potential curves for ground
-    $\H_2$ and excited states $\H_2^*$ of dihydrogen and the
-    dihydrogen ion $\H_2^+$ (from \cite{2006Haken} p.~258).}
-  \label{fig:flu-potential}
+  \input{flu-potential_my.eps_tex}
+  \caption{Schematic electron density maps and potential curves for
+    ground state $\H_2$ and excited state $\H_2^*$ of dihydrogen and
+    the dihydrogen ion $\H_2^+$ (after \cite{Haken2006} p.~258).}
+  \label{fig:flu-potential_my}
 \end{figure}
-When the nucleii have an intermediate distance between zero and
-infinity one can express molecular orbitals as a linear combination of
-atomic orbitals and calculate their potential energy. The result of
-this calculation is shown in \figref{fig:flu-potential}. The graph
+As a good approximation we can express molecular orbitals as a linear
+combination of atomic orbitals and calculate their potential energy in
+dependence of the distance between the nuclei (see
+\figref{fig:flu-potential}). The curve for
 $\sigma_g\sigma_g^1\Sigma_g^+$ has minimum at a core distance $R$ of
 approximately 1.3 Bohr radii ($a_H=\unit[0.529\cdot10^{-8}]{cm}$). The
 compound of two protons and two electrons is particularly stable for
@@ -115,7 +117,7 @@ hydrogen molecule is decreased.
   \caption{Illustration of the Franck-Condon principle. Potential
     curves for either the same equilibrium core distance in the
     excited state or a bigger core distance in the excited state (from
-    \cite{2006Haken} p.~276).}
+    \cite{Haken2006} p.~276).}
   \label{fig:flu-condon}
 \end{figure}
 
@@ -190,8 +192,8 @@ seconds). The radiative decay is called phosphorescence.
 The \emph{fluorescence quantum yield} $\eta$ of a fluorophore is
 defined as the quotient of the number of emitted (fluorescence)
 photons and the number of absorbed photons. In dyes like rhodamine~6G
-(in ethanol $\eta=0.94$ \cite{1996Fischer}) or antracene
-(9,10-diphenyl anthracene in cyclohexane $\eta=0.90$ \cite{1983Hamai})
+(in ethanol $\eta=0.94$ \cite{Fischer1996}) or antracene
+(9,10-diphenyl anthracene in cyclohexane $\eta=0.90$ \cite{Hamai1983})
 its value can be nearly 1 for an appropriate solvent.
 
 \subsection{Photobleaching and phototoxicity}
@@ -205,7 +207,7 @@ that the excited fluorophores impair living cells.  It is a curious
 quirk of nature that the ground state of the oxygen molecule is a
 triplet state ${}^3\O_2$.  If an oxygen molecule hits a $T_1$
 fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$, the energy of the dye
-can be transferred to the oxygen (\cite{2006Haken} p.438):
+can be transferred to the oxygen (\cite{Haken2006} p.438):
 
 \begin{align}
   {}^3\O_2 + {}^3\textsf{Chlorophyll}^* \rightarrow
@@ -221,7 +223,7 @@ chlorophyll onto carotenoid molecules and can prevent the hazardous
 Nowadays many methods are known to reduce photobleaching. Supplant
 oxygen with noble gases or remove it enzymatically. Depopulate the
 triplet state by adding reducing as well as oxidizing agents to the
-solvent (\cite{2008Vogelsang}). For fixed samples it helps to use
+solvent (\cite{Vogelsang2008}). For fixed samples it helps to use
 different solvents than water.
 
 All these techniques work after the hazardous chemicals have been
