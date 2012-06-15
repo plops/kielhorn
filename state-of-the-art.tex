@@ -18,7 +18,7 @@
 \begin{summary}
   Here we give a short overview of the field of fluorescence of
   molecules in order to introduce the terms Stokes shift, triplett
-  state and photo bleaching.
+  state and photobleaching.
 \end{summary}
 First we consider a really simple molecule: We move the nucleii of two
 hydrogen atoms and move them slowly together. When the nucleii have a
@@ -37,19 +37,20 @@ atom.
 \end{figure}
 As a good approximation we can express molecular orbitals as a linear
 combination of atomic orbitals and calculate their potential energy in
-dependence of the distance between the nuclei (see
-\figref{fig:flu-potential}). The curve for
+dependence of the distance between the nucleii (see
+\figref{fig:flu-potential_my}). The curve for
 $\sigma_g\sigma_g^1\Sigma_g^+$ has minimum at a core distance $R$ of
 approximately 1.3 Bohr radii ($a_H=\unit[0.529\cdot10^{-8}]{cm}$). The
 compound of two protons and two electrons is particularly stable for
 this radius. We call it the hydrogen molecule $\H_2$.
 
-In the same way one can combine a ground state hydrogen atom $\H$ and
+In the same way we can combine a ground state hydrogen atom $\H$ and
 an excited hydrogen atom $\H^*$. Again the potential
 $\sigma_g\pi_u^1\Pi_u$ has a minimum. That distance of equilibrium is
 bigger because the strength of the chemical bond in the excited
 hydrogen molecule is decreased.
 
+\begin{figure}[!hbt]
 \begin{fenster}
   \minisec{On construction of term symbols}
   {\small
@@ -64,7 +65,7 @@ hydrogen molecule is decreased.
     the electrons have a higher probability to be between the nucleii.
     The following quantum numbers describe the molecular wavefunction:
     \begin{description}
-    \item[$\Lambda$] 
+    \item[$\Lambda\ ..$] 
       
       Defined by $\mathbf{L}_z=\Lambda\hbar=|\sum\lambda_i|\hbar$ with
       projection $\lambda_i$ of the orbital angular momentum $\mathbf{l}_i$ of
@@ -72,13 +73,13 @@ hydrogen molecule is decreased.
       values $0,1,2,\ldots$ and one writes the term symbols
       $\Sigma,\Pi,\Delta,\ldots$.
       
-    \item[$S$]
+    \item[$S\ ..$]
       
       Spin of all electrons $S=\sum\mathbf{m}_{si}$ in the molecular orbital. 
       
-    \item[$\Omega$] 
+    \item[$\Omega\ ..$] 
       
-      Electronic angular momentum $\Omega$ in direction of the nuclear axis.
+      Electronic angular momentum in direction of the nuclear axis.
       
     \end{description}
     These numbers are combined into the term symbol like this:
@@ -107,13 +108,13 @@ hydrogen molecule is decreased.
     \end{description}
   }
 \end{fenster}
-
+\end{figure}
 
 
 \begin{figure}[!hbt]
   \centering
   % (423-120)/423*7 = 4.77 
-  \includegraphics[width=4.77cm,trim=0 0 135 0,clip]{flu-condon}
+  \includegraphics[width=6cm,trim=0 0 135 0,clip]{flu-condon}
   \caption{Illustration of the Franck-Condon principle. Potential
     curves for either the same equilibrium core distance in the
     excited state or a bigger core distance in the excited state (from
@@ -129,12 +130,12 @@ molecule. \figref{fig:flu-condon} shows potential curves for the
 ground state and the first excited state of two different
 molecules. The left graph shows potential curves of a (theoretical)
 molecule where the strength of the bond doesn't change in the excited
-state. So the minima of both curves are exactly on top of each
+state. There, the minima of both curves are exactly on top of each
 other. If a ground state molecule absorbs a photon its electron would
 be excited but the vibrational state of the core does not change.
 
 The right graph displays the more realistic case of a molecule with a
-weaker chemical bond in the excited state. When a photon is absorbed
+weaker chemical bond in the excited state. When a photon is absorbed,
 the electronic state of the molecule switches essentially
 instantaneous compared to the movement of the nucleii. After the
 electronic transition the nucleii will start moving because their
@@ -143,7 +144,7 @@ be depicted as a vertical line. The same rule applies for emission.
 
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=7cm]{flu-level}
+  \includegraphics[width=9cm]{flu-level}
   \caption{A typical energy level diagram. The boxes with up and down arrows symbolize the spin of the outer electrons.}
   \label{fig:flu-level}
 \end{figure}
@@ -152,30 +153,28 @@ It is useful to summarize information about the energy levels of a
 molecule in a Jablonski diagram as in \figref{fig:flu-level}. If a
 molecule is in the ground state $S_0$ one of its outer electron(s) can
 be excited by a photon to either the first excited singlet state $S_1$
-or if the photon has an even higher energy the electron will go into
+or, if the photon has an even higher energy, the electron will go into
 the second excited state $S_2$.  The absorption of one photon can not
 put the electron into the triplet state $T_1$ as angular momentum must
 be conserved.
 
 The electronic absorption event is very rapid (in femtoseconds). Due
-to the Franck-Condon principle the excited state also consists of
+to the Franck-Condon principle the electronic excitation also excites
 vibrational and rotational modes of the molecule. When the fluorescent
 molecule is immersed in a liquid this vibro-rotational excitation will
 be transferred to neighbouring molecules in a matter of pico
 seconds. This process is called \emph{internal conversion}. The
 interaction of the molecule with its surroundings is completely
 statistical and the excited electron will loose its phase relationship
-with electrons of other fluorescent molecules\footnote{This is a good
-  thing for most microscopic applications, as images of incoherent
-  light sources resemble the object space better than coherent
-  sources.}. A $S_2$ electron will decay radiationless into $S_1$ due
-to internal conversion.
+with electrons of other fluorescent molecules. A $S_2$ electron will
+decay radiationless into $S_1$ due to internal conversion.
 
 A $S_1$ electron can relax into the ground state $S_0$ by emitting a
 photon. For this transition the Frank-Condon principle applies
 again. A vibro-rotational mode of the ground state will be excited.
-The energy of the emitted fluorescence photon is generally lower than
-the energy of the excitation photon. The fluorescence lifetime -- the
+Due to internal conversion at two steps during the whole process the
+energy of the emitted fluorescence photon is lower than the energy of
+the excitation photon (Stokes shift). The fluorescence lifetime -- the
 time the molecule stays in state $S_1$ -- is in the range of
 nanoseconds.
 
@@ -202,10 +201,10 @@ If a fluorophore molecule enters the $T_1$ state it cedes to emit
 photons for a long time. The excited molecule could also change its
 structure into some non-fluorescent form or react with a
 neighbour. All these things result first of all in a decreasing
-fluorescence signal -- the \emph{photobleaching}.  Another effect is
-that the excited fluorophores impair living cells.  It is a curious
-quirk of nature that the ground state of the oxygen molecule is a
-triplet state ${}^3\O_2$.  If an oxygen molecule hits a $T_1$
+fluorescence signal -- which is called \emph{photobleaching}.  Another
+effect is that the excited fluorophores impair living cells.  It is a
+curious quirk of nature that the ground state of the oxygen molecule
+is a triplet state ${}^3\O_2$.  If an oxygen molecule hits a $T_1$
 fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$, the energy of the dye
 can be transferred to the oxygen (\cite{Haken2006} p.438):
 
@@ -215,15 +214,18 @@ can be transferred to the oxygen (\cite{Haken2006} p.438):
 \end{align}
 
 The resulting singlet oxygen is very reactive and quite hazardous
-inside living creatures. Plants have a concurring mechanism that is
-enabled if there is too much light. They transfer the energy of the
-chlorophyll onto carotenoid molecules and can prevent the hazardous
-\emph{phototoxicity} effects of singlet oxygen.
+inside living creatures. Plants have developed several protection
+mechanisms, if they are exposed to too much light. Within the cells
+they reorient and shift their chloroplasts in order to expose them to
+less light. However, they even have a molecular protection mechanism:
+They transfer the energy of the chlorophyll onto carotenoid molecules
+and can prevent the hazardous \emph{phototoxicity} effects of singlet
+oxygen.
 
 Nowadays many methods are known to reduce photobleaching. Supplant
 oxygen with noble gases or remove it enzymatically. Depopulate the
 triplet state by adding reducing as well as oxidizing agents to the
-solvent (\cite{Vogelsang2008}). For fixed samples it helps to use
+solvent \citep{Vogelsang2008}. For fixed samples it helps to use
 different solvents than water.
 
 All these techniques work after the hazardous chemicals have been
