@@ -24,7 +24,8 @@
 
 \usepackage{hyperref}
 \usepackage{units}
-\usepackage{todonotes}
+\usepackage{todonotes} % for draft
+\usepackage{refcheck} % for draft
 \usepackage{lineno}
 \usepackage{nomencl}
 
@@ -33,6 +34,15 @@
 \usepackage{wasysym} %diameter
 % http://www.andy-roberts.net/misc/latex/latextutorial3.html
 \usepackage{natbib}
+
+% for app_hilo
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{subfigure}
+
+
+
 \bibpunct{(}{)}{;}{a}{}{,}
 \makenomenclature
 \newcommand{\vect}[1]{\mathbf{#1}}
@@ -94,6 +104,7 @@
 \appendix
 \input{../raytrace}
 \input{../rigid}
+\input{../app_hilo}
 \input{../sim-angle}
 \input{../app_memi}
 \input{../app_dvi}
