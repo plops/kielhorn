@@ -1,26 +1,27 @@
 \renewcommand{\(}{\left(}
 \renewcommand{\)}{\right)}
 \chapter{Equidistant spiral sampling}
-\section{Introduction}
-We want to illuminate different points in the back focal plane of a
-micro objective. Its convenient to have a 1D indexing scheme for these
-points. Due to the circular symmetry a spiral sampling [1983Ahn] comes
-to mind. 
-
+\begin{summary}
+  In our system the MMA is imaged into the circular back focal plane
+  of the microscope objective. Here we propose a method of storing
+  images of circular apertures in its linear frame buffer.
+\end{summary}
 \section{Archimedes Spiral}
 An Archimedes spiral in polar coordinates $(r,\theta)$ is defined like
 this:
 \begin{align} \label{eqn:def}
   r(\theta)=a\,\theta.
 \end{align}
-The step height $h$ of the spiral is given by
+The step height $h$ of the spiral is constant and given by
 \begin{align}
   h=\abs{r(\theta)-r(\theta+2\pi)}=r(2\pi)=2\pi a.
 \end{align}
+We would like to distribute circular windows at equidistant points
+along the spiral \citep{Ahn1983}.
 \section{Equidistance sampling}
 We want to start sampling in the center at $r(0)=0$ and sample the arc
 length of the spiral with equidistant points. The arc length of an
-archimedes spiral is [Weisstein]:
+archimedes spiral is \citep{Weisstein}:
 \begin{align} \label{eqn:arclength}
   s(\theta)=\frac{a}{2}\(p\,\theta + \log(p\,\theta)\)\quad\textrm{with}\quad
   p=\sqrt{1+\theta^2}.
@@ -32,8 +33,7 @@ be obtained by inverting equation \eqref{eqn:arclength}:
 \begin{align}
   \theta_i=\theta(i\,\Delta s).
 \end{align}
-This inversion can be done efficiently with Newton interation
-[Wikipedia]:
+This inversion can be done efficiently with Newton iteration:
 \begin{align}
   x_0&=1,\\
   x_{n+1}&=x_n-\frac{f(x)}{f'(x)}.
@@ -69,15 +69,15 @@ the spiral. We therefore need to find the zero of the function:
   &=\frac{a}{2}\frac{\sqrt{1+\frac{R^2}{a^2}}\frac{R}{a}+
     \log\(\sqrt{1+\frac{R^2}{a^2}}\frac{R}{a}\)}{n-1}-2\pi a.
 \end{align}
-Actually we know $a\not =0$ so we can transform the function to
-simplify its derivative:
+We know $a\not =0$ therefor we can transform the function to simplify
+its derivative:
 \begin{align} \label{eqn:g1}
   g_1(a)&=\underbrace{\sqrt{1+\frac{R^2}{a^2}}}_{p_1}\frac{R}{a} 
   +\log\(\sqrt{1+\frac{R^2}{a^2}}\frac{R}{a}\)-4\pi (n-1),\\
   g_1'(a)&=-\frac{R^3}{p_1}\frac{1}{a^4}-\frac{R^2}{p_1^2}\frac{1}{a^3}-R
     p_1\frac{1}{a^2}-\frac{1}{a}.
 \end{align}
-The Newton method can be used to find the zero $a_0$ of $g(a)$. Then
+Newton's method can be used to find the zero $a_0$ of $g(a)$. Then
 $\Delta s$ can be obtained and the circle drawn.
 
 % for i in *.pgm ; do potrace $i ;done
@@ -131,23 +131,24 @@ Thus we can define the equivalent to \eqref{eqn:g1}:
     30, 100, 200, 300, 400, 1024.}
 \end{figure}
 
-%% FindRoot[{a x == R, a/2 (Sqrt[1+x^2]x+Log[Sqrt[1+x^2]x]) == n * 2 pi a + R/a}, {{x, 1}, {a, 1}}]
+\section{Discussion}
+It is possible to distribute sample points along a spiral over the
+back focal plane. However, there doesn't seem to be any advantage to
+placing the circles nodes of a polar grid. Indeed the spiral sampling
+is actually worse because for high angles the circles are either cut
+off or quite a large part of the BFP is not
+covered. 
 
-%% @ARTICLE{4307732,
-%% author={Ahn, C. B. and Kim, J. H. and Cho, Z. H.},
-%% journal={Medical Imaging, IEEE Transactions on}, title={High-Speed Spiral-Scan Echo Planar NMR Imaging-I},
-%% year={1986},
-%% month={mar.},
-%% volume={5},
-%% number={1},
-%% pages={2 -7},
-%% keywords={},
-%% doi={10.1109/TMI.1986.4307732},
-%% ISSN={0278-0062},}
+We believe hexagonal sampling \citep{Middleton2001} will be a better
+alternative. It provides easy access to nearest neighbours and a
+natural hierarchy.
+
+
+
+%% FindRoot[{a x == R, a/2 (Sqrt[1+x^2]x+Log[Sqrt[1+x^2]x]) == n * 2 pi a + R/a}, {{x, 1}, {a, 1}}]
 
 %% Weisstein, Eric W. "Archimedes' Spiral." From MathWorld--A Wolfram
 %% Web Resource. http://mathworld.wolfram.com/ArchimedesSpiral.html
-
 
 %% http://en.wikipedia.org/wiki/Newton's_method
 
