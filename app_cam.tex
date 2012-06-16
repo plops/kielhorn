@@ -1,46 +1,62 @@
 % cascade II /mnt/backup/safe-with-time/torben/safed/y2009/0414
 % andor ultra ~/1114  python code for calibration and andor basic for acquisition
-\chapter{Read noise characterization in cameras}
+\chapter{Read noise characterization of cameras}
 \label{sec:ccd-meas}
-\includegraphics[width=8cm]{../app_cam/andor_emgain100_preamp5_exp30}
-\includegraphics[width=8cm]{../app_cam/andor_normal_preamp5_exp30}
-\includegraphics[width=8cm]{../app_cam/cascade_exp400ms_gain3000}
-\includegraphics[width=8cm]{../app_cam/cascade_exp400ms_normal}
-\includegraphics[width=8cm]{../app_cam/cascade_normal_preamp3_exp30}
-
-
+\begin{summary}
+  We describe a method to measure the read noise of a camera and
+  compare the performance of two EM-CCDs.
+\end{summary}
 \section{Introduction}
-In order to characterize the camera we captured sequences of images
-that contain a light pattern like this: \includegraphics[width=8cm]{calib-pic}
-
+In order to characterize a camera we captured sequences of images that
+contain a light pattern as in \figref{fig:calib-pic}. The pattern is
+smooth and non-uniform.
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=10cm]{calib-pic}
+  \caption{Image of a defocused area on a fluorescent plane sample. A
+    couple of such images ($>20$) are captured and variance in each
+    pixel is plotted against the intensity to find the correspondence
+    between reported ADU and detected photoelectrons.}
+  \label{fig:calib-pic}
+\end{figure}
 The images were produced in a fluorescence microscope. The light
-source is a DPSS laser with \unit[473]{nm} wavelength. It illuminates
-a circular area of the sample. The sample is a fluorescent plane. A
-FITC filter cube and a $10\times$ objective were used. The sample was
-adjusted to be slightly out of focus in order to obtain a smooth
-intensity gradient in the image. For the comparison of the IXon3 with
-the newer camera the sample wasn't changed. The Ultra was measured
-first. The laser was mechanically blocked while the cameras were
-swapped. The following figure depicts the intensity of 20 images that
-were illuminated in this way. The relative standard deviation of the
-illumination intensity was $0.15\%$.
-%\includegraphics[height=7cm]{mean-light}
+source is a DPSS laser with \unit[473]{nm} wavelength. It
+illuminates a circular area of the sample. The sample is a fluorescent
+plane. A FITC filter cube and a $10\times$ objective were used. The
+sample was adjusted to be slightly out of focus in order to obtain a
+smooth intensity gradient in the image.
 
-A sequence (e.g. 20) of such images can be used to determine the
-mapping between arbitrary data units (ADU) and the number of detected
+The light source is stable and the relative standard deviation of the
+illumination intensity is typically $<0.2\%$ for the calibration
+time. 
+
+A sequence (20) of such images can be used to determine the mapping
+between analog-to-digital units (ADU)
+\nomenclature{ADU}{analog-to-digital unit} and the number of detected
 photoelectrons. This method is based on the known relation between the
 mean number of Poisson distributed photons and its variance.
 
 For the calibration a 2D histogram of the per pixel
 variance image and the per pixel mean of the image stack is
 plotted. Then the slope of the resulting point cloud is determined.
-\section{Calibration of an older IXon3}
 
-%\bbild{ixon_conv1}
+\section{Calibration of an Andor IXon3 camera}
 
-In the left diagram of the figures above contains such a 2D
+\begin{figure}
+  \centering
+  \includegraphics[width=16cm]{../app_cam/ixon_conv1}
+  \includegraphics[width=16cm]{../app_cam/ixon_300}
+  \caption{{\bf top:} Conventional read out of an Andor IXon3
+    camera. {\bf bottom:} Read out with an EM-gain setting of 300 on
+    the same camera with identical sample. {\bf left:} 2D histogram of
+    per pixel variances against binned intensities. {\bf middle:}
+    variance of 20 dark images. {\bf right:} mean of 20 dark images.}
+  \label{fig:ixon}
+\end{figure}
+  
+In the top left diagram of \figref{fig:ixon} contains such a 2D
 histogram. It was obtained for conventional readout at \unit[3]{MHz}
-in our older IXon3 model. The variances are collected in 64 intensity
+in our Andor IXon3 camera. The variances are collected in 64 intensity
 bins and their averages are plotted as red crosses. The blue line is
 the result of a linear fit to the first $60\%$ of the red crosses. Its
 slope gives the real gain of the camera that can be used to convert
@@ -51,20 +67,62 @@ readout mode with varying EM gain. It is followed by one last
 measurement with conventional readout to verify, that the fluorophores
 didn't bleach too much during the experiment.
 
-For each figure 20 illuminated images and 20 dark images were
-captured. The camera was cooled to \unit[$-75$]{$\,^{\circ}{\rm
-    C}$}. The integration time was varied for each gain to have a
-maximum of 10000 ADU using a short \unit[10]{ms} acquisition. This was
-controlled by an Andor Solis Basic program.
+The camera was cooled to \unit[$-75$]{$\,^{\circ}{\rm C}$}. In order
+to prevent overexposure of the sensor an image with a short
+\unit[10]{ms} integration time was aquired and the integration time
+for the experiment was set such that a maximum of \unit[10000]{ADU}
+would occur. An internal shutter in the camera was closed to obtain
+the dark images. The process was automated using an Andor Solis Basic
+program which is listed below.
 
 The square root of the mean of the variance of the dark images was
 converted into a read noise in electrons per pixel using the real
 gain.
 
-The exposure times for the various figures are given in the table that
-follows below the figures.
+The table in \figref{fig:ixon-table} summarizes the calibration
+results.  The read noise in conventional mode is approximately 8
+electrons per pixel rms. The column \textsf{mean'} contains the
+average number of photoelectrons per pixel in the illuminated image
+normalized by the integration time. The rows \textsf{conv1} and
+\textsf{conv2} with conventional read out (without EM-gain) contain
+approximately the same number. This proves that no significant
+bleaching occurred during the experiment.
 
-\subsection{Source code for automatic image acquisition}
+The EM gain process introduces multiplicative noise in the signal that
+has the same effect on the photoelectron statistics as lowering the
+quantum efficiency of the sensor. Dividing values of the column
+\textsf{ mean'} from EM readouts by the same value from the
+conventional readout gives the \emph{excess noise factor}. Its value
+is smaller than one and describes the apparent reduction of the
+quantum efficiency.
+
+
+Due to a bug in the capturing process the images in the second row
+(for EM-gain 40) was overexposed and the data shouldn't be used.  Also
+the last experiment \textsf{conv2} with conventional read out reports
+a larger gain of \unit[1.6]{e/ADU} than the first experiment
+\textsf{conv1} with gain \unit[1.3]{e/ADU}. Later we learned that one
+should allow several seconds of settling time, when changing the
+EM-gain voltage. This might explain the difference in gains.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{../app_cam/ixon3}
+  \caption{Comparison of read noise for different EM-gain settings
+    (first column) of the Andor IXon3. The value $\textsf{mean}'$
+    estimates the number of photo electrons the detector would have
+    seen with \unit[1]{s} integration time and is used to calculate
+    the excess noise factor in the last column. The images for the red
+    row (EM-gain 40) were overexposed and the data are not correct. In
+    EM-mode the fastest read out speed was used \unit[10]{MHz} with
+    vertical shift speed of \unit[1.7]{us}.}
+  \label{fig:ixon-table}
+\end{figure}
+
+
+\subsection{Andor Basic code listing for automatic image acquisition}
+{\small
 \begin{verbatim}
 function ~GetSaturatingExposure()
         SetKineticNumber(1)
@@ -140,8 +198,10 @@ ExportTiff(#0, name$ + "conv2 _bright.tif", 1, 1, 0, 0)
 CloseWindow(#0)
 CloseWindow(#1)
 \end{verbatim}
+}
 
-\subsection{Source code for the read noise evaluation}
+\subsection{Python code listing for the read noise evaluation}
+{\small
 \begin{verbatim}
 #!/usr/bin/env python
 # ./ti.py /media/backup/andor-ultra-ixon/martin/20111111/scan-em3/ ultra 2700
@@ -160,7 +220,6 @@ seterr(divide='ignore')
 folder = sys.argv[1]
 cam = sys.argv[2]
 gain = sys.argv[3]
-
 
 def readpics(gain,cam='ixon_',isdark=False):
     print 'loading ', os.path.join(folder,cam) + '_' + gain + '_bright.tif'
@@ -188,9 +247,7 @@ for ii,vv in nditer([i,v]):
     acc[p]+=vv
     accn[p]+=1   
 
-
 fig=figure(figsize=(24, 8),dpi=300)
-#subplots_adjust(top=.7,bottom=.2)
 hold(False)
 title('bal')
 subplot(1,3,1)
@@ -227,3 +284,43 @@ colorbar()
 show()
 fig.savefig(cam+'_'+gain+'.png')
 \end{verbatim}
+}
+
+\section{Comparison with other cameras}
+In order to compare different EM-CCD cameras one must first convert
+the EM-gain register setting into the real EM-gain as cameras are
+often not calibrated to have a linear gain curve and the
+multiplicative gain changes with temperature and live time of the
+sensor.
+
+\figref{fig:old-cams} shows some calibrations on older cameras (Andor
+IXon2 and Photometrics Cascade~II) which have been done using the
+DIPimage function \textsf{cal-readnoise}.  The real gain of the Andor
+IXon2 is $0.67/0.062=10.8$ and it has \unit[0.46]{e\ rms/px}
+readnoise. The real gain of the Cascade~II is $1.6/0.14=11.4$ with
+\unit[1.13]{e\ rms/px} read noise. Approximately the same real gain is
+obtained with the IXon3 at EM-gain 50: $1.32/0.12=11.0$ with a read
+noise of \unit[0.49]{e\ rms/px}. So the two andor cameras show the
+same performance.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7cm]{../app_cam/andor_normal_preamp5_exp30}
+  \includegraphics[width=7cm]{../app_cam/andor_emgain100_preamp5_exp30}
+  \includegraphics[width=7cm]{../app_cam/cascade_exp400ms_normal}
+  \includegraphics[width=7cm]{../app_cam/cascade_exp400ms_gain3000}
+  % \includegraphics[width=7cm]{../app_cam/cascade_normal_preamp3_exp30}
+  \caption{{\bf top:} Andor IXon2 {\bf left:} Normal read out with
+    preamp 5. {\bf top right:} EM-gain 100 preamp 5. {\bf bottom:}
+    Cascade II {\bf left:} Normal read out
+    $\textsf{mean}=\unit[254.82]{e/px}$. {\bf right:} EM-gain 3000,
+    $\textsf{mean}=\unit[122.08]{e/px}$, therefor the excess noise factor
+    is 0.48.}
+  \label{fig:old-cams}
+\end{figure}
+
+% sushi 20090414 maybe check for read out speed of cascade II and the
+% excess noise factor of the andor
+
+% check in lab book for exact specs of andor ixon2
+
