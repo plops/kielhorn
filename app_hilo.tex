@@ -192,29 +192,30 @@ of focus fluorophores:
 \label{eqn:Iu}
   I_u(x,y)=I_\textrm{in}(x,y)+I_\textrm{out}(x,y).
 \end{align}
-Due to the structure of the optical transfer function (OTF), the out
-of focus light is limited to low spatial frequencies.
-
-The modulated part of the non-uniformly illuminated image contains only
-information of the in-focus object structure:
+The contribution from out of focus light $I_\textrm{out}$ is limited
+to low spatial frequencies, i.e. $\tilde I_\textrm{out}(k_x,k_y)$ has
+small support. The modulated part of the non-uniformly illuminated
+image $I_n$ contains only information of the in-focus object
+structure:
 \begin{align}
 \label{eqn:In}
   I_n(x,y)&=I_\textrm{in}(x,y)(1+M
   \sin(\kappa x+\varphi))+I_\textrm{out}(x,y),\\
   \kappa&=\frac{2\pi}{\lambda}n\sin(\alpha)\nu.
 \end{align}
-The sectioned image is a combination of high-frequency components of
-the widefield image $I_u$ and the low-frequency components of the
-modulated part of the non-uniform image $I_n$.
-\subsubsection{Speckle}
+We can recover the sectioned image as a combination of high-frequency
+components of the widefield image $I_u$ and the low-frequency
+components of the modulated part of the non-uniform image $I_n$.
+\subsubsection{Using speckle pattern as non-uniform illumination (speckle method)}
 In the older publication (\cite{2008Lim}) a random speckle pattern is
-projected into the sample. For completeness I describe my
-reimplementation of their method.
+projected into the sample. For comparison with the other methods we
+describe a reimplementation of their method.
 
 In order to process the non-uniform image it is divided into
 subregions.  As a measure of local contrast in each of these
-subregions the relative standard deviation is calculated 
-(the operator $\avg{\cdot}$ indicates averaging):
+subregions the relative standard deviation $c$ is calculated (the
+operator $\avg{\cdot}$ indicates averaging over a pixel
+neighbourhood):
 \begin{align}
   c_n=\frac{\sqrt{\avg{I_n^2}-\avg{I_n}^2}}{\avg{I_n}}.
 \end{align}
@@ -223,59 +224,39 @@ without in-focus contributions. Its value increases as the modulation
 of the non-uniform illumination increases (that's what we
 want). However $c_n$ also increases if there is a small in-focus
 feature. In that we are not interested as we only want to build up an
-image of in-focus fluorophores with low spatial frequencies. To
-correct for that we refer to the most complicated part of the paper
-(in my opinion) -- its equation (4). I will repeat their argument
-here.
+image of in-focus fluorophores with low spatial frequencies. 
 
-Let $O$ be the image intensity obtained with perfectly uniform
-illumination and $S$ the image intensity for the non-uniform
-illumination a uniform object. Then the uniformly illuminated image of
-the object is:
-%FIXME Obviously I still don't understand it!
-\begin{align}
-  I_u\approx (\avg{O}+\delta O)\avg{S}.
-\end{align}
-Here the change of $I_u$ due to some object variations $\delta O$ can
-only come from in-focus contributions.
-
-\begin{align}
-\label{in}
-  I_n\approx (\avg{O}+\delta O)(\avg{S}+\delta S).
-\end{align}
-Here too, $\delta O$ and $\delta S$ come from the focus plane.
-
-The authors state that a corrected relative standard deviation
-of the non-uniform illumination can be calculated like this:
+The authors state that a corrected relative standard deviation $c_s$
+of the non-uniform illumination can be obtained by removing the
+standard deviation
+$c_0=\frac{\sqrt{\avg{I_u^2}-\avg{I_u}^2}}{\avg{I_u}}$ of the
+widefield image:
 \begin{align} 
   c_s^2=\frac{c_n^2-c_0^2}{1+c_0^2}
   =
   \frac{\avg{I_n^2}}{\avg{I_n}^2}
   \frac{\avg{I_u^2}}{\avg{I_u}^2}-1.
 \end{align}
-Where $c_0$ is the relative standard deviation of the widefield image
-$I_u$. The product $I_{su}=c_s\avg{I_u}$ then provides a low
-resolution version of $I_u$ that is optically sectioned even for dc
-frequencies.
+The product $I_{su}=c_s\avg{I_u}$ then provides a low resolution
+version of $I_u$ that is optically sectioned even for dc frequencies.
 
 The following listing shows how this algorithm can be applied to two
-square input images {\tt iu} and {\tt in}. Instead of doing a discrete
-integration over regions I multiply with a gaussian in Fourier
+input images {\sf iu} and {\sf in}. Instead of doing a discrete
+integration over regions we multiply with a gaussian in Fourier
 space. The cutoff frequency $k_c$ of the filter is chosen low enough
 so that $c_s$ doesn't contain any structure of the grating anymore.
 \begin{lstlisting}
-si=size(in);
-n=si(1);
-kc=0.04;
+si=size(in);   n=si(1);  % only square images
+kc=0.04;                 % filter cutoff
 r=rr(in,'freq');
-klp=exp(-r.^2/(2*kc^2));
-khp=1-klp;
+klp=exp(-r.^2/(2*kc^2)); % low pass
+khp=1-klp;               % high pass
 ina=ift(ft(in).*klp);
 in2a=ift(ft(in.^2).*klp);
 iua=ift(ft(iu).*klp);
 iu2a=ift(ft(iu.^2).*klp);
 cs2=in2a.*iua.^2./(ina.^2.*iu2a)-1;
-isu=sqrt(cs2).*iua;
+isu=sqrt(cs2).*iua;      % sectioned version of iu
 kihp=ft(iu).*khp;
 kilp=ft(isu).*klp;
 \end{lstlisting}
@@ -314,30 +295,32 @@ ihilo=ift(eta.*kilp+kihp);
 \begin{figure}[htb]
   \centering
   \subfigure[High frequency components $I_\textrm{hp}$ of widefield.]{\includegraphics[width=4cm]{../app_hilo/ihp}}
-  \subfigure[Combined images $\hat I_\textrm{hilo}$ in k-space.]{\includegraphics[width=4cm]{../app_hilo/kihilo}}
+  \subfigure[Combined images $\tilde I_\textrm{hilo}$ in k-space.]{\includegraphics[width=4cm]{../app_hilo/kihilo}}
   \subfigure[Combined section $I_\textrm{hilo}$.]{\label{fig:ihilo}\includegraphics[width=4cm]{../app_hilo/ihilo}}
-  \caption{Further intermediate and the end result of the HiLo ``speckle'' algorithm. The white circle in image {\bf (b)} marks $k_c$. The scalebars are \unit[2]{$\mu$m} wide.}
+  \caption{More intermediate and the end result of the HiLo
+    ``speckle'' algorithm. The white circle in image {\bf (b)} marks
+    the cutoff frequency $k_c$ of the spatial low pass filter. The
+    scalebars are \unit[2]{$\mu$m} wide.}
   \label{fig:hilo1interm2}
 \end{figure}
-%FIXME figure out unit of kc
 
 \subsubsection*{Discussion}
 This algorithm only requires that the illumination intensity in $I_n$
-fluctuates over a certain region. Probably one gets better results
-when the exact illumination pattern is known and taken into account.
-
-\subsubsection{Grating}
-The younger paper \cite{2009Santos} addresses this issue by using a
-defined pattern in the excitation illumination. Instead of random
-speckle a grating on a spatial light modulator is projected into the
-specimen (giving actually images that resemble the simulated images in
-this document).
+fluctuates over a certain region. The results somewhat resemble a
+sectioned image. The main advantage is that all the filtering could
+have been done in real space, without ever doing any Fourier
+transform.
+\subsubsection{Reconstructing the sample illuminated with a grating
+  pattern (ratio method)}
+The younger paper \cite{2009Santos} uses a more defined pattern in the
+excitation illumination than random speckle. A grating is projected
+into the specimen using a spatial light modulator.
 
 Starting from a widefield image $I_u$ and an image $I_n$ that has been
 illuminated with a grating they first determine the ratio $R=I_n/I_u$.
 With equations \eqref{eqn:Iu} and \eqref{eqn:In} defining the
-relationship between in-focus and out-of-focus light in both images it
-follows:
+relationship between in-focus and out of focus light in both images
+they obtain:
 \begin{align}
   R&=1+CM\sin(\kappa x+\varphi)),\\
   C&=\frac{I_\textrm{in}}{I_\textrm{in}-I_\textrm{out}}.
@@ -345,7 +328,7 @@ follows:
 Here $C$ is the local image contrast (containing information similar
 to $c_s$ in the HiLo ``speckle'' method) that is necessary to
 determine the low-resolution sectioned image. The Fouriertransform
-$\hat R$ (see \figref{fig:hatR}) of the ratio contains a peak in the
+$\tilde R$ (see \figref{fig:hatR}) of the ratio contains a peak in the
 center (due to the constant 1) and at least two more peaks ($\pm 1$
 order) on the $k_x$ axis. There are a strong $\pm 1$ order and a
 weaker $\pm 2$ order as a rectangular grating is imaged into the
@@ -361,9 +344,9 @@ low-resolution sectioned image.
 \begin{figure}[htb]
   \centering \subfigure[Ratio
   $R=I_n/I_u$.]{\includegraphics[width=4cm]{../app_hilo/ratio}}
-  \subfigure[Fouriertransform $\hat
+  \subfigure[Fouriertransform $\tilde
   R$.]{\label{fig:hatR}\includegraphics[width=4cm]{../app_hilo/ftratio}}
-  \subfigure[Filtered first order $\hat
+  \subfigure[Filtered first order $\tilde
   R^+$.]{\label{fig:hatR+}\includegraphics[width=4cm]{../app_hilo/filterftratio}}
   \caption{Intermediate results for the HiLo ``ratio'' algorithm. The scalebar in (a) is \unit[2]{$\mu$m} wide.}
   \label{fig:hilo2}
@@ -371,40 +354,32 @@ low-resolution sectioned image.
 
 The following listing shows the code for the algorithm:
 \begin{lstlisting}
-si=size(in);
-n=si(1);
-r=rr(in,'freq');
+si=size(in);   n=si(1);   r=rr(in,'freq');
 ratio=in./iu;
-ft(ratio)
 %% select R+ and construct isu
 filter=gaussf((xx(in,'freq')>0.1) & (xx(in,'freq')<0.27),4);
 ftratio=ft(ratio);
 cm=abs(ift(filter.*ftratio));
 isu=cm.*iu
-%% calculate low pass filtered low-res section
-kc=.07;
+kc=.07;          % calculate low pass filtered low-res section
 klp=exp(-r.^2/(2*kc^2));
 ilp=real(ift(klp.*ft(isu)))
-%% calculate high pass filtered high-res section
+% calculate high pass filtered high-res section
 ihp=real(ift((1-klp).*ft(iu)))
-%% construct the circle for integration in k-space
+% construct the circle for integration in k-space
 ring=abs(ft(besselj(0,2*pi*kc*n.*r)));
 ring2=r-1./n<kc & r+1./n>kc;
 cring=ring.*ring2;
 nring=cring./sum(abs(cring))
-%% do the integration
-eta=sum(abs(ft(ihp))/abs(ft(ilp)).*nring)
-%% combine section
-ihilo=eta.*ilp+ihp
+eta=sum(abs(ft(ihp))/abs(ft(ilp)).*nring) % integrate along circle
+ihilo=eta.*ilp+ihp                        % combined section
 \end{lstlisting}
-
-I chose the cutoff frequency $k_c$ high enough so that $I_\textrm{lp}$
-doesn't look too smooth but also low enough so that I don't loose too
-much information from the $I_\textrm{hp}$ image. The scale factor
-$\eta$ for $I_\textrm{lp}$ and $I_\textrm{hp}$ is calculated as in the
-previous section. Finally the combined sectioned image is displayed in
-\figref{fig:ihilo2}.
-
+We chose the cutoff frequency $k_c$ high enough so that
+$I_\textrm{lp}$ doesn't look too smooth but also low enough so that I
+don't loose too much information from the $I_\textrm{hp}$ image. The
+scale factor $\eta$ for $I_\textrm{lp}$ and $I_\textrm{hp}$ is
+calculated as in the previous section. Finally the combined sectioned
+image is displayed in \figref{fig:ihilo2}.
 \begin{figure}[htb]
   \centering
   \subfigure[$I_{su}$]{\label{fig:isu2}\includegraphics[width=4cm]{../app_hilo/isu2}}
@@ -421,27 +396,26 @@ introducing artifacts in the intermediate image $I_{su}$. That
 accounts for the better appearance of the result \figref{fig:ihilo2}
 compared to \figref{fig:ihilo} (at least for this particular grating).
 
-
 Another thing that comes to mind is that the calculation of the ratio
 isn't the only way to extract the modulated signal. Another approach
-would involve subtracting the widefield image and shifting in fourier
-space (discussion with Rainer Heintzmann). This will be discussed in
-the following section.
-\section{New Method}
+would involve subtracting the widefield image\footnote{Suggested by
+  R. Heintzmann.} and shifting in Fourier space. This will be
+discussed in the following section.
+\section{Alternative method (subtraction method)}
 Instead of using a non-hermitian filter to extract the modulated part
 of the non-uniformly illuminated image $I_n$ it is also possible to
-employ the Fourier shift theorem: A shift in real space is a
+employ the Fourier shift theorem: A shift in real space is 
 multiplication with a phase factor in k-space. 
 
-Lets say we have two images $f(\vect x)$ and $g(\vect x)$. The image
-$g$ contains the same information as $f$ but shifted by a vector
+Given two images in real space $f(\vect x)$ and $g(\vect x)$. The
+image $g$ contains the same information as $f$ but shifted by a vector
 $\vect a$. The theorem can be expressed like this:
 \begin{align}
   g(\vect x)=f(\vect x+\vect a)
   \quad
   \rightarrow
   \quad
-  \hat g(\vect k)=e^{i\vect k\vect a}\hat f(\vect k).
+  \tilde g(\vect k)=e^{i\vect k\vect a}\tilde f(\vect k).
 \end{align}
 One can find the shift by searching for the maximum $\vect x_0=\vect a$ in
 the cross-correlation $cov(\vect x)$:
@@ -449,14 +423,16 @@ the cross-correlation $cov(\vect x)$:
   cov(f,g)(\vect x)
   =\int f(\vect\chi) g(\vect x+\vect\chi) \textrm{d}\vect\chi
   =f(\vect x)\otimes g(-\vect x)
-  =FT^{-1}(\hat f(\vect k)\cdot\hat g^*(\vect k)).
+  =FT^{-1}(\tilde f(\vect k)\cdot\tilde g^*(\vect k)).
 \end{align}
-First $I_u$ is subtracted from $I_n$ in order to suppress the zero
-order. The following code integrates over a circle on the zero order
-to find a constant {\tt kappa} to scale $I_u$ with. Furthermore the
+First the uniform image $I_u$ is subtracted from the image with the
+grating $I_n$ in order to suppress the zero order. The following code
+integrates over a circle around the origin in k-space to find a
+constant {\sf kappa} to scale $I_u$ with. Furthermore the
 Fouriertransform of the images is divided by the OTF in order to
-correct for the non-constant frequency transfer in the micro objective.
-
+correct for the non-constant frequency transfer in the micro
+objective\footnote{Note that for this to work with real noisy data a
+  Wiener filter would be necessary.}
 \begin{lstlisting}
 kin=ft(in);
 kiu=ft(iu);
@@ -474,14 +450,14 @@ ackiu=abs(ckiu).*(rr(ackiu,'freq')<.16 | abs(xx(ackiu,'freq'))<.06);
 \end{lstlisting}
 The Fouriertransform of the OTF-corrected non-uniform image is shown
 in \figref{fig:ackin}. It still contains the $\pm1$ orders. In order
-to measure their exact position (depending on grating period {\tt P})
-the ``interesting'' bit of the widefield k-space is selected (in
-variable {\tt ackiu}) and cross-correlated with {\tt ackin}.
+to measure their exact position (depending on grating period {\sf P})
+the zero order of the widefield k-space is selected (in variable {\sf
+  ackiu}) and cross-correlated with {\sf ackin}.
 
 \begin{figure}[htb]
-  \centering \subfigure[{\tt
+  \centering \subfigure[{\sf
     ackin}]{\label{fig:ackin}\includegraphics[width=6cm]{../app_hilo/ackin}}
-  \subfigure[{\tt
+  \subfigure[{\sf
     ackiu}]{\label{fig:ackiu}\includegraphics[width=6cm]{../app_hilo/ackiu}}
   \subfigure[Cross correlation
   $cov$.]{\label{fig:cov}\includegraphics[width=6cm]{../app_hilo/cov}}
@@ -491,19 +467,20 @@ variable {\tt ackiu}) and cross-correlated with {\tt ackin}.
   \caption{Intermediate results for our HiLo ``shift'' algorithm.}
   \label{fig:hilo3}
 \end{figure}
-
 In order to locate the maximum in the cross-correlation with a high
 enough accuracy the convolution is done on a finer grid by
 zero-padding the input images as shown in the following listing: 
 \begin{lstlisting}
 kcov=ft(ackin).*conj(ft(ackiu));
-kcov_big=newim(512,512)+i-i; % subsample the correlation by zero padding
+% subsample the correlation by zero padding
+kcov_big=newim(512,512)+i-i; % allocate complex array
 st=256-64; w=127; en=st+w;
 kcov_big(st:en,st:en)=kcov;
 cov=abs(ift(kcov_big)); % this contains the cross correlation
 \end{lstlisting}
-The $512\times512$ image {\tt cov} is shown in \figref{fig:cov} and
-\figref{fig:cov3d}. The next listing is the code to locate the center of gravity of the nine points on top of the right peak:
+The $512\times512$ image {\sf cov} is shown in \figref{fig:cov} and
+\figref{fig:cov3d}. The next listing is the code to locate the center
+of gravity of the nine points on top of the right peak:
 \begin{lstlisting}
 %% find maximum on the right of the correlation
 startx=75*4;
@@ -515,15 +492,14 @@ region=region-min(region);
 cm=[sum(xx(region).*region),sum(yy(region).*region)];
 shift=(pos+cm-[256,256])/4 % divide by 4 to undo subsampling
 \end{lstlisting}
-For the example the displacement {\tt shift} is $(21.25,0)$ relative
+For the example the displacement {\sf shift} is $(21.25,0)$ relative
 to the center of the $128\times128$ image.
-
 \begin{figure}[htb]
-  \centering \subfigure[ $\hat
+  \centering \subfigure[ $\tilde
   q_s$.]{\label{fig:kqs}\includegraphics[width=4cm]{../app_hilo/kqs}}
-  \subfigure[$\hat q_s$ with low-pass
+  \subfigure[$\tilde q_s$ with low-pass
   applied.]{\label{fig:kqslp}\includegraphics[width=4cm]{../app_hilo/kqslp}}
-  \subfigure[$\hat
+  \subfigure[$\tilde
   I_\textrm{hp}$]{\label{fig:kihp3}\includegraphics[width=4cm]{../app_hilo/kihp3}}
   \caption{The Fouriertransform of the shifted zero-order-suppressed
     non-uniform image $q_s$ with (a) and without (b) low-pass filter
@@ -532,14 +508,13 @@ to the center of the $128\times128$ image.
     (c) are not logarithmic.}
   \label{fig:hilo3_2}
 \end{figure}
-
-The following listing shows how the image is non-uniform image is
-shifted in k-space so that the first order becomes dc. This result
-$\hat q_s$ is shown in \figref{fig:kqs}.
+The following listing shows how the non-uniform image is shifted in
+k-space so that the first order becomes dc. The result $\tilde q_s$
+is shown in \figref{fig:kqs}.
 \begin{lstlisting}
 %% multiply by this in object space to shift +1 order into middle
-doshift=exp(-i*2*pi*(xx(ckin,'freq').*shift(1)+yy(ckin,'freq').*shift(2)));
-%%
+doshift=exp(-i*2*pi*(xx(ckin,'freq').*shift(1)+...
+        yy(ckin,'freq').*shift(2)));
 kc=0.052;
 r=rr(ckin,'freq');
 klp=exp(-r.^2/(2*kc^2)); % low pass filter in k-space
@@ -559,9 +534,9 @@ ihilo3=2.*cm+ihp; % don't use eta
 The calculation of $\eta$ gives the value $1.16$. It turns out that
 the reconstructed slice (\figref{fig:ihilo3}) looks better with a
 value of $\eta=2$. This makes sense as the grating reduces the
-illumination power by this factor. 
+illumination power approximately by this factor.
 \begin{figure}[htb]
-  \centering \subfigure[ {\tt
+  \centering \subfigure[ {\sf
     cm}]{\label{fig:cm}\includegraphics[width=4cm]{../app_hilo/cm}}
   \subfigure[$I_\textrm{hp}$]{\label{fig:ihp}\includegraphics[width=4cm]{../app_hilo/ihp3}}
   \subfigure[$I_\textrm{hilo}$]{\label{fig:ihilo3}\includegraphics[width=4cm]{../app_hilo/ihilo3}}
@@ -570,7 +545,4 @@ illumination power by this factor.
   \label{fig:hilo3_3}
 \end{figure}
 
-\section{Acknowledgements}
-I thank Rainer Heintzmann and Kai Wicker for fruitfull discussions
-on k-space.
 
