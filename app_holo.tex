@@ -1,170 +1,191 @@
 % calibration of heo /mnt/backup/safe-with-time/torben/safed/y2009/0512
 % measurement double plane /mnt/backup/safe-with-time/torben/safed/0525
+% talk /mnt/backup/safe-with-time/torben/safed/0321/talk
 \chapter{Holographic approach to spatio-angular illumination}
-
-
-A system is constructed for doing angular and spatially controlled illumination. It is based on a phase only spatial light modulator that is used to steer a coherent laser beam.
+\begin{summary}
+  Here we present an alternative system for spatio-angular control. It
+  is based on a single phase-only LCoS.
+\end{summary}
 
 \section{Introduction}
-In the MEMI project a system will be built that contains two separate
-display devices (a micro mirror array (MMA) and a ferroelectric liquid
-crystal on silicon display (FLCOS)). Both of these displays have to be
-used in a pulsed mode. The FLCOS is driven with a 2kHz alternating
-voltage and a lot of care is taken that the duty cycle is exactly 50\%
-as a net current would destroy the liquid crystal cell. The voltage
-that tilts the MMA mirrors is stored as a charge in capacitors on its
-CMOS backplane. The capacitors discharge over time. To maintain a
-constant angle the mirrors have to be constantly refreshed.
+In this part we describe a very different approach that simplifies the
+setup considerably.
 
-In this report we describe a very different approach that simplifies
-the setup considerably.
+\begin{figure}[!hbt]
+  \centering
+  \input{holo-setup3.eps_tex}
+  \includegraphics[height=1cm]{hologram-disk}
+  \caption{Schematic of the holographic spatio-angular microscope. A
+    phase only LCoS in the intermediate image plane displays a grating
+    and steers the first order into the back focal plane of the
+    objective. Period and orientation define the angle of the
+    illumination in the sample. Shape and contrast of the grating
+    define the illuminated area and intensity of the illumination.}
+  \label{fig:holo-setup3}
+\end{figure}
 
-\includegraphics[width=12cm]{holo-setup}
-
-The above image shows a sketch of the setup. A holographic grating is
-positioned in the intermediate image plane. First consider what
-happens if we replace the grating with a mirror: the reflected
-(zero-order) light won't reach the objective as it is blocked in the
-back focal plane.
+\figref{fig:holo-setup3} shows a schematic of the setup. The main
+component is a phase-only spatial light modulator in the intermediate
+image plane. When nothing is displayed on the spatial light modulator,
+it will reflect the gaussian laser beam into a beam dump.
 
 \section{Description of the holographic method}
-The direction and periodicity of a holographic blazed grating can now
-be chosen so, that the first order is steered into any position on the
-back focal plane. In the sketch the grating directs the first order
-into the centre of the back focal plane. Accordingly the region that
-contains the (demagnified) grating will be illuminated with parallel
-light. Decreasing the size of the grating will decrease the size of
-the illuminated area in the object. Note that a grating of very small
-size will make a broad order in the back focal plane, limiting the
-possible angular control.
-\section{Description of the experimental setup}
+The spatial light modulator is then programmed to display a phase
+grating.  The direction and periodicity of a grating can be chosen
+such, that the first order is steered into any position on the back
+focal plane. In the sketch the grating directs the first order into
+the periphery of the back focal plane. Accordingly the region that
+contains the (demagnified) grating will be illuminated with an
+off-axis parallel beam of light. Decreasing the size of the grating will
+decrease the size of the illuminated area in the object. Note that a
+grating of very small size will make a broad order in the back focal
+plane, limiting the possible angular control.
+\subsection{Description of the experimental setup}
 We use a HEO 1080 P High-Resolution LCOS Phase Only Spatial Light
 Modulator (Holoeye, Berlin, Germany) to control the phase in the
-intermediate plane. The illumination is a 473 nm diode laser. It is
-coupled into a polarization maintaining fiber and collimated by a 150
-mm lens with 50 mm diameter.
+intermediate plane. The light source is a \unit[473]{nm} DPSS diode
+laser. It is coupled into a polarization maintaining fiber and
+collimated by a \unit[150]{mm} lens with \unit[50]{mm} diameter.
 
-The tube lens has 300 mm diameter and the objective is a 63x/NA 1.4
-with oil immersion.  For aligning the optical system a sequence of
-device filling gratings was displayed at 60Hz. The parameters of the
-grating were chosen so that the point describes a circle in the back
-focal plane. It was then possible to align the LCOS angle so that the
-parallel beams leave the objective at the same angle relative to the
-optical axis.
+The tube lens has \unit[300]{mm} diameter and the objective is a
+$63\times/1.4$ with oil immersion.  For aligning the optical system a
+sequence of device filling gratings was displayed at 60Hz. The
+parameters of the grating were chosen so that the point describes a
+circle in the back focal plane. It was then possible to align the LCOS
+angle so that the parallel beams leave the objective at the same angle
+relative to the optical axis.
 
-\section{Description of the sample}
+As the phase-only SLM never displays perfect blazed gratings, we
+prevent higher orders than the $1^\textrm{st}$ from entering the back
+focal plane.
+
+\subsection{Description of the sample}
 To show that the illumination angle of the light was indeed adjustable
-a special sample was constructed. A slide and a cover slip were coated
-with a thin layer of fluorophore. The air gap between was
-approximately five micrometers.
+a test sample was constructed. A slide and a cover slip were coated
+with a thin fluorescent plane. The air gap between was approximately
+five micrometers.
 
 Imaging the fluorphore plane on the slide resulted in a haze of
-background fluorescence stemming from the cover slip. Changing the
-illumination angle resulted in a rotation of this haze as one would
-expect. The numbers in the following image are the azimuth of the
-illumination angle in degree.
+background fluorescence stemming from the cover slip (see
+\figref{fig:holo-meas}). Changing the illumination angle resulted in a
+rotation of this haze as one would expect.
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{haze}
+  \caption{The numbers in the following image give the azimuth of the
+    illumination angle in degree.}
+  \label{fig:holo-meas}
+\end{figure}
 
-\includegraphics[width=12cm]{haze}
+\section{ Characterization of the phase-only spatial light modulator}
+\begin{summary}
+  Here We measure the correspondance between gray values and phase
+  difference on the Holoeye HEO 1080P spatial light modulator. 
+\end{summary}
+We use approximately the same setup as given in the Manual
+\citep{Holoeye2006}.
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=16cm]{sketch}
+  \caption{Setup for calibrating the transfer function of the phase
+    SLM. We will establish, which gray values correspond to what phase
+    delay. The light from a polarization maintaining single mode fibre
+    is circularly polarized and a polarizer is then used to select the
+    optimum polarization direction. The Fraunhofer diffraction pattern
+    of light, which has been reflected from the device, is captured
+    with a fast camera. The display's cable would come out at the top,
+    perpendicular to the paper plane.}
+  \label{fig:holo-calib}
+\end{figure}
+The SLM is illuminated with a parallel linearly polarized wave
+front. The plane of vibration of the electric field is in the paper
+plane.
 
-\section{Conclusion}
-With our prototype system we showed that it is feasible to use the
-phase only SLM to do angular and spatial illumination. Further work
-would be necessary to optimize the grating fine structure so that more
-light is directed towards the first order (blazing). Compared to the
-MEMI system a lot less synchronization issues are involved. But note
-that this technique is only possible with coherent
-illumination. Furthermore there is no inherent advantage in the method
-that is described in this report as light from dark areas is sent into
-a beam stop as in the MEMI system.
+The SLM displays two vertical bars. The left bar shows black (0) and
+the upper bar displays a gray value that is varyied for the
+measurement.  The beam has a circular shape and a (sufficiently)
+constant intensity distribution. The beam is centered on the line
+between the two bars of different phase.  In contrast to the
+measurement setup in the manual we did not place an analyzer between
+display and camera.
+\subsection{Numerical simulation}
+The minima of the diffraction pattern in the Fourier plane (on the
+camera) move proportional to the phase difference between the two
+parts of the display (see \figref{fig:holo-theory}).
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=12cm]{theory}
+  \caption{Theoretical simulation of the Fraunhofer diffraction
+    pattern for varying phase difference between the two sides of the
+    display.}
+  \label{fig:holo-theory}
+\end{figure}
+For the simulation we calculated the Fourier transform of a phase
+image with a geometry as shown in the top left image in
+\figref{fig:holo-theory}.  The three images on the right show the
+Fraunhofer diffraction patterns of this (reflective) phase image for
+three different values of the phase difference between the half
+circles. The position of the minimum changes proportionally to the
+phase difference. Therefor we can measure the position of the extrema
+to determine the relationship between gray value and phase difference
+(the device's transfer function).
 
-Its probably possible to build a system using a kinoform element (two
-phase holograms in different positions). This would allow to redirect
-light from dark areas into bright areas leading to a much more
-efficient system.
-
-\section{ Characterization of phase-only spatial light modulator}
-\section{Introduction}
-\label{sec-1}
-
-I measure the correspondance between gray values and phase difference
-on the Holoeye HEO 1080P spatial light modulator. I use approximately
-the same setup as given in the Manual (page 9/13, Application Note,
-HDTV Phase Panel Devloper Kit, rev 4, 5. May 2006). A sketch of the
-setup is shown in the following figure:
-
-\centerline{\includegraphics[width=16cm]{sketch}}
-
-
-The SLM is illuminated with a plane linear polarized wave. The plane
-of polarization lies in the paper plane. The orientation of the SLM is
-such that the cable comes out on the top of the device (perpendicular to
-paper plane).
-
-The SLM displays two vertical bars. The left bar (in the bottom of the
-sketch) shows black and the upper bar displays a gray value that is
-varyied for the measurement.
-The beam has a circular shape and a (sufficiently) constant intensity
-distribution. The beam is centered on the line between the two bars
-of different phase.
-In contrast to the measurement setup in the manual I did not put an
-analyzer in front of the camera.
-
-\section{Numerical simulation}
-\label{sec-2}
-
-Another difference of my setup is that I don't employ a mask to get
-two circular beams on the SLM. However minima of the diffraction
-pattern in the fourier plane (on the camera) still move proportional
-to the phase difference between the two beams as the following
-simulation proves:
-
-
-\centerline{\includegraphics[width=12cm]{theory}}
-
-
-For the simulation I calculated the Fourier transform of a phase image
-with a geometry as shown in the top left picture.  The three images on
-the right show the Fraunhofer diffraction patterns of this
-(reflective) phase image for three different values of the phase
-difference between the half circles. The position of the minimum
-changes proportionally to the phase difference. So I can measure the
-position of the extrema to do determine the relationship between gray
-value and phase difference.
-
-\section{Measurement}
-\label{sec-3}
-
-
-The result of this measurement (horizontal section through center of
-the Fourier pattern against gray value) is shown in the top of the
-following figure.
-
-\centerline{\includegraphics[width=16cm]{measure}}
-
-
+\subsection{Measurement}
+The result of this measurement is shown in the top of
+\figref{fig:holo-transfer}
+(horizontal section through center of
+the Fourier pattern against gray value)
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=16cm]{measure}
+  \caption{{\bf top:} horizontal sections through the Fraunhofer
+    diffraction pattern on the camera are plotted as columns. The
+    displayed gray value is plotted as the x-axis. {\bf bottom:} Time
+    variation of the phase, when a constant value of 170 is shown. The
+    phase fluctuates considerably.}
+  \label{fig:holo-transfer}
+\end{figure}
 The measurement shows that a phase difference of $2\pi$ can be induced
-for a sufficiently high gray value. However for the top image shows
-significant noise. There are jumps in the data that amount to several
-10 gray values. As it turns out this isn't noise but the phase
-difference is time dependent.
+for a sufficiently high gray value. However we observe significant
+noise for the phase measurements.  There are jumps in the data that
+amount to several 10 gray values. As it turns out this isn't noise but
+the phase difference is time dependent.
 
 To analyse this effect further a fast camera (mvBlueFox 102G, 2400 Hz,
 $200\times4$ region of interest, $\unit[ 6]{\mu m}$ pixel size) was
 used to image the Fourier pattern with a high time resolution.  The
-bottom image displays 1000 horizontal line sections over center of the
-Fourier plane. In the beginning both half circles were displaying a
-gray value of zero. Then the right half circle was suddenly set
-to 170. The transient occurs quite fast but then there is a waveform
-with 5 peaks that repeats with 50 Hz (the refresh rate of the
-display).
-
-
-\section{Conclusion}
-\label{sec-4}
+bottom image in \figref{fig:holo-transfer} displays 1000 horizontal
+line sections over the center of the Fourier plane. In the beginning
+both half circles were displaying a gray value of zero. Then the right
+half circle was suddenly set to 170. The transient occurs quite fast
+but then there is a waveform with 5 peaks that repeats with 50 Hz (the
+refresh rate of the display).
 
 The measurement suggests that the phase difference of the Holoeye SLM
 is varying significantly over time. In order to improve the
-performance for displaying computer generated holograms it will be
-necessary to employ a pulsed laser source that is flashing in sync with
-the video frame rate.
+performance for displaying computer generated holograms we could
+trigger the laser only for a short time before a new frame will be
+displayed.
+
+From other experiments we know that there is also cross talk between
+the pixels, i.e. if a fine grating is displayed, the displayed phase
+contrast is lower than for a coarser grating.
+\section{Conclusion}
+With our prototype system we showed that it is possible to use the
+phase-only SLM to do angular and spatial control of the
+illumination. Further work would be necessary to optimize the grating
+fine structure so that more light is directed towards the first order
+(blazing).
+
+Compared to the MEMI system a lot less synchronization between devices
+needs to be done. Note however, that this technique is only possible
+with coherent illumination. Furthermore there is no inherent advantage
+in the holographic method as light from dark areas is sent into a beam
+stop and is lost as in the MEMI system.
+
+It might be possible to build a system using a kinoform element (two
+phase holograms in different positions). This would allow to redirect
+light from dark areas into bright areas leading to a much more
+efficient system. But a different display device with less cross talk
+and fluctuations would be advisable for this.
 
