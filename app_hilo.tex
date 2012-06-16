@@ -7,7 +7,7 @@
 	tabsize=4,
 	rulecolor=,
 	language=matlab,
-        basicstyle=\scriptsize,
+        basicstyle=\sffamily\footnotesize, %\scriptsize,
         upquote=true,
         aboveskip={1.5\baselineskip},
         columns=fixed,
@@ -20,7 +20,7 @@
         showtabs=false,
         showspaces=false,
         showstringspaces=false,
-        identifierstyle=\ttfamily,
+        identifierstyle=\sffamily,
         keywordstyle=\color[rgb]{0,0,1},
         commentstyle=\color[rgb]{0.133,0.545,0.133},
         stringstyle=\color[rgb]{0.627,0.126,0.1},
@@ -29,122 +29,102 @@
 
 \chapter{Implementation of a robust structured illumination
   reconstruction technique}
-
-\section{On the numerical test sample}
-
-
-As a test object I create a sphere shell, a line and a rectangle.
-That is shown in the following code.  The objective is a NA1.4 oil
-with coherent \unit[473]{nm} excitation light and detection is at
-\unit[520]{nm} (incoherent).
+\begin{summary}
+  We implement a robust technique to computationally recover sectioned
+  images from only two structured illumination image and propose a
+  modification of the algorithm that may be beneficial if gratings are
+  produced with a spatial light modulator.
+\end{summary}
+\section{Simulated image acquisition}
+As a test object we create a thick sphere shell, a line and a
+rectangle. The sphere shell will provide out of focus light, which we
+then try to remove. The objective is a NA1.4 oil with coherent
+\unit[473]{nm} excitation light and incoherent detection at
+\unit[520]{nm}.
 
 The following listing shows how the image of the grating for
-non-uniform excitation is calculated. The z-section of the result is
+structured excitation is calculated. The z-section of the result is
 shown in \figref{fig:grating}. The illumination source is coherent
-therefore the grating structure is visible over quite a large
-z-distance (due to the reimaging by the Talbot effect).
-
-
+therefor the grating structure is repeated over nearly $\unit[6]{\mu
+  m}$ in $z$ (Talbot effect).
 \begin{lstlisting}
 n=128;
-nmperpixel=100;
+nmperpixel=100; % one pixel is corresponds to 100nm
 sz=2;
 NA=1.4;
 znmperpixel=sz*nmperpixel;
-%% vector psf for excitation illumination
+%% vector amplitude point spread function for excitation
 asf=squeeze(kSimPSF({'lambdaEx',473;'na',NA;'ri',1.518;...
     'sX',n;'sY',n;'sZ',sz*n;...
     'scaleX',nmperpixel;'scaleY',nmperpixel;'scaleZ',znmperpixel;...
     'computeASF',1}));
-
-
-%% grating of period P
-% one pixel is 100nm so the period is P*100nm
-P=6;
+P=6; % grating period
 grat2d=(mod(xx(n,n),P)>(floor(P/2)-1))*1000;
-%% fill a 3d grating
-grat=newim(n,n,sz*n);
+grat=newim(n,n,sz*n); % copy the 2D grating into middle of volume
 grat(:,:,(sz*n)/2)=grat2d(:,:);
 kgrat=ft(grat);
-
-%% coherent imaging
-imgratx=ift(kgrat.*ft(squeeze(asf(:,:,:,0))));
-imgraty=ift(kgrat.*ft(squeeze(asf(:,:,:,1))));
-imgratz=ift(kgrat.*ft(squeeze(asf(:,:,:,2))));
+imgratx=ift(kgrat.*ft(squeeze(asf(:,:,:,0)))); % field components
+imgraty=ift(kgrat.*ft(squeeze(asf(:,:,:,1)))); % in sample for
+imgratz=ift(kgrat.*ft(squeeze(asf(:,:,:,2)))); % coherent image
+% intensity distribution in sample space:
 imgrat=abs(imgratx).^2+abs(imgraty).^2+abs(imgratz).^2
 \end{lstlisting}
-
 \begin{figure}[htb]
   \centering
   \includegraphics{../app_hilo/grating_xz}
-
-  \caption{x-z-Section {\tt imgrat(:,64,:)} of the coherent
-    image of the grating in object space.}
+  \caption{$x-z-$Section of the intensity distribution {\tt
+      imgrat(:,64,:)} of the coherent image of the grating in sample
+    space.}
   \label{fig:grating}
 \end{figure}
+The following listing shows how the sample object, i.e. fluorophore
+concentration, is generated.  The spherical shell is calculated as the
+product of two Sinc functions in k-space and a product with $r$ in
+real space. There is also a vertical line and a rectangle. A slice
+through the simulated fluorophore concentration is shown
+\figref{fig:input} left. Note that the sphere is very faint but it is
+the only of the three objects that is extended in $z$.
 
-The following listing shows how the sample object (i.e. fluorophore
-concentration) is generated.  It consists of a spherical shell
-(calculated by the product of two Sinc functions in k-space and a
-product with $r$ in real space). There is also a vertical line and a
-rectangle. A slice through the simulated fluorophore concentration is
-shown \figref{fig:input} left.
-
-The shift by {\tt dz} in z-direction is done by multiplication with
-$\exp(-ik{\tt dz})$ in k-space. This is only a good method to defocus
-small distances {\tt dz} as the object will wrap around the borders.
+The shift by {\sf dz} in $z-$direction is done by multiplication with
+$\exp(-ik{\sf dz})$ in k-space. This is only a good method to defocus
+small distances {\sf dz} as the object will wrap around the borders.
 
 \begin{lstlisting}
-%% as an object I want a hollow sphere
-% I define it in k-space
-kobj=sinc(rr(kpsf)./2).*sinc(rr(kpsf)./0.7);
-
-% this is the sphere
-obj=rr(psf).*abs(ift(kobj));
+%% hollow sphere
+kobj=sinc(rr(kpsf)./2).*sinc(rr(kpsf)./0.7); % in k-space
+obj=rr(psf).*abs(ift(kobj)); % this is the sphere
 maximum=max(obj);
-% in-focus rectangle in right top
-obj(83:114,23:43,(sz*n)/2)=4*maximum;
-% in-focus line on the left
-obj(21:21,40:90,(sz*n)/2)=12*maximum;
-
-%% shift the object a little bit in z
-kobj=ft(obj);
+obj(83:114,23:43,(sz*n)/2)=4*maximum; % rectangle in-focus rig ht top
+obj(21:21,40:90,(sz*n)/2)=12*maximum; % in-focus line on the left
+kobj=ft(obj); % shift the object a little bit in z
 dz=1; % shift in pixels -> 1 equals 100nm
 kobj=kobj.*exp(-i*2*pi*zz(kobj,'freq')*dz);
 obj=ift(kobj);
 \end{lstlisting}
 
 In order to simulate the final image the fluorophore concentration is
-multiplied by the excitation field and the result is convolved with
-the PSF of the microobjective (this time according to the rules of
-incoherent imaging). The Matlab code for this is shown in the
-following listing:
+multiplied by the excitation intensity and the result is convolved
+with the detection point spread function (PSF)
+\nomenclature{PSF}{point spread function} \nomenclature{OTF}{optical
+  transfer function} of the microobjective (this time according to the
+rules of incoherent imaging).
 \begin{lstlisting}
 %% for imaging the fluorescence light
 psf=kSimPSF({'lambdaEx',473;'lambdaEm',520;'na',1.4;'ri',1.518;...
-        'sX',n;'sY',n;'sZ',sz*n;...
-        'scaleX',nmperpixel;'scaleY',nmperpixel;'scaleZ',znmperpixel});
-%% ft thereof
-kpsf=ft(psf);
-%% excited fluorophores
-fluo=obj.*imgrat;
-
-%% fluorescence image with structured illumination
-strucflimg=ift(ft(fluo).*kpsf);
-
-%% widefield fluorescence image
-flimg=ift(ft(obj).*kpsf);
-
+        'sX',n;'sY',n;'sZ',sz*n;'scaleX',nmperpixel;...
+        'scaleY',nmperpixel;'scaleZ',znmperpixel});
+kpsf=ft(psf); % otf
+fluo=obj.*imgrat; % excited fluorophores
+strucflimg=ift(ft(fluo).*kpsf); % fluorescence image with 
+                                % structured illumination
+flimg=ift(ft(obj).*kpsf);       % widefield fluorescence image
 %% extract focal planes
 iu=real(squeeze(flimg(:,:,(sz*n)/2)));     % uniform illumination
 in=real(squeeze(strucflimg(:,:,(sz*n)/2)));% structured illumination
 \end{lstlisting}
-
-
-The image for uniform illumination is shown in
-the middle of \figref{fig:input}. The right picture shows the image
-for non-uniform illumination with the \unit[600]{nm}-period grid.
-
+The image for uniform illumination is shown in the middle of
+\figref{fig:input}. The right picture shows the image for non-uniform
+illumination with the \unit[600]{nm}-period grating.
 \begin{figure}[htb]
   \centering
   \subfigure[object]{\includegraphics[width=4cm]{../app_hilo/obj}}
@@ -158,11 +138,10 @@ for non-uniform illumination with the \unit[600]{nm}-period grid.
     \unit[2]{$\mu$m} wide. }
   \label{fig:input}
 \end{figure}
-
 \figref{fig:defocus} shows the non-uniformly illuminated images for
 the object being moved relative to the plane of focus. The line and
 the rectangle are both blurred and the contrast of the grating
-decreases.
+decreases. One can still see the image of the grating in the sphere.
 \begin{figure}[htb]
   \centering
   \subfigure[100 nm defocus]{\includegraphics[width=4cm]{../app_hilo/in100}}
@@ -173,50 +152,48 @@ decreases.
     \unit[2]{$\mu$m} wide.}
   \label{fig:defocus}
 \end{figure}
-
-
-\section{State of the Art}
+\section{Fundamentals of structured illumination}
 If a fluorescent plane is imaged with a fluorescence widefield
 microscope, the intensity of the image is constant no matter if the
-plane is in-focus or not. 
+plane is in focus or not (missing cone problem). 
 \subsection{Apotome}
-Using non-uniform excitation light the Wilson group was able to
-circumvent this problem (\cite{1997Neil}). They project a grid pattern
-into the sample. For a fluorescent plane sample the modulation in the
-image is highest, when the sample is in-focus. If the plane is moved
-out of focus, the modulation decreases. Hence it is possible to achieve
-z-sectioning in a widefield microscope.
+Using non-uniform excitation light \cite{1997Neil} circumvents this
+problem. They project a grid pattern into the sample. For a
+fluorescent plane sample the modulation in the image is highest, when
+the sample is in focus. If the plane is moved out of focus, the
+modulation decreases. Hence it is possible to achieve z-sectioning in
+a widefield microscope.
 
 For one section $I_p$ they combine three grating images $I_i$ (grating
 period $1/\nu$) with different phases:
 \begin{align}
   I_p=\abs{I_1+I_2e^{i2\pi/3}+I_3e^{i4\pi/3}}
-  \sim\abs{ 2 \frac{J_1(2u\nu(1-\nu/2))}{u\nu(1-\nu/2)}}.
+  \sim\left| 2 \frac{J_1(2u\nu(1-\nu/2))}{u\nu(1-\nu/2)}\right|.
 \end{align}
 
 The last term is their result for the intensity of a fluorescent plane
 with the defocus $u$. If no grating is displayed ($\nu=0$) the
 resulting image $I_p$ is constant and the microscope has no sectioning
-capability. A fine grating gives best sectioning capability (but one
-has to make a tradeoff as a fine grating will give very low contrast
-in a thick specimen).
+capability. A fine grating gives best sectioning capability. However
+sometimes there is also a tradeof to be made because a fine grating
+will give very low contrast in a thick specimen.
 
-For this method is necessary to capture three images to generate one
-sectioned slice. This can be a problem if the movement of the grating
-isn't perfect or if the object moves during these exposures.
-
+For their reconstruction method it is necessary to capture three
+images to generate one sectioned slice. This can be a problem if the
+movement of the grating isn't perfect or if the object moves during
+these exposures.
 \subsection{HiLo}
-This problem is addressed by Jerome Mertz et al.\ (\cite{2008Lim},
-\cite{2009Santos}). They discovered that only two images need to be
-captured for each z-sectioned slice.
-An image with uniform illumination contains contributions
-of both in-focus and out-of-focus fluorophores:
+This problem is addressed by \cite{2008Lim} and
+\cite{2009Santos}. They describe an approach, where only two images
+need to be captured for each $z-$sectioned slice.  An image with
+uniform illumination contains contributions of both in-focus and out
+of focus fluorophores:
 \begin{align}
 \label{eqn:Iu}
   I_u(x,y)=I_\textrm{in}(x,y)+I_\textrm{out}(x,y).
 \end{align}
-Due to the structure of the OTF out-of-focus light is limited to low
-spatial frequencies.
+Due to the structure of the optical transfer function (OTF), the out
+of focus light is limited to low spatial frequencies.
 
 The modulated part of the non-uniformly illuminated image contains only
 information of the in-focus object structure:
@@ -226,17 +203,13 @@ information of the in-focus object structure:
   \sin(\kappa x+\varphi))+I_\textrm{out}(x,y),\\
   \kappa&=\frac{2\pi}{\lambda}n\sin(\alpha)\nu.
 \end{align}
-
 The sectioned image is a combination of high-frequency components of
 the widefield image $I_u$ and the low-frequency components of the
 modulated part of the non-uniform image $I_n$.
-
-
 \subsubsection{Speckle}
 In the older publication (\cite{2008Lim}) a random speckle pattern is
-projected into the sample (presumably because this is experimentally
-easier than projecting a grating). For completeness I describe my
-reimplementation of their method. 
+projected into the sample. For completeness I describe my
+reimplementation of their method.
 
 In order to process the non-uniform image it is divided into
 subregions.  As a measure of local contrast in each of these
