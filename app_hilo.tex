@@ -206,7 +206,7 @@ structure:
 We can recover the sectioned image as a combination of high-frequency
 components of the widefield image $I_u$ and the low-frequency
 components of the modulated part of the non-uniform image $I_n$.
-\subsubsection{Using speckle pattern as non-uniform illumination (speckle method)}
+\subsubsection{Using speckle pattern as non-uniform illumination (local variance estimatinon)}
 In the older publication (\cite{2008Lim}) a random speckle pattern is
 projected into the sample. For comparison with the other methods we
 describe a reimplementation of their method.
@@ -297,10 +297,10 @@ ihilo=ift(eta.*kilp+kihp);
   \subfigure[High frequency components $I_\textrm{hp}$ of widefield.]{\includegraphics[width=4cm]{../app_hilo/ihp}}
   \subfigure[Combined images $\tilde I_\textrm{hilo}$ in k-space.]{\includegraphics[width=4cm]{../app_hilo/kihilo}}
   \subfigure[Combined section $I_\textrm{hilo}$.]{\label{fig:ihilo}\includegraphics[width=4cm]{../app_hilo/ihilo}}
-  \caption{More intermediate and the end result of the HiLo
-    ``speckle'' algorithm. The white circle in image {\bf (b)} marks
-    the cutoff frequency $k_c$ of the spatial low pass filter. The
-    scalebars are \unit[2]{$\mu$m} wide.}
+  \caption{More intermediate and the end result of the HiLo local
+    variance estimation algorithm. The white circle in image {\bf (b)}
+    marks the cutoff frequency $k_c$ of the spatial low pass
+    filter. The scalebars are \unit[2]{$\mu$m} wide.}
   \label{fig:hilo1interm2}
 \end{figure}
 
@@ -311,7 +311,7 @@ sectioned image. The main advantage is that all the filtering could
 have been done in real space, without ever doing any Fourier
 transform.
 \subsubsection{Reconstructing the sample illuminated with a grating
-  pattern (ratio method)}
+  pattern (single side-band demodulation)}
 The younger paper \cite{2009Santos} uses a more defined pattern in the
 excitation illumination than random speckle. A grating is projected
 into the specimen using a spatial light modulator.
@@ -348,7 +348,9 @@ low-resolution sectioned image.
   R$.]{\label{fig:hatR}\includegraphics[width=4cm]{../app_hilo/ftratio}}
   \subfigure[Filtered first order $\tilde
   R^+$.]{\label{fig:hatR+}\includegraphics[width=4cm]{../app_hilo/filterftratio}}
-  \caption{Intermediate results for the HiLo ``ratio'' algorithm. The scalebar in (a) is \unit[2]{$\mu$m} wide.}
+  \caption{Intermediate results for the HiLo single side-band
+    demodulation algorithm. The scalebar in (a) is \unit[2]{$\mu$m}
+    wide.}
   \label{fig:hilo2}
 \end{figure}
 
@@ -385,18 +387,20 @@ image is displayed in \figref{fig:ihilo2}.
   \subfigure[$I_{su}$]{\label{fig:isu2}\includegraphics[width=4cm]{../app_hilo/isu2}}
   \subfigure[$I_\textrm{lp}$]{\includegraphics[width=4cm]{../app_hilo/ilp2}}
   \subfigure[$I_\textrm{hilo}$]{\label{fig:ihilo2}\includegraphics[width=4cm]{../app_hilo/ihilo2}}
-  \caption{Intermediate results and the end result for the HiLo
-    ``ratio'' algorithm. The scalebars are \unit[2]{$\mu$m} wide.}
+  \caption{Intermediate results and the end result for the HiLo single
+    side-band demodulation algorithm. The scalebars are
+    \unit[2]{$\mu$m} wide.}
   \label{fig:hilo2_2}
 \end{figure}
 \subsubsection*{Discussion}
-One advantage of the ``ratio'' method compared to the ``speckle''
-method is that it allows for a higher cut-off frequency $k_c$ without
-introducing artifacts in the intermediate image $I_{su}$. That
-accounts for the better appearance of the result \figref{fig:ihilo2}
-compared to \figref{fig:ihilo} (at least for this particular grating).
+One advantage of the single side-band demodulation method compared to
+the local variance estimation method is that it allows for a higher
+cut-off frequency $k_c$ without introducing artifacts in the
+intermediate image $I_{su}$. That accounts for the better appearance
+of the result \figref{fig:ihilo2} compared to \figref{fig:ihilo} (at
+least for this particular grating).
 
-Another thing that comes to mind is that the calculation of the ratio
+Another thing that comes to mind is that the calculation of the ratio3
 isn't the only way to extract the modulated signal. Another approach
 would involve subtracting the widefield image\footnote{Suggested by
   R. Heintzmann.} and shifting in Fourier space. This will be
@@ -544,5 +548,14 @@ illumination power approximately by this factor.
     end result (c).}
   \label{fig:hilo3_3}
 \end{figure}
+\subsubsection{Discussion}
+We believe conceptually the subtraction approach is simpler to
+understand than the single side-band demodulation method. 
 
+Indeed, long after this section was devised we found \cite{Mertz2010},
+where they used a subtraction followed by a rectification
+$\abs{I_u-2I_n}$ to partially demodulate the signal.
 
+As a follow up it might be instructive to investigate the performance
+of the three different demodulation approaches in the presence of
+noise.
