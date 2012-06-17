@@ -294,82 +294,156 @@ will reduce unnecessary illumination in the sample.
 
 \subsection{Index matched sphere model}
 \label{sec:shadow-map}
-One useful simple model is spheres. They can model fluorescent beads
+One useful simple model are spheres. They can model fluorescent beads
 or nuclei in a \emph{C.~elegans} embryo. \figref{fig:render} displays
-a model constructed from 3D data of a confocal microscope. The nuclei
-are relatively sparse. In order to illuminate one or a few nuclei we
-might be able to find a path for the excitation light that doesn't
-intersect out of focus nuclei -- or at least avoids them. In our
-spatio-angular microscope the illumination pattern is represented by
-two masks. One for the LCoS and another one for the MMA. In the
-following we will construct an algorithm to find such optimized
-illumination patterns. For example the red rectangle (with
-$\sim\unit[4]{\mu m}$ on the side) would be selected for illumination
-with the LCoS. The red cylinder indicates the angle that would be
-least obscured by out of focus nuclei.
+a model of a \emph{C.~elegans} embryo, constructed from 3D data of a
+confocal microscope. The nuclei are relatively sparse. In order to
+illuminate one or a few nuclei we might be able to find a path for the
+excitation light that doesn't intersect out of focus nuclei -- or at
+least avoids them. In our spatio-angular microscope the illumination
+pattern is represented by two masks. One for the LCoS and another one
+for the MMA. In the following we will construct an algorithm to find
+such optimized illumination patterns. For example the red rectangle
+(with $\sim\unit[4]{\mu m}$ on the side) would be selected for
+illumination with the LCoS. The red cylinder indicates the angle that
+would be least obscured by out of focus nuclei.
 
-\imagw{8cm}{render}{Rendering of a sphere model, fitted to one time
+\imagw{6cm}{render}{Rendering of a sphere model, fitted to one time
   frame of a 3D confocal video of a developing \emph{C. elegans}
   embryo (strain AZ212, data provided by Jean-Yves Tinevez (Institut
   Pasteur, Paris) by finding local maxima in the difference of
   gaussian filtered data \citep{Santella2010}.}
 
 \subsection{Tracing in illumination direction}
-\imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{}
+\imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{Test case
+  for spatio-angular illumination. A target sphere is moved out of a
+  layer of spheres. {\bf (a-c)} Rays from the back focal plane are
+  traced through the target sphere and the total intersection length
+  with out of focus spheres is plotted in the diagrams.}
 
 First we assume the beads are embedded in index matched medium. Then
 rays only refract at the gaussian sphere of the objective lens and it
 is insignificant how far the target bead is from the interface between
-coverslip and medium (see left drawing in
-\figref{fig:optimization_3}).
+coverslip and medium.
+
+Initially we investigated a very simple optimization routine (see
+\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}). A circular
+window with radius $r$ is placed into the back focal plane. Rays from
+the center and periphery of the window are traced through the target
+and into out of focus spheres. The intersection length of each ray
+with each sphere is summed and plotted into a diagram.
+
+\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~a) depicts
+the collected values for a point-like window.
+\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~b) shows the
+same for a window with a diameter of 5\% of the back focal plane. The
+left column in the table below the images lists the minimal values
+over the full back focal plane. For small windows, a few of the rays
+can hit the target without intersecting any other spheres. Increasing
+the window size blurs the features in the diagrams.
+
+Here we would choose the window with $r=0.15$
+(\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~c)). It
+still has a low minimum but the largest amount of light would reach
+the target.
+
+\imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big_label}{Raytrace for
+  circular window optimization in illumination direction. A window
+  with 33\% BFP diameter would be used to illuminate the target
+  nucleus.}
+
+\figref{fig:scan-mosaic_nuc12_n100_3_7_5_big_label} shows a similar
+raytrace for a sphere model of a \emph{C.~elegans} embryo and chooses
+a window size and position which in this sense is optimal.
+
+However with the MMA we have a very versatile display and we don't
+have to limit ourselves to circular windows. Also the raytraced
+optimizations can look noisy when not enough rays are sent through the
+sample.
+\subsection{Tracing in detection direction}
+For this reason we decided to trace rays from out of focus nuclei
+through the target into the back focal plane.
+
+\figref{fig:img2-montage_hor}~C) depicts the results of tracing
+through a single target point and the out of focus spheres in B) in
+illumination direction. Note how each out of focus spheres result in a
+deformed blob in the back focal plane. 
+
+It should be quite clear that the image in
+\figref{fig:img2-montage_hor}~D) displays nearly the same information
+but was obtained with much less computation.  Here 16 rays were trace
+(see Appendix~\ref{sec:sphere-projection}) from the periphery of each
+out of focus nucleus and one from the center and the resulting
+triangle fan was rasterized into the image. We call this image a
+shadow map.
 
 
-Suppose bead number zero should be excited but the out of focus beads
-one to five should not be illuminated. We trace the cones from the
-periphery of the out of focus beads through the target points into the
-back focal plane of the objective. This gives a shadow map and when we
-illuminates those target point using this mask on the MMA, the out of
-focus beads are protected from exposure.
+In order for our spatia-angular system to work, neither the MMA, nor
+the LCoS should displays masks with only a few white pixels. Ray based
+simulations are not good models in this case (see
+Appendix~\ref{sec:sim-angle} for a description of a wave optical
+treatment) and illumination light would simply be impractically low.
 
-However, the last sentence isn't always true in our system. If only
-one pixel of the LCoS was enabled, hardly any information of the MMA
-mask would reach the back focal plane. Instead the target area should
-be increased, so that the LCoS doesn't act as a pinhole.
+For this reason the trace of \figref{fig:img2-montage_hor}~D) is
+insufficient. Instead of one target point a sufficiently big area in
+the model should be sampled. We sum each of the corresponding shadow
+maps into a new one (see the two images on the left in
+\figref{fig:bfp2-bfp-images-and-model}. Then we threshold the
+accumulated shadow map, so that only the angles with least out of
+focus targets are illuminated. Finally we blur the mask with a
+gaussian filter in order to prevent ringing in sample space.
 
-Then several shadow maps for different target locations (e.g.\ in a
-region with \unit[3]{$\mu$m} diameter) can be combined and displayed
-on the MMA.  Simultaneously the LCoS should display a mask that
-selects the target region. In order to suppress ringing in the focal
-plane it is helpful to display a smooth image on the MMA.
+The diagram on the right of \figref{fig:bfp2-bfp-images-and-model}
+displays a sphere model of 3D beads ($\unit[2]{\mu m}$ diameter,
+yellow-green, in oil). We obtained this model with our microscope by
+displaying several gratings on the LCoS at full angular illumination
+and doing a structured illumination reconstruction (in each pixel the
+maximum of each pattern minus minium of each pattern) of sectioned
+slices. A matching difference of gaussian filter and local maximum
+search in the 3D volume gives the centers of the beads.
+
+After constructing the model, the microscope continuously moved the
+z-stage on each bead and illuminated them with their respective
+optimized illumination angles. Bead~26 has been illuminated with very
+high angles in order to prevent exposure of the exposure of beads
+further away from the objective. Bead~5 is far from any other beads
+and therefor more angles can be used for its illumination.
 
 
-
-\imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big_label}{}
-\imagw{12cm}{structured}{Images of a $\unit[3]{\mu m}$ bead within
-  slightly fluorescent embedding medium under different illumination
-  conditions using a $63\times/1.38$ objective.}
-
-
-
-\imagw{14cm}{img2-montage_hor}{Tracing rays from the periphery of out of
-  focus spheres through an in-focus target point into the back focal
-  plane of the objective results in a shadow map for the MMA.}
+\imagw{14cm}{img2-montage_hor}{{\bf A)} Schematic of the rays between
+  back focal plane and sample. {\bf B)} Out of focus spheres and the
+  target point define a double cone of rays that should not be
+  illuminated. {\bf C)} Tracing rays in illumination direction from
+  the back focal plane through the sample is an expensive operation
+  and results in unnecessarily exact results. {\bf D)} Tracing in
+  detection direction from the periphery of out of focus spheres
+  through a target point into the back focal plane gives nearly
+  identical results (shadow map) and is more efficient.}
 
 % some raw data with beads in dvi system:
 % /mnt/backup/backups-london/mnt/floh/sda3/martin/0226/winterseminar/0216_6
-\imagw{8cm}{bfp2-bfp-images-and-model}{}
+\imagw{10cm}{bfp2-bfp-images-and-model}{{\bf right:} Sphere model of a
+  sample with 3D beads. {\bf left:} Optimized MMA masks to illuminate
+  bead 26 or bead 5.}
+
+
+
+%\imagw{12cm}{structured}{Images of a $\unit[3]{\mu m}$ bead within
+%  slightly fluorescent embedding medium under different illumination
+%  conditions using a $63\times/1.38$ objective.}
+
+
 
 
 \subsection{Index mismatch}
-
 Biological samples are often embedded in water. For spatio-angular
 illumination the additional refraction at the glass--water interface
-has to be taken into account.
+has to be taken into account. 
 
 The task of predicting where to mask the MMA in order to protect out
-of focus beads is more complicated due to the spherical
-aberrations. One would have to split the angular range and shift the
-illumination spot on the LCoS correcing for the transversal focus
+of focus beads is more complicated. To circumvent the spherical
+aberrations, we have to split the angular range and shift the
+illumination spot on the LCoS correcting for the transversal focus
 shift. For this one must have a good estimate of the distance of the
 sample from the coverslip--water interface. See
 Appendix~\ref{sec:raytrace} for a description of the raytrace
@@ -377,7 +451,7 @@ algorithm.
 
 Another option is to use the HILO technique (see section
 \ref{sec:hilo}) and generate a thin sheet of light with an MMA mask
-that transmits close to the TIRF angle.
+that transmits close to the TIRF angle (see \figref{fig:hilo}).
 
 
 \begin{figure}[!hbt]
@@ -397,7 +471,11 @@ that transmits close to the TIRF angle.
   \centering
   \def\svgscale{.3}
   \input{shift-correction.eps_tex}
-  \caption{}
+  \caption{{\bf top:} A straight ray illuminates a bead embedded in
+    oil. {\bf middle:} Embedding the sample in water results in
+    refraction of the ray. {\bf bottom:} The refraction can be
+    compensated by shifting the target area on the LCoS.}
+  \label{fig:shift-correction}
 \end{figure}
  
 \begin{figure}[!hbt]
