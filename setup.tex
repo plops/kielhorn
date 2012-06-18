@@ -402,12 +402,12 @@ maximum of each pattern minus minium of each pattern) of sectioned
 slices. A matching difference of gaussian filter and local maximum
 search in the 3D volume gives the centers of the beads.
 
-After constructing the model, the microscope continuously moved the
-z-stage on each bead and illuminated them with their respective
-optimized illumination angles. Bead~26 has been illuminated with very
-high angles in order to prevent exposure of the exposure of beads
-further away from the objective. Bead~5 is far from any other beads
-and therefor more angles can be used for its illumination.
+After constructing the model, the microscope continuously moves the
+z-stage onto each bead and illuminates them with their optimized
+illumination angles. Bead~26 has been illuminated with very high
+angles in order to prevent exposure of the bunch of beads further away
+from the objective. Bead~5 is far from any other beads and therefor
+more angles can be used for its illumination.
 
 
 \imagw{14cm}{img2-montage_hor}{{\bf A)} Schematic of the rays between
@@ -418,7 +418,8 @@ and therefor more angles can be used for its illumination.
   and results in unnecessarily exact results. {\bf D)} Tracing in
   detection direction from the periphery of out of focus spheres
   through a target point into the back focal plane gives nearly
-  identical results (shadow map) and is more efficient.}
+  identical results (shadow map) and is more computationally
+  efficient.}
 
 % some raw data with beads in dvi system:
 % /mnt/backup/backups-london/mnt/floh/sda3/martin/0226/winterseminar/0216_6
@@ -435,29 +436,36 @@ and therefor more angles can be used for its illumination.
 
 
 
-\subsection{Index mismatch}
-Biological samples are often embedded in water. For spatio-angular
-illumination the additional refraction at the glass--water interface
-has to be taken into account. 
+\subsection{Coping with index mismatch of the embedding medium}
+So far the described algorithms assumed ideal samples which have been
+embedded in a medium with a refractive index, the objective was
+designed for.
 
-The task of predicting where to mask the MMA in order to protect out
-of focus beads is more complicated. To circumvent the spherical
-aberrations, we have to split the angular range and shift the
-illumination spot on the LCoS correcting for the transversal focus
-shift. For this one must have a good estimate of the distance of the
-sample from the coverslip--water interface. See
-Appendix~\ref{sec:raytrace} for a description of the raytrace
-algorithm.
+Biological samples are often embedded in water. However, it might
+still be useful, to image with an oil objective. Then the additional
+refraction at the glass--water interface has to be taken into account
+for spatio-angular illumination.
 
-Another option is to use the HILO technique (see section
-\ref{sec:hilo}) and generate a thin sheet of light with an MMA mask
-that transmits close to the TIRF angle (see \figref{fig:hilo}).
+This makes the task of predicting where to mask the MMA in order to
+protect out of focus beads more complicated. To circumvent the
+spherical aberrations, we have to limit the range of angles, that are
+simultaneously illuminating and shift the illumination spot on the
+LCoS to correct for the transversal focus shift ($q$ in
+\figref{fig:aberration-sketch} right). For this we must have a good
+estimate of the distance of the sample from the coverslip--water
+interface. See Appendix~\ref{sec:raytrace} for a description of the
+raytrace algorithm.
+
+Using an oil immersion objective has the following advantage: By
+sending the illumination rays into the sample at a steep angle, close
+to the TIRF angle, we can generate a thin sheet of light (see
+\figref{fig:hilo}).
 
 
 \begin{figure}[!hbt]
   \centering
   \def\svgscale{.3}
-  \input{screen_0_lines.eps_tex}
+  \input{screen_0_lines.eps_tex}\qquad
   \input{aberration-sketch.eps_tex}
   \caption{{\bf left:} Rays are starting from periphery of
     out-of-focus nucleus, hitting the target and refracted at the
@@ -465,6 +473,7 @@ that transmits close to the TIRF angle (see \figref{fig:hilo}).
     aberrations, rays from an on-axis point are shifted to $q(r)$ on
     the camera (where $r$ relates to the angle of the ray in the
     sample). }
+  \label{fig:aberration-sketch}
 \end{figure}
 
 \begin{figure}[!hbt]
@@ -484,7 +493,9 @@ that transmits close to the TIRF angle (see \figref{fig:hilo}).
   \caption{Raytracing through an objective followed by a tubelens. The
     focal length of the tubelens in this simulation is \unit[16]{mm}
     (as opposed to the usual \unit[160]{mm}) so that the plot fits
-    into an unscaled image. The water depth is \unit[10]{$\mu$m}.}
+    into an unscaled image. The water depth is \unit[10]{$\mu$m}. Rays
+    that start in the sample with high angles do not reach the
+    gaussian focus spot in the image.}
   \label{fig:screen_microscope-aberrate-front}
 \end{figure}
 
