@@ -4,7 +4,7 @@
 \label{sec:ccd-meas}
 \begin{summary}
   We describe a method to measure the read noise of a camera and
-  compare the performance of two EM-CCDs.
+  compare the performance of three EM-CCDs.
 \end{summary}
 \section{Introduction}
 In order to characterize a camera we captured sequences of images that
@@ -56,11 +56,12 @@ plotted. Then the slope of the resulting point cloud is determined.
   
 In the top left diagram of \figref{fig:ixon} contains such a 2D
 histogram. It was obtained for conventional readout at \unit[3]{MHz}
-in our Andor IXon3 camera. The variances are collected in 64 intensity
-bins and their averages are plotted as red crosses. The blue line is
-the result of a linear fit to the first $60\%$ of the red crosses. Its
-slope gives the real gain of the camera that can be used to convert
-ADU into photoelectrons (here \unit[1.32]{$e/$ADU}).
+in our Andor IXon3 camera (head: DU-897D-CS0-\#BV). The variances are
+collected in 64 intensity bins and their averages are plotted as red
+crosses. The blue line is the result of a linear fit to the first
+$60\%$ of the red crosses. Its slope gives the real gain of the camera
+that can be used to convert ADU into photoelectrons (here
+\unit[1.32]{$e/$ADU}).
 
 The following figures show corresponding measurements using the EM
 readout mode with varying EM gain. It is followed by one last
@@ -92,8 +93,9 @@ The EM gain process introduces multiplicative noise in the signal that
 has the same effect on the photoelectron statistics as lowering the
 quantum efficiency of the sensor. Dividing values of the column
 \textsf{ mean'} from EM readouts by the same value from the
-conventional readout gives the \emph{excess noise factor}. Its value
-is smaller than one and describes the apparent reduction of the
+conventional readout gives the \emph{excess noise
+  factor}\todo{get this right: should be $\sqrt{2}$}. Its
+value is smaller than one and describes the apparent reduction of the
 quantum efficiency.
 
 
@@ -103,7 +105,9 @@ the last experiment \textsf{conv2} with conventional read out reports
 a larger gain of \unit[1.6]{e/ADU} than the first experiment
 \textsf{conv1} with gain \unit[1.3]{e/ADU}. Later we learned that one
 should allow several seconds of settling time, when changing the
-EM-gain voltage. This might explain the difference in gains.
+EM-gain voltage. This might explain the difference in gains, even
+though one would think that the conventional read out should be
+decoupled.
 
 
 \begin{figure}
@@ -294,14 +298,17 @@ multiplicative gain changes with temperature and live time of the
 sensor.
 
 \figref{fig:old-cams} shows some calibrations on older cameras (Andor
-IXon2 and Photometrics Cascade~II) which have been done using the
-DIPimage function \textsf{cal-readnoise}.  The real gain of the Andor
-IXon2 is $0.67/0.062=10.8$ and it has \unit[0.46]{e\ rms/px}
-readnoise. The real gain of the Cascade~II is $1.6/0.14=11.4$ with
-\unit[1.13]{e\ rms/px} read noise. Approximately the same real gain is
-obtained with the IXon3 at EM-gain 50: $1.32/0.12=11.0$ with a read
-noise of \unit[0.49]{e\ rms/px}. So the two andor cameras show the
-same performance.
+IXon2 (head: DU-897E-CS0-\#BV, sensor: E2V Tech CCD97 $512\times512$,
+pixel pitch \unit[16]{$\mu$m}, cooled to $-70{}^\circ\textrm{C}$) and
+Photometrics Cascade~II (sensor: e2v CCD97, $512\times512$, pixel
+pitch \unit[16]{$\mu$m}, cooled to $-70{}^\circ\textrm{C}$) which have
+been done using the DIPimage function \textsf{cal-readnoise}.  The
+real gain of the Andor IXon2 is $0.67/0.062=10.8$ and it has
+\unit[0.46]{e\ rms/px} readnoise. The real gain of the Cascade~II is
+$1.6/0.14=11.4$ with \unit[1.13]{e\ rms/px} read noise. Approximately
+the same real gain is obtained with the IXon3 at EM-gain 50:
+$1.32/0.12=11.0$ with a read noise of \unit[0.49]{e\ rms/px}. So the
+two andor cameras show the same performance.
 
 \begin{figure}
   \centering
