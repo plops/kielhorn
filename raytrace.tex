@@ -7,7 +7,7 @@
 Here we give an overview of some useful equations for raytracing
 through lens models. The design parameters of our microscope
 objectives are not usually known to us. However, this is not an
-unsurmountable problem as they can be represented using a simplified
+insurmountable problem as they can be represented using a simplified
 model \citep{Hwang2008}. We use this to simulate the refraction at the
 coverslip--medium interface for non-index matched media.
 
@@ -95,7 +95,7 @@ the parameter $\tau$:
  \end{figure}
 \section{Intersection of a ray and a sphere}
 Let a ray start at a point $\s$ with direction $\hd$.  Let a sphere
-sphere be centered in $\c$ with radius $R$. Their two equations
+sphere be centred in $\c$ with radius $R$. Their two equations
 \begin{align}
   (\r-\c)^2&=R^2\\
   \r&=\s+\tau\hd
@@ -131,7 +131,7 @@ corresponds to two solutions. In order to prevent numerical errors the following
     with direction $\i$ hits the lens at the point $\vrho$.}
 \end{figure}
 The incident beam with direction $\i$ hits the lens at the point
-$\vrho$. A line parallel to $\i$ through the center of the lens
+$\vrho$. A line parallel to $\i$ through the centre of the lens
 defines the point on the focal plane, which will be intersected by the
 transmitted ray $\r$ as well.
 
@@ -139,7 +139,7 @@ The triangle $ABC$ is similar to triangle $FOA$. All three angles are
 identical because each of the lines are parallel:
 $\overline{CB} \parallel \overline{OA} \parallel \vrho$,
 $\overline{FA} \parallel \overline{CA}$ and $\overline{AB} \parallel
-\overline{OF} \parallel \i$. The side $\overline{OF}$ is hypothenuse
+\overline{OF} \parallel \i$. The side $\overline{OF}$ is hypotenuse
 of a right angled triangle. Its ancathete with respect to the angle
 $\theta$ has length $f$. Therefor the we can deduce the length
 $\abs{\overline{OF}}=f/\cos\theta$.
@@ -187,7 +187,7 @@ sample space to $nf$ using the focus difference vector $\a$.
   \a &= \boxed{f (n-1) \hz} \\
   R &= \boxed{nf}
 \end{align}
-The principal surface\footnote{An image forming system focusses
+The principal surface\footnote{An image forming system focuses
   parallel light into a point. Its prinicipal surface is the surface
   where an incident parallel ray intersects with a line along the
   transmitted image forming ray.} is a sphere of radius $R=nf$ around
@@ -248,12 +248,12 @@ If we are also interested in the angles of the transmitted rays in the
 back focal plane, when we want to trace the rays further into the
 camera or if we want to consider aberrations due to an index mismatch
 of the embedding medium, we will have to calculate a full raytrace, as
-describted below.
+described below.
 
 The position of the objective is defined by its principal point $\c$
 and the normal $\n$ (directed along optical axis towards sample
 space). The incident ray is defined by its starting point $\p$ and the
-direction $\i$. First we calculate the center of the gaussian sphere
+direction $\i$. First we calculate the centre of the Gaussian sphere
 $\vect g$:
 \begin{align}
   \vect g &= \c + nf \n.
@@ -275,7 +275,7 @@ the normalized difference vector $\vect m$ to the principal point.
   \t &= \vect m / \abs{\vect m}.
 \end{align}
 As a last step we calculate the starting point $\e$ of the transmitted
-ray by intersecting the incident ray with the gaussian sphere.
+ray by intersecting the incident ray with the Gaussian sphere.
 \begin{figure}[!hbt]
   \centering
   \input{obj-rev-full.eps_tex}
@@ -313,12 +313,12 @@ When we model our sample as a collection of spheres, it is useful to
 trace rays from the periphery of these spheres through an in focus
 target $\c$ into the back focal plane. Here we construct the rays.
 
-The tangents of an out of focus sphere $S^\s_r$ centered at $\s$ with
+The tangents of an out of focus sphere $S^\s_r$ centred at $\s$ with
 radius $r$ that pass through the target $\c$ form a double cone
 (assuming $\c$ is outside of $S^\s_r$. The tangents touch the surface
 of the sphere $S^\s_r$ at the circular intersection $C$ with the sphere
-$S^\c_R$ centered at $\c$ with radius $R=\abs{\c-\s}$. Radius $R$ is
-the distance from the target to the center of the out of focus sphere.
+$S^\c_R$ centred at $\c$ with radius $R=\abs{\c-\s}$. Radius $R$ is
+the distance from the target to the centre of the out of focus sphere.
 \begin{figure}[!hbt]
   \centering
   \input{touch-cone.eps_tex}
@@ -327,7 +327,7 @@ the distance from the target to the center of the out of focus sphere.
 \end{figure}
 In order to find a point $\e$ where a tangent touches the out of focus
 sphere, it is sufficient to solve the following equation in a 2D
-coordinate system with the origin in the center $\s$ of the out of
+coordinate system with the origin in the centre $\s$ of the out of
 focus sphere:
 \begin{align}
   (x-R)^2+y^2&=R^2\\
@@ -339,12 +339,12 @@ There are two solutions:
   y_{1/2}&=\pm\frac{r}{2R}\sqrt{4R^2-r^2} \label{eqn:y1}
 \end{align}
 In the case $R<r$ the out of focus nucleus is intersecting the target,
-obliviating the reason to do the projection in the first place.
+obviating the reason to do the projection in the first place.
 
 We construct two vectors $\hx$ and $\hy$ in order to transform the
 solution from 2D into 3D. The (unnormalized) direction $\x$ of the
 x-axis of this coordinate system is given by the difference vector of
-the target $\c$ and the nucleus center $\s$. The direction $\y$ must
+the target $\c$ and the nucleus centre $\s$. The direction $\y$ must
 be perpendicular to $\x$ and is obtained by calculating the cross
 product with another vector $\q$.  We ensure that $\q$ and $\x$ are
 not colinear. The vectors $\q$ and $\x$ are colinear, when the
@@ -376,7 +376,7 @@ of the intersection circle $C$. Note that this projection in general
 is not a circle anymore.
 
 For practical reasons its useful to project vector $\x$ as well. It
-can be used as the center of the (distorted) shape on the back focal
+can be used as the centre of the (distorted) shape on the back focal
 plane to rasterize it as a fan of triangles.
 
 %FIXME maybe compare to ./cyberpower-store/0314/zeiss-patents/20080106795-correction-ring.pdf 

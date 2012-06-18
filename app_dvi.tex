@@ -29,7 +29,7 @@ illumination -- especially of the MMA.
 The ferroelectric LCoS display is nearly identical to the one used in
 the main text (SXGA R3, ForthDD) but the data is transferred into the
 controller from the computers graphics card via DVI. The computer
-transmitts digital $24-$bit images ($1280\times1024$ pixels) with
+transmits digital $24-$bit images ($1280\times1024$ pixels) with
 $\unit[60]{Hz}$\footnote{Up to \unit[85]{Hz} are supported by the
   ferroelectric LCoS. This corresponds to a frame rate of
   $24\times\unit[85]{Hz}=\unit[2040]{Hz}$ of individual bit
@@ -38,7 +38,7 @@ bitplanes. Each bitplane is shown for $\unit[276.27]{\mu s}$ as
 indicated in the \textsf{RED-ENABLE} signal in \figref{fig:trigger0}.
 
 Originally the LCoS controller was designed by ForthDD to display
-color images with 8 bits per color. In order to do this it would
+colour images with 8 bits per colour. In order to do this it would
 display three times eight images of pulses, where each pulse would be
 half the length of its predecessor. Three separate galvanically
 decoupled TTL signals would then enable corresponding LEDs for red,
@@ -63,7 +63,7 @@ trigger edge and the mirrors having settled in the requested
 orientation. In order to run the MMA at a fast frame rate we decided
 to generate a trigger pulse in the Arduino microcontroller after every
 second LCoS bitplane\footnote{Note that microcontroller programming
-  for synchronization requires a pecilular style. One must be careful
+  for synchronization requires a peculiar style. One must be careful
   about conditionals and loops. In order to have predictable pulse
   generation make sure each code path is run in the same time. It is
   best to unroll loops in order to prevent their initial
@@ -86,7 +86,7 @@ development stage its features were not fully developed. At the time
 we were able to bring an image onto the LCoS but changing the content
 of the video memory was rather slow (in the range of hundreds of
 milliseconds) because it had to be done by direct access and drawing
-operations or bitblt had not been implemented.
+operations or bit block image transfer had not been implemented.
 
 Later we learned from the manufacturer of the LCoS (ForthDD) that
 varying the framerate at the DVI input would probably anyway not work.
@@ -110,7 +110,7 @@ varying the framerate at the DVI input would probably anyway not work.
 \section{Description of the trigger generation (slow MMA)}
 \label{sec:dvi_slow}
 We should note, that the MMA is a prototype as well and its
-controller, though being connected to the computer via ethernet,
+controller, though being connected to the computer via Ethernet,
 doesn't provide \unit[1]{Gbit/s} communication or any other means that
 would allow realtime update of its image, e.g. support for run-length
 encoding of the image data. Therefor the MMA can display images with
@@ -131,7 +131,7 @@ The z-stage of the microscope can perform $\unit[1]{\mu m}$ steps in
 capturing one of them) is sufficient to ensure that the stage is at
 the next position.
 
-The following code listing shows the Arduino microcontroller programm,
+The following code listing shows the Arduino microcontroller program,
 that recovers the vsync signal from the pulse train on the
 \textsf{RED-ENABLE} signal from the LCoS controller it generates pulses
 with \unit[60]{Hz} on pin 13 that synchronize the MMA controller.
@@ -245,7 +245,7 @@ displaying images with counters that incremented every frame (see
 \figref{fig:fast4-no-first_cut}). As only every second image is
 captured one would expect only odd counter numbers on the
 camera. However, every 400 (or so) images a jump of on or more frames
-occures. This problem can be traced back to the Steel Banks Common
+occurs. This problem can be traced back to the Steel Banks Common
 Lisp\footnote{We used Common Lisp to develop most of our system. The
   main reason being an \unit[8]{s} initialization time in our camera's
   (Andor Clara) driver, that can't be disabled and hinders the C style
@@ -290,7 +290,7 @@ helpful to measure the latency between issuing the
 \textsf{StartAcquistion} command and when the camera actually starts
 integrating.  The same is true for the MMA. There is no specification
 of how long \textsf{SLM-SetStartMMA} or
-\textsf{SLM-SetPictureSequence} take and when the next incomming
+\textsf{SLM-SetPictureSequence} take and when the next incoming
 trigger is processed.
 
 One solution to the problem would be to display a sequence of patterns
@@ -308,7 +308,7 @@ it and replaced the LCoS with one that contains local storage.
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=10cm]{dvi-mosaic}
-  \caption{{\bf left:} Sequence of images that was aquired while LCoS,
+  \caption{{\bf left:} Sequence of images that was acquired while LCoS,
     MMA, z-stage and camera are running in sync. The camera is
     constantly running at \unit[30]{Hz} and the stage moves while a
     black mask is displayed on the MMA as well as the LCoS. The sample

@@ -63,7 +63,7 @@ multiple wavelengths as well.
   \includegraphics[width=7cm]{../app_dic/img/dsci1331}
   \caption{ Schematic and photograph of the optical setup.  {\bf
       left:} Apertures allow control of the illumination in the planes
-    $A''$ and $F''$. The wire grid polarising beam splitter (PBS) is
+    $A''$ and $F''$. The wire grid polarizing beam splitter (PBS) is
     oriented with the aluminium structured side towards the Nomarski
     prism. The Nomarski prism can be rotated around the optical
     axis. Given the orientation of the MMA, the DIC method only works
@@ -82,7 +82,7 @@ $F'''$ of the field. \nomenclature{DIC}{differential interference contrast}
 
 The optical path for the illumination contains two apertures to
 confine the field and to control the illumination angles. We use a
-wire grid polarizer (Moxtek, UT, US) as polarising beam splitter.
+wire grid polarizer (Moxtek, UT, US) as polarizing beam splitter.
 
 Achromatic doublets were used as the two imaging lenses.
 
@@ -95,7 +95,7 @@ shifted until the dark band encompasses the full field of view.
 We selected the prism with the biggest split angle
 ($\theta=\unit[0.078]{mrad}$, see section \ref{sec:prism} for the
 measurement; matching a $63\times/1.4$ oil immersion objective) in
-order to keep the distances small and minimise beam distortion due to
+order to keep the distances small and minimize beam distortion due to
 air fluctuations. Later we found that the size of the prism is the
 limiting factor. For a good DIC effect at least three orders of the
 MMA diffraction pattern have to pass through the prism. To ensure
@@ -104,21 +104,21 @@ distance between the prisms allows to vary the split angle
 \citep{Schwertner2008}.
 
 The objective lens and the MMA are positioned on a rail to simplify
-focussing. The lens positions were pairwise adjusted by sending a
+focusing. The lens positions were pairwise adjusted by sending a
 plane wave of a green laser through each ``telescope'' and moving one
 lens until the outgoing wave was plane (using a shear plate). The
 distance of tube lens and camera was set to the focal length by
-reflecting a parallel beam into the tube lens and minimising the size
+reflecting a parallel beam into the tube lens and minimizing the size
 of the spot on the camera.
 
 \section{Displaying arbitrary gray values using the DIC approach}
 \begin{figure}[htb]
   \centering
   \includegraphics[width=6cm]{../app_dic/img/dic_prism}
-  \caption{ Linearly polarised light is split by the prism into two
+  \caption{ Linearly polarized light is split by the prism into two
     rays with slightly diverging angle. They hit the MMA at two spots,
     which are one shearing distance apart. The light returning through
-    the Nomarski prism has different polarisation states depending on
+    the Nomarski prism has different polarization states depending on
     the height difference $h$ of the mirrors at those two beam
     positions.}
   \label{fig:prism}
@@ -128,25 +128,25 @@ First we consider a simplified arrangement of one piston micro mirror
 of width $\Lambda$ on a plane mirror (see \figref{fig:prism}).  Let
 $k=2\pi/\lambda_0$ with vacuum wavelength $\lambda_0$. We write the
 influence of a retarder (the height difference $h$ of the small piston
-mirror) on a polarised wave in Jones calculus as (\cite{Goodman1996}
+mirror) on a polarized wave in Jones calculus as (\cite{Goodman1996}
 p.~418):
 \begin{align}
 L_r(\Delta)=\begin{pmatrix}1&0\\ 0&e^{-i\Delta}\end{pmatrix}
 \end{align}
 with a phase difference $\Delta=2kh$ (the factor 2 due to the
 reflection).  The matrix for a polarizer that passes the component of
-the electrical field which is linearly polarised at an angle $\alpha$
+the electrical field which is linearly polarized at an angle $\alpha$
 to the x-axis is:
 \begin{align}
 L_p(\alpha)=\begin{pmatrix}\cos^2\alpha&\sin\alpha\cos\alpha\cr
   \sin\alpha\cos\alpha&\sin^2\alpha\end{pmatrix}.
 \end{align}
-In our setup the incoming light has a $45^\circ$ polarisation $\vect
+In our setup the incoming light has a $45^\circ$ polarization $\vect
 U=(1,1)^T/\sqrt{2}$ after the first reflection on the PBS. The light
 passes through the Nomarski prism and is reflected by the MMA. Here
 depending on the mirror height a phase retardation is imposed on one
 of the two beams. The reflected light is recombined in the Nomarski
-prism and only the component that is polarised at $\alpha=-45^\circ$
+prism and only the component that is polarized at $\alpha=-45^\circ$
 passes through the PBS onto the camera: $\vect
 U'=L_p(-45^\circ)L_r(\Delta)$.
 \begin{align}
@@ -245,8 +245,8 @@ direction from the plane of equilibrium).
   \includegraphics[width=\linewidth]{../app_dic/img/mma_sketch}
   \caption{ Diagrams showing how rows (Nomarski prism in $-45^\circ$
     angle, left) or columns (Nomarski prism in $+45^\circ$, right) of
-    the MMA are overlayed by the DIC prism. The coloured parts depict
-    the neighbouring mirror as it is overlayed by the DIC. These
+    the MMA are overlaid by the DIC prism. The coloured parts depict
+    the neighbouring mirror as it is overlaid by the DIC. These
     images only show a $24\times 24$ section of mirrors with a
     checkerboard of $16\times 16$ periodicity.}
   \label{fig:screen}
@@ -273,9 +273,9 @@ direction from the plane of equilibrium).
 
 Due to the bidirectional tilt of the mirrors along alternating rows
 (see \figref{fig:screen}) the MMA allows two different DIC modes.
-Either the mirrors are overlayed along rows (all mirrors tilt into the
+Either the mirrors are overlaid along rows (all mirrors tilt into the
 same direction, see the left image in \figref{fig:screen}) or mirrors
-are overlayed in column direction (neighbouring mirrors tilt to
+are overlaid in column direction (neighbouring mirrors tilt to
 opposite sides, see the right image in \figref{fig:screen}). The
 latter mode we cannot employ to display arbitrary images.  Two
 neighbouring flat mirrors will produce black and two opposite-tilt
@@ -323,7 +323,7 @@ mirrors will be deteriorated by line like artifacts on the sides.
 \label{sec:prism}
 The Nomarski prism consists of two quartz wedges. Its function is
 based on the birefringence of the crystal. The prism splits a
-$45^\circ$ linearly polarised wavefront into two wavefronts with
+$45^\circ$ linearly polarized wavefront into two wavefronts with
 slightly diverging angles.
 \begin{figure}[htb]
   \centering
@@ -496,7 +496,7 @@ artifacts that are more pronounced when the aperture of the prism is
 artificially shrunken (with a circular aperture).
 
 The experiment showed that the artifacts originate from line-like
-image patterns that accidently develop during our look-up table
+image patterns that accidentally develop during our look-up table
 algorithm. See \figref{fig:erika-streak-overview}) for a closeup of
 one such region.  For this particular image it was possible to reduce
 the number of line-like patterns on the face by starting the look up

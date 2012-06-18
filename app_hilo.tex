@@ -175,7 +175,7 @@ The last term is their result for the intensity of a fluorescent plane
 with the defocus $u$. If no grating is displayed ($\nu=0$) the
 resulting image $I_p$ is constant and the microscope has no sectioning
 capability. A fine grating gives best sectioning capability. However
-sometimes there is also a tradeof to be made because a fine grating
+sometimes there is also a trade of to be made because a fine grating
 will give very low contrast in a thick specimen.
 
 For their reconstruction method it is necessary to capture three
@@ -206,7 +206,7 @@ structure:
 We can recover the sectioned image as a combination of high-frequency
 components of the widefield image $I_u$ and the low-frequency
 components of the modulated part of the non-uniform image $I_n$.
-\subsubsection{Using speckle pattern as non-uniform illumination (local variance estimatinon)}
+\subsubsection{Using speckle pattern as non-uniform illumination (local variance estimation)}
 In the older publication (\cite{2008Lim}) a random speckle pattern is
 projected into the sample. For comparison with the other methods we
 describe a reimplementation of their method.
@@ -242,7 +242,7 @@ version of $I_u$ that is optically sectioned even for dc frequencies.
 
 The following listing shows how this algorithm can be applied to two
 input images {\sf iu} and {\sf in}. Instead of doing a discrete
-integration over regions we multiply with a gaussian in Fourier
+integration over regions we multiply with a Gaussian in Fourier
 space. The cutoff frequency $k_c$ of the filter is chosen low enough
 so that $c_s$ doesn't contain any structure of the grating anymore.
 \begin{lstlisting}
@@ -327,16 +327,16 @@ they obtain:
 \end{align}
 Here $C$ is the local image contrast (containing information similar
 to $c_s$ in the HiLo ``speckle'' method) that is necessary to
-determine the low-resolution sectioned image. The Fouriertransform
+determine the low-resolution sectioned image. The Fourier transform
 $\tilde R$ (see \figref{fig:hatR}) of the ratio contains a peak in the
-center (due to the constant 1) and at least two more peaks ($\pm 1$
+centre (due to the constant 1) and at least two more peaks ($\pm 1$
 order) on the $k_x$ axis. There are a strong $\pm 1$ order and a
 weaker $\pm 2$ order as a rectangular grating is imaged into the
 sample (as opposed to a Sine grating).
 %FIXME the weak grating isn't in In! so maybe it is due to the ratio
 
 To extract the modulated signal a filter is constructed that selects
-only the first order on the right side of the Fouriertransform. The
+only the first order on the right side of the Fourier transform. The
 result of the filter is shown in \figref{fig:hatR+}. The intermediate
 image $I_{su}=\abs{R^+}I_u$ (see \figref{fig:isu2}) contains the
 low-resolution sectioned image.
@@ -344,7 +344,7 @@ low-resolution sectioned image.
 \begin{figure}[htb]
   \centering \subfigure[Ratio
   $R=I_n/I_u$.]{\includegraphics[width=4cm]{../app_hilo/ratio}}
-  \subfigure[Fouriertransform $\tilde
+  \subfigure[Fourier transform $\tilde
   R$.]{\label{fig:hatR}\includegraphics[width=4cm]{../app_hilo/ftratio}}
   \subfigure[Filtered first order $\tilde
   R^+$.]{\label{fig:hatR+}\includegraphics[width=4cm]{../app_hilo/filterftratio}}
@@ -433,7 +433,7 @@ First the uniform image $I_u$ is subtracted from the image with the
 grating $I_n$ in order to suppress the zero order. The following code
 integrates over a circle around the origin in k-space to find a
 constant {\sf kappa} to scale $I_u$ with. Furthermore the
-Fouriertransform of the images is divided by the OTF in order to
+Fourier transform of the images is divided by the OTF in order to
 correct for the non-constant frequency transfer in the micro
 objective\footnote{Note that for this to work with real noisy data a
   Wiener filter would be necessary.}
@@ -452,7 +452,7 @@ ckiu=corr.*kiu;
 ackin=abs(ckin-kappa.*ckiu);
 ackiu=abs(ckiu).*(rr(ackiu,'freq')<.16 | abs(xx(ackiu,'freq'))<.06);
 \end{lstlisting}
-The Fouriertransform of the OTF-corrected non-uniform image is shown
+The Fourier transform of the OTF-corrected non-uniform image is shown
 in \figref{fig:ackin}. It still contains the $\pm1$ orders. In order
 to measure their exact position (depending on grating period {\sf P})
 the zero order of the widefield k-space is selected (in variable {\sf
@@ -483,7 +483,7 @@ kcov_big(st:en,st:en)=kcov;
 cov=abs(ift(kcov_big)); % this contains the cross correlation
 \end{lstlisting}
 The $512\times512$ image {\sf cov} is shown in \figref{fig:cov} and
-\figref{fig:cov3d}. The next listing is the code to locate the center
+\figref{fig:cov3d}. The next listing is the code to locate the centre
 of gravity of the nine points on top of the right peak:
 \begin{lstlisting}
 %% find maximum on the right of the correlation
@@ -497,7 +497,7 @@ cm=[sum(xx(region).*region),sum(yy(region).*region)];
 shift=(pos+cm-[256,256])/4 % divide by 4 to undo subsampling
 \end{lstlisting}
 For the example the displacement {\sf shift} is $(21.25,0)$ relative
-to the center of the $128\times128$ image.
+to the centre of the $128\times128$ image.
 \begin{figure}[htb]
   \centering \subfigure[ $\tilde
   q_s$.]{\label{fig:kqs}\includegraphics[width=4cm]{../app_hilo/kqs}}
@@ -505,9 +505,9 @@ to the center of the $128\times128$ image.
   applied.]{\label{fig:kqslp}\includegraphics[width=4cm]{../app_hilo/kqslp}}
   \subfigure[$\tilde
   I_\textrm{hp}$]{\label{fig:kihp3}\includegraphics[width=4cm]{../app_hilo/kihp3}}
-  \caption{The Fouriertransform of the shifted zero-order-suppressed
+  \caption{The Fourier transform of the shifted zero-order-suppressed
     non-uniform image $q_s$ with (a) and without (b) low-pass filter
-    and the Fouriertransform of the corrected high-pass filtered
+    and the Fourier transform of the corrected high-pass filtered
     uniform image (c). As opposed to all other k-space images (b) and
     (c) are not logarithmic.}
   \label{fig:hilo3_2}
