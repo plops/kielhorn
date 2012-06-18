@@ -1,0 +1,2 @@
+mkdir build
+./compile_jpg; ./compile_png; ./compile_svg; ./compile_tex
