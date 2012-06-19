@@ -9,11 +9,11 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="283.44754"
-   height="113.27861"
+   width="304.81067"
+   height="113.36305"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="lens-fwd.svg">
   <defs
      id="defs4">
@@ -115,6 +115,20 @@
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart-6"
+       style="overflow:visible">
+      <path
+         id="path3914-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -124,13 +138,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="140.67296"
-     inkscape:cy="58.811339"
+     inkscape:cx="7.7503757"
+     inkscape:cy="58.895779"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="mm"
-     inkscape:window-width="1364"
+     inkscape:window-width="681"
      inkscape:window-height="751"
      inkscape:window-x="0"
      inkscape:window-y="15"
@@ -147,7 +161,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -155,7 +169,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-21.120272,-887.72777)">
+     transform="translate(0.24285802,-887.72777)">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.40000006, 1.20000004, 0.60000001, 1.20000004;stroke-dashoffset:0"
        d="m 21.420272,962.80754 142.685748,0"
@@ -317,27 +331,27 @@
     <text
        xml:space="preserve"
        style="font-size:7.63890839px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="120.59674"
+       x="120.69655"
        y="986.57397"
        id="text5674"
        sodipodi:linespacing="125%"
        transform="scale(0.99971878,1.0002813)"><tspan
          sodipodi:role="line"
          id="tspan5676"
-         x="120.59674"
+         x="120.69655"
          y="986.57397">lens</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:7.63890839px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="26.713123"
-       y="899.97137"
+       x="25.759468"
+       y="896.40094"
        id="text5678"
        sodipodi:linespacing="125%"
        transform="scale(0.99971878,1.0002813)"><tspan
          sodipodi:role="line"
          id="tspan5680"
-         x="26.713123"
-         y="899.97137">focal</tspan></text>
+         x="25.759468"
+         y="896.40094">focal</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -352,20 +366,37 @@
     <text
        xml:space="preserve"
        style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="121.72339"
-       y="995.28857"
+       x="120.65196"
+       y="1001.0029"
        id="text5935"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5937"
-         x="121.72339"
-         y="995.28857">center</tspan></text>
+         x="120.65196"
+         y="1001.0029">center</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart);marker-end:none"
+       d="m 0.50714201,962.80754 16.67625999,0"
+       id="path3135-2"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="-12.5"
+       y="88.27861"
+       id="text3075"
+       sodipodi:linespacing="125%"
+       transform="translate(21.120272,887.72777)"><tspan
+         sodipodi:role="line"
+         id="tspan3077"
+         x="-12.5"
+         y="88.27861">$\hz$</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="labels"
-     transform="translate(-21.120272,-47.964003)">
+     transform="translate(0.24285802,-47.964003)">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:0.23690708;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -458,14 +489,14 @@
          sodipodi:role="line"
          id="tspan6002"
          x="130.30968"
-         y="45.923248"></tspan></text>
+         y="45.923248" /></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="sketch"
      style="display:none"
-     transform="translate(-21.120272,-47.964003)">
+     transform="translate(0.24285802,-47.964003)">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"

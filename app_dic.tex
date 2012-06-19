@@ -19,18 +19,18 @@ comment=[n][\itshape]{/*}{*/}
 \section{Introduction}
 One of the main partners of the MEMI project is Fraunhofer IPMS
 (Dresden, Germany). Before being part of the MEMI project, they
-developed a micro mirror array (MMA) which with optimized reflectivity
-in the ultra violet wavelength range (generation-0). The application
-of this device mainly being semiconductor manufacture.
+developed a micro mirror array (MMA) with optimized reflectivity in
+the ultra violet wavelength range (generation-0). The application of
+this device is mainly semiconductor manufacture.
 
 During the MEMI project, they developed a new version of the MMA
 (generation-2) that can be used up to near infra red
-wavelengths. Initially Fraunhofer provided generation-0 MMA's to the
+wavelengths. Initially, Fraunhofer provided generation-0 MMA's to the
 project partners.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=7cm]{mma-tilts}
-  \includegraphics[width=4cm]{mma-voltages}
+  \includegraphics[width=7cm]{mma-voltages}
   \caption{{\bf left:} Electron micrograph showing generation-2 MMA
     with tilted mirrors. {\bf right:} Schematic of the voltages on one
     mirror (both figures by Fraunhofer IPMS).}
@@ -40,16 +40,15 @@ From the beginning of the project a Fourier filtering--based approach
 was planned in order to turn the minute tilts of the micro mirrors
 into intensity modulations: An aperture is placed on the zero order of
 the Fraunhofer diffraction pattern of the MMA. When mirrors are
-tilted, they reflect the light outside of the aperture, where it will
-be absorbed.  This technique has been applied for the generation-0
-MMAs. As long as the diffraction efficiencies are sufficient, it
-functions for multiple wavelengths.
+tilted, they reflect the light outside of the aperture, where it is
+absorbed.  This technique has been applied for the generation-0
+MMAs. 
 
 However, the Fourier filtering approach has the drawback, that
-illumination angles and the size of the aperture are limited by the
-diffraction angles of the MMA. In our optical system this limits the
-area on the LCoS, that can be illuminated and therefor the field of
-view in the specimen. 
+illumination angles and the size of the aperture are restricted below
+the diffraction angles of the MMA. In our optical system this limits
+the area on the LCoS, that can be illuminated and therefore the field
+of view in the specimen.
 
 A shearing interferometer--based approach was suggested instead. There,
 the images of neighbouring mirrors are overlapped and can interfere. A
@@ -84,13 +83,15 @@ The optical path for the illumination contains two apertures to
 confine the field and to control the illumination angles. We use a
 wire grid polarizer (Moxtek, UT, US) as polarizing beam splitter.
 
-Achromatic doublets were used as the two imaging lenses.
+Achromatic doublets (objective $f=\unit[200]{mm}$, tubelens
+$f=\unit[500]{mm}$) were used as the two imaging lenses.
 
-The position of the focal plane of the Nomarski prisms was estimated
-by measuring the distance between the prism and the back focal plane
-of the matching micro objectives (the result is generally
-$\unit[2-3]{cm}$). For the fine adjustment the prism is axially
-shifted until the dark band encompasses the full field of view.
+The position of the focal plane of Nomarski prisms from a Zeiss
+microscope was estimated by measuring the distance between the prism
+and the back focal plane of the matching micro objectives (the result
+is generally within $\unit[2-3]{cm}$). For the fine adjustment of the
+prism in our setup, the prism was axially shifted until the dark band
+encompasses the full field of view.
 
 We selected the prism with the biggest split angle
 ($\theta=\unit[0.078]{mrad}$, see section \ref{sec:prism} for the
@@ -193,7 +194,7 @@ across the mirror because in our experiment we use a LED light
 source. Note that the DIC image of torsion mirrors is in general not
 constant over the width $\Lambda$ of one mirror. Neighbouring mirrors
 do not differ in their height at the positions where they are
-fixed. Therefor there will always be a dark stripe in the centre of
+fixed. Therefore there will always be a dark stripe in the centre of
 the mirrors. This artifact wouldn't occur with piston style mirrors.
 
 The scale factor of $I_t$ is arbitrary. In order to get a more useful
@@ -236,7 +237,7 @@ d_\textrm{max}=\unit[0.01136]{\frac{nm}{V^3}}\cdot(0.75\cdot\unit[30]{V})^3+\uni
 =\unit[(134\pm2)]{nm}.
 \end{align}
 For a wavelength of \unit[480]{nm} the maximum $\eta$ we can achieve
-is $0.21$. Therefor for this wavelength and this particular
+is $0.21$. Therefore for this wavelength and this particular
 generation-0 MMA, pistons instead of torsion mirrors would achieve
 five times higher contrast (assuming the piston can only move in one
 direction from the plane of equilibrium).
@@ -569,5 +570,5 @@ neighbouring mirrors. With a device that is calibrated in such a way
 even better contrast will be possible, as mirror tilts can be adjusted
 to be exactly equal (with an uncalibrated device there is some spread
 due to manufacturing differences). At the time of the experiments no
-programmable update of images was possible. Therefor no such iterative
+programmable update of images was possible. Therefore no such iterative
 calibration algorithm has been implemented.

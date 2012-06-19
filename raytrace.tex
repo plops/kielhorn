@@ -22,14 +22,14 @@ the refractive index in their respective half space:
   k_1&=n_1 k_0\\
   k_2&=n_2 k_0.
 \end{align}
-The normal $\n$ is directed in the opposite direction of the incident
-wave vector $\k_1$. We define the transversal and normal component
-vectors:
+We choose the normal $\n$ to be directed into the half-space of the
+incident wave (see \figref{fig:refraction-plane}). We define the
+transversal and normal component of the wave vectors:
 \begin{align}
   \k_{1n}&=(\k_1\n)\n\\ 
   \k_{1t}&=\k_1 - \k_{1n}.
 \end{align}
-Both of these components are perpendicular and during refraction the
+The two component vectors are orthogonal and during refraction the
 transversal component of the wave vector is invariant:
 \begin{align}
   k_2^2&=k_{2n}^2 + k_{2t}^2\\
@@ -58,19 +58,20 @@ $\eta=n_1/n_2$.
   \input{refraction.eps_tex}
   \caption{Refraction at an interface transforms the incident wave
     vector $\k_1$ into the outgoing wave vector $\k_2$.}
+  \label{fig:refraction-plane}
 \end{figure}
 \begin{align}
   \t&=\eta\i-\eta(\i\n)\n-\sqrt{1-\eta^2+\eta^2(\i\n)^2}\n\\
   &=\boxed{\eta\i-\left(\eta\i\n+\sqrt{1-\eta^2(1-(\i\n)^2)}\right)\n}
 \end{align}
 When the radical in the square root is negative a reflection occurs
-instead (TIRF). The tangential component is invariant and normal
+instead (TIRF). Then the tangential component is invariant and normal
 component inverts the sign:
  \begin{align}
    \k_2&=\k_{1t}-\k_{1n}\\
    &=\k_1 - 2\k_{1n}\\
    &=\k_1-2(\k_1\n)\n\\
-   \t&=\boxed{\i-2(\i\n)\n}
+   \t_\textrm{TIR}&=\boxed{\i-2(\i\n)\n}
  \end{align}
 \section{Intersection of a ray and a plane}
 Let a ray start at a point $\s$ with direction $\hd$.  A plane
@@ -91,11 +92,11 @@ the parameter $\tau$:
  \begin{figure}[!hbt]
    \centering
    \input{plane-intersection.eps_tex}
-   \caption{Schematic for describing the plane-ray intersection.}
+   \caption{Schematic of plane-ray intersection.}
  \end{figure}
 \section{Intersection of a ray and a sphere}
-Let a ray start at a point $\s$ with direction $\hd$.  Let a sphere
-sphere be centred in $\c$ with radius $R$. Their two equations
+Let a ray start at a point $\s$ with direction $\hd$.  Let a sphere be
+centred in $\c$ with radius $R$. Their two equations
 \begin{align}
   (\r-\c)^2&=R^2\\
   \r&=\s+\tau\hd
@@ -106,7 +107,7 @@ quadratic equation for $\tau$:
   (\s+\tau\hd-\c)^2&=R^2\\
   \l&:=\boxed{\s-\c}\\
   l^2+2\tau\l\hd+\tau^2-R^2&=0\\
-  \tau^2+\underbrace{2\l\hd}_b\tau+\underbrace{l^2-R^2}_c&=0
+  \underbrace{1}_a\tau^2+\underbrace{2\l\hd}_b\tau+\underbrace{l^2-R^2}_c&=0
 \end{align}
 \subsection{Solving the quadratic equation}
 If the determinant $d$ is negative the ray misses the sphere and there
@@ -187,16 +188,16 @@ sample space to $nf$ using the focus difference vector $\a$.
   \a &= \boxed{f (n-1) \hz} \\
   R &= \boxed{nf}
 \end{align}
-The principal surface\footnote{An image forming system focuses
-  parallel light into a point. Its prinicipal surface is the surface
-  where an incident parallel ray intersects with a line along the
-  transmitted image forming ray.} is a sphere of radius $R=nf$ around
+The principal surface\footnote{Microscope objectives generally fulfil
+  the Abbe sine condition and form stigmatic images from the sample
+  plane in the image image plane. In this case the principal surface
+  on the object side is a sphere.} is a sphere of radius $R=nf$ around
 the image point (\cite{Smith2000} p.~22 and \cite{Botcherby2008}). In
 the paper \citep{Hwang2008} they express the deviation between the
 real principal surface and the principal plane with an approximation
 for small angles $\theta$ and $\phi$:
 \begin{align}
-  \s &= \boxed{(R - \sqrt{R^2-\rho^2})\i}
+  \s &= \boxed{\left(R - \sqrt{R^2-\rho^2}\right)\i}
 \end{align}
 This is an approximation because it only takes into account the
 perpendicular (along $\z$) distance between plane and sphere. They
@@ -290,16 +291,17 @@ within an immersion of index $n_e$. We want to treat the problem of a
 non-matched embedding medium $n_e\not=n$. We find the intersection
 $\f$ of the ray with the coverslip--embedding interface and refract to
 obtain $\i'$. We calculate the time $t$ a photon takes, to travel from
-$\p$ to the interface $\p$:
+$\p$ to the interface $\f$:
 \begin{align}
-  t = \abs{\f - \p} n_e c
+  t = \abs{\f - \p} \frac{n_e}{c}
 \end{align}
-and extend the path of the photon backward along $\i'$ by
-$t/(cn)$. This results in the corrected position $\p'$ that indicates
-where the photon would have originated if the embedding would have
-been index matched.  Now we can apply the equations from the previous
-sections on the ray defined by $\p'$ and $\i'$ to obtain the
-transmitted ray in the pupil.
+and extend the path of the photon backward along the direction $\i'$
+(corrected for the refraction at the coverslip--embedding surface) by
+the distance $tc/n$. This results in the corrected position $\p'$ that
+indicates where the photon would have originated if the embedding
+would have been index matched.  Now we can apply the equations from
+the previous sections on the ray defined by $\p'$ and $\i'$ to obtain
+the transmitted ray in the pupil.
 
  \begin{figure}[!hbt]
    \centering
@@ -322,8 +324,9 @@ the distance from the target to the centre of the out of focus sphere.
 \begin{figure}[!hbt]
   \centering
   \input{touch-cone.eps_tex}
-  \caption{Schematic of how an out of focus nucleus defines a cone of
-    tangential rays.}
+  \caption{Schematic of how an out of focus nucleus and a target point
+    $c$ (not necessarily in the centre of a target nucleus) define a
+    cone of tangential rays.}
 \end{figure}
 In order to find a point $\e$ where a tangent touches the out of focus
 sphere, it is sufficient to solve the following equation in a 2D
@@ -341,15 +344,15 @@ There are two solutions:
 In the case $R<r$ the out of focus nucleus is intersecting the target,
 obviating the reason to do the projection in the first place.
 
-We construct two vectors $\hx$ and $\hy$ in order to transform the
-solution from 2D into 3D. The (unnormalized) direction $\x$ of the
-x-axis of this coordinate system is given by the difference vector of
-the target $\c$ and the nucleus centre $\s$. The direction $\y$ must
-be perpendicular to $\x$ and is obtained by calculating the cross
-product with another vector $\q$.  We ensure that $\q$ and $\x$ are
-not colinear. The vectors $\q$ and $\x$ are colinear, when the
-absolute value of their scalar product equals the square of the length
-$\abs{\q\x}=\x^2$.
+We construct two vectors $\hx$ and $\hy$ that span the coordinate
+system, in order to transform the solution from 2D into 3D. The
+(unnormalized) direction $\x$ of the x-axis of this coordinate system
+is given by the difference vector of the target $\c$ and the nucleus
+centre $\s$. The direction $\y$ must be perpendicular to $\x$ and is
+obtained by calculating the cross product with another vector $\q$.
+We ensure that $\q$ and $\x$ are not colinear. The vectors $\q$ and
+$\x$ are colinear, when the absolute value of their scalar product
+equals the square of the length $\abs{\q\x}=\x^2$.
 \begin{align}
   \x&=\c-\s\\
   \q&=\begin{cases}
