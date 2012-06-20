@@ -1,11 +1,11 @@
 \chapter{Experiments with DVI LCoS}
 \label{sec:dvi}
 \begin{summary}
-  Initially we strived to create a prototype, that would allow
-  feedback between the spatial SLM and the camera with
-  \unit[60]{Hz}. It was based on a fast ferroelectric liquid crystal
-  on silicon device with DVI (digital video interface) data input as
-  the spatial SLM.
+  Initially we strived to create a prototype for spatio-angular
+  illumination control, that would allow feedback between the spatial
+  SLM and the camera with \unit[60]{Hz}. It was based on a fast
+  ferroelectric liquid crystal on silicon device with DVI (digital
+  video interface) data input as the spatial SLM.
   
   We overcame several problems with synchronization, latencies and
   light efficiency. Finally the remaining problems turned out to be
@@ -15,19 +15,19 @@
   as described in the main body in this work.
 
   Nevertheless we believe spatio-angular illumination with realtime
-  control will be very useful and therefor we describe our system,
+  control will be very useful and therefor we describe the system,
   even though it is impractical for now.
 \end{summary}
 
 \section{Description of the setup (fast MMA)}
 The optical setup is the same as in \figref{fig:memi-real}. Sometimes
-we use a blue LED diode array (CoolLed) instead of the laser as a
+we use a blue LED array (CoolLed) instead of the laser as a
 light source, that we couple with a fibre bundle into the integration
 tunnel. The LED delivers less brightness but a more uniform
 illumination -- especially of the MMA.
 
 The ferroelectric LCoS display is nearly identical to the one used in
-the main text (SXGA R3, ForthDD) but the data is transferred into the
+the main text (SXGA R3, ForthDD) but the data is transferred to the
 controller from the computers graphics card via DVI. The computer
 transmits digital $24-$bit images ($1280\times1024$ pixels) with
 $\unit[60]{Hz}$\footnote{Up to \unit[85]{Hz} are supported by the
@@ -57,21 +57,20 @@ first pulse (which corresponds to bit 0 of the red byte).
 
 % /home/martin/from-hp2-notebook/Downloads_pdf/Downloads4/Downloads/48366_BitSlice_768-line_60Hz.pdf
 
-Initially we planned our device to run at the fastest possible
-speed. The MMA has a delay of $\unit[850]{\mu s}$ between receiving a
-trigger edge and the mirrors having settled in the requested
-orientation. In order to run the MMA at a fast frame rate we decided
-to generate a trigger pulse in the Arduino microcontroller after every
-second LCoS bitplane\footnote{Note that microcontroller programming
-  for synchronization requires a peculiar style. One must be careful
-  about conditionals and loops. In order to have predictable pulse
-  generation make sure each code path is run in the same time. It is
-  best to unroll loops in order to prevent their initial
-  overhead. Therefor we often generate these programs with another
-  program.}. This gives enough time to the MMA controller to set the
-mirrors and we can display simultaneous images on MMA and LCoS during
-11 out of 24 LCoS bitplanes. The system therefor achieves a frame rate
-of $\unit[60]{Hz}\times11=\unit[660]{Hz}$ and a duty cycle of just
+Initially we planned our device to run at fastest possible speed. The
+MMA has a delay of $\unit[850]{\mu s}$ between receiving a trigger
+edge and the mirrors having settled in the requested orientation. In
+order to run the MMA at a fast frame rate we decided to generate a
+trigger pulse in the Arduino microcontroller after every second LCoS
+bitplane\footnote{Note that microcontroller programming for
+  synchronization requires to be careful about conditionals and
+  loops. In order to have predictable pulse generation make sure each
+  code path is run in the same time. It is best to unroll loops in
+  order to prevent their initial overhead.}. This gives enough time to
+the MMA controller to set the mirrors and we can display simultaneous
+images on MMA and LCoS during 11 out of 24 LCoS bitplanes. The system
+therefore achieves a frame rate of
+$\unit[60]{Hz}\times11=\unit[660]{Hz}$ and a duty cycle of just
 $\unit[277]{\mu s}\times11\times\unit[60]{Hz}=0.18$.
 
 \subsection{On using OGP1 as graphics hardware}
@@ -79,17 +78,18 @@ Using a graphics card to generate the images for the LCoS is a
 non-optimal solution. A normal graphics card can't be externally
 triggered. This means we can no longer have the slowest device (the
 camera) as the master for synchronization and things will be either
-slow or inflexible. Therefor we obtained a FPGA based graphics card
+slow or inflexible. Therefore we obtained a FPGA based graphics card
 (the OGP1 from the open graphics project) which in principle could be
 modified to generate the image, when requested. As it is still in
-development stage its features were not fully developed. At the time
-we were able to bring an image onto the LCoS but changing the content
-of the video memory was rather slow (in the range of hundreds of
-milliseconds) because it had to be done by direct access and drawing
-operations or bit block image transfer had not been implemented.
+development stage its features were not fully implemented. We were
+able to load an image onto the LCoS, but changing the content of the
+video memory was rather slow (in the range of hundreds of
+milliseconds). This is because it had to be done by direct access
+(drawing operations or bit block image transfer had not been
+implemented).
 
 Later we learned from the manufacturer of the LCoS (ForthDD) that
-varying the framerate at the DVI input would probably anyway not work.
+varying the framerate at the DVI input would probably not work.
 
 \begin{figure}[!hbt]
   \centering
@@ -109,33 +109,30 @@ varying the framerate at the DVI input would probably anyway not work.
 
 \section{Description of the trigger generation (slow MMA)}
 \label{sec:dvi_slow}
-We should note, that the MMA is a prototype as well and its
-controller, though being connected to the computer via Ethernet,
-doesn't provide \unit[1]{Gbit/s} communication or any other means that
-would allow realtime update of its image, e.g. support for run-length
-encoding of the image data. Therefor the MMA can display images with
-\unit[660]{Hz} but uploading one new image roughly takes
-\unit[80]{ms}.
+The MMA and its controller are a prototype. The MMA can display images
+from local storage with \unit[660]{Hz} but uploading one new image
+from the computer roughly takes \unit[80]{ms}.
 
-It therefor seems reasonable to switch to a different triggering
-scheme, where the mirrors of the MMA are tilted for one full video
-frame. The MMA has a limited maximum duty cycle of 50\%. This means we
-have to drop every other frame from the graphics card. If camera
-exposure times of \unit[16.66]{ms} are sufficient, we have even
-doubled the duty cycle of the full system to $\unit[277]{\mu
-  s}\times23\times\unit[60]{Hz}=0.38$. Note that we loose the first
-bitplane due to the MMA's $\unit[850]{\mu s}$ load delay.
+Therefore we switched to a different triggering scheme, where the
+mirrors of the MMA are deflected during a full video frame of
+\unit[16.66]{ms}. The MMA has a limited maximum duty cycle of
+50\%. This means we have to drop every other frame from the graphics
+card. If camera exposure times of \unit[16.66]{ms} are sufficient, we
+have even doubled the duty cycle of the spatio-angular system to
+$\unit[277]{\mu s}\times23\times\unit[60]{Hz}=0.38$. Note that we
+loose the first bitplane due to the MMA's $\unit[850]{\mu s}$ load
+delay.
 
 The z-stage of the microscope can perform $\unit[1]{\mu m}$ steps in
-\unit[20]{ms}. Therefor displaying two black images on the LCoS (and
+\unit[20]{ms}. Therefore displaying two black images on the LCoS (and
 capturing one of them) is sufficient to ensure that the stage is at
 the next position.
 
 The following code listing shows the Arduino microcontroller program,
-that recovers the vsync signal from the pulse train on the
-\textsf{RED-ENABLE} signal from the LCoS controller it generates pulses
-with \unit[60]{Hz} on pin 13 that synchronize the MMA controller.
-{\small\label{fig:arduino-vsync}
+that recovers the \textsf{VSYNC} signal from the pulse train on the
+\textsf{RED-ENABLE} signal from the LCoS controller it generates
+pulses with \unit[60]{Hz} on pin 13 that synchronize the MMA
+controller.  {\small\label{fig:arduino-vsync}
 \begin{verbatim}
 // takes the lcos signal (train of 24 pulses, followed by a pause)
 // and generates a trigger signal for the mma at the end of each train
@@ -202,13 +199,9 @@ void loop () {}
 \end{verbatim}
 }
 
-Eventually, with generous support by a ForthDD engineer, we found a
-way to access the vsync signal on the LCoS controller board, making
-the above program obsolete. However, the process involved producing
-our own circuit board because we needed to connect with an obscure SMD
-size board to board connector and provide our own means of galvanic
-isolation. Microcontroller programs, similar to the one above, have
-since then proved quite useful to other members in our lab. 
+Finally we found a way to access the \textsf{VSYNC} signal on the LCoS
+controller board by building an attachable circuit board with galvanic
+isolation, making the above program obsolete.
 
 
 \begin{figure}[!hbt]
@@ -244,54 +237,51 @@ In order to verify that the system is working, the graphics card is
 displaying images with counters that incremented every frame (see
 \figref{fig:fast4-no-first_cut}). As only every second image is
 captured one would expect only odd counter numbers on the
-camera. However, every 400 (or so) images a jump of on or more frames
-occurs. This problem can be traced back to the Steel Banks Common
-Lisp\footnote{We used Common Lisp to develop most of our system. The
-  main reason being an \unit[8]{s} initialization time in our camera's
-  (Andor Clara) driver, that can't be disabled and hinders the C style
-  edit--compile--run cycle.} garbage collector. A garbage collection
-can take up to \unit[80]{ms}, which is not sufficient for the required
-update rate of \unit[16]{ms}. Porting the code to C fixes this issue.
+camera. However, approximately every 400 images a jump of on or more
+frames occurs. This problem can be traced back to the Steel Banks
+Common Lisp\footnote{We used Common Lisp to develop most of our
+  system. The main reason being an \unit[8]{s} initialization time in
+  our camera's (Andor Clara) driver, that can't be disabled and
+  hinders the C style edit--compile--run cycle.} garbage collector. A
+garbage collection can take up to \unit[80]{ms}, which is not
+sufficient for the required update rate of \unit[16]{ms}. Porting the
+code to C fixes this issue.
 
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=14cm]{fast4-no-first_cut}
   \caption{Montage of many camera images captured in sequence. The
-    LCoS was showing two frame counters. The bottom of the two numbers
-    is reset at the beginning of the experiment and therefor counts
-    $1,3,5,\ldots$. By design only every second image is
+    LCoS shows two frame counters. The bottom of the two numbers is
+    reset at the beginning of the experiment and therefore counts
+    $1,3,5,\ldots$, by design only every second image is
     captured. Occasionally a jump in the numbers was observed (see
-    marked image) when the garbage collector ran. This was fixed by
-    porting the code to C.}
+    marked image: jump from 599 to 600) when the garbage collector
+    ran. This was fixed by porting the code to C.}
   \label{fig:fast4-no-first_cut}
 \end{figure}
 
-The system was is now able to capture images with a rate of
-\unit[30]{Hz} with a constant integration time of \unit[16]{ms}.  An
-experiment has been devised, that can capture stacks of sectioned
-data. In this acquisition protocol the MMA is not used for angular
-control. It just displays white images and every fourth image a black
-image. The LCoS displays three phases of a vertical grating and a
-black image. When both displays show the black image, the stage moves
-to the next slice. Capturing the slice and moving \unit[1]{$\mu m$}
-takes eight video frames. A stack with 10 slices can be acquired in
-\unit[1.3]{s}. \figref{fig:dvi-mosaic}~left shows images of a 3D
+The system is now able to capture images with a rate of \unit[30]{Hz}
+with a constant integration time of \unit[16]{ms}.  An experiment has
+been devised, that can capture stacks of sectioned data. We do not use
+the MMA for angular control but rather displays white and every fourth
+a black image. The LCoS displays three phases of a vertical grating
+and a black image. When both displays show the black image, the stage
+moves to the next slice. Capturing the slice and moving \unit[1]{$\mu
+  m$} takes eight video frames. A stack with 10 slices can be acquired
+in \unit[1.3]{s}. \figref{fig:dvi-mosaic}~left shows images of a 3D
 distribution of \unit[2]{$\mu m$} beads in agar acquired with this
 imaging protocol.
 
 The right mosaic in \figref{fig:dvi-mosaic} shows a reapplication of
 the same acquisition protocol. However, there the devices didn't start
-exactly at the same time. Maybe one in seven experiments, the
-acquisition is successful. Trying to debug this problem proves
-difficult.
+exactly at the same time.
 
-On the one hand the camera doesn't provide time stamps, which would be
-helpful to measure the latency between issuing the
+One problem is that the camera doesn't provide time stamps, which
+would be helpful to measure the latency between issuing the
 \textsf{StartAcquistion} command and when the camera actually starts
-integrating.  The same is true for the MMA. There is no specification
-of how long \textsf{SLM-SetStartMMA} or
-\textsf{SLM-SetPictureSequence} take and when the next incoming
-trigger is processed.
+integrating.  Regarding the MMA, there is no specification of how long
+\textsf{SLM-SetStartMMA} or \textsf{SLM-SetPictureSequence} take and
+when the next incoming trigger is processed.
 
 One solution to the problem would be to display a sequence of patterns
 in the beginning of each experiment that would allow the system to
@@ -302,7 +292,7 @@ LCoS, one dark LCoS double image, two dark LCoS double images ($--+--$).
 By analyzing the camera images one could then recover when the bright
 image arrived. The same procedure could be applied for the MMA as
 well. In that case we would display $+++++$ on the LCoS and $--+--$ on
-the MMA. This solution is rather cumbersome. Therefor we didn't try
+the MMA. This solution is rather cumbersome. Therefore we didn't try
 it and replaced the LCoS with one that contains local storage.
 
 \begin{figure}[!hbt]
@@ -328,11 +318,8 @@ Indeed we planned to build the optics using a spherical mirror and
 bring conjugate planes of the pupil and the field (angular and spatial
 control) next to each other on one LCoS.
 
-We could have investigated the synchronization problem (e.g. camera
-time stamps) further by sniffing data on the USB stack using the tool
-Wireshark.
-
 Another approach to solving the problem, is to generate a trigger
 pulse from within the frame rendering loop in the computer
-software. This pulse could ensure that all devices start running with
-the same video frame.
+software. This pulse would be generated synchronous to \textsf{VSYNC}
+and could ensure that all devices start running with the same video
+frame.
