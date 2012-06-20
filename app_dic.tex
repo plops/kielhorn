@@ -14,7 +14,13 @@ comment=[n][\itshape]{/*}{*/}
 \begin{summary}
   Here we describe an alternative approach to turn the micro mirror
   array, which acts as a phase device, into a intensity spatial light
-  modulator. 
+  modulator. The advantage of using this DIC (differential
+  interference contrast) method is a higher acceptance angle which
+  would lead to a bigger field of view (spatial) in our spatio-angular
+  microscope. Eventually the contrast ratios did not surpass those of
+  the Fourier method. However, the DIC approach would have been very
+  useful if a piston mirror device had been used instead of the
+  torsional micro mirrors.
 \end{summary}
 \section{Introduction}
 One of the main partners of the MEMI project is Fraunhofer IPMS
@@ -41,36 +47,40 @@ was planned in order to turn the minute tilts of the micro mirrors
 into intensity modulations: An aperture is placed on the zero order of
 the Fraunhofer diffraction pattern of the MMA. When mirrors are
 tilted, they reflect the light outside of the aperture, where it is
-absorbed.  This technique has been applied for the generation-0
-MMAs. 
+absorbed.
 
-However, the Fourier filtering approach has the drawback, that
+However, the Fourier filtering approach has a drawback: The
 illumination angles and the size of the aperture are restricted below
 the diffraction angles of the MMA. In our optical system this limits
 the area on the LCoS, that can be illuminated and therefore the field
 of view in the specimen.
 
-A shearing interferometer--based approach was suggested instead. There,
-the images of neighbouring mirrors are overlapped and can interfere. A
-system based on Wollaston (or Nomarski) prisms would give better
-angular acceptance. It promises good contrast and will work for
-multiple wavelengths as well.
+A shearing interferometer--based approach was suggested
+instead. There, the images of neighbouring mirrors are overlapped and
+can interfere. A system based on Wollaston (or Nomarski or DIC
+(differential interference contrast)) prisms would give better angular
+acceptance. It promises good contrast and will work for multiple
+wavelengths as well. Here we describe experiments that were conducted
+on the generation-0 MMA with a set of Nomarski prisms from a Zeiss
+differential interference contrast microscope.
 \section{Description of the setup}
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=9cm]{../app_dic/img/dic_mma}
-  \includegraphics[width=7cm]{../app_dic/img/dsci1331}
+  %\includegraphics[height=9cm]{../app_dic/img/dic_mma}
+  \input{dic_mma.eps_tex} % w=87.6mm
+  \includegraphics[width=6cm]{../app_dic/img/dsci1331}
   \caption{ Schematic and photograph of the optical setup.  {\bf
       left:} Apertures allow control of the illumination in the planes
     $A''$ and $F''$. The wire grid polarizing beam splitter (PBS) is
     oriented with the aluminium structured side towards the Nomarski
     prism. The Nomarski prism can be rotated around the optical
-    axis. Given the orientation of the MMA, the DIC method only works
-    for $\pm 45^\circ$ and $\pm 135^\circ$ settings.  {\bf right:}
-    Nomarski prism is oriented in $-45^\circ$ direction.  A white
-    paper card protects the wire grid polarizer from dust.  This setup
-    contains two additional cleanup polarizers that are not shown in
-    the schematic in.}
+    axis. {\bf right:} Interference of neighbouring micro mirrors is
+    expected for the four angular settings ($\pm 45^\circ$, $\pm
+    135^\circ$) of the Nomarski prism.  Here the Nomarski prism is
+    oriented in $-45^\circ$ direction.  A white paper card protects
+    the wire grid polarizer from dust.  This setup contains two
+    additional cleanup polarizers that are not shown in the
+    schematic.}
   \label{fig:dic_mma}
 \end{figure}
 \figref{fig:dic_mma} shows a schematic and a photograph of the setup.
@@ -82,246 +92,53 @@ $F'''$ of the field. \nomenclature{DIC}{differential interference contrast}
 The optical path for the illumination contains two apertures to
 confine the field and to control the illumination angles. We use a
 wire grid polarizer (Moxtek, UT, US) as polarizing beam splitter.
-
 Achromatic doublets (objective $f=\unit[200]{mm}$, tubelens
 $f=\unit[500]{mm}$) were used as the two imaging lenses.
 
-The position of the focal plane of Nomarski prisms from a Zeiss
-microscope was estimated by measuring the distance between the prism
-and the back focal plane of the matching micro objectives (the result
-is generally within $\unit[2-3]{cm}$). For the fine adjustment of the
-prism in our setup, the prism was axially shifted until the dark band
-encompasses the full field of view.
+The position of the focal plane of the Nomarski prisms was estimated
+by measuring the distance between the prism and the back focal plane
+of the matching micro objectives (the result is generally within
+$\unit[2-3]{cm}$). For a flat sample (all MMA mirrors undeflected) we
+see a dark band in the interference image. Moving the prism along the
+optical axis expands the dark band until it encompasses the full field
+of view. We used this to adjust the precise position of the prism.
 
 We selected the prism with the biggest split angle
-($\theta=\unit[0.078]{mrad}$, see section \ref{sec:prism} for the
-measurement; matching a $63\times/1.4$ oil immersion objective) in
-order to keep the distances small and minimize beam distortion due to
-air fluctuations. Later we found that the size of the prism is the
-limiting factor. For a good DIC effect at least three orders of the
-MMA diffraction pattern have to pass through the prism. To ensure
-this, two identical DIC prisms were used sequentially. Note that the
-distance between the prisms allows to vary the split angle
-\citep{Schwertner2008}.
+($\theta=\unit[0.078]{mrad}$, the matching prism for a $63\times/1.4$
+oil immersion objective, see section \ref{sec:prism} for the
+measurement) in order to keep the distances small and minimize beam
+distortion due to air fluctuations. Later we found that the free
+aperture of the prism is the limiting factor. For a good DIC effect at
+least three orders of the MMA diffraction pattern have to pass through
+the prism. Otherwise the prism acts as a Fourier filter. Then the
+combined effect of Fourier filtering and (only partial) differential
+interference greatly diminishes the contrast of the image.
 
-The objective lens and the MMA are positioned on a rail to simplify
-focusing. The lens positions were pairwise adjusted by sending a
-plane wave of a green laser through each ``telescope'' and moving one
-lens until the outgoing wave was plane (using a shear plate). The
-distance of tube lens and camera was set to the focal length by
-reflecting a parallel beam into the tube lens and minimizing the size
-of the spot on the camera.
+To reduce the Fourier filtering effect, two identical Nomarski prisms
+with \unit[0.078]{mrad} split angle were placed into the setup instead
+of one (see \figref{fig:double-prism}). Then we used an objective lens
+with shorter focal length. Later we learned that the distance between
+the prisms allows to vary the split angle \citep{Schwertner2008}.
 
-\section{Displaying arbitrary gray values using the DIC approach}
+
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=6cm]{../app_dic/img/dic_prism}
-  \caption{ Linearly polarized light is split by the prism into two
-    rays with slightly diverging angle. They hit the MMA at two spots,
-    which are one shearing distance apart. The light returning through
-    the Nomarski prism has different polarization states depending on
-    the height difference $h$ of the mirrors at those two beam
-    positions.}
-  \label{fig:prism}
-%http://www.microscopy.fsu.edu/primer/java/polarizedlight/crystalwavefronts/index.html
-\end{figure}
-First we consider a simplified arrangement of one piston micro mirror
-of width $\Lambda$ on a plane mirror (see \figref{fig:prism}).  Let
-$k=2\pi/\lambda_0$ with vacuum wavelength $\lambda_0$. We write the
-influence of a retarder (the height difference $h$ of the small piston
-mirror) on a polarized wave in Jones calculus as (\cite{Goodman1996}
-p.~418):
-\begin{align}
-L_r(\Delta)=\begin{pmatrix}1&0\\ 0&e^{-i\Delta}\end{pmatrix}
-\end{align}
-with a phase difference $\Delta=2kh$ (the factor 2 due to the
-reflection).  The matrix for a polarizer that passes the component of
-the electrical field which is linearly polarized at an angle $\alpha$
-to the x-axis is:
-\begin{align}
-L_p(\alpha)=\begin{pmatrix}\cos^2\alpha&\sin\alpha\cos\alpha\cr
-  \sin\alpha\cos\alpha&\sin^2\alpha\end{pmatrix}.
-\end{align}
-In our setup the incoming light has a $45^\circ$ polarization $\vect
-U=(1,1)^T/\sqrt{2}$ after the first reflection on the PBS. The light
-passes through the Nomarski prism and is reflected by the MMA. Here
-depending on the mirror height a phase retardation is imposed on one
-of the two beams. The reflected light is recombined in the Nomarski
-prism and only the component that is polarized at $\alpha=-45^\circ$
-passes through the PBS onto the camera: $\vect
-U'=L_p(-45^\circ)L_r(\Delta)$.
-\begin{align}
-  I'=|\vect U'|^2=(1-\cos\Delta)/2
-\end{align}
-The camera image is dark for a plane mirror and is maximal for a
-piston height $h=lambda/4$.
-%a:-%pi/4;
-%r:matrix([1,0],[0,exp(-%i*d)]);
-%p:matrix([cos(a)^2,sin(a)*cos(a)],[sin(a)*cos(a),sin(a)^2]);
-%expand((p . r . [1,1]) . conjugate(p . r . [1,1]));
-For a piston mirror of width $\Lambda$ the intensity of the
-corresponding pixel on the camera is (assuming it receives all the
-light from one mirror):
-\begin{align}
-  I_p=\int_{-\Lambda/2}^{\Lambda/2} I'(\Delta(x'))\textrm{d}x'=\frac{\Lambda}{2}(1-\cos \Delta).
-\end{align}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=7cm]{../app_dic/img/tilt}
-  \caption{ Two mirrors that tilt with different deflections $d_1$ and
-    $d_2$ in opposite directions. The pitch of the mirrors is
-    $\Lambda$.}
-  \label{fig:tilt}
-\end{figure}
-As the mirrors of the MMA tilt (and don't move like pistons) it is
-necessary to integrate along the DIC shift direction $x'$ to get the
-brightness of one pixel depending on the tilt of the two neighbouring
-mirrors (this calculation is done for small mirror tilts, see
-\figref{fig:tilt}): 
-% Delta = 2kh; 
-% integrate((1-cos(2kh))/2,x,-l/2,l/2);
-% h(l) = d, h(-l) = d, h(0) = 0
-% h(x) = abs(d*x/l) 
-% 2*integrate((1-cos(2*k*d*x/l))/2,x,0,l/2);
-\begin{align}
-\label{eqn:it}
-  I_t=\int_{-\Lambda/2}^{\Lambda/2} I'(\Delta(x')) \textrm{d}x'=\frac{\Lambda}{2}\left(1-\frac{\sin(k \Delta d)}{k \Delta d}\right).
-\end{align}
-Here $\Delta d=d_1-d_2$ is the difference between the deflections
-$d_1$ and $d_2$ of the two mirrors and $\Lambda$ is the mirror pitch
-(see \figref{fig:tilt}). Note that the integral sums incoherently
-across the mirror because in our experiment we use a LED light
-source. Note that the DIC image of torsion mirrors is in general not
-constant over the width $\Lambda$ of one mirror. Neighbouring mirrors
-do not differ in their height at the positions where they are
-fixed. Therefore there will always be a dark stripe in the centre of
-the mirrors. This artifact wouldn't occur with piston style mirrors.
-
-The scale factor of $I_t$ is arbitrary. In order to get a more useful
-result we compare the brightness of MMA mirrors $I_t$ to a theoretical
-device consisting of pistons that can move the distance $d$ away from
-the equilibrium position:
-\begin{align}
-\label{eqn:eta}
-  \eta(\Delta d)=\frac{I_t}{I_p}=\frac{1-\sin(k\Delta d)/(k\Delta d)}{1-\cos(2kd)}.
-\end{align}
-\begin{figure}[ht]
-  \centering
-  \includegraphics{../app_dic/img/plot/deflection}
-  \caption{Deflection curve for our generation-0 MMA sample (data
-    supplied by Fraunhofer IPMS) and corresponding fit of cubic
-    polynomial $d=a\cdot x^3+b$ with $a=\unit[(0.01136\pm0.0001)]{nm\,
-      V^{-3}}$ and $b=\unit[(4.32\pm0.3)]{nm}$. The x-axis is the
-    voltage $U_\textrm{CE}$ that is applied to one of the electrodes
-    of the mirror and the y-axis shows the deflection $d$ of the
-    mirror (distance from mirror edge to the equilibrium
-    position). The maximum voltage that we apply to the mirrors in our
-    experiments is \unit[22.5]{V}.}
-  \label{fig:deflection}
-\end{figure}
-The data sent to the generation-0 MMA are integers $q\in[0,255]$
-that set the voltage of the counter electrode $U_\textrm{CE}$
-\begin{align}
-U_\textrm{CE}(q)=s_\textrm{img}\cdot \unit[30]{V} \cdot \frac{q}{255}.
-\end{align}
-The scale factor $s_\textrm{img}$ is \unit[0.75]{} in our experiments.
-Fraunhofer provides a transfer function for the MMA that describes the
-relation between the voltage and the deflection (see
-\figref{fig:deflection}) from 0 to $U_\textrm{CE}=\unit[18]{V}$. They
-also request, not to use any voltages higher than \unit[22.5]{V}. If
-the extrapolation to higher deflections is correct, then the maximum
-deflection is: % k:2*%pi/480; plot2d((1-sin(k*x)/(k*x))/(1-cos(2*k*134)),[x,0,134]);
-\begin{align}
-\label{eqn:dmax}
-d_\textrm{max}=\unit[0.01136]{\frac{nm}{V^3}}\cdot(0.75\cdot\unit[30]{V})^3+\unit[4.32]{nm}
-=\unit[(134\pm2)]{nm}.
-\end{align}
-For a wavelength of \unit[480]{nm} the maximum $\eta$ we can achieve
-is $0.21$. Therefore for this wavelength and this particular
-generation-0 MMA, pistons instead of torsion mirrors would achieve
-five times higher contrast (assuming the piston can only move in one
-direction from the plane of equilibrium).
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{../app_dic/img/mma_sketch}
-  \caption{ Diagrams showing how rows (Nomarski prism in $-45^\circ$
-    angle, left) or columns (Nomarski prism in $+45^\circ$, right) of
-    the MMA are overlaid by the DIC prism. The coloured parts depict
-    the neighbouring mirror as it is overlaid by the DIC. These
-    images only show a $24\times 24$ section of mirrors with a
-    checkerboard of $16\times 16$ periodicity.}
-  \label{fig:screen}
-\end{figure}
-\begin{figure}[htb]
-  \centering
-  \includegraphics[height=6.5cm]{../app_dic/img/lut-plot}
-  \includegraphics[height=6.5cm]{../app_dic/img/plot_lut/lut_graph}
-  \caption{{\bf left:} Theoretical $\eta$ in dependence of the tilts
-    of neighbouring mirrors. The analog-digital units (ADU) are
-    proportional to the voltage $U_\textrm{CE}$. An ADU of 255
-    corresponds to a deflection of \unit[134]{nm}. Black corresponds
-    to $\eta=0$ and white corresponds to $\eta=0.21$. {\bf right:} The
-    graph shows the values along the red line in the matrix on the
-    left, i.e. ``mirror 2'' is not tilted with gray value~200
-    corresponding to a tilt voltage $U_\textrm{CE}=\unit[17.7]{V}$
-    that deflects the mirror to half of the maximum possible
-    deflection. The maximum brightness $\eta=0.064$ that can be
-    obtained with this setting (when ``mirror 1'' is tilted to the
-    maximum angle) is $30\%$ of the brightness for maximum tilt
-    difference between two mirrors.}
-  \label{fig:deflection2}
+  \includegraphics[width=5cm]{../app_dic/img/double-prism}
+  \caption{Combination of two identical Nomarski prisms to increase
+    the split angle between ordinary and extraordinary beam. The prism
+    in the experiments are for a $63\times/1.4$ oil immersion
+    objective.}
+  \label{fig:double-prism}
 \end{figure}
 
-Due to the bidirectional tilt of the mirrors along alternating rows
-(see \figref{fig:screen}) the MMA allows two different DIC modes.
-Either the mirrors are overlaid along rows (all mirrors tilt into the
-same direction, see the left image in \figref{fig:screen}) or mirrors
-are overlaid in column direction (neighbouring mirrors tilt to
-opposite sides, see the right image in \figref{fig:screen}). The
-latter mode we cannot employ to display arbitrary images.  Two
-neighbouring flat mirrors will produce black and two opposite-tilt
-mirrors will produce a maximum. There is no way how these mirror tilts
-can be adjusted such, that arbitrary gray value images can be
-generated -- which is our goal.
-
-However, when the DIC shear direction is the same as the mirror tilt direction
-it is indeed possible to display arbitrary gray value images.
-
-We generate a black image pixel by setting two immediate neighbours to
-the same tilt angle. We create arbitrary gray values by tilting
-neighbouring mirrors in slightly different directions. Equation
-\eqref{eqn:it} describes the relation between tilts of the mirrors and
-the intensity of the image pixel. The brightest value
-$\eta=0.214$\todo{wrong}\ can be achieved when one mirror is flat and
-the neighbour is tilted to the maximum possible deflection
-$d_\textrm{max}$ (equation \eqref{eqn:dmax} shows its value for our
-generation-0 MMA).  However, it is not possible to exploit the full
-dynamic range of the device when arbitrary images are to be displayed
-(at least not with the algorithm that we are going to describe).
-Instead the maximum dynamic range is from $\eta=0$ to $\eta=0.064$.
-
-The algorithm that we use to calculate the mirror tilts -- or rather
-the pixel values $q$ -- that will result in a given intensity image
-after the DIC device. It uses our model of the DIC device and the
-transfer function that maps voltages to mirror tilts.
-
-Set a pixel on the border of the MMA to 0. We call this pixel ``mirror
-2''. Then go one pixel in the direction of the DIC shift. We call this
-pixel ``mirror 1''. Look in the target image what intensity should be
-produced at this position. Search this intensity in the look up table
-(\figref{fig:deflection2}) along the abscissa (for gray value 0 of
-``mirror 2'') and set the gray value of ``mirror 1'' to the
-corresponding gray value. Now rename ``mirror 1'' to ``mirror 2'' and
-go to the next pixel of the matrix. Repeat this procedure for all
-pixels in this rows and do this algorithm for all columns of the MMA.
-
-When the shear induced by the Nomarski prism doesn't equal the mirror
-pitch of \unit[16]{$\mu$m}, then the interference image of two
-mirrors will be deteriorated by line like artifacts on the sides.
-
-\section{Experimental results}
+\section{Experiments}
 \subsection{Procedure to measure the split angle of a Nomarski prism}
 \label{sec:prism}
+An important task in the beginning was to measure the split angle of
+the various Nomarski prisms in our set. The goal was to find a prism
+that with a standard lens would give a shear distance equal to the
+mirror pitch of the MMA (\unit[16]{$\mu$m}).
+
 The Nomarski prism consists of two quartz wedges. Its function is
 based on the birefringence of the crystal. The prism splits a
 $45^\circ$ linearly polarized wavefront into two wavefronts with
@@ -362,16 +179,20 @@ $\theta$):
 \begin{figure}[htb]
   \centering
   \includegraphics[width=10cm]{../app_dic/img/nomarski_split_exp}
-  \caption{Camera image for the prism with the biggest split. The
-    distance between the two dark fringes is
+  \caption{Camera image for the prism with the biggest split
+    angle. The distance between the two dark fringes is
     $d=\unit[(6.06\pm0.08)]{mm}$. The light source is a laser with
-    \unit[473]{nm} wavelength. The values were integrated over the
-    width of the yellow bar to reduce the influence of the disturbing
-    fringes on the cross section.}
+    \unit[473]{nm} wavelength. For the graph, values were integrated
+    over the width of the yellow bar to reduce the influence of the
+    disturbing fringes.}
   \label{fig:nomarski_split_exp}
 \end{figure}
-Our prism has a split angle $\theta=\unit[0.078]{mrad}$.
-For a lens with a focal distance $f=\unit[200]{mm}$ this corresponds to a
+We measured $d=\unit[(6.06\pm0.08)]{mm}$ for the strongest of our
+Nomarski prisms.  Other prisms had very small split angles and no two
+dark bands could be observed over their clear aperture.
+
+The measured prism has a split angle of $\theta=\unit[0.078]{mrad}$.  For
+a lens with a focal distance $f=\unit[200]{mm}$ this corresponds to a
 Nomarski split $\Delta x$:
 \begin{align}
   \Delta x=2f\tan(\theta/2)\approx f\theta=\unit[(15.6\pm0.2)]{\mu m}.
@@ -379,24 +200,42 @@ Nomarski split $\Delta x$:
 This is close to the pixel pitch of $\unit[16]{\mu m}$ of the MMA.
 
 \subsection{Imaging the MMA with the DIC method}
-\figref{fig:screen5} shows see two typical images that can be
-achieved with the DIC setup. On these images the mirrors of the MMA
-tilt in $-45^\circ$ (to the bottom right) or in $+135^\circ$ (to the
-top left).
+\figref{fig:screen5} shows two typical images that can be obtained in
+the DIC setup. The schematic in \figref{fig:screen} indicates the
+shearing direction and corresponding interference pattern.  For both
+images a checkerboard pattern with a periodicity of $16\times16$
+elements is displayed on the MMA.
 
-The image that is displayed on the MMA for both pictures is a black
-and white checkerboard with a periodicity of $16\times16$ elements (as
-in \figref{fig:screen}).  \figref{fig:screen5}~b) contains the case
-that is not usable for us. The DIC shift is along the $+45^\circ$
-direction and brings mirrors that tilt in different directions to
-interference.  The parts of the checkerboard pattern, where the
-mirrors are tilted appear bright in this image. The regions where the
-mirrors are flat are dark in the image. According to the right diagram
-in \figref{fig:screen} the bright rectangles should have a darker
-border. Indeed this can be seen in the image on the camera (indicated
-by purple arrow in bottom right of \figref{fig:screen5}).
+In the right image (\figref{fig:screen} right,
+\figref{fig:screen5}~b)) the interference occurs between mirrors that
+tilt in different directions (green in the schematic).
 
-\begin{figure}[p]
+Areas on the checkerboard pattern with deflected mirrors appear bright
+in the image, regions with flat mirrors are dark. On two edges of the
+checkerboard square tilted mirros interfer with flat ones, resulting
+in dimmer pixels in the interference image (indicated by purple arrow
+in bottom right of \figref{fig:screen5}).
+
+In this configuration it is not possible to produce a perfectly dark
+interference next to a deflected mirror.  Therefore, with this shear
+direction we cannot display arbitrary gray value images with the
+torsion micro mirrors of the MMA.
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{../app_dic/img/mma_sketch}
+  \caption{Schematic showing how neighbouring mirrors are overlaid by
+    the Nomarski prism. $24\times 24$ region of micro mirrors that
+    display a checkerboard of $16\times 16$ periodicity. Colour
+    indicates neighbouring micro mirrors, that will give rise to
+    non-destructive interference in the images on the camera. {\bf
+      left:} Prism in $-45^\circ$ orientation. {\bf right:} Prism in
+    $+45^\circ$ orientation.}
+  \label{fig:screen}
+\end{figure}
+
+\begin{figure}[!htbp]
   \centering
   \includegraphics[height=5.9cm]{../app_dic/img/1219/auswert/1checker}
   \includegraphics[height=5.9cm]{../app_dic/img/1219/auswert/2checker}
@@ -404,60 +243,146 @@ by purple arrow in bottom right of \figref{fig:screen5}).
   \includegraphics[width=7cm]{../app_dic/img/1219/auswert/2checker-section}
   \includegraphics[width=7cm]{../app_dic/img/1219/auswert/1checker-height}
   \includegraphics[width=7cm]{../app_dic/img/1219/auswert/2checker-height-arrow}
-  \caption{ DIC image for a prism setting of $-45^\circ$ (a) and
-    $+45^\circ$ (b). Below both images a cross section in the
-    direction of the DIC shift is shown (along the line marked with
-    1)). The horizontal lines in those graphs show the values
-    $I_\textrm{max}$ and $I_\textrm{min}$ for contrast estimation. The
-    contrast ratios are \unit[0.62]{} for (a) and \unit[0.65]{} for
-    (b). The rectangular region that is marked with 2) in the images
-    is shown in the bottom diagrams. These images were taken with two
-    identical sequential DIC prisms (for $63\times/1.4$), a
+  \caption{{\bf top:} DIC image for a prism setting of $-45^\circ$ (a)
+    and $+45^\circ$ (b) (see \figref{fig:screen} for a
+    schematic). {\bf middle:} Cross section along the DIC shift
+    direction (line marked with 1). {\bf bottom:} Zoom into boxes
+    (marked with 2) in the images.  Both DIC images were obtained 
+    with two identical sequential DIC prisms (for $63\times/1.4$), a
     \unit[100]{mm} objective lens and a \unit[300]{mm} tube lens.}
   \label{fig:screen5}
 \end{figure}
 
-\figref{fig:screen5}~a) shows the corresponding image with
-the prism turned by $90^\circ$ relative to the right image. The
-displayed image on the MMA is the same black and white
-checkerboard. According to the left diagram in \figref{fig:screen} one
-would expect white lines perpendicular to the shift direction. The
-image on the camera has these features and again one can make out the
-dark lines in the centres of the pixels.
+In the other shear direction (\figref{fig:screen} left,
+\figref{fig:screen5}~a)) mirrors, that tilt into the same direction,
+are brought to interference. Neighbouring mirrors that have the same
+deflection result in a black interference image. 
 
-The contrast ratio for this experiment is only \unit[0.6] and also the
-contrast in \figref{fig:screen5}~b) isn't much higher. This is
-probably because two identical DIC prisms were used in sequence to
-achieve twice the split (see \figref{fig:double-prism}). Without this
-disputable trick a \unit[200]{mm} lens has to be used to get the
-necessary $\unit[16]{\mu m}$ DIC split but then the Fourier pattern is
-too big for the size of our DIC prisms. 
+For a bright value in the interference image, both mirrors must be
+deflected to a different angle. The closer the two neighbours are in
+their deflection angle, the darker their interference image will be.
+Therefore it is possible to display arbitrary gray value images in
+this configuration.
+
+\subsubsection*{Displaying arbitrary gray value images}
+
+For this, we devised an algorithm that assigns a deflection $d_0$ to
+the mirrors on one side of the display and then iterates through the
+rows of the goal image that is going to be displayed. For each mirror
+$i$ along the row its deflection $d_i(d_{i-1},E_i)$ is calculated in
+dependence of the deflection $d_{i-1}$ of the previous mirror and the
+goal energy $E_i$ in this pixel.
+
+In the next section we develop a forward model to calculate the energy
+$E_i(d_i-d_{i-1})$ of one pixel depending on the deflection difference
+between neighbouring mirrors. Using this model we calculate a look-up
+table that we invert and use in the algorithm to find the deflections
+$d_i$.
+
+
+\subsection{Forward model for the energy in the interference image}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=5cm]{../app_dic/img/double-prism}
-  \caption{Combination of two identical DIC prisms to increase the
-    split. The prism in the experiments are for a $63\times/1.4$ oil
-    immersion objective.}
-  \label{fig:double-prism}
+  \includegraphics[width=6cm]{../app_dic/img/dic_prism}
+  \caption{ Linearly polarized light is split by the prism into two
+    rays with slightly diverging angle. They hit the MMA at two spots,
+    which are one shearing distance apart. The light returning through
+    the Nomarski prism has different polarization states depending on
+    the height difference $h$ of the mirrors at those two beam
+    positions.}
+  \label{fig:prism}
+%http://www.microscopy.fsu.edu/primer/java/polarizedlight/crystalwavefronts/index.html
 \end{figure}
-\figref{fig:erika-overview} shows the gray value image that should be
-displayed on the camera. The image that has to be displayed on the MMA
-is shown in \figref{fig:erika-detail}~b) and
-\figref{fig:erika-detail}~c) shows the result on the camera (for the
-configuration with two DIC prisms).
+First we consider the simplified arrangement of one piston micro
+mirror of width $\Lambda$ on a plane mirror (see
+\figref{fig:prism}). Later we will use the results of this model and
+apply them to the torsion mirrors of the MMA (equation
+\ref{eqn:it}). 
 
-In section section \ref{sec:size} some measurements for the setup with a
-\unit[200]{mm} objective lens and only one prism are shown.
-\begin{figure}[p]
+Let $k=2\pi/\lambda_0$ with vacuum wavelength $\lambda_0$. We write
+the influence of a retarder (the height difference $h$ of the small
+piston mirror) on a polarized wave in Jones calculus as
+(\cite{Goodman1996} p.~418):
+\begin{align}
+L_r(\Delta)=\begin{pmatrix}1&0\\ 0&e^{-i\Delta}\end{pmatrix}
+\end{align}
+with a phase difference $\Delta=2kh$ (the factor 2 due to the
+reflection).  The matrix for a polarizer that transmits the component
+of the electrical field which is linearly polarized at an angle
+$\alpha$ to the x-axis is:
+\begin{align}
+L_p(\alpha)=\begin{pmatrix}\cos^2\alpha&\sin\alpha\cos\alpha\cr
+  \sin\alpha\cos\alpha&\sin^2\alpha\end{pmatrix}.
+\end{align}
+In our setup (see \figref{fig:prism}) the incoming light has a
+$45^\circ$ polarization $\vect U=(1,1)^T/\sqrt{2}$ after the first
+reflection on the PBS (not shown in the figure, would be in the
+bottom). The light traverses the Nomarski prism which splits it into
+two diverging beams of orthogonal polarization. A lens collimates the
+beams and then they are reflected by the mirror sample. Here,
+depending on the height of the piston mirror, a phase retardation is
+imposed on one of the two beams. The reflected light is recombined in
+the Nomarski prism and only the component that is polarized at
+$\alpha=-45^\circ$ passes through the PBS onto the camera: $\vect
+U'=L_p(-45^\circ)L_r(\Delta)$.
+\begin{align}
+  I'=|\vect U'|^2=(1-\cos\Delta)/2
+\end{align}
+The camera image is dark for a plane mirror and is maximal for a
+piston height $h=\lambda/4$.
+%a:-%pi/4;
+%r:matrix([1,0],[0,exp(-%i*d)]);
+%p:matrix([cos(a)^2,sin(a)*cos(a)],[sin(a)*cos(a),sin(a)^2]);
+%expand((p . r . [1,1]) . conjugate(p . r . [1,1]));
+For a piston mirror of width $\Lambda$ the energy in the corresponding
+pixel on the camera is just the intensity times the area:
+\begin{align}
+  \Delta(x',y') &=2kh=\textrm{const},\\
+  E_\textrm{piston}&=\int_{-\Lambda/2}^{\Lambda/2}\int_{-\Lambda/2}^{\Lambda/2}
+  I'(\Delta(x',y'))\,\textrm{d}x'\textrm{d}y'=\frac{\Lambda^2}{2}(1-\cos
+  \Delta).
+\end{align}
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=4cm]{../app_dic/img/1219/auswert/erika-overview}
-  \caption{The input image that should be displayed on the camera. The
-    rectangular region is illuminated by the integrating rod and
-    imaged on the CCD.}
-  \label{fig:erika-overview}
+  \includegraphics[width=7cm]{../app_dic/img/tilt}
+  \caption{ Two mirrors with pitch $\Lambda$. Here they are tilted
+    with different deflections $d_1$ and $d_2$ in opposite
+    directions.}
+  \label{fig:tilt}
 \end{figure}
+As the mirrors of the MMA tilt (and don't move like pistons) it is
+necessary solve the integral of the intensity along the DIC shift
+direction $x'$ to get the energy in one pixel depending on the tilt of
+the two neighbouring mirrors (this calculation is done for small
+mirror tilts, see \figref{fig:tilt}):
+% Delta = 2kh; 
+% integrate((1-cos(2kh))/2,x,-l/2,l/2);
+% h(l) = d, h(-l) = d, h(0) = 0
+% h(x) = abs(d*x/l) 
+% 2*integrate((1-cos(2*k*d*x/l))/2,x,0,l/2);
+\begin{align}
+\label{eqn:it}
+\Delta(x',y') &= 2kh(x') = 2k\frac{\abs{x'} \delta}{\Lambda},\\
+E_\textrm{torsion}&=\int_{-\Lambda/2}^{\Lambda/2}\int_{-\Lambda/2}^{\Lambda/2}
+I'(\Delta(x',y'))\,
+\textrm{d}x'\textrm{d}y'=\frac{\Lambda^2}{2}\left(1-\frac{\sin(k
+    \delta)}{k \delta}\right).
+\end{align}
+Here $\delta=d_1-d_2$ is the difference between the deflections $d_1$
+and $d_2$ of the two mirrors and $\Lambda$ is the mirror pitch. If the
+deflections $d_1$ and $d_2$ have opposite signs, the mirrors tilt in
+opposite directions. Note that the integral sums incoherently across
+the mirror because in our experiment we use a LED light source.
 
-\begin{figure}[p]
+Equation \ref{eqn:it} is the forward model. It describes the energy
+$E_\textrm{torsion}(d_1-d_2)$ in one pixel of the interference image
+depending on the deflections of two neighbouring
+mirrors. \figref{fig:erika-detail}~a) shows a gray value image that
+should be displayed in the interference image. The corresponding
+pattern on the micro mirror array is depicted in b). The image c)
+contains the interference image as acquired by the camera.
+
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=.8\linewidth]{../app_dic/img/1219/auswert/erika-detail}
   \caption{{\bf (a)} Closeup of the input image. {\bf (b)} The
@@ -465,110 +390,70 @@ In section section \ref{sec:size} some measurements for the setup with a
     displayed on the MMA. The DIC shift will occur from the left top
     towards the right bottom. Note that regions that are white in the
     input image have a grating structure with high contrast. {\bf (c)}
-    The resulting image on the camera.}
+    The resulting interference image on the camera. For this image we
+    used two identical Nomarski prisms in series (for $63\times/1.4$), a
+    \unit[100]{mm} objective lens and a \unit[300]{mm} tube lens.}
   \label{fig:erika-detail}
 \end{figure}
-\newpage
-\subsection{Effects of limited crystal size on DIC image}
+
+% sin(a) = m*lambda/Lambda
+% asin(473.0/16000) = .0295 rad = 1.694 degree
+% tan(a) = r/f -> r = 200 mm * tan(0.0295) = 5.9 mm;
+% tan(asin(473/16000))*200
+
+\subsection{Effects of limited prism aperture on DIC image of
+  torsional mirrors}
 \label{sec:size}
-The split angle of the DIC prism defines the focal length of the
-objective lens that needs to be used because the shift on the MMA must
-be $\unit[16]{\mu m}$. Our prism with the biggest split needs a
-\unit[200]{mm} lens. However the free aperture of the prism is only
-\unit[10]{mm}. Therefore it is problematic to capture three orders in
-the image on the camera. These orders are needed to form an
-object-like image.
+The light coming back from the MMA produces a Fraunhofer diffraction
+pattern in the plane $A'$ approximately at the Nomarski prism (see
+\figref{fig:dic_mma}). The clear aperture of our prisms is about
+\unit[10]{mm}. The first orders due to the \unit[16]{$\mu$m} pixel
+pitch of the MMA are at \unit[$\pm5.9$]{mm} with an objective lens of
+\unit[200]{mm} focal length.
 
-For \figref{fig:erikas} one DIC prism was used with a \unit[200]{mm}
-objective lens. It is not possible to get the two outside orders with
-their complete surrounding information through the prism. The relative
-size of the diffraction pattern on the DIC prism aperture is shown on
-top of the images in \figref{fig:erikas}. Note that the angular extend
-of the illumination is indicated by the red spots in the Fourier
-pattern.
+In order to investigate the influence of the blocking the
+$\pm1^\textrm{st}$ orders, we added a circular aperture into plane
+$A'$ (\figref{fig:dic_mma}) and captured interference images for
+various diameters of this aperture (see \figref{fig:erikas}).  The
+schematic above the images depicts the size of the circular aperture
+in relation to the diffraction pattern of the MMA.
 
-The main advantage of the DIC method -- and here we didn't make use of
-this -- is that the angular extend of the illumination can be
-significantly increased. Then the red spots grow and may
-overlap. However all of them should still pass through the DIC prism.
+With decreasing aperture diameter streaks in the images (red arrows)
+become more pronounced. These artefacts originate in regions on the
+pattern, that is shown on the MMA that differ from their surrounding
+rows. 
 
-In this experiment most of the orders were cut off. This leads to some
-artifacts that are more pronounced when the aperture of the prism is
-artificially shrunken (with a circular aperture).
-
-The experiment showed that the artifacts originate from line-like
-image patterns that accidentally develop during our look-up table
-algorithm. See \figref{fig:erika-streak-overview}) for a closeup of
-one such region.  For this particular image it was possible to reduce
-the number of line-like patterns on the face by starting the look up
-table algorithm on a central column and then computing to the left and
-the right.
-
-However even with this trick there are still some phase jumps after
-strong gray value discontinuities in the input image (see the red
-arrows in \figref{fig:erika-streak-overview}). The only real solution
-is to make the Nomarski prism bigger or use piston mirrors.
-
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=.8\linewidth]{../app_dic/img/streaks2}
-  \caption{These three images show artifacts in gray level images that
-    arise when less than three orders contribute to the image. The
-    diagram in the top shows the aperture diameter in relation to the
-    Fourier pattern of the MMA device. Phase changes in the displayed
-    MMA image (see \figref{fig:erika-streak-overview}) result in
-    banding artifacts (see red arrows) for decreasing aperture
-    diameter. These images were taken with one DIC prism (for
-    $63\times\,,1.4$ micro objective) a \unit[200]{mm} objective lens
-    and a \unit[500]{mm} tube lens.}
+  \caption{When the $\pm1^\textrm{st}$ orders do not pass through the
+    Nomarski prism, unwanted artefacts arise.  These images were
+    obtained with one Nomarski prism (for $63\times/1.4$ micro
+    objective) a \unit[200]{mm} objective lens and a \unit[500]{mm}
+    tube lens.}
   \label{fig:erikas}
 \end{figure}
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=8cm]{../app_dic/img/1219/auswert/erika-streak-overview}
-  \caption{This image is displayed on the MMA in order to create a
-    gray value DIC image. The shear direction is from top left to
-    bottom right. When neighbouring image values are black and white
-    the resulting pixel on the camera will be bright. If the image
-    values don't change (look e.g.\ at the inside of the black circle)
-    the pixel will be dark on the camera. When a dark gray value is to
-    be generated there are many gray value pairs that result in the
-    same intensity after the DIC device. However, if not all Fourier
-    orders contribute to the camera image this is not true. Especially
-    phase steps (see red arrows) produce banding artifacts. Note that
-    this image generates a gray value image without artifacts when the
-    two DIC prisms with a \unit[100]{mm} lens are used.}
-  \label{fig:erika-streak-overview}
-\end{figure}
-
+\begin{figure}[!hbtp]
+   \centering
+   \includegraphics[width=7cm]{../app_dic/img/1219/auswert/erika-streak-overview}
+   \caption{Pattern that is displayed on the MMA for the images in
+     \figref{fig:erika-detail}~c) and \figref{fig:erikas}. The shear
+     direction is from top left to bottom right.}
+   \label{fig:erika-streak-overview}
+ \end{figure}
 \section{Discussion}
-The theoretical considerations lead to the conclusion that a piston
-device possesses two significant advantages compared to the torsion
-mirrors. The DIC prism has to be big enough so that at least three
-orders of the diffraction pattern of the torsion mirrors can form an
-image. Torsion mirrors always have a black line in the centre of the
-pixel because here neighbouring mirrors have the same height. A piston
-device therefore will achieve higher contrast at equivalent deflection
-height and will need a smaller prism diameter.
+We showed that a differential interference approach can be used to
+convert the micro mirror array into an intensity spatial light
+modulator. It is necessary that the $\pm1^\textrm{st}$ diffraction
+orders contribute to the interference image. The best results were
+obtained by two Nomarski prisms (each \unit[0.078]{mrad} split angle
+and \unit[10]{mm} clear aperture) in series and an objective lens with
+\unit[100]{mm} focal length. In this configuration the
+$\pm1^\textrm{st}$ diffraction orders are $\unit[\pm2.9]{mm}$
+off-axis. This leaves ca.\ $\unit[2.1]{mm}$ for illumination angles
+and therefore not much more than the angular acceptence of a Fourier
+filtering based approach, which could accommodate a radius of
+$\unit[1.4]{mm}$.
 
-For optimal performance it is crucial to have the MMA exactly in
-focus. Currently it is very hard to focus the MMA as it is fixed to a
-large printed circuit board with a heavy cable. After each focus
-change the angle of the board generally has to be readjusted so that
-the zero order returns back through the Nomarski prism. With the
-generation-2 MMA this problem has been solved as the device is
-connected to the circuit board by a flexible cable.
-
-As an interesting application of the DIC method (other than improving
-the contrast) it might be possible to determine characteristic
-deflection curves for all mirrors of a device individually. One
-approach would be to set all the mirrors parallel to the device
-surface with a $+45^\circ$ DIC setting and then check for blackness
-with a $-45^\circ$ setting and different voltages applied to
-neighbouring mirrors. With a device that is calibrated in such a way
-even better contrast will be possible, as mirror tilts can be adjusted
-to be exactly equal (with an uncalibrated device there is some spread
-due to manufacturing differences). At the time of the experiments no
-programmable update of images was possible. Therefore no such iterative
-calibration algorithm has been implemented.
+The differential interference approach is a promising candidate to
+convert piston mirror devices into intensity modulators.
