@@ -20,152 +20,134 @@
   molecules in order to introduce the terms Stokes shift, triplet
   state and photobleaching.
 \end{summary}
-First we consider a really simple molecule: We move the nuclei of two
+\subsection{Construction of molecular orbitals}
+First we consider a very simple molecule: We move the nuclei of two
 hydrogen atoms and move them slowly together. When the nuclei have a
 big distance, the atoms exist as two separate entities without
 influence on each other. In the other extreme case the two nuclei are
 at the same position and the electrons have the orbitals of a helium
 atom.
-
 \begin{figure}[!hbt]
   \centering
   \input{flu-potential_my.eps_tex}
   \caption{Schematic electron density maps and potential curves for
-    ground state $\H_2$ and excited state $\H_2^*$ of dihydrogen and
-    the dihydrogen ion $\H_2^+$ (after \cite{Haken2006} p.~258).}
+    ground state $\H_2$ and excited state $\H_2^*$ of molecular
+    hydrogen and the cation $\H_2^+$ of molecular hydrogen (after
+    \cite{Haken2006} p.~258).}
   \label{fig:flu-potential_my}
 \end{figure}
-As a good approximation we can express molecular orbitals as a linear
-combination of atomic orbitals and calculate their potential energy in
-dependence of the distance between the nuclei (see
-\figref{fig:flu-potential_my}). The curve for
-$\sigma_g\sigma_g^1\Sigma_g^+$ has minimum at a core distance $R$ of
-approximately 1.3 Bohr radii ($a_H=\unit[0.529\cdot10^{-8}]{cm}$). The
-compound of two protons and two electrons is particularly stable for
-this radius. We call it the hydrogen molecule $\H_2$.
 
-In the same way we can combine a ground state hydrogen atom $\H$ and
-an excited hydrogen atom $\H^*$. Again the potential
-$\sigma_g\pi_u^1\Pi_u$ has a minimum. That distance of equilibrium is
-bigger because the strength of the chemical bond in the excited
-hydrogen molecule is decreased.
+For internuclear distances in between these two extremes, we express
+molecular orbitals as a linear combination of atomic orbitals and
+calculate their potential energy in dependence of the distance between
+the nuclei (see \figref{fig:flu-potential_my}). The curve for
+$\sigma_g\sigma_g^1\Sigma_g^+$ is minimal at a internuclear distance
+$R$ of approximately 1.3 Bohr radii
+($a_H=\unit[0.529\cdot10^{-8}]{cm}$). The compound of two protons and
+two electrons is particularly stable for this radius. We call it the
+hydrogen molecule $\H_2$.
 
-\begin{figure}[!hbt]
-\begin{fenster}
-  \minisec{On construction of term symbols}
-  {\small
-    The
-    symmetric linear combination of the $1s$-orbitals of two atoms $A$
-    and $B$ is 
-    \begin{align*} 
-      \sigma_g1s=\frac{1}{\sqrt2}(\sigma 1s_A+\sigma 1s_B).
-    \end{align*}
-    $\sigma_u$ is constructed as the difference of the two atomic orbitals.
-    In general the symmetric molecular orbital $\sigma_g$ is more stable as
-    the electrons have a higher probability to be between the nuclei.
-    The following quantum numbers describe the molecular wave function:
-    \begin{description}
-    \item[$\Lambda\ ..$] 
-      
-      Defined by $\mathbf{L}_z=\Lambda\hbar=|\sum\lambda_i|\hbar$ with
-      projection $\lambda_i$ of the orbital angular momentum $\mathbf{l}_i$ of
-      electron $i$ onto the nuclear axis. $\Lambda$ can take the
-      values $0,1,2,\ldots$ and one writes the term symbols
-      $\Sigma,\Pi,\Delta,\ldots$.
-      
-    \item[$S\ ..$]
-      
-      Spin of all electrons $S=\sum\mathbf{m}_{si}$ in the molecular orbital. 
-      
-    \item[$\Omega\ ..$] 
-      
-      Electronic angular momentum in direction of the nuclear axis.
-      
-    \end{description}
-    These numbers are combined into the term symbol like this:
-    ${}^{2S+1}\Lambda_\Omega$.  Additionally one writes e.g. $\Sigma^+$
-    if the molecular function is symmetric when mirrored at a plane
-    through the nuclei.  Furthermore one writes $\Sigma_g$ if the sign
-    of wave function stays the same when the molecule is inverted at the
-    point of symmetry.
-    
-    Here is an example of the molecular wave functions we are
-    interested in:
-    
-    \begin{description}
-    \item[$\sigma_g\sigma_g^1\Sigma_g^+$:]
-      
-      $\lambda_1=1,\ \lambda_2=-1,\ s_1=+,\ s_2=-$
-      
-      $\Lambda=|\lambda_1+\lambda_2|=|1-1|=0,\ S=s_1+s_2=0$
-      
-    \item[$\sigma_g\pi_u^1\Pi_u$:]
-      
-      $\lambda_1=1,\ \lambda_2=-2,\ s_1=+,\ s_2=-$
-      
-      $\Lambda=|1-2|=1,\ S=0$
-      
-    \end{description}
-  }
-\end{fenster}
-\end{figure}
+Likewise a linear combination of the atomic orbitals of a ground state
+hydrogen atom $\H$ with an excited hydrogen atom $\H^*$ lead to the
+molecular orbital $\sigma_g\pi_u^1\Pi_u$. There, a minimum in the
+potential occurs at an increased internuclear distance. The excited
+atomic orbital has a reduced probability density close to the nucleus
+but similar electron--electron repulsion. Therefore the strength of
+the molecular bond (order of the bond) is reduced.
+\subsection{Absorption and emission of light}
+A transition between a ground state $S_0$ to an excited state $S_1$
+occurs, when a radiation field connects the two states. The connection
+is described by the transition dipole moment $\vec \mu_{0\rightarrow 1}$.
+\begin{align}
+  \vec \mu_{0\rightarrow 1} &= \int \psi^*_0 \vec\mu \psi_1 \textrm{d}^3V
+\end{align}
+where $\psi_0$ and $\psi_1$ are wavefunctions for the ground and
+excited state, respectively \citep{Linde2011a,Sauer2011}.
 
+An incident photon can electronically excite a molecule from $S_0$
+into $S_1$, when its energy $E_\textrm{ph}=hc/\lambda$ is at least
+$\Delta E=E_{S_1}-E_{S_0}$ (Bohr's frequency condition). As opposed to
+atomic spectra the absorbtion bands of organic dyes usually span
+several tens of nanometers. This is because dye molecules are composed
+of many atoms and this structure can vibrate and rotate.
 
+\subsection{Vibration of molecules}
 \begin{figure}[!hbt]
   \centering
   % (423-120)/423*7 = 4.77 ,trim=0 0 135 0,clip
   \input{flu-condon_my.eps_tex}
   \caption{Illustration of the Franck-Condon principle. Potential
-    curves for either the same equilibrium core distance in the
-    excited state or a bigger core distance in the excited state
+    curves for either the same equilibrium nuclear distance in the
+    excited state or a bigger nuclear distance in the excited state
     (after \cite{Haken2006} p.~276).}
   \label{fig:flu-condon}
 \end{figure}
+The distance between the two nuclei of the hydrogen molecule is not
+rigid. The nuclei can oscillate around their position of equilibrium
+at quantized frequencies. The vibration frequencies depend on the
+order of the bond and the mass of the two nuclei. When a molecule is
+electronically excited, its vibration frequencies decrease.
 
-The distance between the two nuclei is not rigid. The nuclei can
-oscillate around their position of equilibrium at quantized
-frequencies. These vibration frequencies depend on the strength of the
-bond which in turn depends on the excitation state of the
-molecule. \figref{fig:flu-condon} shows potential curves for the
-ground state and the first excited state of two different
-molecules. The left graph shows potential curves of a (theoretical)
-molecule where the strength of the bond doesn't change in the excited
-state. There, the minima of both curves are exactly on top of each
-other. If a ground state molecule absorbs a photon its electron would
-be excited but the vibrational state of the core does not change.
+\figref{fig:flu-condon} schematically shows potential curves for the
+ground state $S_0$ and the first excited state $S_1$ of two different
+molecules. The left graph depicts a (theoretical) molecule where the
+internuclear distance is the same in the ground $S_0$ and excited
+$S_1$ stage. When such a molecule absorbs a photon, its electron is
+excited but its vibrational mode does not change.
 
-The right graph displays the more realistic case of a molecule with a
-weaker chemical bond in the excited state. When a photon is absorbed,
-the electronic state of the molecule switches essentially
-instantaneous compared to the movement of the nuclei. After the
-electronic transition the nuclei will start moving because their
-equilibrium position changed. In the diagram the absorption event can
-be depicted as a vertical line. The same rule applies for emission.
+The right graph displays the more realistic case of a molecule that
+has a larger internuclear distance in its excited state. When a photon
+is absorbed, the electronic state of the molecule transitions into the
+higher state $S_1$. The mass of the electron is much smaller than the
+nucleus. Therefore the electronic transition takes place in a
+timescale of $\unit[\sim10^{-15}]{s}$. In this duration the nuclei do
+not move (Born-Oppenheim approximation, Franck-Condon principle). The
+changed internuclear equilibrium distance with the new orbital of the
+excited state $S_1$ drives the nuclei into movement (excitation of
+vibro-rotational modes).
 
+\subsection{Depopulation pathways of excited states}
 \begin{figure}[!hbt]
   \centering
   \def\svgscale{.8}
   \input{flu-level_my.eps_tex}
-  \caption{A typical energy level diagram. The boxes with up and down
-    arrows symbolize the spin of the outer electrons (after
+  \caption{A typical energy level diagram. The boxes depict orbitals,
+    up and down arrows symbolize the spin of the outer electrons. Fat
+    lines represent electronic states. Thinner lines indicate
+    vibro-rotational states. Various processes are shown with their
+    typical time scales. VR = vibro-rotational relaxation, ISC =
+    intersystem crossing, IC = internal conversion (after
     \cite{Haken2006}).}
   \label{fig:flu-level}
 \end{figure}
-
 It is useful to summarize information about the energy levels of a
-molecule in a Jablonski diagram as in \figref{fig:flu-level}. If a
-molecule is in the ground state $S_0$ one of its outer electron(s) can
-be excited by a photon to either the first excited singlet state $S_1$
-or, if the photon has an even higher energy, the electron will go into
-the second excited state $S_2$.  The absorption of one photon can not
-put the electron into the triplet state $T_1$ as angular momentum must
-be conserved.
+molecule and possible transition processes in a Jablonski diagram as
+in \figref{fig:flu-level}. If a molecule is in the ground state $S_0$
+one of its outer electrons can be excited by absorbing a photon to the
+first excited singlet state $S_1$.  If the photon has an even higher
+energy, the electron will go into the second excited singlet state
+$S_2$.
 
-The electronic absorption event is very rapid (in femtoseconds). Due
-to the Franck-Condon principle the electronic excitation also excites
-vibrational and rotational modes of the molecule. When the fluorescent
-molecule is immersed in a liquid this vibro-rotational excitation will
-be transferred to neighbouring molecules in a matter of
+Transition from the ground state into higher electronic states than
+$S_2$ is not usual in commonly used fluorophores and wavelength range.
+Absorbtion of one photon doesn't change the spin of an electron and
+therefore can't end in the triplet state $T_1$.
+
+As described above, electronic excitation in general also leads to
+vibro-rotational excitation. In microscopy fluorophores are often in
+aqueous environment, where they experience at least $10^{12}$
+collisions per second. The collisions bring the vibrations of the
+fluorophore molecule back to thermal equilibrium in a very short
+timescale ($\unit[10^{-12}]{s}$). This is considerably less time then
+the lifetime of the electronic excitation (few nanoseconds). Therefore
+spontaneous emission of a photon will occur from the vibrational
+ground state of $S_1$ (\emph{Kasha's rule}). During the
+\emph{vibro-rotational relaxation} in the solvent, small fluorophores
+statistically reorient themselves and the fluorescence photon will be
+emitted into a random direction with random polarization.
+
+An important non-radiative 
+
 picoseconds. This process is called \emph{internal conversion}. The
 interaction of the molecule with its surroundings is completely
 statistical and the excited electron will loose its phase relationship
@@ -196,7 +178,7 @@ defined as the quotient of the number of emitted (fluorescence)
 photons and the number of absorbed photons. In dyes like rhodamine~6G
 (in ethanol $\eta=0.94$ \cite{Fischer1996}) or anthracene
 (9,10-diphenyl anthracene in cyclohexane $\eta=0.90$ \cite{Hamai1983})
-its value can be nearly 1 for an appropriate solvent.
+its value can be nearly 1 in an appropriate solvent.
 
 \subsection{Photobleaching and phototoxicity}
     
@@ -210,13 +192,18 @@ curious quirk of nature that the ground state of the oxygen molecule
 is a triplet state ${}^3\O_2$.  If an oxygen molecule hits a $T_1$
 fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$, the energy of the dye
 can be transferred to the oxygen (\cite{Haken2006} p.438):
+\begin{figure}[!hbt]
+  \centering
+  \input{oxygen.eps_tex}
+  \caption{odl}
+  \label{fig:oxygen}
+\end{figure}
 
 \begin{align}
   {}^3\O_2 + {}^3\textsf{Chlorophyll}^* \rightarrow
   {}^1\O^*_2+{}^1\textsf{Chlorophyll}
 \end{align}
 
-\citep{Linde2011a,Sauer2011}
 
 The resulting singlet oxygen is very reactive and quite hazardous
 inside living creatures. Plants have developed several protection
