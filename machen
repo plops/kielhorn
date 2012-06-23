@@ -1,5 +1,10 @@
+p1 below 200nm the energy of a single photon is sufficient to ionize molecules
+p3 most known stable and bright fluorophores absorb and emit in the wavelength range between 300 and 700 nm
+
 p6 transition dipole moment
 p7 10s of nm absorbtion band
+p12 population of levels in contact with the thermalized solvent molecules is determined by the boltzmann distribution
+p14 definition of franck-condon
 p14 10^12 collisions per second
 p19 cyclooctatetraene or O2 to minimize triplet triplet absorption, naphthalene, stilbene  low lying triplet states
 p37 hydrogen vibrations important for infrared dyes in aqueous surroundings
@@ -24,6 +29,9 @@ reducing and oxidizing system
 
 p100 fcs correlation
 
+p147 foerster transfer long-range (1-10nm) dipolar interactions,
+dexter mechanism short-range (<1nm) interactions between molecular
+orbitals leading to a concerted electron exchange
 
 
 

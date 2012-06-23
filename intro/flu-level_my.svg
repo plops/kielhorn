@@ -546,6 +546,20 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-8-11-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3769-5-91-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -556,13 +570,13 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="681"
+     inkscape:window-width="1364"
      inkscape:window-height="751"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.3696682"
-     inkscape:cx="391.33324"
-     inkscape:cy="238.79479"
+     inkscape:zoom="1.3952654"
+     inkscape:cx="333.25024"
+     inkscape:cy="213.57944"
      inkscape:window-x="0"
      inkscape:window-y="15"
      inkscape:window-maximized="0"
@@ -953,14 +967,14 @@
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-     x="369.98904"
-     y="205.96881"
+     x="317.98904"
+     y="203.96881"
      id="text5743"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan5745"
-       x="369.98904"
-       y="205.96881">ISC $\unit[10^{-8}]{s}$</tspan></text>
+       x="317.98904"
+       y="203.96881">ISC $\unit[10^{-8}\!\!..10^{-5}]{s}$</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
@@ -1033,18 +1047,18 @@
      width="102.94463"
      height="20.442907"
      x="448.77283"
-     y="175.57503" />
+     y="169.57503" />
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-     x="449.63156"
-     y="187.99452"
+     x="407.63156"
+     y="181.99452"
      id="text5821"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan5823"
-       x="449.63156"
-       y="187.99452">$T_1$ absorption</tspan></text>
+       x="407.63156"
+       y="181.99452">$T_1$ absorption $\unit[10^{-15}]{s}$</tspan></text>
   <path
      style="fill:none;stroke:#000000;stroke-width:1.59520483;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
      d="m 48.860021,242.07179 0,-17.20066"
@@ -1224,7 +1238,7 @@
        sodipodi:role="line"
        id="tspan5839"
        x="371.98407"
-       y="322.43631">phosphorescence $\unit[10^{-6}]{s}$</tspan></text>
+       y="322.43631">phosphorescence $\unit[10^{-2}\!\!..10^3]{s}$</tspan></text>
   <rect
      style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
      id="rect3181-28"
@@ -1264,25 +1278,25 @@
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-     x="240.57779"
+     x="210.57779"
      y="86.491402"
      id="text3186"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3188"
-       x="240.57779"
-       y="86.491402">IC $\unit[10^{-14}]{s}$</tspan></text>
+       x="210.57779"
+       y="86.491402">IC $\unit[10^{-11}\!\!..10^{-14}]{s}$</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
      x="292.98593"
-     y="153.30295"
+     y="125.30295"
      id="text3190"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3192"
        x="292.98593"
-       y="153.30295">VR $\unit[10^{-12}]{s}$</tspan></text>
+       y="125.30295">VR $\unit[10^{-10}\!\!..10^{-12}]{s}$</tspan></text>
   <rect
      style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
      id="rect3181-6-3"
@@ -1341,8 +1355,8 @@
      id="rect3181-6-3-2"
      width="23.728367"
      height="16.062284"
-     x="270.90289"
-     y="376.12128" />
+     x="258.00214"
+     y="359.63696" />
   <path
      style="fill:none;stroke:#000000;stroke-width:1.4955045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-8-11)"
      d="m 252.94959,373.67578 c 2.59643,1.52533 -1.08158,7.65789 -0.68518,9.46128 0.9126,4.15197 8.79797,-3.95003 10.45673,-2.16866 1.65934,1.782 0.61992,4.79624 1.30169,7.94198 0.54507,2.51501 3.37882,1.55202 6.16441,0.21262 4.52506,-2.17579 4.2171,3.08227 3.82385,5.35211 l 11.87759,7.28799"
@@ -1352,12 +1366,18 @@
   <text
      xml:space="preserve"
      style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-     x="275.06735"
-     y="388.16251"
+     x="260.31671"
+     y="373.1116"
      id="text3190-2-2"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3192-7-8"
-       x="275.06735"
-       y="388.16251">VR</tspan></text>
+       x="260.31671"
+       y="373.1116">VR</tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.4955045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-8-11)"
+     d="m 456.06717,210.29702 c -7.09131,4.26811 -3.28773,3.24527 3.19603,4.02798 5.14452,0.62105 2.39828,2.98467 -1.00479,6.89619 -4.25244,4.88781 6.625,2.49364 7.66564,5.32012 1.04044,2.82588 -5.69228,5.23556 -6.52933,6.88137 -1.92714,3.78918 9.30773,2.52458 9.46077,4.95384 0.15308,2.43013 -2.56201,4.10175 -4.02959,6.96649 -1.17332,2.29034 1.62849,3.34263 4.63176,4.07333 4.87866,1.18698 1.30633,5.05745 -0.43709,6.56322 l 4.56286,13.1671"
+     id="path5483-9-3"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cssssssscc" />
 </svg>

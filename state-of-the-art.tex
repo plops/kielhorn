@@ -44,49 +44,68 @@ the nuclei (see \figref{fig:flu-potential_my}). The curve for
 $\sigma_g\sigma_g^1\Sigma_g^+$ is minimal at a internuclear distance
 $R$ of approximately 1.3 Bohr radii
 ($a_H=\unit[0.529\cdot10^{-8}]{cm}$). The compound of two protons and
-two electrons is particularly stable for this radius. We call it the
+two electrons is particularly stable for this distance. We call it the
 hydrogen molecule $\H_2$.
 
 Likewise a linear combination of the atomic orbitals of a ground state
 hydrogen atom $\H$ with an excited hydrogen atom $\H^*$ lead to the
 molecular orbital $\sigma_g\pi_u^1\Pi_u$. There, a minimum in the
-potential occurs at an increased internuclear distance. The excited
-atomic orbital has a reduced probability density close to the nucleus
-but similar electron--electron repulsion. Therefore the strength of
-the molecular bond (order of the bond) is reduced.
+potential occurs at an increased internuclear distance (bond
+length). The excited atomic orbital has a reduced probability density
+close to the nucleus but similar electron--electron
+repulsion. Therefore the strength of the molecular bond (order of the
+bond) is reduced.
+\newcommand{\vmu}{\mbox{\boldmath{$\mu$}}}
 \subsection{Absorption and emission of light}
 A transition between a ground state $S_0$ to an excited state $S_1$
 occurs, when a radiation field connects the two states. The connection
-is described by the transition dipole moment $\vec \mu_{0\rightarrow 1}$.
+is described by the transition dipole moment
+$\vmu_{0\rightarrow 1}$.
 \begin{align}
-  \vec \mu_{0\rightarrow 1} &= \int \psi^*_0 \vec\mu \psi_1 \textrm{d}^3V
+  \vmu_{0\rightarrow 1} &= \int \psi^*_0 \vmu \psi_1 \textrm{d}^3V
 \end{align}
 where $\psi_0$ and $\psi_1$ are wavefunctions for the ground and
-excited state, respectively \citep{Linde2011a,Sauer2011}.
+excited state, respectively \citep{Linde2011a}.
 
-An incident photon can electronically excite a molecule from $S_0$
-into $S_1$, when its energy $E_\textrm{ph}=hc/\lambda$ is at least
-$\Delta E=E_{S_1}-E_{S_0}$ (Bohr's frequency condition). As opposed to
-atomic spectra the absorbtion bands of organic dyes usually span
-several tens of nanometers. This is because dye molecules are composed
-of many atoms and this structure can vibrate and rotate.
+An incident photon can electronically excite a molecule from the
+highest occupied molecular orbital (HOMO), usually the singlet ground
+state $S_0$, into the lowest unoccupied molecular orbital (LUMO), the
+singlet excited state $S_1$.\nomenclature{HOMO}{highest occupied
+  molecular orbital}\nomenclature{LUMO}{lowest unoccupied molecular
+  orbital} For this, the energy $E_\textrm{ph}=hc/\lambda$ of the
+photon has to match the energy gap $\Delta E=E_{S_1}-E_{S_0}$ of a
+possible electronic transition within the molecule (Bohr's frequency
+condition).
 
+Photons with wavelengths below \unit[200]{nm} have sufficient energy
+to ionize molecules. On the other side of the spectrum, a dye that
+absorbs in the near-infrared ($\unit[>700]{nm}$) has a low-lying
+excited singlet state $S_1$ and potentially increased reactivity
+\citep{Sauer2011}. Hence, most known stable and bright fluorophores
+absorb and emit in the wavelength range between \unit[300]{nm} and
+\unit[700]{nm}.
+
+As opposed to atomic spectra the absorbtion bands of organic dyes
+usually span several tens of nanometers. This is because dye molecules
+are composed of many atoms and this structure can vibrate and rotate.
 \subsection{Vibration of molecules}
-\begin{figure}[!hbt]
-  \centering
-  % (423-120)/423*7 = 4.77 ,trim=0 0 135 0,clip
-  \input{flu-condon_my.eps_tex}
-  \caption{Illustration of the Franck-Condon principle. Potential
-    curves for either the same equilibrium nuclear distance in the
-    excited state or a bigger nuclear distance in the excited state
-    (after \cite{Haken2006} p.~276).}
-  \label{fig:flu-condon}
-\end{figure}
 The distance between the two nuclei of the hydrogen molecule is not
 rigid. The nuclei can oscillate around their position of equilibrium
 at quantized frequencies. The vibration frequencies depend on the
 order of the bond and the mass of the two nuclei. When a molecule is
 electronically excited, its vibration frequencies decrease.
+\begin{figure}[!hbt]
+  \centering
+  % (423-120)/423*7 = 4.77 ,trim=0 0 135 0,clip
+  \input{flu-condon_my.eps_tex}
+  \caption{Illustration of the Franck-Condon principle. Potential
+    curves for either the same bond length in the
+    excited state ({\bf left}) or a larger bond length in the
+    excited state ({\bf right}). Electronic transition occurs
+    instantaneously and excites higher vibro-rotational states in the
+    right diagram. (after \cite{Haken2006} p.~276).}
+  \label{fig:flu-condon}
+\end{figure}
 
 \figref{fig:flu-condon} schematically shows potential curves for the
 ground state $S_0$ and the first excited state $S_1$ of two different
@@ -101,10 +120,14 @@ is absorbed, the electronic state of the molecule transitions into the
 higher state $S_1$. The mass of the electron is much smaller than the
 nucleus. Therefore the electronic transition takes place in a
 timescale of $\unit[\sim10^{-15}]{s}$. In this duration the nuclei do
-not move (Born-Oppenheim approximation, Franck-Condon principle). The
-changed internuclear equilibrium distance with the new orbital of the
-excited state $S_1$ drives the nuclei into movement (excitation of
-vibro-rotational modes).
+not move (\emph{Born-Oppenheimer approximation}: electronic
+transitions occur as if the nuclei were fixed in place). The changed
+bond length with the new orbital of the excited state $S_1$ drives the
+nuclei into movement (excitation of vibro-rotational modes,
+\emph{Franck-Condon principle}: electronic transition most likely
+occurs without changes to the position of the nuclei and the intensity
+of a vibrational transition depends on the overlap between the
+vibrational wavefunctions).
 
 \subsection{Depopulation pathways of excited states}
 \begin{figure}[!hbt]
@@ -133,18 +156,28 @@ $S_2$ is not usual in commonly used fluorophores and wavelength range.
 Absorbtion of one photon doesn't change the spin of an electron and
 therefore can't end in the triplet state $T_1$.
 
-As described above, electronic excitation in general also leads to
-vibro-rotational excitation. In microscopy fluorophores are often in
-aqueous environment, where they experience at least $10^{12}$
-collisions per second. The collisions bring the vibrations of the
-fluorophore molecule back to thermal equilibrium in a very short
-timescale ($\unit[10^{-12}]{s}$). This is considerably less time then
-the lifetime of the electronic excitation (few nanoseconds). Therefore
-spontaneous emission of a photon will occur from the vibrational
-ground state of $S_1$ (\emph{Kasha's rule}). During the
-\emph{vibro-rotational relaxation} in the solvent, small fluorophores
-statistically reorient themselves and the fluorescence photon will be
-emitted into a random direction with random polarization.
+As described above, electronic excitation in general also leads to the
+excitation of a vibro-rotational nonequilibrium state (Franck-Condon
+state). In microscopy fluorophores are often in aqueous environment,
+where they experience at least $10^{12}$ collisions per second. The
+collisions bring the vibrations of the fluorophore molecule back to
+thermal equilibrium in a very short timescale
+($\unit[10^{-12}]{s}$). This is considerably less then the lifetime of
+the electronic excitation (few nanoseconds). Therefore spontaneous
+emission of a photon will occur from the vibrational ground state
+$S_{1,v_1=0}$ (\emph{Kasha's rule}). During the \emph{vibro-rotational
+  relaxation} in the solvent, small fluorophores statistically
+reorient themselves and the fluorescence photon will be emitted into a
+random direction with random polarization.
+
+During emission of a fluorescent photon a Franck-Condon state of the
+singlet ground state $S_0$ is excited and returns into thermal
+equilibrium by vibro-rotational relaxation. Thus, some of the energy
+of the original excitation photon is lost as heat. The emitted
+fluorescent photon is red shifted compared to the excitation
+photon. The \emph{Stokes shift} is defined as the wavelength
+difference between the maxima of the fluorescence and absorbtion
+spectrum of a fluorphore and usually between 15 and \unit[30]{nm}.
 
 An important non-radiative 
 
