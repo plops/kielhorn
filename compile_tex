@@ -1,4 +1,4 @@
-cp kielhorn_memi.tex build
+cp *.tex build
 cd build
 latex kielhorn_memi
 makeindex kielhorn_memi.nlo -s /usr/share/texmf-texlive/makeindex/nomencl/nomencl.ist -o kielhorn_memi.nls

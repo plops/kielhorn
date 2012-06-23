@@ -83,15 +83,15 @@ The square root of the mean of the variance of the dark images was
 converted into a read noise in electrons per pixel using the real
 gain.
 
-The table in \figref{fig:ixon-table} summarizes the calibration
-results. The average of the dark images (in ADU) is given in the
-column \textsf{offset}. The read noise in conventional mode is
-approximately 8 electrons per pixel rms. The column \textsf{mean'}
-contains the average number of photoelectrons per pixel in the
-illuminated image normalized by the integration time. The rows
-\textsf{conv1} and \textsf{conv2} with conventional readout (without
-EM-gain) contain approximately the same number. This proves that no
-significant bleaching occurred during the experiment.
+Table~\ref{tab:ixon-table} summarizes the calibration results. The
+average of the dark images (in ADU) is given in the column
+\textsf{offset}. The read noise in conventional mode is approximately
+8 electrons per pixel rms. The column \textsf{mean'} contains the
+average number of photoelectrons per pixel in the illuminated image
+normalized by the integration time. The rows \textsf{conv1} and
+\textsf{conv2} with conventional readout (without EM-gain) contain
+approximately the same number. This proves that no significant
+bleaching occurred during the experiment.
 
 The EM-gain process introduces multiplicative noise in the signal. Its
 effect on the photoelectron statistics is the same as lowering the
@@ -113,7 +113,7 @@ describes the apparent reduction of the quantum efficiency.
 % decoupled.
 
 
-\begin{figure}
+\begin{table}[!htbp]
   \centering
   \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
@@ -185,8 +185,8 @@ conv2 & 1.5953 & 8.768 & 8198.86 & 93.30 & 0.5291 & 15496 & 1.019 \\
     the excess noise factor in the last column. In EM-mode the fastest
     readout speed was used \unit[10]{MHz} with vertical shift speed of
     \unit[1.7]{$\mu$s}.}
-  \label{fig:ixon-table}
-\end{figure}
+  \label{tab:ixon-table}
+\end{table}
 
 
 \subsection{Andor Basic code listing for automatic image acquisition}

@@ -87,33 +87,33 @@
 
 % short summary at the beginning of a section
 \newenvironment{summary}{\begin{quote}\small}{\end{quote}}
-
+\includeonly{state-of-the-art}
 \begin{document}
 \listoftodos
 \linenumbers
 \newpage
-\input{../abstract}
+\include{abstract}
 %\setcounter{tocdepth}{3}
 \tableofcontents
 \printnomenclature
 \newpage
-\input{../introduction}
+\include{introduction}
 \newpage
-\input{../state-of-the-art}
-\input{../setup}
-\input{../experiments}
+\include{state-of-the-art}
+\include{setup}
+\include{experiments}
 \appendix
-\input{../app_cam}
-\input{../raytrace}
-\input{../rigid}
-\input{../app_hilo}
-\input{../sim-angle}
-\input{../app_memi}
-\input{../app_dvi}
-\input{../app_dic}
-\input{../app_holo}
-\input{../app_spiral}
-\input{../app_term}
+\include{app_cam}
+\include{raytrace}
+\include{rigid}
+\include{app_hilo}
+\include{sim-angle}
+\include{app_memi}
+\include{app_dvi}
+\include{app_dic}
+\include{app_holo}
+\include{app_spiral}
+\include{app_term}
 \bibliographystyle{plainnat}
 %\bibliography{../state-of-art}
 \bibliography{../All}
@@ -121,3 +121,8 @@
 
 
 
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
