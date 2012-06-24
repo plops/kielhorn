@@ -7,5 +7,5 @@ bibtex kielhorn_memi
 latex kielhorn_memi
 latex kielhorn_memi
 latex kielhorn_memi
-dvips kielhorn_memi
+dvips -z kielhorn_memi
 dvipdf kielhorn_memi

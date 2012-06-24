@@ -1,4 +1,4 @@
-for i in `find {intro/*,state-of-the-art/*,setup/{,ray/hourglass-all}*,rigid/calib-align,raytrace/*,exp*/*,app_dic/*,dvi/*,app_holo/*,app_dic/img/*}.svg -printf "%C@ %p\n"|sort -nr|cut -d " " -f 2` ; do
+for i in `find {frontmatter/*,intro/*,state-of-the-art/*,setup/{,ray/hourglass-all}*,rigid/calib-align,raytrace/*,exp*/*,app_dic/*,dvi/*,app_holo/*,app_dic/img/*}.svg -printf "%C@ %p\n"|sort -nr|cut -d " " -f 2` ; do
     echo $i;
     inkscape $i --export-latex --export-eps=build/`basename $i .svg`.eps;
     inkscape $i --export-latex --export-pdf=build/`basename $i .svg`.pdf;
