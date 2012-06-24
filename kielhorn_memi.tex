@@ -11,6 +11,7 @@
 % I want BCOR= 20mm 1.5 HLU = 20 mm 
 % -> DIV=truncate(190*1.5/20) = truncate(14.25)=14
 % I could use headinclude so that the header isn't printed into the margin
+
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage[usenames,dvipsnames]{color}
@@ -23,10 +24,10 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 
-\usepackage{hyperref}
+\usepackage[hypertex,breaklinks]{hyperref} % breaklinks only seems to work with dvipdfm, otherwise urls have no line breaks
 \usepackage{units}
-\usepackage{todonotes} % for draft
-\usepackage{refcheck} % for draft
+\usepackage[disable]{todonotes} % for draft, disable for final
+%\usepackage{refcheck} % for draft, uncomment for final
 \usepackage{lineno}
 \usepackage{nomencl}
 
@@ -34,7 +35,9 @@
 %\usepackage[T2A]{fontenc} % for the russian reference
 \usepackage{wasysym} %diameter
 % http://www.andy-roberts.net/misc/latex/latextutorial3.html
+% \usepackage{url} % natbib.pdf p.11 break urls up, seems to be done with hyperref, though
 \usepackage{natbib}
+
 
 % for app_hilo
 \usepackage{listings}
@@ -91,9 +94,10 @@
 %1\includeonly{state-of-the-art}
 \begin{document}
 \listoftodos
-\linenumbers
+%\linenumbers
 \newpage
 \include{abstract}
+\urlstyle{sf}
 %\setcounter{tocdepth}{3}
 \tableofcontents
 \printnomenclature
@@ -117,7 +121,7 @@
 \include{app_term}
 \bibliographystyle{abbrvnat}
 %\bibliography{../state-of-art}
-\bibliography{../All}
+\bibliography{../library}
 \end{document}
 
 
