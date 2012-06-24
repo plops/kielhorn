@@ -1,3 +1,4 @@
+
 %\documentclass[DIV19]{scrartcl}
 %\usepackage[paper size={90mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
 % FIXME try prettyref
@@ -41,7 +42,7 @@
 \usepackage{textcomp}
 \usepackage{subfigure}
 
-
+% \listfiles % show which files are loaded by tex
 
 \bibpunct{(}{)}{;}{a}{}{,}
 \makenomenclature
@@ -87,7 +88,7 @@
 
 % short summary at the beginning of a section
 \newenvironment{summary}{\begin{quote}\small}{\end{quote}}
-\includeonly{state-of-the-art}
+%1\includeonly{state-of-the-art}
 \begin{document}
 \listoftodos
 \linenumbers
@@ -114,12 +115,10 @@
 \include{app_holo}
 \include{app_spiral}
 \include{app_term}
-\bibliographystyle{plainnat}
+\bibliographystyle{abbrvnat}
 %\bibliography{../state-of-art}
 \bibliography{../All}
 \end{document}
-
-
 
 
 %%% Local Variables: 
