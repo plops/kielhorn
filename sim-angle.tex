@@ -1,6 +1,5 @@
 \chapter{Wave optical simulation of the spatio-angular microscope}
 \label{sec:sim-angle}
-
 \begin{figure}[!hbt]
   \centering
   \def\svgscale{1.5}
@@ -11,16 +10,16 @@
     incoherent sum there.}
   \label{fig:memi-simple-app}
 \end{figure}
-
 The objective of an optical microscope is defined by its support on
-the Ewald sphere, i.e. the set of angles at which $k-$vectors
-contribute to the image. In the following we assume an ideal air
-objective with unit numerical aperture. This objective collects all
-light emitted into one half space and therefore half the Ewald sphere.
+the Ewald sphere, i.e.\ the set of angles where $k-$vectors contribute
+to the amplitude distribution $\vect E(x,y,z)$. In the following we
+assume an ideal air objective with unit numerical aperture. This
+objective collects all light emitted into one half space and therefore
+half the Ewald sphere (\figref{fig:simple-apsf}~left).
 
-The following code calculates the amplitude point spread function of
-such an objective (see \figref{fig:simple-apsf}~right for a display of its
-$x-z$~section).
+The following code calculates the amplitude point spread function
+$\vect E(x,y,z)$ of such an objective (see
+\figref{fig:simple-apsf}~right for its $xz-$cross section).
 
 {\small
 \begin{verbatim}
@@ -50,10 +49,10 @@ e(:,nh,:)
   \includegraphics[width=4cm]{ewald_xz}
   \quad\quad
   \includegraphics[width=4cm]{field_xz}
-  \caption{{\bf left:} $k_x-k_z$~section of the Ewald sphere -- the
-    $k-$vectors that can traverse the objective lens. {\bf
-      right:} $x-z$~section of
-    electric field in sample space (amplitude point spread function).}
+  \caption{{\bf left:} $k_xk_z-$cross section of the Ewald sphere --
+    the $k-$vectors that can traverse the objective lens. {\bf right:}
+    $xz-$cross section of electric field in sample space (amplitude
+    point spread function).}
   \label{fig:simple-apsf}
 \end{figure}
 
@@ -135,7 +134,7 @@ intens(:,nh,:)
   \quad\quad
   \includegraphics[width=4cm]{sim-intens}
   \caption{{\bf left:} BFP image for one particular of the ``on'' MMA
-    pixels. {\bf right:} $x-z$ section through the intensity
+    pixels. The red circle indicates the periphery of the pupil.{\bf right:} $xz-$cross section through the intensity
     distribution in sample space.}
   \label{fig:sim-bfp-intens}
 \end{figure}
