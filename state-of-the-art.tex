@@ -143,22 +143,23 @@ vibrational wavefunctions).
     \cite{Haken2006}).}
   \label{fig:flu-level}
 \end{figure}
-It is useful to summarize information about the energy levels of a
-molecule and possible transition processes in a Jablonski diagram as
-in \figref{fig:flu-level}. If a molecule is in the ground state $S_0$
-one of its outer electrons can be excited by absorbing a photon to the
-first excited singlet state $S_1$.  If the photon has an even higher
-energy, the electron will go into the second excited singlet state
-$S_2$.
+The Jablonski diagram in \figref{fig:flu-level} summarizes information
+about the energy levels of a molecule and possible transition
+processes. If a molecule is in the ground state $S_0$ one of its outer
+electrons can be excited by absorbing a photon to the first excited
+singlet state $S_1$.  If the photon has an even higher energy, the
+electron will go into the second excited singlet state $S_2$.
 
 Transition from the ground state into higher electronic states than
 $S_2$ is not usual in commonly used fluorophores and wavelength range.
 Absorbtion of one photon doesn't change the spin of an electron and
-therefore can't end in the triplet state $T_1$.
+therefore the transition $S_0\rightarrow T_1$ into the triplet state
+$T_1$ doesn't occur.
 
+\subsubsection{Kasha's rule}
 As described above, electronic excitation in general also leads to the
 excitation of a vibro-rotational nonequilibrium state (Franck-Condon
-state). In microscopy fluorophores are often in aqueous environment,
+state). In microscopy, fluorophores are often in aqueous environment,
 where they experience at least $10^{12}$ collisions per second. The
 collisions bring the vibrations of the fluorophore molecule back to
 thermal equilibrium in a very short timescale
@@ -170,6 +171,7 @@ $S_{1,v_1=0}$ (\emph{Kasha's rule}). During the \emph{vibro-rotational
 reorient themselves and the fluorescence photon will be emitted into a
 random direction with random polarization.
 
+\subsubsection{Stokes shift}
 During emission of a fluorescent photon a Franck-Condon state of the
 singlet ground state $S_0$ is excited and returns into thermal
 equilibrium by vibro-rotational relaxation. Thus, some of the energy
@@ -179,33 +181,21 @@ photon. The \emph{Stokes shift} is defined as the wavelength
 difference between the maxima of the fluorescence and absorbtion
 spectrum of a fluorphore and usually between 15 and \unit[30]{nm}.
 
-An important non-radiative 
+\subsubsection{Internal conversion}
+Often the transition $S_2\rightarrow S_1$ occurs by \emph{internal
+  conversion} (IC) followed by vibro-rotational relaxation. During IC,
+the electronic states transitions into a high vibro-rotational
+excitation of a lower electronic state. For floppy, non-rigid
+molecules, IC is a competing process to fluorescence $S_1\rightarrow
+S_0$. In dyes that absorb in the near infrared, the energy gap between
+$S_0$ and $S_1$ is so small and the vibrational states of highest
+energy of the singlet ground state $S_0$ (vibration of hydrogen bonds
+directly attached to the chromophore) are close to $S_1$. This
+seriously reduces the efficiency of infrared dyes
+\citep[p.~43]{Sauer2011}.
 
-picoseconds. This process is called \emph{internal conversion}. The
-interaction of the molecule with its surroundings is completely
-statistical and the excited electron will loose its phase relationship
-with electrons of other fluorescent molecules. A $S_2$ electron will
-decay radiationless into $S_1$ due to internal conversion.
 
-A $S_1$ electron can relax into the ground state $S_0$ by emitting a
-photon. For this transition the Frank-Condon principle applies
-again. A vibro-rotational mode of the ground state will be excited.
-Due to internal conversion at two steps during the whole process the
-energy of the emitted fluorescence photon is lower than the energy of
-the excitation photon (Stokes shift). The fluorescence lifetime -- the
-time the molecule stays in state $S_1$ -- is in the range of
-nanoseconds.
-
-There is a small probability that the electron doesn't relax and
-instead flips its spin (due to spin-orbit coupling\footnote{The
-  probability of a spin flip is increased if heavier atoms
-  (e.g. bromide) are part of the molecule.}). This process is called
-\emph{intersystem crossing}. This mechanism populates the first
-triplet state $T_1$. A transition into the ground state $S_0$ would
-need another spin-flip of the electron and is quite
-improbable. Therefore the triplet state has a long lifetime (several
-seconds). The radiative decay is called phosphorescence.
-  
+\subsubsection{Fluorescence quantum yield}
 The \emph{fluorescence quantum yield} $\eta$ of a fluorophore is
 defined as the quotient of the number of emitted (fluorescence)
 photons and the number of absorbed photons. In dyes like rhodamine~6G
@@ -213,46 +203,76 @@ photons and the number of absorbed photons. In dyes like rhodamine~6G
 (9,10-diphenyl anthracene in cyclohexane $\eta=0.90$ \cite{Hamai1983})
 its value can be nearly 1 in an appropriate solvent.
 
+
+\subsubsection{Intersystem crossing}
+There is a small probability that the HOMO electron doesn't relax by
+internal conversion or emission of a fluorescence photon. Instead it
+flips its spin (due to spin-orbit coupling\footnote{The probability of
+  a spin flip is increased if heavier atoms are part of the
+  molecule. E.g.\ while fluorescein has a triplet yield of 0.03, the
+  triplet yield of eosin, a fluorescein derivative with four bromine
+  substituents is 0.76 \citep[p.~37]{Sauer2011}.}). This process is
+called \emph{intersystem crossing} and populates the first triplet
+state $T_1$. A transition into the ground state $S_0$ would need
+another spin-flip of the electron and is quite improbable. Therefore
+the triplet state has a long lifetime (up to several seconds). The
+radiative decay is called phosphorescence.
+  
+
 \subsection{Photobleaching and phototoxicity}
-    
-If a fluorophore molecule enters the $T_1$ state it cedes to emit
-photons for a long time. The excited molecule could also change its
-structure into some non-fluorescent form or react with a
-neighbour. All these things result first of all in a decreasing
-fluorescence signal -- which is called \emph{photobleaching}.  Another
-effect is that the excited fluorophores impair living cells.  It is a
-curious quirk of nature that the ground state of the oxygen molecule
-is a triplet state ${}^3\O_2$.  If an oxygen molecule hits a $T_1$
-fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$, the energy of the dye
-can be transferred to the oxygen (\cite{Haken2006} p.438):
+The prolonged lifetime of the triplet state $T_1$ increases the
+probability for the excited molecule to collide with a partner and
+react.
+
 \begin{figure}[!hbt]
   \centering
   \input{oxygen.eps_tex}
-  \caption{odl}
+  \caption{{\bf left:} Molecular orbitals of the oxygen molecule. {\bf
+      right:} Molecular oxygen has the lowest energy in its triplet
+    state ${}^3\Sigma$. Then the spins of the two $\pi^*-$electrons
+    are parallel.}
   \label{fig:oxygen}
 \end{figure}
 
+
+The ground state of the oxygen molecule is a triplet state ${}^3\O_2$,
+with two unpaired electrons of parallel spin in its $\pi^*-$orbitals
+(see \figref{fig:oxygen}).  If an oxygen molecule comes into physical
+contact with a $T_1$ fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$,
+the energy of the dye can be transferred to the oxygen by an electron
+exchange energy transfer mechanism in which the orbitals directly
+interact with each other \citetext{\citealp[p.~438]{Haken2006} and
+  \citealp{Linde2011a}}:
 \begin{align}
   {}^3\O_2 + {}^3\textsf{Chlorophyll}^* \rightarrow
   {}^1\O^*_2+{}^1\textsf{Chlorophyll}
 \end{align}
+This reaction is also known as triplet--triplet annihilation.  There
+are two forms of singlet oxygen, that form in competition: The lower
+energy ${}^1\Delta$ and the short-lived, higher energy ${}^1\Sigma$
+form ($T_{1/2}\sim\unit[10^{-9}]{s}$), with spin orientations as
+depicted on the right of \figref{fig:oxygen}. During the transition
+${}^1\Sigma\rightarrow{}^1\Delta$ an infra-red photon with
+\unit[1268]{nm} wavelength is emitted \citep[p.~20]{Linde2011a}.
 
-
-The resulting singlet oxygen is very reactive and quite hazardous
-inside living creatures. Plants have developed several protection
-mechanisms, if they are exposed to too much light. Within the cells
-they reorient and shift their chloroplasts in order to expose them to
-less light. However, they even have a molecular protection mechanism:
-They transfer the energy of the chlorophyll onto carotenoid molecules
-and can prevent the hazardous \emph{phototoxicity} effects of singlet
-oxygen.
-
+The resulting singlet oxygen is very reactive and when it reacts with
+the fluorophore, it can destroy it (photobleaching) also the singlet
+oxygen is quite hazardous inside living creatures. Plants have
+developed several protection mechanisms against being exposed to too
+much light. Within the cells they reorient and shift their
+chloroplasts in order to expose them to less light. However, they even
+have a molecular protection mechanism: They transfer the energy of the
+chlorophyll onto carotenoid molecules and can prevent the hazardous
+\emph{phototoxicity} effects of singlet oxygen
+\citep{Krieger-Liszkay2005}.
 
 Nowadays many methods are known to reduce photobleaching. Supplant
-oxygen with noble gases or remove it enzymatically. Depopulate the
-triplet state by adding reducing as well as oxidizing agents to the
-solvent \citep{Vogelsang2008}. For fixed samples it helps to use
-different solvents than water.
+oxygen with noble gases or remove it enzymatically
+\citep[p.~89]{Sauer2011}. Depopulate the triplet state by adding
+reducing as well as oxidizing agents to the solvent
+\citep{Vogelsang2008} or couple a triplet quencher directly to the
+fluorophore \citep[p.~19]{Sauer2011}. For fixed samples it helps to
+use replace water as the solvent, e.g.\ with a polymer.
 
 All these techniques work after the hazardous chemicals have been
 produced. In order to reduce phototoxicity even more it makes sense to
