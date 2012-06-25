@@ -56,27 +56,30 @@ e(:,nh,:)
   \label{fig:simple-apsf}
 \end{figure}
 
-If the microscope would contain no MMA but just the LCoS being
-illuminated by a parallel plane, then the 3D field distribution in the
-sample plane could be obtained by propagating the field from the LCoS
-plane into the back focal plane of the objective (by a single 2D
-Fourier transform). Then one multiplies each of the points of the
-Ewald sphere with the corresponding complex value of the illumination
-field. A 3D Fourier transform then results in the 3D field
-distribution within the sample. By calculating the absolute square of
-the field one obtains the 3D light intensity distribution in sample
-space.
+If the microscope contained no MMA but just the LCoS being illuminated
+by a parallel wave, then we could obtain the 3D field distribution in the sample like this:
+\begin{itemize}
+\item Propagate the field from the LCoS plane into the back focal
+  plane of the objective (by a single 2D Fourier transform).
+\item Multiply each of the points of the Ewald sphere with the
+  corresponding complex value of the illumination field.
+\item 3D Fourier transform to compute the 3D field distribution within
+  the sample.
+\item Obtain 3D intensity distribution in sample space by computing
+  the absolute square of the field.
+\end{itemize}
 
 In the case of our spatio-angular microscope each of the pixels of the
-MMA can be assumed to be an independent coherent source. In the
+MMA can be assumed to be an independent coherent source. We think of
+each of the MMA pixels as an independent mono-mode laser diode. In the
 following code their fields are separately propagated into sample
 space and then incoherently summed into the 3D intensity distribution.
 
 The right picture in \figref{fig:sim-bfp-intens} displays an
-$x-z$~section of the intensity distribution for the masks shown in in
-\figref{fig:mma-lcos-window}. Note that the MMA window is shifted
-slightly to the right. The intensity distribution clearly shows that
-some angles are missing.
+$xz-$cross section of the intensity distribution for the masks shown
+in in \figref{fig:mma-lcos-window}. Note that the MMA window is
+shifted slightly to the right. The intensity distribution in
+\figref{fig:sim-bfp-intens} right shows that some angles are missing.
 
 \begin{verbatim}
 % define rectangular window as an lcos pattern
