@@ -30,23 +30,22 @@
 \chapter{Implementation of a robust structured illumination
   reconstruction technique}
 \begin{summary}
-  We implement a robust technique to computationally recover sectioned
-  images from only two structured illumination image and propose a
-  modification of the algorithm that may be beneficial if gratings are
-  produced with a spatial light modulator.
+  We implement a robust technique to computationally recover optically
+  sectioned images from only two structured illumination images.
 \end{summary}
 \section{Simulated image acquisition}
 As a test object we create a thick sphere shell, a line and a
 rectangle. The sphere shell will provide out of focus light, which we
-then try to remove. The objective is a NA1.4 oil with coherent
-\unit[473]{nm} excitation light and incoherent detection at
-\unit[520]{nm}.
+then try to remove. We simulate the illumination through an objective
+with $\textrm{NA}=n\sin(\alpha)=1.4$ and oil ($n=1.518$) immersion
+using coherent \unit[473]{nm} excitation light and incoherent
+detection at \unit[520]{nm}.
 
 The following listing shows how the image of the grating for
-structured excitation is calculated. The z-section of the result is
-shown in \figref{fig:grating}. The illumination source is coherent
-therefore the grating structure is repeated over nearly $\unit[6]{\mu
-  m}$ in $z$ (Talbot effect).
+structured excitation is calculated. The $xz-$section of the result is
+shown in \figref{fig:grating}. Due to coherent illumintation the
+grating structure is repeated over nearly $\unit[6]{\mu m}$ in $z$
+(Talbot effect).
 \begin{lstlisting}
 n=128;
 nmperpixel=100; % one pixel is corresponds to 100nm
@@ -72,20 +71,20 @@ imgrat=abs(imgratx).^2+abs(imgraty).^2+abs(imgratz).^2
 \begin{figure}[htb]
   \centering
   \includegraphics{../app_hilo/grating_xz}
-  \caption{$x-z-$Section of the intensity distribution {\tt
+  \caption{$xz-$cross section of the intensity distribution {\tt
       imgrat(:,64,:)} of the coherent image of the grating in sample
     space.}
   \label{fig:grating}
 \end{figure}
-The following listing shows how the sample object, i.e. fluorophore
-concentration, is generated.  The spherical shell is calculated as the
-product of two Sinc functions in k-space and a product with $r$ in
-real space. There is also a vertical line and a rectangle. A slice
-through the simulated fluorophore concentration is shown
-\figref{fig:input} left. Note that the sphere is very faint but it is
-the only of the three objects that is extended in $z$.
+The following listing shows how the sample object, i.e.\ the
+fluorophore concentration, is generated.  The spherical shell is
+calculated as the product of two Sinc functions in k-space and a
+product with $r$ in real space. There is also a vertical line and a
+rectangle. A slice through the simulated fluorophore concentration is
+shown \figref{fig:input}~a). Note that the sphere is very faint but
+it is the only of the three objects that is extended in $z$.
 
-The shift by {\sf dz} in $z-$direction is done by multiplication with
+A shift by {\sf dz} in $z-$direction is done by multiplication with
 $\exp(-ik{\sf dz})$ in k-space. This is only a good method to defocus
 small distances {\sf dz} as the object will wrap around the borders.
 
@@ -101,15 +100,15 @@ dz=1; % shift in pixels -> 1 equals 100nm
 kobj=kobj.*exp(-i*2*pi*zz(kobj,'freq')*dz);
 obj=ift(kobj);
 \end{lstlisting}
-
 In order to simulate the final image the fluorophore concentration is
-multiplied by the excitation intensity and the result is convolved
-with the detection point spread function (PSF)
-\nomenclature{PSF}{point spread function} \nomenclature{OTF}{optical
-  transfer function} of the microobjective (this time according to the
-rules of incoherent imaging).
+multiplied by the excitation intensity distribution. The resulting
+distribution of excited fluorophores is convolved with the simulated
+detection point spread function (PSF) \nomenclature{PSF}{point spread
+  function} \nomenclature{OTF}{optical transfer function} of the
+microscope objective. The 3D convolution simulates the incoherent
+image formation.
 \begin{lstlisting}
-%% for imaging the fluorescence light
+%% detection PSF for imaging the fluorescence light
 psf=kSimPSF({'lambdaEx',473;'lambdaEm',520;'na',1.4;'ri',1.518;...
         'sX',n;'sY',n;'sZ',sz*n;'scaleX',nmperpixel;...
         'scaleY',nmperpixel;'scaleZ',znmperpixel});
@@ -122,26 +121,32 @@ flimg=ift(ft(obj).*kpsf);       % widefield fluorescence image
 iu=real(squeeze(flimg(:,:,(sz*n)/2)));     % uniform illumination
 in=real(squeeze(strucflimg(:,:,(sz*n)/2)));% structured illumination
 \end{lstlisting}
-The image for uniform illumination is shown in the middle of
-\figref{fig:input}. The right picture shows the image for non-uniform
-illumination with the \unit[600]{nm}-period grating.
-\begin{figure}[htb]
+The image $I_u$ for uniform illumination is shown in
+\figref{fig:input}~b). \figref{fig:input}~c) depicts the image $I_n$
+for non-uniform illumination with the \unit[600]{nm}-period grating.
+\begin{figure}[!htb]
   \centering
-  \subfigure[object]{\includegraphics[width=4cm]{../app_hilo/obj}}
-  \subfigure[widefield illumination]{\includegraphics[width=4cm]{../app_hilo/iu}}
-  \subfigure[structured illumination]{\includegraphics[width=4cm]{../app_hilo/in}}
-  \caption{Slice of the object in the focal plane. It consists of a
-    line, a spherical shell and a rectangle. Only the shell is
-    extended in z. {\bf(a)}, Image with widefield
-    illumination. {\bf(b)}, Image with structured illumination
-    (grating period \unit[600]{nm}). {\bf(c)} The scalebar is
-    \unit[2]{$\mu$m} wide. }
+
+  \subfigure[fluorophore distribution in the test object
+  \textsf{obj}]{\includegraphics[width=4cm]{../app_hilo/obj}}
+  \subfigure[image under widefield illumination
+  $I_u$]{\includegraphics[width=4cm]{../app_hilo/iu}}
+  \subfigure[image with structured illumination
+  $I_n$]{\includegraphics[width=4cm]{../app_hilo/in}}
+
+  \caption{{\bf(a)} $xy-$slice of the object in the focal plane. It
+    consists of a line, a spherical shell and a rectangle. Only the
+    shell is extended in z. {\bf(b)} Image with widefield
+    illumination. {\bf(c)} Image with structured illumination (grating
+    period \unit[600]{nm}).  The scalebars are \unit[2]{$\mu$m}
+    wide. }
   \label{fig:input}
 \end{figure}
 \figref{fig:defocus} shows the non-uniformly illuminated images for
-the object being moved relative to the plane of focus. The line and
-the rectangle are both blurred and the contrast of the grating
-decreases. One can still see the image of the grating in the sphere.
+different focus positions. The line and the rectangle both become
+blurred and the contrast of the grating decreases in out of focus
+planes. The grating in the sphere is still visible at approximately
+the same contrast.
 \begin{figure}[htb]
   \centering
   \subfigure[100 nm defocus]{\includegraphics[width=4cm]{../app_hilo/in100}}
@@ -157,37 +162,43 @@ If a fluorescent plane is imaged with a fluorescence widefield
 microscope, the intensity of the image is constant no matter if the
 plane is in focus or not (missing cone problem). 
 \subsection{Apotome}
-Using non-uniform excitation light \cite{Neil1997} circumvents this
-problem. They project a grid pattern into the sample. For a
-fluorescent plane sample the modulation in the image is highest, when
-the sample is in focus. If the plane is moved out of focus, the
-modulation decreases. Hence it is possible to achieve z-sectioning in
-a widefield microscope.
+Using non-uniform excitation light \cite{Neil1997} circumvent this
+problem. They project a grid pattern into the sample using incoherent
+illumination. For a fluorescent plane sample the modulation in the
+image is highest, when the sample is in focus. If the plane is moved
+out of focus, the modulation decreases. Hence it is possible to
+achieve z-sectioning in a widefield microscope.
 
-For one section $I_p$ they combine three grating images $I_i$ (grating
-period $1/\nu$) with different phases:
+For one optically sectioned image $I_p$ they combine three grating
+images $I_i$ (grating period
+$1/\nu=\textrm{NA}/(\beta\lambda\tilde\nu)$, magnification $\beta$
+between grating and specimen plane) with different phases:
 \begin{align}
   I_p=\abs{I_1+I_2e^{i2\pi/3}+I_3e^{i4\pi/3}}
-  \sim\left| 2 \frac{J_1(2u\nu(1-\nu/2))}{u\nu(1-\nu/2)}\right|.
+  \sim\left|2\frac{J_1(2u\tilde\nu(1-\tilde\nu/2))}{2u\tilde\nu(1-\tilde\nu/2)}\right|.
 \end{align}
 
 The last term is their result for the intensity of a fluorescent plane
-with the defocus $u$. If no grating is displayed ($\nu=0$) the
-resulting image $I_p$ is constant and the microscope has no sectioning
-capability. A fine grating gives best sectioning capability. However
-sometimes there is also a trade of to be made because a fine grating
-will give very low contrast in a thick specimen.
+with the defocus $u=8\pi z\sin^2(\alpha/2)/\lambda$. If no grating is
+displayed ($\nu=0$) the resulting image $I_p$ is constant and the
+microscope has no sectioning capability. A fine grating gives best
+sectioning capability. However, there is also trade off to be made
+because a fine grating will give very low contrast in a thick
+specimen. Also for fine gratings a partially coherent illumination
+should be used, so that orders are not cut off at the periphery of the
+BFP \citetext{priv.\ comm.\ R.~Heintzmann}. This limits the field of
+view for fine gratings.
 
 For their reconstruction method it is necessary to capture three
-images to generate one sectioned slice. This can be a problem if the
+images to compute one sectioned slice. This can be a problem if the
 movement of the grating isn't perfect or if the object moves during
-these exposures.
+the exposures.
 \subsection{HiLo}
-This problem is addressed by \cite{2008Lim} and
-\cite{2009Santos}. They describe an approach, where only two images
-need to be captured for each $z-$sectioned slice.  An image with
-uniform illumination contains contributions of both in-focus and out
-of focus fluorophores:
+This problem is addressed by \citet{2008Lim} and
+\citet{2009Santos}. They describe an approach, for which only two
+images need to be captured for each $z-$sectioned slice.  An image
+with uniform illumination contains contributions of both in-focus and
+out of focus fluorophores:
 \begin{align}
 \label{eqn:Iu}
   I_u(x,y)=I_\textrm{in}(x,y)+I_\textrm{out}(x,y).
@@ -207,7 +218,7 @@ We can recover the sectioned image as a combination of high-frequency
 components of the widefield image $I_u$ and the low-frequency
 components of the modulated part of the non-uniform image $I_n$.
 \subsubsection{Using speckle pattern as non-uniform illumination (local variance estimation)}
-In the older publication (\cite{2008Lim}) a random speckle pattern is
+In the older publication \citep{2008Lim} a random speckle pattern is
 projected into the sample. For comparison with the other methods we
 describe a reimplementation of their method.
 
@@ -238,7 +249,8 @@ widefield image:
   \frac{\avg{I_u^2}}{\avg{I_u}^2}-1.
 \end{align}
 The product $I_{su}=c_s\avg{I_u}$ then provides a low resolution
-version of $I_u$ that is optically sectioned even for dc frequencies.
+version of $I_u$ that is optically sectioned (using information from
+$I_n$) even for the DC frequency.
 
 The following listing shows how this algorithm can be applied to two
 input images {\sf iu} and {\sf in}. Instead of doing a discrete
@@ -260,7 +272,6 @@ isu=sqrt(cs2).*iua;      % sectioned version of iu
 kihp=ft(iu).*khp;
 kilp=ft(isu).*klp;
 \end{lstlisting}
-
 \begin{figure}[htb]
   \centering
   \subfigure[Corrected relative standard deviation $c_s$.]{\includegraphics[width=4cm]{../app_hilo/cs}}
@@ -270,8 +281,6 @@ kilp=ft(isu).*klp;
     \unit[2]{$\mu$m} wide.}
   \label{fig:hilo1interm}
 \end{figure}
-
-
 The HiLo method combines a low-pass filtered version of $I_{su}$ with
 a high pass filtered version of the uniformly illuminated image $I_u$.
 To do this the two images are scaled for a seamless interface along
@@ -305,16 +314,16 @@ ihilo=ift(eta.*kilp+kihp);
 \end{figure}
 
 \subsubsection*{Discussion}
-This algorithm only requires that the illumination intensity in $I_n$
-fluctuates over a certain region. The results somewhat resemble a
-sectioned image. The main advantage is that all the filtering could
-have been done in real space, without ever doing any Fourier
-transform.
+This algorithm only requires the illumination intensity in $I_n$ to
+fluctuate over a certain region and one uniform image. The
+reconstructed results somewhat resemble a sectioned image. The main
+advantage is that all the filtering could have been done in real
+space, without ever doing any Fourier transform.
 \subsubsection{Reconstructing the sample illuminated with a grating
   pattern (single side-band demodulation)}
-The younger paper \cite{2009Santos} uses a more defined pattern in the
-excitation illumination than random speckle. A grating is projected
-into the specimen using a spatial light modulator.
+The more recent paper \cite{2009Santos} uses a more defined pattern in
+the excitation illumination than random speckle. A grating is
+projected into the specimen using a spatial light modulator.
 
 Starting from a widefield image $I_u$ and an image $I_n$ that has been
 illuminated with a grating they first determine the ratio $R=I_n/I_u$.
@@ -326,20 +335,19 @@ they obtain:
   C&=\frac{I_\textrm{in}}{I_\textrm{in}-I_\textrm{out}}.
 \end{align}
 Here $C$ is the local image contrast (containing information similar
-to $c_s$ in the HiLo ``speckle'' method) that is necessary to
+to $c_s$ in the HiLo local variance method) that is necessary to
 determine the low-resolution sectioned image. The Fourier transform
 $\tilde R$ (see \figref{fig:hatR}) of the ratio contains a peak in the
-centre (due to the constant 1) and at least two more peaks ($\pm 1$
-order) on the $k_x$ axis. There are a strong $\pm 1$ order and a
-weaker $\pm 2$ order as a rectangular grating is imaged into the
-sample (as opposed to a Sine grating).
+centre (due to the constant 1). Then there are strong $\pm 1$ orders
+and weaker $\pm 2$ orders because a rectangular grating is imaged into
+the sample. If only a Sine grating was imaged into the sample, only the $\pm 1$ orders would be present.
 %FIXME the weak grating isn't in In! so maybe it is due to the ratio
 
-To extract the modulated signal a filter is constructed that selects
-only the first order on the right side of the Fourier transform. The
-result of the filter is shown in \figref{fig:hatR+}. The intermediate
-image $I_{su}=\abs{R^+}I_u$ (see \figref{fig:isu2}) contains the
-low-resolution sectioned image.
+To extract the modulated signal from $R$, a filter is constructed that
+selects only the first order on the right side of the Fourier
+transform $\tilde R$. The result of the filter is shown in
+\figref{fig:hatR+}. The intermediate image $I_{su}=\abs{R^+}I_u$ (see
+\figref{fig:isu2}) contains the low-resolution sectioned image.
 
 \begin{figure}[htb]
   \centering \subfigure[Ratio
@@ -376,12 +384,14 @@ nring=cring./sum(abs(cring))
 eta=sum(abs(ft(ihp))/abs(ft(ilp)).*nring) % integrate along circle
 ihilo=eta.*ilp+ihp                        % combined section
 \end{lstlisting}
-We chose the cutoff frequency $k_c$ high enough so that
-$I_\textrm{lp}$ doesn't look too smooth but also low enough so that I
-don't loose too much information from the $I_\textrm{hp}$ image. The
-scale factor $\eta$ for $I_\textrm{lp}$ and $I_\textrm{hp}$ is
-calculated as in the previous section. Finally the combined sectioned
-image is displayed in \figref{fig:ihilo2}.
+We chose the cutoff frequency $k_c$ high enough so that the low
+resolution sectioned image $I_\textrm{lp}$ (computed from uniform
+image) doesn't look too smooth but also low enough so that not too
+much information is lost from the high resolution sectioned image
+$I_\textrm{hp}$ image (computed from modulated image). The scale
+factor $\eta$ for $I_\textrm{lp}$ and $I_\textrm{hp}$ is calculated as
+in the previous section. Finally the combined sectioned image is
+displayed in \figref{fig:ihilo2}.
 \begin{figure}[htb]
   \centering
   \subfigure[$I_{su}$]{\label{fig:isu2}\includegraphics[width=4cm]{../app_hilo/isu2}}
@@ -400,16 +410,19 @@ intermediate image $I_{su}$. That accounts for the better appearance
 of the result \figref{fig:ihilo2} compared to \figref{fig:ihilo} (at
 least for this particular grating).
 
-Another thing that comes to mind is that the calculation of the ratio3
-isn't the only way to extract the modulated signal. Another approach
-would involve subtracting the widefield image\footnote{Suggested by
-  R. Heintzmann.} and shifting in Fourier space. This will be
-discussed in the following section.
+Probably the results would be even better, if a Sine pattern was
+illuminated into the sample. Then, there would be no second orders in
+\figref{fig:hilo2}~(b) and the filter would be easier to place.
+
+Calculation of the ratio (single side-band demodulation) isn't the
+only way to extract the modulated signal. Another approach involving
+subtracting the widefield image\footnote{Suggested by R.~Heintzmann.}
+and shifting in Fourier space is discussed in the following section.
 \section{Alternative method (subtraction method)}
 Instead of using a non-hermitian filter to extract the modulated part
 of the non-uniformly illuminated image $I_n$ it is also possible to
 employ the Fourier shift theorem: A shift in real space is 
-multiplication with a phase factor in k-space. 
+a multiplication with a phase factor in k-space. 
 
 Given two images in real space $f(\vect x)$ and $g(\vect x)$. The
 image $g$ contains the same information as $f$ but shifted by a vector
@@ -434,8 +447,8 @@ grating $I_n$ in order to suppress the zero order. The following code
 integrates over a circle around the origin in k-space to find a
 constant {\sf kappa} to scale $I_u$ with. Furthermore the
 Fourier transform of the images is divided by the OTF in order to
-correct for the non-constant frequency transfer in the micro
-objective\footnote{Note that for this to work with real noisy data a
+correct for the non-constant frequency transfer in the microscope
+objective\footnote{Note that for this to work with noisy data a
   Wiener filter would be necessary.}
 \begin{lstlisting}
 kin=ft(in);
@@ -454,26 +467,27 @@ ackiu=abs(ckiu).*(rr(ackiu,'freq')<.16 | abs(xx(ackiu,'freq'))<.06);
 \end{lstlisting}
 The Fourier transform of the OTF-corrected non-uniform image is shown
 in \figref{fig:ackin}. It still contains the $\pm1$ orders. In order
-to measure their exact position (depending on grating period {\sf P})
-the zero order of the widefield k-space is selected (in variable {\sf
-  ackiu}) and cross-correlated with {\sf ackin}.
+to measure their exact position (depending on the grating period {\sf
+  P}) the zero order of the widefield k-space is selected (in variable
+{\sf ackiu}, \figref{fig:hilo3}~(b)) and cross-correlated with {\sf
+  ackin} (\figref{fig:hilo3}~(a)).
 
 \begin{figure}[htb]
   \centering \subfigure[{\sf
     ackin}]{\label{fig:ackin}\includegraphics[width=6cm]{../app_hilo/ackin}}
-  \subfigure[{\sf
+  \subfigure[filtered zero order of uniform image $I_u$ {\sf
     ackiu}]{\label{fig:ackiu}\includegraphics[width=6cm]{../app_hilo/ackiu}}
   \subfigure[Cross correlation
   $cov$.]{\label{fig:cov}\includegraphics[width=6cm]{../app_hilo/cov}}
   \subfigure[Surface plot of
-  $cov$.]{\label{fig:cov3d}\includegraphics[width=6cm,viewport=100 0 920
-    820,clip]{../app_hilo/cov3d}}
-  \caption{Intermediate results for our HiLo ``shift'' algorithm.}
+  $cov$.]{\label{fig:cov3d}\includegraphics[width=6cm,viewport=100 0
+    920 820,clip]{../app_hilo/cov3d}}
+  \caption{Intermediate results for the HiLo ``shift'' algorithm.}
   \label{fig:hilo3}
 \end{figure}
-In order to locate the maximum in the cross-correlation with a high
-enough accuracy the convolution is done on a finer grid by
-zero-padding the input images as shown in the following listing: 
+In order to locate the maximum in the cross-correlation with a
+sufficient accuracy the convolution is done on a finer grid by
+zero-padding the input images as shown in the following listing:
 \begin{lstlisting}
 kcov=ft(ackin).*conj(ft(ackiu));
 % subsample the correlation by zero padding
@@ -484,7 +498,8 @@ cov=abs(ift(kcov_big)); % this contains the cross correlation
 \end{lstlisting}
 The $512\times512$ image {\sf cov} is shown in \figref{fig:cov} and
 \figref{fig:cov3d}. The next listing is the code to locate the centre
-of gravity of the nine points on top of the right peak:
+of gravity of the nine points on top of the right peak in
+\figref{fig:hilo3}~(c,d):
 \begin{lstlisting}
 %% find maximum on the right of the correlation
 startx=75*4;
@@ -513,7 +528,7 @@ to the centre of the $128\times128$ image.
   \label{fig:hilo3_2}
 \end{figure}
 The following listing shows how the non-uniform image is shifted in
-k-space so that the first order becomes dc. The result $\tilde q_s$
+k-space so that the first order becomes DC. The result $\tilde q_s$
 is shown in \figref{fig:kqs}.
 \begin{lstlisting}
 %% multiply by this in object space to shift +1 order into middle
