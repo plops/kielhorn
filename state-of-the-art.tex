@@ -162,14 +162,20 @@ excitation of a vibro-rotational nonequilibrium state (Franck-Condon
 state). In microscopy, fluorophores are often in aqueous environment,
 where they experience at least $10^{12}$ collisions per second. The
 collisions bring the vibrations of the fluorophore molecule back to
-thermal equilibrium in a very short timescale
-($\unit[10^{-12}]{s}$). This is considerably less then the lifetime of
-the electronic excitation (few nanoseconds). Therefore spontaneous
-emission of a photon will occur from the vibrational ground state
-$S_{1,v_1=0}$ (\emph{Kasha's rule}). During the \emph{vibro-rotational
-  relaxation} in the solvent, small fluorophores statistically
-reorient themselves and the fluorescence photon will be emitted into a
-random direction with random polarization.
+thermal equilibrium\footnote{Rotation states have energies
+  corresponding up to \unit[100]{$cm^{-1}$} (microwave), vibration
+  states have energies corresponding to wavenumbers from 300 to
+  \unit[3000]{$cm^{-1}$} (infrared). Electronic states have energies
+  in the visible. At room temperature ($k_B
+  T\sim\unit[200]{cm^{-1}}$), only rotation states are excited.} in a
+very short timescale ($\unit[10^{-12}]{s}$). This is considerably less
+then the lifetime of the electronic excitation (few
+nanoseconds). Therefore spontaneous emission of a photon will occur
+from the vibrational ground state $S_{1,v_1=0}$ (\emph{Kasha's
+  rule}). During the \emph{vibro-rotational relaxation} in the
+solvent, small fluorophores statistically reorient themselves and the
+fluorescence photon will be emitted into a random direction with
+random polarization.
 
 \subsubsection{Stokes shift}
 During emission of a fluorescent photon a Franck-Condon state of the
@@ -180,6 +186,9 @@ fluorescent photon is red shifted compared to the excitation
 photon. The \emph{Stokes shift} is defined as the wavelength
 difference between the maxima of the fluorescence and absorbtion
 spectrum of a fluorphore and usually between 15 and \unit[30]{nm}.
+The Stokes shift is bigger, when the shape and position of the
+potential of the excited state $S_1$ differs from the ground state
+$S1$ (see \figref{fig:flu-condon}, right).
 
 \subsubsection{Internal conversion}
 Often the transition $S_2\rightarrow S_1$ occurs by \emph{internal
@@ -287,12 +296,13 @@ think about the light management in the microscope.
   cost of increasing the phototoxic load on the specimen.
 \end{summary}
 The basic building block of microscopes are lenses. A lens is a piece
-of glass with two polished spherical (a shape of lower symmetry is
-much harder to manufacture) surfaces. Light is slower in glass than in
-air. The shape of a lens redirects photons and the thickness of the
-material can delay them. A lens focuses a parallel beam of light into
-a spot on its focal plane. The distance between focal plane and the
-region where the rays start to converge is called focal length.
+of glass with two polished spherical surfaces. Aspherical lenses also
+exist but are much harder to manufacture because of their lower
+symmetry. Light is slower in glass than in air. The shape of a lens
+redirects photons and the thickness of the material can delay them. A
+lens ideally focuses a parallel beam of light into a spot on its focal
+plane. The distance between focal plane and the region where the rays
+start to converge is called focal length and denoted by $f$.
 \begin{figure}[!hbt]
   \centering
   \input{widefield-microscope.eps_tex}
@@ -313,46 +323,51 @@ region where the rays start to converge is called focal length.
   \label{fig:widefield-microscope}
 \end{figure}
 
-The yellow beam in \figref{fig:widefield-microscope}~a) represents
+The uncoloured beam in \figref{fig:widefield-microscope}~a) represents
 rays that start from the intersection $O$ of the optical axis and the
 front focal plane of the objective. The objective collects the rays
 and collimates them into a beam that is parallel to the optical
-axis. After traversing the tube length $f+f_\textrm{TL}$ the detection
-tube lens TL1 focuses the rays on the intersection $O'$ of its focal
-plane (the intermediate image plane) and the optical axis.
+axis. After traversing the tube length $f+f_\textrm{TL}$, the rays are
+focused by the detection tube lens TL1 on the intersection $O'$ of its
+focal plane and the optical axis. 
 
 The blue beam corresponds to rays that start from an off-axis point
 $P$ in the front focal plane of the objective. Behind the objective
-the blue beam is a parallel beam. However, the beam isn't parallel to
-the optical axis. The tube lens TL1 focuses the blue beam into a spot
-at $P'$ on its focal plane. Using the theorem of intercepting lines
-one obtains for the magnification $M$:
+the blue beam is a parallel beam. However, the beam is tilted relative
+to the optical axis. The tube lens TL1 focuses the blue beam into a
+spot at $P'$ on its focal plane.
+
+The objective fulfils the Abbe sine condition -- it is aplanatic. The
+microscope forms stigmatic images of points from the front focal plane
+in the plane perpendicular to the optical axis, containing $O'$ and
+$P'$. The plane with the images is called intermediate image plane. It
+is magnified by the factor $M$:
 \begin{align}
   M=\frac{\overline{O'P'}}{\overline{OP}}=\frac{f_\textrm{TL}}{f}.
 \end{align}
 In our microscope we use an objective with magnification $M=63$. The
 focal length of the tube lens is \unit[164.5]{mm} for most Zeiss
-microscopes. Therefor the focal length of our objective is
+microscopes. Therefore the focal length of our objective is
 $f=\unit[2.61]{mm}$.
 
-Assuming we have a metal mirror with two small
-($\diameter<\unit[120]{nm}$) holes in the reflective coating with
-$\unit[2]{\mu m}$ distance between them.  We put this object into the
-front focal plane of the objective and position a camera on $O'$. When
-illuminating the mirror from the side opposite to the objective, the
-camera will show two spots with $\unit[126]{\mu m}$ distance.
+Let's assume we have an opaque sample with just two small
+($\diameter<\unit[120]{nm}$) holes with $\unit[2]{\mu m}$ distance
+between them.  We put this object into the front focal plane of the
+objective and position a camera on $O'$. When illuminating the mirror
+from the side opposite to the objective, the camera will show two
+spots with $\unit[126]{\mu m}$ distance.
 
 \nomenclature{NA}{numerical aperture}
 
-Note that \figref{fig:widefield-microscope} depicts a thin-lens model
-of a high numerical aperture objective that fulfils Abbe's sine
-condition. A real objective contains in the order of ten coated lenses
-of different glass and crystalline materials. Their curvatures,
+Note that \figref{fig:widefield-microscope} depicts a \emph{thin-lens
+  model of a high numerical aperture objective} that fulfils Abbe's
+sine condition. A real objective contains in the order of ten coated
+lenses of different glass and crystalline materials. Their curvatures,
 positions and materials were all carefully chosen, taking into account
 manufacturing tolerances and wavelengths, so that the microscope
-behaves exactly as the thin-lens model predicts. Diffraction at the
-periphery of the pupil in the back focal plane dictates the
-resolution, one can achieve inside of the sample.
+behaves as the thin-lens model predicts. Diffraction at the periphery
+of the pupil in the back focal plane dictates the resolution, one can
+achieve inside of the sample.
 
 It is quite possible that heating to \unit[37]{${}^\circ$C} will ruin
 such a high-precision instrument. A related source of aberrations
@@ -364,12 +379,15 @@ the glass).
 
 \subsection{Widefield epifluorescence microscope}
 Fluorescence photons are emitted in all directions, independent of the
-original illumination direction. Therefor it is convenient to use the
-objective for excitation as well as detection. This mode of microscopy
-is called epifluorescence (Greek: $\varepsilon\pi\iota$; on, above).
-One advantage is that even (the frontal side of) opaque specimen can
-be imaged. Furthermore it is beneficial that the illumination needs to
-be aligned only once.
+original illumination direction. Therefore it is possible and
+convenient to use the objective for excitation as well as
+detection. This mode of microscopy is called epifluorescence (Greek:
+$\varepsilon\pi\iota$; on, above).  In this configuration usually only
+a small percentage of the excitation light returns due to diffraction
+or reflection. This simplifies the separation of fluorescence light
+from excitation light.  Furthermore parts of opaque specimen can be
+imaged and it is beneficial that the illumination needs to be aligned
+only once.
 
 \nomenclature{BFP}{Back focal plane}
 
@@ -381,21 +399,34 @@ coated with dielectric layers. The refractive index, thickness and
 sequence of the layers are designed so that the excitation light is
 reflected towards the objective but lower energy fluorescence light
 returning from the objective is transmitted towards the camera. Behind
-the objective the beam is parallel and illuminates the specimen.
+the objective the beam is parallel and illuminates the specimen. The
+\emph{field of view} is the demagnified diameter of the laser beam
+before TL2.
 \subsubsection*{Non-uniformity due to coherent interference}
 Note that tiny dirt particles and coherent interference in laser beams
 can produce unwanted non-uniformities in the illumination. As a remedy
-sometimes the spatial coherence of the laser is reduced. Often
-incoherent light emitting diodes, mercury or xenon arc lamps are used
-instead of lasers. In the latter case the dichroitic beam splitter is
-preceded by a band pass filter that selects the useful part of the
-lamp's spectrum.
+the spatial coherence of the laser is sometimes reduced.  Incoherent
+light emitting diodes, mercury or xenon arc lamps are often used
+instead of lasers. In the latter case a band pass filter selects the
+useful part of the spectrum of the excitation lamp upstream of the
+dichroitic beam splitter.
 
+\subsubsection{Out-of-focus blur}
 However, independent of the choice of the light source, the widefield
 microscope in epifluorescence configuration exposes many layers of the
-sample. This leads to fluorescence of out-of-focus fluorophores
-(molecules that are not in the front focal plane). The objective
-collects their light and forms a blurred image on the camera.
+sample. This leads to fluorescence of out-of-focus fluorophores.
+
+There are two reasons, why out-of-focus fluorophores give blurred
+images. Not even an ideal imaging system -- a device that forms
+%% FIXME refer to maxwell or born/wolf
+stigmatic images of all the points in one volume in another volume --
+would form sharp images on the camera plane. After all, the camera is
+just a plane and the object under observation is three dimensional.
+
+Furthermore a microscope is far from being an ideal imaging system. In
+a microscope it is not possible to obtain a sharp image of a different
+slice of the object by changing the axial position of the camera
+behind the tubelens TL1 \citep{Botcherby2007,Botcherby2008a}.
 \subsubsection*{Deconvolution}
 When a stack of several slices of an object is obtained, it is
 possible to suppress the blurred part of each image in all the
@@ -403,50 +434,73 @@ others. These algorithms (deconvolution) can improve the perceived
 quality of images in some stacks. However, there are two fundamental
 problems:
 
-First the ``missing cone problem'' prevents focusing on a homogeneous
-fluorescent plane. Physics dictates that there always is a gap in the
-transfer function of the objective when the fluorescence process is
-linear and the objective collects only photons from one half space.
+First the \emph{missing cone problem} prevents focusing on a
+homogeneous fluorescent plane. Physics dictates that there is always a
+gap in the transfer function of the objective when the fluorescence
+process is linear and the objective collects only photons from one
+half space (see \figref{fig:missing-cone}). Not all spatial
+frequencies within the transfer function attenuate with defocus
+\citep{Neil1997}.
 
-Second: Even with ideal detectors there is photon shot noise in the
+\begin{figure}[!hbt]
+  \centering
+  \input{missing-cone.eps_tex}
+  \caption{Schematic to depicting $k_xk_z-$cross sections of the
+    support of optical transfer function for microscope objectives
+    with different collection angles. {\bf left \& middle:}
+    Objectives, that only collect one light that is directed into one
+    half space, have the missing cone problem. There, low spatial
+    frequencies don't attenuate with defocus. {\bf right:} Theoretical
+    objective with larger collection angle and no missing cone.}
+  \label{fig:missing-cone}
+\end{figure}
+
+Second, even with ideal detectors there is photon shot noise in the
 image. In deconvolution algorithms the image of one slice is improved
 by subtracting blurred versions of the other slices. When the blurred
-intensity is large, its shot noise is high as well. The noise isn't
-reduced by subtraction and a faint in-focus image can be severely
+intensity is large, its shot noise is high as well. Subtraction only
+increases noise and a faint in-focus image can be severely
 deteriorated by the noise of the out-of-focus light.
 \subsection{Confocal microscope}
 One way of addressing both problems of the widefield microscope is
 depicted in \figref{fig:widefield-microscope}~c). In the confocal
-microscope the field of view isn't illuminated instantaneously.  The
-excitation tube lens TL2 collimates the light coming from a pinhole
-PH2 and illuminates the full back focal plane of the objective. In the
-front focal plane of the objective the red beam then converges to
-illuminate the smallest possible (by diffraction) single
-spot. However, out-of-focus fluorophores are still being excited by
-the hour-glass shaped illumination.
+microscope the whole field of view isn't illuminated simultaneously.
+The excitation tube lens TL2 collimates the light coming from a
+pinhole PH2 and illuminates the full back focal plane of the
+objective. In the front focal plane of the objective the red beam then
+converges to illuminate the smallest possible single spot. The spot
+size is defined by diffraction at periphery of the BFP. However,
+out-of-focus fluorophores are still being excited by the hour-glass
+shaped illumination.
 
 The eponymous idea of the confocal microscope is to replace the camera
-with a pinhole PH1. This pinhole doesn't affect the light detected
+with a pinhole PH1. This pinhole hardly affects the light detected
 from in-focus fluorophores. However, an out-of-focus fluorophore that
 is defocused by $\Delta z$ towards the objective will lead to a
-diverging beam (green) at the tube lens and will be imaged into a point
-behind the focal plane of the tube lens. The pin hole only transmits a
-part of the circle of confusion. Hence defocused fluorophores
-contribute less to the sensor signal.
+diverging beam (colorless) at the tube lens and will be imaged into a
+point behind the focal plane of the tube lens. The pinhole only
+transmits a part of the circle of confusion. Hence defocused
+fluorophores contribute less to the sensor signal.
 
-An image of the in-focus fluorophores is obtained by scanning the
-pinholes over the field of view and measuring intensity at each
-position individually. The optical removal of out-of-focus light
-prevents degradation of the signal by its shot noise and improves the
-point-spread function of the objective (fixing the ``missing cone''
-problem). Note however, that some information is lost which would be
-obtained in a widefield microscope with deconvolution.
+An image of the in-focus specimen is obtained by scanning the pinholes
+over the field of view and measuring intensity at each position
+individually. The optical removal of out-of-focus light prevents
+degradation of the signal by its shot noise and improves the
+point-spread function of the objective. The missing cone problem is
+fixed and the transversal resolution improved by a factor of $\sqrt
+2$. Note however, that information about out-of-focus fluorophores is
+lost which would be obtained in a widefield microscope with
+deconvolution. Therefore a widefield microscope will give better
+results when a lot is known about the sample structure and this
+knowledge is fed into the deconvolution. E.g.\ the localization of
+sparse beads of specific size will be better in a widefield
+microscope.
 
 The confocal microscope was invented in 1955 \todo{check patent
   citation} \citep{Minsky1961,Minsky1988} to reduce the influence of
 scattering effects in neuron samples stained by Golgi's method. This
 invention preceded the laser and was unfortunately not put into
-practical use until three decades later \citep{Amos1987}.
+practical use for biology until three decades later \citep{Amos1987}.
 \subsection{Phototoxicity in conventional microscopes}
 When imaging living specimen we should distinguish between useful and
 unnecessary excitation. Taking into account the detection capabilities
@@ -454,20 +508,21 @@ of objective lenses we should maximize the ratio of in-focus to
 out-of-focus fluorescence. The epifluorescent widefield and confocal
 microscope surely do not represent an optimum in this regard.
 
-The following chapter will introduce other microscopy techniques that
-are more considerate of where to deposit excitation power within the
-specimen.
+The following chapter \ref{sec:approaches} will introduce other
+microscopy techniques that are more considerate of where to deposit
+excitation power within the specimen.
 \subsection{Two photon laser scanning fluorescence microscopy}
 If an intense subpicosecond pulse of infrared light is focused into a
 spot in the sample, non-linear two photon absorption can occur
-\citep{Denk1990}. Infrared light is scattered less than light of half
-the wavelength. The phototoxicity in the focus is higher than in a
-single-photon microscope with comparable excitation rate. However
-there is no excitation in the out-of-focus region. Therefor a
-detection pin hole is not required.
+\citep{Denk1990}. Infrared light is scattered less than visible light
+of half the wavelength. For similar excitation rates, the
+phototoxicity in the focus is higher than in a single-photon
+microscope. However, there is no excitation in the out-of-focus
+region. Therefore a detection pin hole is not required.
 
 This technique has greatly improved depth of penetration and
-sensitivity of in situ imaging. %  sentence from otsu 2008
+sensitivity of in situ imaging
+\citep{Otsu2008}. % sentence from otsu 2008
 \section{Image detectors in widefield microscopy}
 \label{sec:ccd-intro}
 \begin{summary}
@@ -517,6 +572,7 @@ $\unit[50]{photons/pixel}$ with EM-gain (see Appendix
 
 
 \chapter{Other approaches of light control}
+\label{sec:approaches}
 \nomenclature{CLEM}{Controlled light exposure microscopy}%
 \begin{summary}
   This chapter gives an overview of current microscopy techniques that
@@ -695,7 +751,7 @@ the focal plane \citep{Reddy2008}. These acousto-optic deflectors have
 lower efficiency (70\% for two AODs) and show chromatic aberrations.
 
 However as descanning isn't necessary in two photon microscopy the
-lower efficiency (in the excitation path) is hardly an issue. Therefor
+lower efficiency (in the excitation path) is hardly an issue. Therefore
 this technique for the first time enables ``random access'' of 3D
 coordinates in the sample.
 

@@ -12,6 +12,10 @@
 % -> DIV=truncate(190*1.5/20) = truncate(14.25)=14
 % I could use headinclude so that the header isn't printed into the margin
 
+%Initially two softbound theses should be submitted to the Examinations Office for the examiners. Softbound theses
+%should have the pages glued in.
+
+
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage[usenames,dvipsnames]{color}
@@ -27,7 +31,7 @@
 \usepackage[hypertex,breaklinks]{hyperref} % breaklinks only seems to work with dvipdfm, otherwise urls have no line breaks
 \usepackage{units}
 \usepackage[disable]{todonotes} % for draft, disable for final
-%\usepackage{refcheck} % for draft, uncomment for final
+\usepackage{refcheck} % for draft, uncomment for final
 \usepackage{lineno}
 \usepackage{nomencl}
 
@@ -117,6 +121,26 @@
 \include{abstract}
 \urlstyle{sf}
 %\setcounter{tocdepth}{3}
+\section*{Acknowledgement}
+\begin{summary}
+I would like to thank my supervisor Rainer Heintzmann, Kai Wicker,
+Jakub Nedbal, Susan Cox, Daniel Appelt, Ond\v rej Mandula, Ronny
+F\"orster and all the other members of our group for valuable
+discussions and support.
+
+I also thank Erhard Ipp, G\"unter Z\"ochling, Vincent Galy, QueeLim
+Ch'ng, J\"org Heber, Mark Eckert, Dirk Berndt, Joel Seligson and
+Jean-Yves Tinevez.  Thanks to the European Union Framework Programme 7
+(project number 2115597) the studentship on this project.  Further I
+thank the Edward Rosten, Christophe Rhodes, Paul Khuong, Nikodemus
+Siivola, dem Levente Meszaros and Lu\' is Oliveira, Mixa.
+
+Finally I want to thank the authors and contributors to the following
+free software projects: Linux, GCC, Emacs, SBCL, Micromanager,
+DIPimage, Wireshark, Latex, Inkscape, Gimp, ImageJ/Fiji and Blender.
+\end{summary}
+
+\newpage
 \tableofcontents
 \printnomenclature
 \newpage
@@ -139,7 +163,7 @@
 \include{app_term}
 \bibliographystyle{abbrvnat}
 %\bibliography{../state-of-art}
-\bibliography{../library}
+\bibliography{../All}
 \end{document}
 
 
