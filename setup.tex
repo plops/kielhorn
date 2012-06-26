@@ -45,7 +45,7 @@ bead\footnote{Note that the LCoS acts as a Fourier filter on the
   information coming from the MMA. Therefore if all but a single pixel
   of the LCoS block the light, no angular control is possible (see
   also Appendix~\ref{sec:sim-angle}).}, the MMA can be used to prevent
-exposure of the out of focus bead in
+exposure of the out-of-focus bead in
 \figref{fig:hourglass-all}~(a). Not exciting the out-of-focus bead has
 two advantages:
 \begin{enumerate}
@@ -81,7 +81,7 @@ structured illumination could then be used to recover a sectioned
 image of the in-focus fluorophore distribution
 \citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of several such
 images with different MMA masks would allow to find the angle with
-least out of focus contributions. Note that for this technique to
+least out-of-focus contributions. Note that for this technique to
 work,
 
 \begin{figure}[!hbt]
@@ -90,13 +90,13 @@ work,
   \input{hourglass-all.eps_tex}
   \caption{{\bf (a)} Two fluorescent beads are illuminated by all
     angles that an objective can deliver. The sharp image of the
-    in-focus bead is deteriorated by blurry fluorescence of the out of
-    focus bead. {\bf (b)} Angular control allows selective
+    in-focus bead is deteriorated by blurry fluorescence of the
+    out-of-focus bead. {\bf (b)} Angular control allows selective
     illumination of the in-focus bead and results in a better image on
     the camera. {\bf (c)} Angular control is insufficient, when an
     extended in focus area is illuminated. {\bf (d)} However,
     simultaneous spatial and angular control allows sequential
-    excitation of the in-focus beads while excluding the out of focus
+    excitation of the in-focus beads while excluding the out-of-focus
     bead.}
   \label{fig:hourglass-all}
 \end{figure}
@@ -302,14 +302,14 @@ a model of a \emph{C.~elegans} embryo, constructed from
 three-dimensional data of a confocal microscope. The nuclei are
 relatively sparse. In order to illuminate one or a few nuclei we might
 be able to find a path for the excitation light that doesn't intersect
-out of focus nuclei -- or at least avoids them. In our spatio-angular
+out-of-focus nuclei -- or at least avoids them. In our spatio-angular
 microscope the illumination pattern is represented by two masks. One
 for the LCoS and another one for the MMA. In the following we will
 construct an algorithm to find such optimized illumination
 patterns. For example the red rectangle (with $\sim\unit[4]{\mu m}$ on
 the side) would be selected for illumination with the LCoS. The red
-cylinder indicates the angle that would be least obscured by out of
-focus nuclei.
+cylinder indicates the angle that would be least obscured by
+out-of-focus nuclei.
 
 \imagw{6cm}{render}{Rendering of a sphere model, fitted to one time
   frame of a three-dimensional confocal video of a developing
@@ -322,7 +322,7 @@ focus nuclei.
   for spatio-angular illumination. A target sphere is moved out of a
   layer of spheres. {\bf (a-c)} Rays from the back focal plane are
   traced through the target sphere and the total intersection length
-  with out of focus spheres is plotted in the diagrams.}
+  with out-of-focus spheres is plotted in the diagrams.}
 
 First we assume the beads are embedded in index matched medium. Then
 rays only refract at the gaussian sphere of the objective lens and it
@@ -333,7 +333,7 @@ Initially we investigated a very simple optimization routine (see
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}). A circular
 window with radius $r$ is placed into the back focal plane. Rays from
 the center and periphery of the window are traced through the target
-and into out of focus spheres. The intersection length of each ray
+and into out-of-focus spheres. The intersection length of each ray
 with each sphere is summed and plotted into a diagram.
 
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~a) depicts
@@ -364,19 +364,19 @@ have to limit ourselves to circular windows. Also the raytraced
 optimizations can look noisy when not enough rays are sent through the
 sample.
 \subsection{Tracing in detection direction}
-For this reason we decided to trace rays from out of focus nuclei
+For this reason we decided to trace rays from out-of-focus nuclei
 through the target into the back focal plane.
 
 \figref{fig:img2-montage_hor}~C) depicts the results of tracing
-through a single target point and the out of focus spheres in B) in
-illumination direction. Note how each out of focus spheres result in a
+through a single target point and the out-of-focus spheres in B) in
+illumination direction. Note how each out-of-focus spheres result in a
 deformed blob in the back focal plane. 
 
 It should be quite clear that the image in
 \figref{fig:img2-montage_hor}~D) displays nearly the same information
 but was obtained with much less computation.  Here 16 rays were trace
 (see Appendix~\ref{sec:sphere-projection}) from the periphery of each
-out of focus nucleus and one from the center and the resulting
+out-of-focus nucleus and one from the center and the resulting
 triangle fan was rasterized into the image. We call this image a
 shadow map.
 
@@ -392,8 +392,8 @@ insufficient. Instead of one target point a sufficiently big area in
 the model should be sampled. We sum each of the corresponding shadow
 maps into a new one (see the two images on the left in
 \figref{fig:bfp2-bfp-images-and-model}. Then we threshold the
-accumulated shadow map, so that only the angles with least out of
-focus targets are illuminated. Finally we blur the mask with a
+accumulated shadow map, so that only the angles with least
+out-of-focus targets are illuminated. Finally we blur the mask with a
 gaussian filter in order to prevent ringing in sample space.
 
 The diagram on the right of \figref{fig:bfp2-bfp-images-and-model}
@@ -415,12 +415,12 @@ more angles can be used for its illumination.
 
 
 \imagw{14cm}{img2-montage_hor}{{\bf A)} Schematic of the rays between
-  back focal plane and sample. {\bf B)} Out of focus spheres and the
+  back focal plane and sample. {\bf B)} Out-of-focus spheres and the
   target point define a double cone of rays that should not be
   illuminated. {\bf C)} Tracing rays in illumination direction from
   the back focal plane through the sample is an expensive operation
   and results in unnecessarily exact results. {\bf D)} Tracing in
-  detection direction from the periphery of out of focus spheres
+  detection direction from the periphery of out-of-focus spheres
   through a target point into the back focal plane gives nearly
   identical results (shadow map) and is more computationally
   efficient.}
@@ -451,7 +451,7 @@ refraction at the glass--water interface has to be taken into account
 for spatio-angular illumination.
 
 This makes the task of predicting where to mask the MMA in order to
-protect out of focus beads more complicated. To circumvent the
+protect out-of-focus beads more complicated. To circumvent the
 spherical aberrations, we have to limit the range of angles, that are
 simultaneously illuminating and shift the illumination spot on the
 LCoS to correct for the transversal focus shift ($q$ in
