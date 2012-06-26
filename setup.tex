@@ -65,21 +65,23 @@ the in-focus information with minimal exposure of out-of-focus
 fluorophores.
 
 This technique requires prior knowledge about the fluorophore
-distribution in the sample. In 3D time lapse imaging of developing
-embryos a good estimate is available when the stacks are acquired with
-high enough temporal resolution. Opto-genetics experiments can be
-designed such, that the 3D distribution of neurons is known before
-single neurons are triggered by light without exposing its neighbours.
+distribution in the sample. In three-dimensional time lapse imaging of
+developing embryos a good estimate is available when the stacks are
+acquired with high enough temporal resolution. Opto-genetics
+experiments can be designed such, that the three-dimensional
+distribution of neurons is known before single neurons are triggered
+by light without exposing its neighbours.
 
-For some sample types an estimation and maintanance of the full 3D
-fluorophore concentration within the sample is unpractical and might
-be unneccessary. Instead, we believe we can project grating images
-with the LCoS and still vary the illumination direction with the mask
-on the MMA. The two camera images with structured illumination could
-then be used to recover a sectioned image of the in-focus fluorophore
-distribution \citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of several
-such images with different MMA masks would allow to find the angle
-with least out of focus contributions. Note that for this technique to
+For some sample types an estimation and maintanance of the full
+three-dimensional fluorophore concentration within the sample is
+unpractical and might be unneccessary. Instead, we believe we can
+project grating images with the LCoS and still vary the illumination
+direction with the mask on the MMA. The two camera images with
+structured illumination could then be used to recover a sectioned
+image of the in-focus fluorophore distribution
+\citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of several such
+images with different MMA masks would allow to find the angle with
+least out of focus contributions. Note that for this technique to
 work,
 
 \begin{figure}[!hbt]
@@ -166,7 +168,7 @@ groups. Its focal length can be varied from \unit[222.8]{mm} up to
 focal length of the other lenses). The lens groups move such, that the
 image of the LCoS behind $\textrm{TL}_\textrm{ill}$ stays in infinity
 and the the MMA (plane $P''$) is imaged into the pupil $P$, which is
-\unit[250]{mm} behind behind the tubelens. \figref{fig:tubelens-bfp}
+\unit[250]{mm} behind behind the tube lens. \figref{fig:tubelens-bfp}
 shows the pupil plane $P$ for two different settings of the focal
 length of the tube lens.
 
@@ -220,7 +222,7 @@ detection works with full efficiency.
   \includegraphics[width=7cm]{bfp1}
   \includegraphics[width=7cm]{bfp2}
   \caption{Images of the micro mirror array in the back focal plane
-    with different settings of the variable tubelens. The micro mirror
+    with different settings of the variable tube lens. The micro mirror
     array displays the same image (a disk) in both cases.}
   \label{fig:tubelens-bfp}
 \end{figure}
@@ -275,7 +277,7 @@ Appendix~\ref{sec:rigid}).
 
 Using these parameters one can then convert between camera and LCoS
 coordinates (see \figref{fig:screen_lcos-calib}). Changing the focal
-length of the illumination tubelens or a change on the camera position
+length of the illumination tube lens or a change on the camera position
 generally requires a new calibration.
 
 \imagw{7cm}{screen_lcos-calib}{{\bf left:} Mask that is displayed on
@@ -296,23 +298,24 @@ will reduce unnecessary illumination in the sample.
 \label{sec:shadow-map}
 One useful simple model are spheres. They can model fluorescent beads
 or nuclei in a \emph{C.~elegans} embryo. \figref{fig:render} displays
-a model of a \emph{C.~elegans} embryo, constructed from 3D data of a
-confocal microscope. The nuclei are relatively sparse. In order to
-illuminate one or a few nuclei we might be able to find a path for the
-excitation light that doesn't intersect out of focus nuclei -- or at
-least avoids them. In our spatio-angular microscope the illumination
-pattern is represented by two masks. One for the LCoS and another one
-for the MMA. In the following we will construct an algorithm to find
-such optimized illumination patterns. For example the red rectangle
-(with $\sim\unit[4]{\mu m}$ on the side) would be selected for
-illumination with the LCoS. The red cylinder indicates the angle that
-would be least obscured by out of focus nuclei.
+a model of a \emph{C.~elegans} embryo, constructed from
+three-dimensional data of a confocal microscope. The nuclei are
+relatively sparse. In order to illuminate one or a few nuclei we might
+be able to find a path for the excitation light that doesn't intersect
+out of focus nuclei -- or at least avoids them. In our spatio-angular
+microscope the illumination pattern is represented by two masks. One
+for the LCoS and another one for the MMA. In the following we will
+construct an algorithm to find such optimized illumination
+patterns. For example the red rectangle (with $\sim\unit[4]{\mu m}$ on
+the side) would be selected for illumination with the LCoS. The red
+cylinder indicates the angle that would be least obscured by out of
+focus nuclei.
 
 \imagw{6cm}{render}{Rendering of a sphere model, fitted to one time
-  frame of a 3D confocal video of a developing \emph{C. elegans}
-  embryo (strain AZ212, data provided by Jean-Yves Tinevez (Institut
-  Pasteur, Paris) by finding local maxima in the difference of
-  gaussian filtered data \citep{Santella2010}.}
+  frame of a three-dimensional confocal video of a developing
+  \emph{C. elegans} embryo (strain AZ212, data provided by Jean-Yves
+  Tinevez (Institut Pasteur, Paris) by finding local maxima in the
+  difference of gaussian filtered data \citep{Santella2010}.}
 
 \subsection{Tracing in illumination direction}
 \imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{Test case
@@ -394,13 +397,14 @@ focus targets are illuminated. Finally we blur the mask with a
 gaussian filter in order to prevent ringing in sample space.
 
 The diagram on the right of \figref{fig:bfp2-bfp-images-and-model}
-displays a sphere model of 3D beads ($\unit[2]{\mu m}$ diameter,
-yellow-green, in oil). We obtained this model with our microscope by
-displaying several gratings on the LCoS at full angular illumination
-and doing a structured illumination reconstruction (in each pixel the
-maximum of each pattern minus minium of each pattern) of sectioned
-slices. A matching difference of gaussian filter and local maximum
-search in the 3D volume gives the centers of the beads.
+displays a sphere model of three-dimensionally distributed beads
+($\unit[2]{\mu m}$ diameter, yellow-green, in oil). We obtained this
+model with our microscope by displaying several gratings on the LCoS
+at full angular illumination and doing a structured illumination
+reconstruction (in each pixel the maximum of each pattern minus minium
+of each pattern) of sectioned slices. A matching difference of
+gaussian filter and local maximum search in the three-dimensional
+volume gives the centers of the beads.
 
 After constructing the model, the microscope continuously moves the
 z-stage onto each bead and illuminates them with their optimized
@@ -424,8 +428,8 @@ more angles can be used for its illumination.
 % some raw data with beads in dvi system:
 % /mnt/backup/backups-london/mnt/floh/sda3/martin/0226/winterseminar/0216_6
 \imagw{10cm}{bfp2-bfp-images-and-model}{{\bf right:} Sphere model of a
-  sample with 3D beads. {\bf left:} Optimized MMA masks to illuminate
-  bead 26 or bead 5.}
+  sample with three-dimensionally distributed beads. {\bf left:}
+  Optimized MMA masks to illuminate bead 26 or bead 5.}
 
 
 
