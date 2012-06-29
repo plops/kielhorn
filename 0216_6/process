@@ -1,0 +1,62 @@
+
+
+mkdir build
+
+
+# show nine slices of widefield 
+
+for j in wf
+do
+        for i in $j/*.pgm
+        do
+                pnmcut -left 486 -top 464 -width 300 -height 300 $i > "build/"$j"_"`basename $i`
+        done
+        montage -geometry 300x300+10+10 build/$j"_"00{0..3}.pgm wf_004_scale.jpg build/$j"_"00{5..8}.pgm build/m_$j.jpg          
+done
+
+
+# show sectioned data
+
+for j in sec
+do
+        for i in $j/*.pgm
+        do
+                pnmcut -left 486 -top 464 -width 300 -height 300 $i > "build/"$j"_"`basename $i`
+        done
+        montage -geometry 300x300+10+10 build/$j"_"00{0..8}.pgm build/m_$j.jpg          
+done
+
+# present the 4 grating images next to each other for the 9 slices
+for i in phase/*.pgm
+do
+        pnmcut -left 486 -top 464 -width 300 -height 300 $i > "build/phase_"`basename $i`
+done
+montage -geometry 300x300+10+10 -tile 4x build/phase_{000..035}.pgm build/m_phase.jpg   
+
+# for the images in ang and clem the z-stage was focused to the
+# respective target nuclei
+
+for j in {ang,clem,clem1}
+do
+        for i in $j/*.pgm
+        do
+                pnmcut -left 486 -top 464 -width 300 -height 300 $i > "build/"$j"_"`basename $i`
+        done
+        montage -geometry 300x300+10+10 build/$j"_"00{0..7}.pgm build/m_$j.jpg          
+done 
+
+
+
+# make mosaics for the back focal plane images
+# img8 raytraced/projected
+# bw thresholded
+# co smoothed with gaussian filter (needs to be flipped horizontally)
+
+montage -geometry 256x256+10+10 bfp/bfp-img8*.pgm build/m_bfp_img8.jpg
+montage -geometry 256x256+10+10 bfp/bfp-bw*.pgm build/m_bfp_bw.jpg
+
+for i in bfp/bfp-co*.pgm;
+do
+  pnmflip -lr $i > build/`basename $i`
+done
+montage -geometry 256x256+10+10 build/bfp-co*.pgm build/m_bfp_co.jpg

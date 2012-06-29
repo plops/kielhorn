@@ -19,7 +19,7 @@ acceptance angle due to lower index embedding medium. Rays on the
 border of the pupil traverse the objective but are reflected at the
 coverslip--embedding interface.
 
-\begin{figure}[!hbt]
+\begin{figure}[H]
   \centering
   \input{tirf-exp.eps_tex} 
   \includegraphics[height=69.56mm]{screen_mma-disk-integrate_rot}
@@ -36,7 +36,7 @@ coverslip--embedding interface.
 \end{figure}
 
 
-\begin{figure}[!hbt]
+\begin{figure}[H]
   \centering
   \includegraphics[width=4cm]{oil}
   \includegraphics[width=4cm]{water}
@@ -57,3 +57,167 @@ connected to the graphics card. The camera exposure is fixed to
 time. Between image changes on LCoS and MMA the system was given
 several frames in order to prevent exposures with the wrong MMA or
 LCoS masks (see \figref{fig:dvi-mosaic}).
+
+\figref{fig:m_wf} shows slices of a widefield stack of a
+three-dimensional distribution of $\unit[2]{\mu m}$ yellow-green beads
+in Agar. The distance between the slices is $\unit[1]{\mu m}$. For
+this acquisition both LCoS and MMA showed white patterns. The full
+back focal plane was illuminated and the field of view in the sample
+is a circle of \unit[25]{$\mu$m}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_wf}
+  \caption{Widefield stack of a three-dimensional distribution of
+    yellow-green beads in agar. Sampling in $z$ is $\unit[1]{\mu m}$.}
+  \label{fig:m_wf}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=.9\textheight]{m_phase}
+  \caption{Structured illumination images of the same of the beads
+    from \figref{fig:m_wf}. Of each $z-$slice four exposures with
+    different grating phase were captured.}
+  \label{fig:m_phase}
+\end{figure}
+
+
+% 10 periods of the grating 16 um 
+
+Then we used the LCoS to project a grating with a period of
+$\unit[1.6]{\mu m}$ into the sample (see \figref{fig:m_phase}). In
+each slice, images of four different phases of the grating were
+obtained. 
+
+These were used to compute the optically sectioned sectioned images of
+\figref{fig:m_sec}. The computation subtracts for each pixel the
+minimum in the four phase images from the maximum of the four
+images. Thereby unmodulated background fluorescence from out-of-focus
+fluorophores is suppressed. Note tht two beads were hardly in the
+field of view.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_sec}
+  \caption{Computationally sectioned images. Note that two beads are
+    very close to the border of the field of view and not fully
+    illuminated.}
+  \label{fig:m_sec}
+\end{figure}
+
+The sectioned images were processed with a three-dimensional
+difference-of-gaussian filter that was matched to enhance the signal
+of the beads. Strong local maxima in the result were used as positions
+in a sphere model of the sample (see \figref{fig:model}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=6cm]{model}
+  \caption{Sphere model of the three-dimensional bead distribution
+    with bead center positions from \figref{fig:m_sec}.}
+  \label{fig:model}
+\end{figure}
+
+% bead in wf_004.pgm is  33-12=21 pixels wide, corresponds to 2um
+% 25 um diameter of field of view
+
+The coordinates of the beads was then used to selectively illuminate
+each by displaying a disk at the appropriate position on the LCoS (see
+\figref{fig:m_clem}). Note that two beads, that were part in the
+model, are very dark in these images. These beads (4 and 7) were very
+close the border of the field of view.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_clem}
+  \caption{Spatially controlled illumination of the beads from
+    \figref{fig:m_sec}. The top left image shows bead number zero and
+    so forth, the second image in the top shows bead number one and so
+    on. The MMA is fully white and the LCoS displays a disk at the
+    appropriate position to illuminate the target bead.}
+  \label{fig:m_clem}
+\end{figure}
+
+Finally using the sphere model from \figref{fig:model} we calculated
+optimized patterns for the MMA (see also section
+\ref{sec:trace-detect}). \figref{fig:m_bfp_img8} shows the results of
+raytracing through the model with each bead as a target
+nucleus. Bright regions in these images are BFP positions that would
+result in ray angles that excite many out-of-focus fluorophores. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_ang}
+  \caption{Spatio-angular controlled illumination of the beads from
+    \figref{fig:m_sec}. The top left image shows bead number zero and
+    so forth, the second image in the top shows bead number one and so
+    on. The LCoS selectively illuminates the target bead and the MMA
+    displays the pattern shown in \figref{fig:m_bfp_co}.}
+  \label{fig:m_ang}
+\end{figure}
+
+
+In \ref{fig:m_bfp_bw} thresholded masks are shown. The threshold was
+chosen such that the darkest quantile of the accumulated shadow maps
+in \figref{fig:m_bfp_img8} becomes white. For this particular sample
+structure this strategy always led to significant parts of the MMA
+being white.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_bfp_img8}
+  \caption{Accumulated shadow map (see section \ref{sec:trace-detect})
+    obtained by projecting out-of-focus nuclei through several points
+    in the target nucleus into the BFP of the objective. Bright areas
+    indicate rays that would hit many out-of-focus spheres on their
+    way into the target point.}
+  \label{fig:m_bfp_img8}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_bfp_bw}
+  \caption{Thresholded and inverted version of the accumulated shadow
+    maps. The threshold is chosen, so that the darkest quantile of
+    \figref{fig:m_bfp_img8} becomes white. The white areas of the
+    masks will therefore prevent exposure of out-of-focus
+    fluorophores.}
+  \label{fig:m_bfp_bw}
+\end{figure}
+
+\figref{fig:m_bfp_co} displays a smooth, Gaussian filtered version of
+the mask. This pattern was displayed on the MMA while capturing the
+images in \figref{fig:m_bfp_co}. The smooth mask is expected to
+produce a more uniform light distribution within the sample.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{m_bfp_co}
+  \caption{Smoothed version of the masks from
+    \figref{fig:m_bfp_bw}. These were the patterns that were displayed
+    on the MMA when the images in \figref{fig:m_ang} were captured.}
+  \label{fig:m_bfp_co}
+\end{figure}
+
+\subsection{Conclusion for bead sectioning experiment}
+The images with spatial \figref{fig:m_clem} and spatio-angular control
+\figref{fig:m_ang} look very much identical. In order to show the
+improvement due to angular control it would have been useful to have
+less fluorescence from the embedding medium.
+
+The contrast in the structured illumination images
+(\figref{fig:m_phase}) could have been optimized by reducing the
+illumination angles with the MMA and ensure that the $\pm
+1^\textrm{st}$ orders are not cut off by the pupil of the objective
+(see also Appendix \ref{sec:apotome}).
+
+The vertical line artifacts in the computationally reconstructed
+optical sections in \figref{fig:m_phase} only occured with laser
+illumination and not with LED illumination. In this experiment the
+artifacts do not influence the localization precision of the beads.
+
+However, we investigated other reconstruction algorithms in Appendix
+\ref{sec:app_hilo} which don't show these artifacts and can also work
+with only one patterned image and one uniform image.

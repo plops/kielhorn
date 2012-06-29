@@ -53,7 +53,7 @@ two advantages:
   clearer image of the in-focus information. It would be possible to
   computationally distinguish and subtract out-of-focus light by
   structured illumination methods but these methods will not remove
-  the poisson distributed photon noise of the out-of-focus light.
+  the Poisson distributed photon noise of the out-of-focus light.
 \item Not exciting the out-of-focus areas is especially important for
   biological specimen in order to reduce the phototoxicity of the
   imaging.
@@ -72,17 +72,15 @@ experiments can be designed such, that the three-dimensional
 distribution of neurons is known before single neurons are triggered
 by light without exposing its neighbours.
 
-For some sample types an estimation and maintanance of the full
-three-dimensional fluorophore concentration within the sample is
-unpractical and might be unneccessary. Instead, we believe we can
-project grating images with the LCoS and still vary the illumination
-direction with the mask on the MMA. The two camera images with
-structured illumination could then be used to recover a sectioned
-image of the in-focus fluorophore distribution
-\citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of several such
-images with different MMA masks would allow to find the angle with
-least out-of-focus contributions. Note that for this technique to
-work,
+For some sample types an estimation of the full three-dimensional
+fluorophore concentration within the sample is not practical and might
+be unnecessary. Instead, we believe we can project grating images with
+the LCoS and still vary the illumination direction with the mask on
+the MMA. The two camera images with structured illumination could then
+be used to recover a sectioned image of the in-focus fluorophore
+distribution \citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of
+several such images with different MMA masks would allow to find the
+angle with least out-of-focus contributions.
 
 \begin{figure}[!hbt]
   \centering
@@ -100,15 +98,15 @@ work,
     bead.}
   \label{fig:hourglass-all}
 \end{figure}
-\newpage
+
 \section{Detailed explanation of the optical components}
 
-In the real system the spatial light modulators are reflective. 
-Also both displays are not direct intensity modulators.
-\figref{fig:memi-real} shows a schematic of the light path in
-the combined angular and spatial control system.
+As opposed to the schematic in the previous system, our spatial light
+modulators are reflective.  Also, both displays are not direct
+intensity modulators.  \figref{fig:memi-real} shows a schematic of the
+light path in the combined angular and spatial control system.
 
-A laser light source is scrambled by a rotating microlens array and
+A laser light source is scrambled by a rotating micro-lens array and
 mixed in an integrating tunnel with a quadratic cross section.
 
 The distance between the exit of the integration tunnel and the lens
@@ -121,7 +119,7 @@ can be tilted by up to $2^\circ$ by electrostatic fields. CMOS
 circuits below each mirror allow to maintain a constant tilt for
 hundreds of milliseconds. A dedicated control board can set new
 analogue voltages with 10 bit resolution for each mirror in
-\unit[850]{$\mu$s}. This enables framerates of up to \unit[1]{kHz} at
+\unit[850]{$\mu$s}. This enables frame rates of up to \unit[1]{kHz} at
 duty cycles up to \unit[50]{\%}.
 
 When all mirrors of the MMA are flat, an image of the tunnel exit $F'''$
@@ -129,12 +127,14 @@ is formed in the plane of the aperture $B_1$. The size of the aperture
 is chosen to transmit just this image. When mirrors of the MMA are
 tilted, they will slightly deflect the light, so that it no longer
 passes through the aperture $B_1$. $B_1$ acts as a Fourier filter (or
-Schlieren optics).
+Schlieren optical system).
 
-If the mirrors of half of the device are deflected to fulfill the
-blaze conditions\footnote{This is limited by the maximum tilt angle
-  and possible for wavelengths up to \unit[800]{nm}} then the
-corresponding area in the Fourier filtered image in $P'$ will be dark.
+If the mirrors of half of the device are deflected to fulfil the blaze
+conditions\footnote{This is limited by the maximum tilt angle and
+  possible for wavelengths up to \unit[800]{nm}} then the mirrors will
+send all the light into the first order and nothing through the
+aperture $B_1$.  The region in the image in $P'$ corresponding to the
+tilted mirror will be dark.
 
 The lenses $L_2$ and $L_3$ relay the image of the tunnel exit $F'''$
 from $F''$ into the plane $F'$ with the LCoS (ForthDD SXGA, pixel
@@ -153,7 +153,7 @@ lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
 a photograph showing tube lens, PBS and LCoS).
 
 The LCoS is ferroelectric \citetext{\citealp[see][]{1991Saleh} and
-\citealp[p.~192]{Goodman1996}}.  Its liquid crystalls can swap very fast
+\citealp[p.~192]{Goodman1996}}.  Its liquid crystals can swap very fast
 between two stable orientations. In order to prevent a net current,
 which would eventually destroy the device, its driver always displays
 an inverted image after the wanted one. Therefore it is necessary to
@@ -236,7 +236,7 @@ Both spatial light modulators can run at most with $50\%$ duty
 cycle. Therefore it is necessary to synchronize the displays. Their
 controllers allow to upload several hundred frames of image data
 before an experiment and keep them in local storage. Images can then
-be selected by fast function calls over USB (LCoS) or ethernet (MMA).
+be selected by fast function calls over USB (LCoS) or Ethernet (MMA).
 
 The camera (Andor Clara) as the slowest device is chosen as the
 master. The camera provides two TTL outputs. The output ``fire'' is
@@ -250,7 +250,7 @@ discrete image times (\unit[20]{ms}, \unit[10]{ms}, \unit[5]{ms},
 \unit[200]{$\mu$s}) and it is not straight forward to change this via
 USB interface. Therefore we always work with a fixed integration time
 of \unit[20]{ms}. The ``fire'' output of the camera also switches the
-laser on using an acousto optic modulator (AOM).
+laser on using an acousto-optic modulator (AOM).
 
 When the z-stage is used, the camera is stopped until the stage has
 reached its target position.
@@ -259,7 +259,7 @@ reached its target position.
   \centering
   \input{memi-electronics.eps_tex}
   \caption{The camera triggers both spatial light modulators with its
-    TTL outputs. The acousto optic modulator sends light into the
+    TTL outputs. The acousto-optic modulator sends light into the
     system during camera integration.}
   \label{fig:memi-electronics}
 \end{figure}
@@ -315,7 +315,7 @@ out-of-focus nuclei.
   frame of a three-dimensional confocal video of a developing
   \emph{C. elegans} embryo (strain AZ212, data provided by Jean-Yves
   Tinevez (Institut Pasteur, Paris) by finding local maxima in the
-  difference of gaussian filtered data \citep{Santella2010}.}
+  difference of Gaussian filtered data \citep{Santella2010}.}
 
 \subsection{Tracing in illumination direction}
 \imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{Test case
@@ -325,14 +325,14 @@ out-of-focus nuclei.
   with out-of-focus spheres is plotted in the diagrams.}
 
 First we assume the beads are embedded in index matched medium. Then
-rays only refract at the gaussian sphere of the objective lens and it
+rays only refract at the Gaussian sphere of the objective lens and it
 is insignificant how far the target bead is from the interface between
 coverslip and medium.
 
 Initially we investigated a very simple optimization routine (see
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}). A circular
 window with radius $r$ is placed into the back focal plane. Rays from
-the center and periphery of the window are traced through the target
+the centre and periphery of the window are traced through the target
 and into out-of-focus spheres. The intersection length of each ray
 with each sphere is summed and plotted into a diagram.
 
@@ -364,6 +364,7 @@ have to limit ourselves to circular windows. Also the raytraced
 optimizations can look noisy when not enough rays are sent through the
 sample.
 \subsection{Tracing in detection direction}
+\label{sec:trace-detect}
 For this reason we decided to trace rays from out-of-focus nuclei
 through the target into the back focal plane.
 
@@ -376,12 +377,12 @@ It should be quite clear that the image in
 \figref{fig:img2-montage_hor}~D) displays nearly the same information
 but was obtained with much less computation.  Here 16 rays were trace
 (see Appendix~\ref{sec:sphere-projection}) from the periphery of each
-out-of-focus nucleus and one from the center and the resulting
+out-of-focus nucleus and one from the centre and the resulting
 triangle fan was rasterized into the image. We call this image a
 shadow map.
 
 
-In order for our spatia-angular system to work, neither the MMA, nor
+In order for our spatio-angular system to work, neither the MMA, nor
 the LCoS should displays masks with only a few white pixels. Ray based
 simulations are not good models in this case (see
 Appendix~\ref{sec:sim-angle} for a description of a wave optical
@@ -394,17 +395,17 @@ maps into a new one (see the two images on the left in
 \figref{fig:bfp2-bfp-images-and-model}. Then we threshold the
 accumulated shadow map, so that only the angles with least
 out-of-focus targets are illuminated. Finally we blur the mask with a
-gaussian filter in order to prevent ringing in sample space.
+Gaussian filter in order to prevent ringing in sample space.
 
 The diagram on the right of \figref{fig:bfp2-bfp-images-and-model}
 displays a sphere model of three-dimensionally distributed beads
 ($\unit[2]{\mu m}$ diameter, yellow-green, in oil). We obtained this
 model with our microscope by displaying several gratings on the LCoS
 at full angular illumination and doing a structured illumination
-reconstruction (in each pixel the maximum of each pattern minus minium
+reconstruction (in each pixel the maximum of each pattern minus minimum
 of each pattern) of sectioned slices. A matching difference of
-gaussian filter and local maximum search in the three-dimensional
-volume gives the centers of the beads.
+Gaussian filter and local maximum search in the three-dimensional
+volume gives the centres of the beads.
 
 After constructing the model, the microscope continuously moves the
 z-stage onto each bead and illuminates them with their optimized
@@ -429,7 +430,8 @@ more angles can be used for its illumination.
 % /mnt/backup/backups-london/mnt/floh/sda3/martin/0226/winterseminar/0216_6
 \imagw{10cm}{bfp2-bfp-images-and-model}{{\bf right:} Sphere model of a
   sample with three-dimensionally distributed beads. {\bf left:}
-  Optimized MMA masks to illuminate bead 26 or bead 5.}
+  Optimized MMA masks to illuminate bead 26 or bead 5. The red circles
+  indicate the periphery of the BFP of the objective.}
 
 
 
@@ -491,7 +493,7 @@ to the TIRF angle, we can generate a thin sheet of light (see
   \label{fig:shift-correction}
 \end{figure}
  
-% our reports: they were often corrected by susan, so i should have a look
+% our reports: they were often corrected by Susan, so i should have a look
 % MEMI_WP6_D6_5_Report.pdf     angular clem with grating on lcos
 % 6.7    drawing of setup, alignment, sync image, only 11 of the 24 bitplanes
 % 6.8a   full field angular control with mma (i used too large images on lcos)
