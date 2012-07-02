@@ -34,6 +34,35 @@
   We implement a robust technique to computationally recover optically
   sectioned images from only two structured illumination images.
 \end{summary}
+\section{Wave optical model of microscope}
+The resolution of an objective is related to the angles of light, that
+are collected by the lens. For a good introduction
+\citet[see][]{Gustafssona}.
+
+A Fourier transform separates the electric field amplitude $E(\r)$ of
+light into plane wave components. If the light is monochromatic, then
+all the plane waves have the same wavelength but different directions.
+
+The wave vectors of the electric field amplitude $\tilde E(\k)$ lie on
+a spherical shell in the three-dimensional k-space. The radius of the
+sphere is $k=2\pi/\lambda$. A lens only selects a limited part of the
+wave vectors and thereby looses information about the sample.
+
+The same is true for illumination. When a plane monochromatic wave
+enters the objective from the back focal plane, the lens ``bends''
+rays towards the focus. The Fourier components travelling towards the
+focus are again limited by the numerical aperture of the lens and
+$\tilde E(\k)$ is defined only on part of the spherical shell or a
+bowl-shape in $\k-$space.
+
+The excitation of fluorophores is proportional to the intensity.  The
+intensity is the absolute square $\abs{E(\r)}^2$ of the field. This
+can also be expressed as the product of the field and its complex
+conjugate $E(\r)E^*(\r)$. In Fourier space this product turns into the
+convolution $\tilde E(\k)\otimes\tilde E(-\k)$, i.e.\ a bowl is drawn
+with an upside-down bowl. This explains the simple graphical
+construction in \figref{fig:missing-cone} for the support of the OTF.
+
 \section{Simulated image acquisition}
 As a test object we create a thick sphere shell, a line and a
 rectangle. The sphere shell will provide out-of-focus light, which we
