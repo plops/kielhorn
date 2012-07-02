@@ -112,15 +112,22 @@ mixed in an integrating tunnel with a quadratic cross section.
 The distance between the exit of the integration tunnel and the lens
 $L_1$ is equal to the focal distance of $L_1$. The MMA is positioned
 in the other focal plane of $L_1$. The micro mirror array
-\citep{Berndt}\todo[inline]{ref} consists of $256\times 256$ mirrors with a pitch of
-\unit[16]{$\mu$m} (see \figref{fig:mma} and
+\citep{Schmidt2010,Berndt2010} consists of $256\times 256$ mirrors
+with a pitch of \unit[16]{$\mu$m} (see \figref{fig:mma} and
 \figref{fig:mma-closeup}). Each mirror hangs on two thin hinges and
-can be tilted by up to $2^\circ$ by electrostatic fields. CMOS
+can be tilted by up to $2^\circ$ by electrostatic fields. This
+corresponds to out-of-plane deflections of $\pm\unit[250]{nm}$.  CMOS
 circuits below each mirror allow to maintain a constant tilt for
 hundreds of milliseconds. A dedicated control board can set new
-analogue voltages with 10 bit resolution for each mirror in
-\unit[850]{$\mu$s}. This enables frame rates of up to \unit[1]{kHz} at
-duty cycles up to \unit[50]{\%}.
+analogue voltages for each mirror in \unit[850]{$\mu$s}. An accuracy
+of $\lambda/100$ for the precision of the actuation is reported
+\citep{Berndt2011}. Therefore, the MMA is a programmable phase mask of
+high efficiency and can achieve frame rates of up to \unit[1]{kHz} at
+duty cycles up to \unit[50]{\%}. In a Fourier filtered configuration
+it can display gray value images without the need for
+time-multiplexing.  An On/Off-contrast from 300 to 800 in the
+wavelength range from the UV upto NIR can be achieved
+\citep{Bernd2011}.
 
 When all mirrors of the MMA are flat, an image of the tunnel exit $F'''$
 is formed in the plane of the aperture $B_1$. The size of the aperture
@@ -131,7 +138,7 @@ Schlieren optical system).
 
 If the mirrors of half of the device are deflected to fulfil the blaze
 conditions\footnote{This is limited by the maximum tilt angle and
-  possible for wavelengths up to \unit[800]{nm}} then the mirrors will
+  possible for wavelengths up to \unit[1000]{nm}} then the mirrors will
 send all the light into the first order and nothing through the
 aperture $B_1$.  The region in the image in $P'$ corresponding to the
 tilted mirror will be dark.
@@ -141,11 +148,11 @@ from $F''$ into the plane $F'$ with the LCoS (ForthDD SXGA, pixel
 pitch $\unit[13.62]{\mu m}$). The polarizing beam splitter ($45^\circ$
 wire grid polarizing beam splitter, Moxtek) reflects linearly
 polarized light towards the LCoS\footnote{In order to prevent spurious
-  reflections at the PBS surface without wire grid and to improve
-  contrast, the incoming light should already be polarized}. The
-electric field vibrates perpendicular to the paper plane. Depending on
-the LCoS pixel state (on or off) an LCoS pixel can rotate the
-polarization of the returning light, so that it is
+  reflections at the PBS back surface (without wire grid coating) and
+  to improve contrast, the incoming light should already be
+  polarized}. The electric field vibrates perpendicular to the paper
+plane. Depending on the LCoS pixel state (on or off) an LCoS pixel can
+rotate the polarization of the returning light, so that it is
 transmitted\footnote{As it is used in transmission a curvature of the
   PBS doesn't affect the quality of the LCoS image in the sample $F$
   as if the PBS was used in reflection.}  into the illumination tube
@@ -153,31 +160,14 @@ lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
 a photograph showing tube lens, PBS and LCoS).
 
 The LCoS is ferroelectric \citetext{\citealp[see][]{1991Saleh} and
-\citealp[p.~192]{Goodman1996}}.  Its liquid crystals can swap very fast
-between two stable orientations. In order to prevent a net current,
-which would eventually destroy the device, its driver always displays
-an inverted image after the wanted one. Therefore it is necessary to
-shutter the light source accordingly.
+  \citealp[p.~192]{Goodman1996}}.  Its liquid crystals can be driven
+very fast between two bi-stable orientations. In order to prevent a
+net current, which would eventually destroy the device, its driver
+always displays an inverted image after the wanted one. Therefore it
+is necessary to modulate the light source accordingly.
 
-The lenses $L_3$ and $\textrm{TL}_\textrm{ill}$ relay the Fourier
-filtered MMA image from $P'$ into the pupil $P$ of the objective. In
-order to accommodate objectives with various back focal plane
-diameters, the illumination tube lens is built out of three lens
-groups. Its focal length can be varied from \unit[222.8]{mm} up to
-\unit[445.4]{mm} (see \figref{fig:memi-sketch} for a drawing with the
-focal length of the other lenses). The lens groups move such, that the
-image of the LCoS behind $\textrm{TL}_\textrm{ill}$ stays in infinity
-and the the MMA (plane $P''$) is imaged into the pupil $P$, which is
-\unit[250]{mm} behind behind the tube lens. \figref{fig:tubelens-bfp}
-shows the pupil plane $P$ for two different settings of the focal
-length of the tube lens.
 
-Fluorescent light returns from the objective and is reflected by the
-dichroitic beam splitter (DBS) through the detection tube lens
-$\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
-detection works with full efficiency.
-
-\begin{figure}[!hbt]
+\begin{figure}[H]
   \centering
   \def\svgscale{2}
   \input{memi-real.eps_tex}
@@ -191,6 +181,39 @@ detection works with full efficiency.
   \label{fig:memi-real}
 \end{figure}
 
+
+The lenses $L_3$ and $\textrm{TL}_\textrm{ill}$ relay the Fourier
+filtered MMA image from $P'$ into the pupil $P$ of the objective. In
+order to accommodate objectives with various back focal plane
+diameters, the illumination tube lens is built out of three lens
+groups. Its focal length can be varied from \unit[222.8]{mm} up to
+\unit[445.4]{mm} (see \figref{fig:memi-sketch} for a drawing with the
+focal length of the other lenses). The lens groups of
+$\textrm{TL}_\textrm{ill}$ move such, that the image of the LCoS
+behind $\textrm{TL}_\textrm{ill}$ stays in infinity and the the MMA
+(plane $P''$) is imaged into the pupil $P$, which is \unit[250]{mm}
+behind behind the tube lens. Only the lens groups within the tube lens
+move, everything else in the system is
+fixed. \figref{fig:tubelens-bfp} shows the pupil plane $P$ for two
+different settings of the focal length of the tube lens.
+
+Fluorescent light returns from the objective and is reflected by the
+dichroitic beam splitter (DBS) through the detection tube lens
+$\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
+detection works with full efficiency.
+
+\begin{figure}
+   \centering
+   \def\svgscale{2}
+   \input{memi-sketch.eps_tex}
+   \caption{Schematic of the lenses in the MEMI system and their focal
+     lengths. The focal length $f_\textrm{TL}$ of the tube lens can be
+     varied. This allows to scale the second intermediate image
+     $r''_\textrm{MMA}$ of the micro mirror array to fit the back
+     focal plane of different objectives. Dimensions in mm.}
+   \label{fig:memi-sketch}
+ \end{figure}
+ 
 
 \imagw{14cm}{setup-photo-blueprint}{The widefield epi-fluorescent
   microscope with attached illumination head. The positions of the two
@@ -327,7 +350,8 @@ out-of-focus nuclei.
 First we assume the beads are embedded in index matched medium. Then
 rays only refract at the Gaussian sphere of the objective lens and it
 is insignificant how far the target bead is from the interface between
-coverslip and medium.
+coverslip and medium. Other lenses, such as $\textrm{TL}_\textrm{ill}$
+are assumed to be perfect lenses and are not considered here.
 
 Initially we investigated a very simple optimization routine (see
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}). A circular
@@ -348,8 +372,16 @@ the window size blurs the features in the diagrams.
 Here we would choose the window with $r=0.15$
 (\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~c)). It
 still has a low minimum but the largest amount of light would reach
-the target.
+the target. If we chose a too small value for $r$ we would on the one
+hand send only a very small amount of light into the specimen. On the
+other hand the field distribution in $P$ is related to the Fourier
+transform of the field distribution in $F$ and due to Heisenberg
+uncertainty relation a small $r$ in $P$ would illuminate the full
+field in $F$.
 
+If we chose a bigger value for $r$ many rays would intersect with
+out-of-focus objects.
+ 
 \imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big_label}{Raytrace for
   circular window optimization in illumination direction. A window
   with 33\% BFP diameter would be used to illuminate the target
@@ -359,7 +391,7 @@ the target.
 raytrace for a sphere model of a \emph{C.~elegans} embryo and chooses
 a window size and position which in this sense is optimal.
 
-However with the MMA we have a very versatile display and we don't
+With the MMA we have a very versatile display and we don't
 have to limit ourselves to circular windows. Also the raytraced
 optimizations can look noisy when not enough rays are sent through the
 sample.
@@ -383,7 +415,7 @@ shadow map.
 
 
 In order for our spatio-angular system to work, neither the MMA, nor
-the LCoS should displays masks with only a few white pixels. Ray based
+the LCoS should display masks with only a few white pixels. Ray based
 simulations are not good models in this case (see
 Appendix~\ref{sec:sim-angle} for a description of a wave optical
 treatment) and illumination light would simply be impractically low.
@@ -395,7 +427,9 @@ maps into a new one (see the two images on the left in
 \figref{fig:bfp2-bfp-images-and-model}. Then we threshold the
 accumulated shadow map, so that only the angles with least
 out-of-focus targets are illuminated. Finally we blur the mask with a
-Gaussian filter in order to prevent ringing in sample space.
+Gaussian filter in order to prevent ringing of the light distribution
+(Gibbs' phenomenon) in sample space.
+%FIXME heisst das so?
 
 The diagram on the right of \figref{fig:bfp2-bfp-images-and-model}
 displays a sphere model of three-dimensionally distributed beads
