@@ -1,6 +1,20 @@
 % 0609/scan
 \chapter{Transforming camera coordinates into LCoS coordinates}
 \label{sec:rigid}
+\begin{summary}
+  In our microscope the plane of the camera is conjugate to the plane
+  of the LCoS display. It is useful and for most illumination
+  strategies crucial to be able to relate a camera position back to
+  the LCoS. Then the information from one exposure can be used to
+  control the illumination in the next.
+
+  Whenever the camera is moved or the variable tubelens is changed, we
+  recalibrate the system with a fluorescent plane sample on which we
+  project single spots with known positions on the LCoS. Here we
+  describe a robust approach to find a rigid transform between LCoS
+  and camera coordinates.
+\end{summary}
+\section{Description of the rigid transform}
 In order to relate coordinates on the LCoS display with pixel
 positions on the camera, we found it suffices to use a rigid
 transform. The rigid transform between display and camera is defined
@@ -19,7 +33,7 @@ reflection.
 \begin{figure}[!hbt]
   \centering
   \input{calib-align.eps_tex}
-  \caption{Given $n>3$ camera images of a display showing one point it
+  \caption{Given $n\ge 4$ camera images of a display showing one point it
     is possible to calculate the parameters of the rigid transform
     parameters scaling $s$, rotation angle $\phi$, translation vector
     $\vect t$.}
@@ -31,15 +45,15 @@ reflection.
 One can find the transform parameters scaling $s$, rotation angle
 $\phi$, translation vector $\vect t$ by minimizing
 \begin{align}
-  \sum_i^n \abs{s \textrm{R}_\phi \r^c_i+\vect t -\r^d_i}^2
+  \sum_i^n \abs{s \textrm{R}_\phi \r^c_i+\vect t -\r^d_i}^2 \label{eq:rigid-sum}
 \end{align}
 for all $n$ points on the display $\r^d_i$ and there corresponding
 camera positions $\r^c_i$.  Each term of the sum can be expressed as
 two scalar terms:
 \begin{align*}
   \sum_i^n&
-  \abs{s(\cos\phi r^c_{ix}+q\sin\phi r^c_{iy})+t_x-r^d_{ix}}^2\\
-  &+
+  \abs{s(\cos\phi r^c_{ix}+q\sin\phi r^c_{iy})+t_x-r^d_{ix}}^2
+  +
   \abs{s(-\sin\phi r^c_{ix}+q\cos\phi r^c_{iy})+t_y-r^d_{iy}}^2
 \end{align*}
 
@@ -54,8 +68,8 @@ s*(-sin(p)*<cx>+q*cos(p)*<cy>)+ty-<dy>
 ...
 ]$
 minpack_lsquares(
-  g(s,p,x,y),
-  [s,p,x,y],
+  g(s,p,tx,ty),
+  [s,p,tx,ty],
   [0.88,-3.1,1200,-20]);
 \end{verbatim}
 We define the function \verb!g! to contain all the terms of the sum.
@@ -84,8 +98,9 @@ c                        njev,ipvt,qtf,wa1,wa2,wa3,wa4)
 \end{verbatim}
 }
 
-An advantage of using Maxima is, that it conveniently calculates the
-symbolic jacobian for the problem.
+The reason for using Maxima is, that it calculates the symbolic
+Jacobian for the problem. This makes it straight forward to change the
+simple rigid transform to a model with more parameters.
 
 The following Common Lisp code shows how the result of the
 optimization can be used to initialize the OpenGL modelview matrix to
@@ -124,29 +139,15 @@ float s=-.8749328910202312,
       cp=cos(phi),sp=sin(phi),
       tx=1456.71806436377,
       ty=910.4787738693659;
-  m[0]=sx*cp;
-  m[1]=-1*sx*sp;
-  m[2]=0;
-  m[3]=0;
-  
-  m[4]=sy*sp;
-  m[5]=sy*cp;
-  m[6]=0.;
-  m[7]=0.;
-
-  m[8]=0;
-  m[9]=0;
-  m[10]=1;
-  m[11]=0;
-  
-  m[12]=tx;
-  m[13]=ty;
-  m[14]=0;
-  m[15]=1;
+  m[0]=   sx*cp;   m[4]=sy*sp;   m[8] =0;    m[12]=tx; 
+  m[1]=-1*sx*sp;   m[5]=sy*cp;   m[9] =0;    m[13]=ty; 
+  m[2]=0;          m[6]=0.;      m[10]=1;    m[14]=0;  
+  m[3]=0;          m[7]=0.;      m[11]=0;    m[15]=1;  
 glMatrixMode(GL_MODELVIEW);
 glLoadMatrixf(m);
 \end{verbatim}
 }
+\section{Experimental example and image processing}
 
 For the calibration a fluorescent plane (see
 \figref{fig:rigid-pics}~left for a uniform wide field image) is imaged
@@ -196,6 +197,7 @@ command that finds the parameters of the rigid transform. Finally the
 transformed spot positions from the camera images are compared with
 the original LCoS pixel positions.
 
+The following Matlab listing shows how to open the image files:
 % cd /mnt/scan 
 {\small
 \begin{verbatim}
@@ -208,64 +210,79 @@ for i=0:102
     % correct this by adding 2^15
     a(:,:,i) = 2^15 + readim(sprintf('o%03d.fits',i));
 end
+\end{verbatim}}
 
-%% bright image is at position 102 in the stack
-% diphist(a(:,:,102),[min(a),max(a)])
+  Of the 103 images, that are loaded into \verb!a!, the first 100
+  contain spots and the image at the zero-based index 102 is the
+  uniformly illuminated image shown in \figref{fig:rigid-pics} left.
+  The other two images at indices 100 and 101 are two centered disks
+  with different diameters and are not used here.
 
-%% bright image has minimum at 800 ADU
-bright = squeeze(a(:,:,102));
-% create mask with illuminated area
-mask = gaussf(bright,8) > 800;
-
-%% the background is be 510 ADU
-% diphist(a(:,:,0),[min(a),max(a)])   
-bg = 510;
+{\small
+\begin{verbatim}
+bright = squeeze(a(:,:,102));  % histogram of uniformly illuminated
+                               % image has minimum at 800 ADU
+mask = gaussf(bright,8) > 800; % create mask with illuminated area
+bg = 510;                      % the background is be 510 ADU
 
 posmax = newim(100,2);
 for i = 10:99
-    % correct for sample non-uniformity with homogene image (102)
+    % correct for sample non-uniformity 
     corr = (squeeze(a(:,:,i)) - bg) / bright * mask;
     % find coordinates of maximum
     [coords,vals]=findmaxima(gaussf(corr,32));
-    [valss,valsind] = sort(vals);
-    tmp = coords(valsind,:);
-    posmax(i,:) = tmp(end,:);
+    [valss,valsind] = sort(vals);   % sort coordinates by intensity
+    tmp = coords(valsind,:);        % collect the maximum with highest
+    posmax(i,:) = tmp(end,:);       % intensity into result
 end
-
-%% store the positions as ascii text
-q = double(posmax)';
-save /dev/shm/o.mat q -ASCII  -DOUBLE
-
-%% create maxima input for optimization
+\end{verbatim}}
+  
+  The DIPimage toolbox provides the function \verb!findmaxima!, that
+  locates all local maxima in an image with subpixel accurac y. We
+  sort the result by gray value and only use the biggest.  The
+  measured 100 camera coordinate pairs in \verb!posmax! correspond to
+  $\r^c_i$ in equation \ref{eq:rigid-sum}.
+ 
+  From Matlab we create the file \verb!fit.max! with batch commands
+  for Maxima. Then we run Maxima. When it is finished after a few
+  seconds, the file \verb!max.out! will contain the four fitted
+  parameters.
+ 
+{\small
+\begin{verbatim}
 c = double(posmax)';
-
-cmd = '';
+cmd = '';                       % collect equations in maxima format
 for i=10:99
     dx = num2str(400+50*mod(i,10));
     dy = num2str(500+50*floor(i./10));
-    cx = num2str(c(i+1,1));
+    cx = num2str(c(i+1,1)); 
     cy = num2str(c(i+1,2));
-    cmd=[cmd ' s*( cos(p)*' cx '+q*sin(p)*' cy ')+tx-' dx ',s*(-sin(p)*' ...
-         cx '+q*cos(p)*' cy ')+ty-' dy ','];
+    cmd=[cmd ' s*( cos(p)*' cx '+q*sin(p)*' cy ')+tx-' dx ', ...
+         s*(-sin(p)*'cx '+q*cos(p)*' cy ')+ty-' dy ','];
 end
-
 cmd(:,end) = []; % delete last comma
 
 % load the fitting package and start defining the merit function g
 pre = 'load(minpack)$ q:-1; g(s,p,tx,ty):=[';
 % now put cmd between
-% call the fitting function and store the parameters into /dev/shm/max.out
+% call the fitting function and store the parameters into max.out
 cod = [']$ fit:minpack_lsquares(g(s,p,x,y),[s,p,x,y],[.88,-1.3,1200,-20]);' ...
- 'write_data(fit[1],"/home/martin/max.out");']
+ 'write_data(fit[1],"max.out");']
 
-%% write maxima commands into file and execute
-fid = fopen('/dev/shm/fit.max','w');
+fid = fopen('fit.max','w'); % write maxima commands into file 
 fwrite(fid,[pre cmd cod]);
 fclose(fid);
-[max_status,max_result]=system('maxima -b /dev/shm/fit.max');
+[max_status,max_result]=system('maxima -b fit.max');  % execute maxima
+\end{verbatim}}
 
-%% load rigid transformation parameters from the file into matlab
-params = load('/home/martin/max.out')';
+  We load the transformation parameters back into Matlab and create
+  the diagram \figref{fig:rigid-compare} to visualize, how well the
+  transform matches camera and display coordinates.
+
+{\small
+\begin{verbatim}
+% load rigid transformation parameters from the file into matlab
+params = load('max.out')'; 
 scale = params(1); phi = params(2);
 tx = params(3);    ty = params(4);
 

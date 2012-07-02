@@ -3,14 +3,17 @@
 \chapter{Raytracing for spatio-angular microscopy}
 \label{sec:raytrace}
 \renewcommand{\i}{\nvect i}
-
-Here we give an overview of some useful equations for raytracing
-through lens models. The design parameters of our microscope
-objectives are not usually known to us. However, this is not an
-insurmountable problem as they can be represented using a simplified
-model \citep{Hwang2008}. We use this to simulate the refraction at the
-coverslip--medium interface for non-index matched media.
-
+\begin{summary}
+  Here we give an overview of some useful equations for
+  raytracing. The design parameters of our microscope objectives are
+  not usually known to us. However, this is not an insurmountable
+  problem as they can be represented using a simplified model
+  \citep{Hwang2008}. We use this to find which regions of the
+  objectives back focal plane are safe to illuminate and which will
+  excite out-of-focus fluorescence. Further, we consider the
+  refraction at the coverslip--medium interface for non-index matched
+  media.
+\end{summary}
 \section{Refraction at plane surface}
 We begin by describing refraction at a plane surface\footnote{The
   equations are as in \citep{McClain1993}.}. The wavelength of the
@@ -384,6 +387,25 @@ is not a circle anymore.
 For practical reasons its useful to project vector $\x$ as well. It
 can be used as the centre of the (distorted) shape on the back focal
 plane to rasterize it as a fan of triangles.
+
+\section{Conclusion}
+We documented how to trace rays through a perfect thin lens and a high
+numerical aperture objective. These equations are the starting point
+to find good illumination strategies. 
+
+The treatment of aberrations due to a non-matching embedding medium
+needs more parameters (target depth, refractive index $n_e$) and a
+raytrace from sample space, through the back focal plane, tubelens and
+LCoS. However, it enriches the type of control, that can be
+implemented. Illumination with high angles will create thin slices of
+light.
+
+Note that ray optics are not an sufficient approximation, when
+intensity features in the scale of the wavelength are to be
+investigated. Small features would mean that only a few pixels of the
+LCoS would be enabled. This would mean that most of the information of
+the MMA pattern is filtered out at the LCoS and no simultaneous tight
+angular control would be possible (see Appendix \ref{sec:sim-angle}).
 
 %FIXME maybe compare to ./cyberpower-store/0314/zeiss-patents/20080106795-correction-ring.pdf 
 %or US7268953-63x.pdf

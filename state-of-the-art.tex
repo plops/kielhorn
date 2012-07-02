@@ -201,14 +201,17 @@ fluorophores with more than \unit[100]{nm} Stokes shift.
 \subsubsection{Internal conversion}
 Often the transition $S_2\rightarrow S_1$ occurs by \emph{internal
   conversion} (IC) followed by vibro-rotational relaxation. During IC,
-the electronic states transitions into a high vibro-rotational
-excitation of a lower electronic state. For floppy, non-rigid
-molecules, IC is a competing process to fluorescence $S_1\rightarrow
-S_0$. In dyes that absorb in the near infrared, the energy gap between
-$S_0$ and $S_1$ is so small and the vibrational states of highest
-energy of the singlet ground state $S_0$ (vibration of hydrogen bonds
-directly attached to the chromophore) are close to $S_1$. This
-seriously reduces the efficiency of infrared dyes
+the electronic state transitions into a high vibro-rotational
+excitation of a lower electronic state. The probability for IC is high
+for a high density of vibrational target states.
+% FIXME translate Zustandsdichte
+
+For floppy, non-rigid molecules, IC is a competing process to
+fluorescence $S_1\rightarrow S_0$. In dyes that absorb in the near
+infrared, the energy gap between $S_0$ and $S_1$ is so small and the
+vibrational states of highest energy of the singlet ground state $S_0$
+(vibration of hydrogen bonds directly attached to the chromophore) are
+close to $S_1$. This seriously reduces the efficiency of infrared dyes
 \citep[p.~43]{Sauer2011}.
 
 
@@ -247,19 +250,21 @@ react.
   \caption{{\bf left:} Molecular orbitals of the oxygen molecule. {\bf
       right:} Molecular oxygen has the lowest energy in its triplet
     state ${}^3\Sigma$. Then the spins of the two $\pi^*-$electrons
-    are parallel. Inspired from \citep{Linde2011a}.}
+    are parallel. Inspired from \citet{Linde2011a}.}
   \label{fig:oxygen}
 \end{figure}
 
 
 The ground state of the oxygen molecule is a triplet state ${}^3\O_2$,
 with two unpaired electrons of parallel spin in its $\pi^*-$orbitals
-(see \figref{fig:oxygen}).  If an oxygen molecule comes into physical
-contact with a $T_1$ fluorophore, e.g.\ ${}^3\textsf{Chlorophyll}^*$,
-the energy of the dye can be transferred to the oxygen by an electron
-exchange energy transfer mechanism in which the orbitals directly
-interact with each other \citetext{\citealp[p.~438]{Haken2006} and
-  \citealp{Linde2011a}}:
+(see \figref{fig:oxygen}). The triplet ground state and its abundance
+in typical microscope samples are the reasons why oxygen is so
+important when it comes to phototoxicity. If an oxygen molecule comes
+into physical contact with a $T_1$ fluorophore, e.g.\
+${}^3\textsf{Chlorophyll}^*$, the energy of the dye can be transferred
+to the oxygen by an electron exchange energy transfer mechanism in
+which the orbitals directly interact with each other
+\citetext{\citealp[p.~438]{Haken2006} and \citealp{Linde2011a}}:
 \begin{align}
   {}^3\O_2 + {}^3\textsf{Chlorophyll}^* \rightarrow
   {}^1\O^*_2+{}^1\textsf{Chlorophyll}
@@ -278,7 +283,8 @@ oxygen is quite hazardous inside living creatures. Plants have
 developed several protection mechanisms against being exposed to too
 much light. Within the cells they reorient and shift their
 chloroplasts in order to expose them to less light \citetext{priv.\
-  comm.\ V. Sarafis}. However, they even have a molecular protection
+  comm.\ V. Sarafis}. % Today I heard, that he died.
+However, they even have a molecular protection
 mechanism: They transfer the energy of the chlorophyll onto carotenoid
 molecules and can prevent the hazardous \emph{phototoxicity} effects
 of singlet oxygen \citep{Krieger-Liszkay2005}.
@@ -289,7 +295,7 @@ oxygen with noble gases or remove it enzymatically
 reducing as well as oxidizing agents to the solvent
 \citep{Vogelsang2008} or couple a triplet quencher directly to the
 fluorophore \citep[p.~19]{Sauer2011}. For fixed samples it helps to
-use replace water as the solvent, e.g.\ with a polymer.
+change the solvent or polymer.
 
 All these techniques work after the hazardous chemicals have been
 produced. In order to reduce phototoxicity even more it makes sense to
