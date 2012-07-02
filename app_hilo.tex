@@ -117,7 +117,7 @@ kpsf=ft(psf); % otf
 fluo=obj.*imgrat; % excited fluorophores
 strucflimg=ift(ft(fluo).*kpsf); % fluorescence image with 
                                 % structured illumination
-flimg=ift(ft(obj).*kpsf);       % widefield fluorescence image
+flimg=ift(ft(obj).*kpsf);       % wide field fluorescence image
 %% extract focal planes
 iu=real(squeeze(flimg(:,:,(sz*n)/2)));     % uniform illumination
 in=real(squeeze(strucflimg(:,:,(sz*n)/2)));% structured illumination
@@ -130,14 +130,14 @@ for non-uniform illumination with the \unit[600]{nm}-period grating.
 
   \subfigure[fluorophore distribution in the test object
   \textsf{obj}]{\includegraphics[width=4cm]{../app_hilo/obj}}
-  \subfigure[image under widefield illumination
+  \subfigure[image under wide field illumination
   $I_u$]{\includegraphics[width=4cm]{../app_hilo/iu}}
   \subfigure[image with structured illumination
   $I_n$]{\includegraphics[width=4cm]{../app_hilo/in}}
 
   \caption{{\bf(a)} $xy-$slice of the object in the focal plane. It
     consists of a line, a spherical shell and a rectangle. Only the
-    shell is extended in z. {\bf(b)} Image with widefield
+    shell is extended in z. {\bf(b)} Image with wide field
     illumination. {\bf(c)} Image with structured illumination (grating
     period \unit[600]{nm}).  The scalebars are \unit[2]{$\mu$m}
     wide. }
@@ -159,7 +159,7 @@ the same contrast.
   \label{fig:defocus}
 \end{figure}
 \section{Fundamentals of structured illumination}
-If a fluorescent plane is imaged with a fluorescence widefield
+If a fluorescent plane is imaged with a fluorescence wide field
 microscope, the intensity of the image is constant no matter if the
 plane is in focus or not (missing cone problem). 
 \subsection{Apotome}
@@ -169,7 +169,7 @@ problem. They project a grid pattern into the sample using incoherent
 illumination. For a fluorescent plane sample the modulation in the
 image is highest, when the sample is in focus. If the plane is moved
 out-of-focus, the modulation decreases. Hence it is possible to
-achieve z-sectioning in a widefield microscope.
+achieve z-sectioning in a wide field microscope.
 
 For one optically sectioned image $I_p$ they combine three grating
 images $I_i$ (grating period
@@ -217,7 +217,7 @@ structure:
   \kappa&=\frac{2\pi}{\lambda}n\sin(\alpha)\nu.
 \end{align}
 We can recover the sectioned image as a combination of high-frequency
-components of the widefield image $I_u$ and the low-frequency
+components of the wide field image $I_u$ and the low-frequency
 components of the modulated part of the non-uniform image $I_n$.
 \subsubsection{Using speckle pattern as non-uniform illumination (local variance estimation)}
 In the older publication \citep{2008Lim} a random speckle pattern is
@@ -243,7 +243,7 @@ The authors state that a corrected relative standard deviation $c_s$
 of the non-uniform illumination can be obtained by removing the
 standard deviation
 $c_0=\frac{\sqrt{\avg{I_u^2}-\avg{I_u}^2}}{\avg{I_u}}$ of the
-widefield image:
+wide field image:
 \begin{align} 
   c_s^2=\frac{c_n^2-c_0^2}{1+c_0^2}
   =
@@ -305,7 +305,7 @@ ihilo=ift(eta.*kilp+kihp);
 
 \begin{figure}[htb]
   \centering
-  \subfigure[High frequency components $I_\textrm{hp}$ of widefield.]{\includegraphics[width=4cm]{../app_hilo/ihp}}
+  \subfigure[High frequency components $I_\textrm{hp}$ of wide field.]{\includegraphics[width=4cm]{../app_hilo/ihp}}
   \subfigure[Combined images $\tilde I_\textrm{hilo}$ in k-space.]{\includegraphics[width=4cm]{../app_hilo/kihilo}}
   \subfigure[Combined section $I_\textrm{hilo}$.]{\label{fig:ihilo}\includegraphics[width=4cm]{../app_hilo/ihilo}}
   \caption{More intermediate and the end result of the HiLo local
@@ -327,7 +327,7 @@ The more recent paper \cite{2009Santos} uses a more defined pattern in
 the excitation illumination than random speckle. A grating is
 projected into the specimen using a spatial light modulator.
 
-Starting from a widefield image $I_u$ and an image $I_n$ that has been
+Starting from a wide field image $I_u$ and an image $I_n$ that has been
 illuminated with a grating they first determine the ratio $R=I_n/I_u$.
 With equations \eqref{eqn:Iu} and \eqref{eqn:In} defining the
 relationship between in-focus and out-of-focus light in both images
@@ -418,7 +418,7 @@ illuminated into the sample. Then, there would be no second orders in
 
 Calculation of the ratio (single side-band demodulation) isn't the
 only way to extract the modulated signal. Another approach involving
-subtracting the widefield image\footnote{Suggested by R.~Heintzmann.}
+subtracting the wide field image\footnote{Suggested by R.~Heintzmann.}
 and shifting in Fourier space is discussed in the following section.
 \section{Alternative method (subtraction method)}
 Instead of using a non-hermitian filter to extract the modulated part
@@ -470,7 +470,7 @@ ackiu=abs(ckiu).*(rr(ackiu,'freq')<.16 | abs(xx(ackiu,'freq'))<.06);
 The Fourier transform of the OTF-corrected non-uniform image is shown
 in \figref{fig:ackin}. It still contains the $\pm1$ orders. In order
 to measure their exact position (depending on the grating period {\sf
-  P}) the zero order of the widefield k-space is selected (in variable
+  P}) the zero order of the wide field k-space is selected (in variable
 {\sf ackiu}, \figref{fig:hilo3}~(b)) and cross-correlated with {\sf
   ackin} (\figref{fig:hilo3}~(a)).
 

@@ -145,19 +145,20 @@ tilted mirror will be dark.
 
 The lenses $L_2$ and $L_3$ relay the image of the tunnel exit $F'''$
 from $F''$ into the plane $F'$ with the LCoS (ForthDD SXGA, pixel
-pitch $\unit[13.62]{\mu m}$). The polarizing beam splitter ($45^\circ$
-wire grid polarizing beam splitter, Moxtek) reflects linearly
-polarized light towards the LCoS\footnote{In order to prevent spurious
-  reflections at the PBS back surface (without wire grid coating) and
-  to improve contrast, the incoming light should already be
-  polarized}. The electric field vibrates perpendicular to the paper
-plane. Depending on the LCoS pixel state (on or off) an LCoS pixel can
-rotate the polarization of the returning light, so that it is
-transmitted\footnote{As it is used in transmission a curvature of the
-  PBS doesn't affect the quality of the LCoS image in the sample $F$
-  as if the PBS was used in reflection.}  into the illumination tube
-lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
-a photograph showing tube lens, PBS and LCoS).
+pitch $\unit[13.62]{\mu m}$) \citep{Cartwright2007}. The polarizing
+beam splitter ($45^\circ$ wire grid polarizing beam splitter, Moxtek,
+UT, US) reflects linearly polarized light towards the LCoS\footnote{In
+  order to prevent spurious reflections at the PBS back surface
+  (without wire grid coating) and to improve contrast, the incoming
+  light should already be polarized}. The electric field vibrates
+perpendicular to the paper plane. Depending on the LCoS pixel state
+(on or off) an LCoS pixel can rotate the polarization of the returning
+light, so that it is transmitted\footnote{As it is used in
+  transmission a curvature of the PBS doesn't affect the quality of
+  the LCoS image in the sample $F$ as if the PBS was used in
+  reflection.}  into the illumination tube lens
+$\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for a
+photograph showing tube lens, PBS and LCoS).
 
 The LCoS is ferroelectric \citetext{\citealp[see][]{1991Saleh} and
   \citealp[p.~192]{Goodman1996}}.  Its liquid crystals can be driven
@@ -215,7 +216,7 @@ detection works with full efficiency.
  \end{figure}
  
 
-\imagw{14cm}{setup-photo-blueprint}{The widefield epi-fluorescent
+\imagw{14cm}{setup-photo-blueprint}{The wide field epi-fluorescent
   microscope with attached illumination head. The positions of the two
   spatial light modulators (Micro mirror array (MMA) and liquid
   crystal on silicon display (LCoS)) are indicated. Drawing by Josef
@@ -261,12 +262,12 @@ controllers allow to upload several hundred frames of image data
 before an experiment and keep them in local storage. Images can then
 be selected by fast function calls over USB (LCoS) or Ethernet (MMA).
 
-The camera (Andor Clara) as the slowest device is chosen as the
-master. The camera provides two TTL outputs. The output ``fire'' is
-high while the camera is integrating. The output ``shutter'' goes high
-\unit[1]{ms} before ``fire'' and provides enough time
-(\unit[$>850$]{$\mu$s}) for the MMA controller to tilt and let the
-mirrors settle.
+The camera (Clara, Andor PLC, Belfast, Northern Ireland) as the
+slowest device is chosen as the master. The camera provides two TTL
+outputs. The output ``fire'' is high while the camera is
+integrating. The output ``shutter'' goes high \unit[1]{ms} before
+``fire'' and provides enough time (\unit[$>850$]{$\mu$s}) for the MMA
+controller to tilt and let the mirrors settle.
 
 The LCoS controller can only be programmed to a limited number of
 discrete image times (\unit[20]{ms}, \unit[10]{ms}, \unit[5]{ms},
