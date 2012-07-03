@@ -134,9 +134,69 @@
 %\setcounter{tocdepth}{3}
 \section*{Preface}
 \subsection*{Introduction}
+In \citet{Levoy2003} a scene of a toy soldier behind a plant is
+captured by camera while being illuminated with sixteen projectors.
+Sophisticated illumination control allows them to estimate a
+three-dimensional model of the scene and finally they can illuminate
+the toy without exposing the plant.
+
+In this work we have taken this idea into the field of fluorescence
+microscopy. This is not as straightforward, as it may seem.  The ideas
+from \citet{Levoy2003} are based on ray optics and in extreme cases,
+e.g.\ for very fine patterns, don't work for microscopes. Also there
+are related technical issues like the illumination. The light source
+of a data projector usually doesn't have enough brightness to
+illuminate a microscope efficiently.
+
+Here we build a spatio-angular microscope. It contains two
+programmable masks and can control which parts of the sample (spatial)
+are illuminated by what angles. The advantages of this microscope lie
+in imaging of living samples with sparse, three-dimensionally extended
+labelling.
+
+In chapter \ref{sec:intro} we introduce photophysics of fluorescence
+and emphasize the importance of oxygen for phototoxicity. There, we
+also explain conventional microscopes and CCD cameras.
+
+In chapter \ref{sec:approaches} we compare some state-of-the-art
+techniques for illumination control in microscopes. % unter anderen
+Especially in section \ref{sec:light-field-microscopy} we discuss the
+micro-lens based light field microscope by Levoy's computational
+photography group who imaged the toy soldier in 2003.
+
+In chapter \ref{sec:setup} we describe our microscope and in chapter
+\ref{sec:experiments} we show some images, taken with illumination
+control in our prototype.
+
+There is also an extensive appendix where we document more technical
+issues like read noise calibration of a camera (Appendix
+\ref{sec:ccd-meas}) or finding a rigid transform between a camera and
+a display (Appendix \ref{sec:rigid}).
+
+In the appendix we also describe a completely different approach for
+spatio--angular illumination, based on holography (Appendix
+\ref{sec:app_holo}) and we document an interferometric attempt to
+convert the our precise programmable phase mask into a spatial
+intensity modulator (Appendix \ref{sec:app_dic}).
+
+Note that Appendix \ref{sec:dvi} describes a modification of our
+prototype with a spatial light modulator that receives data from a
+graphics card. The higher bandwidth makes this approach more useful
+than the prototype described in the main text. However, eventually it
+proved too difficult to trigger the components in this configuration
+and we switched to the more predictable USB controlled display as
+described in the main body of the text.
+ 
+The appendix also contains some theoretical parts on raytracing
+(Appendix \ref{sec:raytrace}), computational optical sectioning
+(Appendix \ref{sec:app_hilo}) and wave optical simulation of our
+microscope (Appendix \ref{sec:sim-angle}).
+
 \subsection*{Source Code Availability}
-The source code is available on \url{https://github.com/plops/mma}.
-It contains implementations for:
+
+Source code that has been developed during this project is available
+on \url{https://github.com/plops/mma}.  It contains implementations
+for:
 \begin{itemize}
 \item illumination planning based on raytraces (see Appendix
   \ref{sec:raytrace})
@@ -152,13 +212,13 @@ It contains implementations for:
   \end{itemize}
 \item displaying patterns using a graphics card, that supports OpenGL,
   on a ForthDD SXGA ferroelectric LCoS display
-\item controlling a standalone ForthDD WXGA 3DM display controller
+\item controlling a stand-alone ForthDD WXGA 3DM display controller
   using USB
 \item estimating the parameters of a rigid transformation between
   camera and LCoS display (see Appendix \ref{sec:rigid}),
 \item controlling the micro-mirror array by Fraunhofer IPMS using
   their SDK
-\item some specific image processing needs:
+\item some specific image processing tools:
   \begin{itemize}
   \item three-dimensional convolution and Fourier transforms
   \item drawing of lines and ellipsoids in volumes
@@ -176,7 +236,7 @@ as well.
 \subsection*{Acknowledgements}
 I would like to thank my supervisor Rainer Heintzmann, Kai Wicker,
 Jakub Nedbal, Susan Cox, Daniel Appelt, Ond\v rej Mandula, Ronny
-F\"orster, Ivana Sumanovac, Eckhard Birkner, Kathrin Klehs and all the
+F\"orster, Ivana \v Sumanovac, Eckhard Birkner, Kathrin Klehs and all the
 other members of our group for valuable discussions, support and
 review of the manuscript.
 
