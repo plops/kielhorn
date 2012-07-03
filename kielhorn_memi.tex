@@ -12,9 +12,10 @@
 % -> DIV=truncate(190*1.5/20) = truncate(14.25)=14
 % I could use headinclude so that the header isn't printed into the margin
 
-%Initially two softbound theses should be submitted to the Examinations Office for the examiners. Softbound theses
-%should have the pages glued in.
-
+% Initially two softbound theses should be submitted to the
+% Examinations Office for the examiners. Softbound theses should have
+% the pages glued in.
+% They don't need gold lettering on the spine.
 
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
@@ -28,18 +29,24 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 
-\usepackage[hypertex,breaklinks]{hyperref} % breaklinks only seems to work with dvipdfm, otherwise urls have no line breaks
+\usepackage[hypertex,breaklinks]{hyperref} % breaklinks only seems to
+                                           % work with dvipdfm,
+                                           % otherwise urls have no
+                                           % line breaks
 \usepackage{units}
 \usepackage[disable]{todonotes} % for draft, disable for final
 \usepackage{refcheck} % for draft, uncomment for final
 \usepackage{lineno}
 \usepackage{nomencl}
-
+%\special{background Black}\special{color Green}
 %\usepackage[utf8x]{inputenc} 
 %\usepackage[T2A]{fontenc} % for the russian reference
 \usepackage{wasysym} %diameter
 % http://www.andy-roberts.net/misc/latex/latextutorial3.html
-% \usepackage{url} % natbib.pdf p.11 break urls up, seems to be done with hyperref, though
+
+%\usepackage{url} % natbib.pdf p.11 break urls up, seems to be done
+                 % with hyperref, though
+
 \usepackage{natbib}
 
 
@@ -125,26 +132,64 @@
 \include{abstract}
 \urlstyle{sf}
 %\setcounter{tocdepth}{3}
-\section*{Acknowledgement}
-\begin{summary}
-  I would like to thank my supervisor Rainer Heintzmann, Kai Wicker,
-  Jakub Nedbal, Susan Cox, Daniel Appelt, Ond\v rej Mandula, Ronny
-  F\"orster, Eckhard Birkner, Kathrin Klehs and all the other members
-  of our group for valuable discussions and support.
+\section*{Preface}
+\subsection*{Introduction}
+\subsection*{Source Code Availability}
+The source code is available on \url{https://github.com/plops/mma}.
+It contains implementations for:
+\begin{itemize}
+\item illumination planning based on raytraces (see Appendix
+  \ref{sec:raytrace})
+\item moving the $z-$stage of a Zeiss Axiovert 200M microscope body
+\item controlling an Andor Clara camera using the Andor SDK version
+  2. For the following other cameras control software was written:
+  \begin{itemize}
+  \item Photometrics Cascade~II (interface to unsupported
+    closed-source driver, only works on very old 32-bit Linux kernels)
+  \item mvBlueFox 102G using the SDK
+  \item Logitech Pro 9000 using a generic Video4Linux interface
+  \item Andor sCMOS using Andor SDK version 3
+  \end{itemize}
+\item displaying patterns using a graphics card, that supports OpenGL,
+  on a ForthDD SXGA ferroelectric LCoS display
+\item controlling a standalone ForthDD WXGA 3DM display controller
+  using USB
+\item estimating the parameters of a rigid transformation between
+  camera and LCoS display (see Appendix \ref{sec:rigid}),
+\item controlling the micro-mirror array by Fraunhofer IPMS using
+  their SDK
+\item some specific image processing needs:
+  \begin{itemize}
+  \item three-dimensional convolution and Fourier transforms
+  \item drawing of lines and ellipsoids in volumes
+  \item rasterization of triangles (for creating shadow maps in the
+    BFP, see section \ref{sec:trace-detect})
+  \item calculation of optical transfer function for high NA
+    objectives
+  \item localization of in volumetric data \citep{Santella2010}
+  \end{itemize}
+\end{itemize}
+The main development was done using GNU~Linux. However, portability
+was kept in mind and most of the code will work in Microsoft Windows
+as well.
 
-  I also thank Erhard Ipp, G\"unter Z\"ochling, Vincent Galy, QueeLim
-  Ch'ng, J\"org Heber, Mark Eckert, Dirk Berndt, Joel Seligson and
-  Jean-Yves Tinevez.  Thanks to the European Union Framework Programme
-  7 (project number 2115597) for the studentship on this project.
-  Further I thank the Miroslav Grajcar, Edward Rosten, Christophe
-  Rhodes, Paul Khuong, Nikodemus Siivola, Levente M\'esz\'aros and
-  Lu\' is Oliveira.
+\subsection*{Acknowledgements}
+I would like to thank my supervisor Rainer Heintzmann, Kai Wicker,
+Jakub Nedbal, Susan Cox, Daniel Appelt, Ond\v rej Mandula, Ronny
+F\"orster, Ivana Sumanovac, Eckhard Birkner, Kathrin Klehs and all the
+other members of our group for valuable discussions, support and
+review of the manuscript.
 
-  Finally I want to thank the authors and contributors to the
-  following free software projects: Linux, GCC, Emacs, SBCL, Maxima,
-  Micromanager, DIPimage, Wireshark, Latex, Inkscape, Gimp,
-  ImageJ/Fiji and Blender.
-\end{summary}
+I also thank Erhard Ipp, G\"unter Z\"ochling, Vincent Galy, QueeLim
+Ch'ng, J\"org Heber, Mark Eckert, Dirk Berndt, Joel Seligson and
+Jean-Yves Tinevez.  Thanks to the European Union Framework Programme 7
+(project number 2115597) for the studentship on this project.  Further
+I thank the Miroslav Grajcar, Edward Rosten, Christophe Rhodes, Paul
+Khuong, Nikodemus Siivola, Levente M\'esz\'aros and Lu\' is Oliveira.
+
+Finally I want to thank the authors and contributors to the following
+free software projects: Linux, GCC, Emacs, SBCL, Maxima, Micromanager,
+DIPimage, Wireshark, Latex, Inkscape, Gimp, ImageJ/Fiji and Blender.
 
 \newpage
 \tableofcontents
