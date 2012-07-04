@@ -126,7 +126,7 @@
   \hspace{4cm}\textsf{\Large Martin Kielhorn}
   
   \vspace{1cm}
-  \hspace{4cm}\textsf{\Large July 3, 2012}
+  \hspace{4cm}\textsf{\Large July 2012}
 \end{titlepage}
 \newpage
 \include{abstract}
@@ -134,38 +134,38 @@
 %\setcounter{tocdepth}{3}
 \section*{Preface}
 \subsection*{Introduction}
-In \citet{Levoy2003} a scene of a toy soldier behind a plant is
-captured by camera while being illuminated with sixteen projectors.
-Sophisticated illumination control allows them to estimate a
-three-dimensional model of the scene and finally they can illuminate
-the toy without exposing the plant.
+In the work by \citet{Levoy2003}, a scene with a toy soldier behind a
+plant is captured by a camera while being illuminated with sixteen
+projectors.  Sophisticated illumination control allows them to
+estimate a three-dimensional model of the scene and finally, they can
+illuminate the toy without exposing the plant.
 
-In this work we have taken this idea into the field of fluorescence
-microscopy. This is not as straightforward, as it may seem.  The ideas
+In our work we have adapted this idea for the field of fluorescence
+microscopy. This is not as straightforward as it may seem.  The ideas
 from \citet{Levoy2003} are based on ray optics and in extreme cases,
-e.g.\ for very fine patterns, don't work for microscopes. Also there
-are related technical issues like the illumination. The light source
-of a data projector usually doesn't have enough brightness to
+e.g.\ for very fine patterns, don't work for microscopes. Also, there
+are related technical issues like the illumination, e.g.\ the light
+source of a data projector usually doesn't have enough brightness to
 illuminate a microscope efficiently.
 
 Here we build a spatio-angular microscope. It contains two
-programmable masks and can control which parts of the sample (spatial)
-are illuminated by what angles. The advantages of this microscope lie
-in imaging of living samples with sparse, three-dimensionally extended
+programmable masks and can control the illumination angle for specific
+spatial parts of the sample. The advantage of this microscope lies in
+imaging of living samples with sparse, three-dimensionally extended
 labelling.
 
-In chapter \ref{sec:intro} we introduce photophysics of fluorescence
-and emphasize the importance of oxygen for phototoxicity. There, we
-also explain conventional microscopes and CCD cameras.
+In chapter \ref{sec:intro}, we introduce photophysics of fluorescence
+and emphasize the importance of oxygen for phototoxicity. Furthermore,
+we also explain conventional microscopes and CCD cameras.
 
-In chapter \ref{sec:approaches} we compare some state-of-the-art
-techniques for illumination control in microscopes. % unter anderen
-Particularly in section \ref{sec:light-field-microscopy} we discuss
-the micro-lens based light field microscope by Levoy's computational
-photography group who imaged the toy soldier in 2003.
+In chapter \ref{sec:approaches}, we compare some state-of-the-art
+techniques for illumination control in microscopes.  Particularly in
+section \ref{sec:light-field-microscopy}, we discuss the micro-lens
+based light field microscope by Levoy's computational photography
+group, which imaged the toy soldier in 2003.
 
-In chapter \ref{sec:setup} we describe our microscope and in chapter
-\ref{sec:experiments} we show some images, taken with illumination
+In chapter \ref{sec:setup}, we describe our microscope and in chapter
+\ref{sec:experiments}, we show some images, taken with illumination
 control in our prototype.
 
 There is also an extensive appendix where we document more technical
@@ -173,24 +173,25 @@ issues like read noise calibration of a camera (Appendix
 \ref{sec:ccd-meas}) or finding a rigid transform between a camera and
 a display (Appendix \ref{sec:rigid}).
 
-In the appendix we also describe a completely different approach for
-spatio--angular illumination, based on holography (Appendix
+In the appendix, we also describe a completely different approach for
+spatio--angular illumination based on holography (Appendix
 \ref{sec:app_holo}) and we document an interferometric attempt to
-convert the our precise programmable phase mask into a spatial
-intensity modulator (Appendix \ref{sec:app_dic}).
+convert our precise programmable phase mask into a spatial intensity
+modulator (Appendix \ref{sec:app_dic}).
 
-Note that Appendix \ref{sec:dvi} describes a modification of our
+Note that the Appendix \ref{sec:dvi} describes a modification of our
 prototype with a spatial light modulator that receives data from a
-graphics card. The higher bandwidth makes this approach more useful
-than the prototype described in the main text. However, eventually it
-proved too difficult to trigger the components in this configuration
-and we switched to the more predictable USB controlled display as
-described in the main body of the text.
+graphics card. A higher bandwidth makes this approach more useful than
+the prototype described in the main text and we tried to implement
+this first. However eventually, it proved too difficult to trigger the
+components in this configuration and we switched to the more
+predictable USB-controlled display as described in the main body of
+the text.
  
-The appendix also contains some theoretical parts on raytracing
-(Appendix \ref{sec:raytrace}), computational optical sectioning
-(Appendix \ref{sec:app_hilo}) and wave optical simulation of our
-microscope (Appendix \ref{sec:sim-angle}).
+The appendix also contains some theoretical explainations of
+raytracing (Appendix \ref{sec:raytrace}), computational optical
+sectioning (Appendix \ref{sec:app_hilo}) and the wave-optics based
+simulation of our microscope (Appendix \ref{sec:sim-angle}).
 
 \subsection*{Source Code Availability}
 
@@ -202,7 +203,7 @@ for:
   \ref{sec:raytrace})
 \item moving the $z-$stage of a Zeiss Axiovert 200M microscope body
 \item controlling an Andor Clara camera using the Andor SDK version
-  2. For the following other cameras control software was written:
+  2. For the other cameras following below, control software was written:
   \begin{itemize}
   \item Photometrics Cascade~II (interface to unsupported
     closed-source driver, only works on very old 32-bit Linux kernels)
@@ -210,7 +211,7 @@ for:
   \item Logitech Pro 9000 using a generic Video4Linux interface
   \item Andor sCMOS using Andor SDK version 3
   \end{itemize}
-\item displaying patterns using a graphics card, that supports OpenGL,
+\item displaying patterns using a graphics card that supports OpenGL
   on a ForthDD SXGA ferroelectric LCoS display
 \item controlling a stand-alone ForthDD WXGA 3DM display controller
   using USB
@@ -226,30 +227,53 @@ for:
     BFP, see section \ref{sec:trace-detect})
   \item calculation of optical transfer function for high NA
     objectives
-  \item localization of in volumetric data \citep{Santella2010}
+  \item localization of spherical nuclei in volumetric data (parts of
+    the algorithm as described in \citet{Santella2010})
   \end{itemize}
 \end{itemize}
 The main development was done using GNU~Linux. However, portability
-was kept in mind and most of the code will work in Microsoft Windows
-as well.
+was kept in mind and most of the code was made to work with Microsoft
+Windows as well.
 
 \subsection*{Acknowledgements}
-I would like to thank my supervisor Rainer Heintzmann, Kai Wicker,
-Jakub Nedbal, Susan Cox, Daniel Appelt, Ond\v rej Mandula, Ronny
-F\"orster, Ivana \v Sumanovac, Eckhard Birkner, Kathrin Klehs and all the
-other members of our group for valuable discussions, support and
-review of the manuscript.
+It is my pleasure to thank all those who have made this thesis
+possible. First and foremost, I owe my deepest gratitude to my
+supervisor Rainer Heintzmann for giving me the opportunity to become
+part of his research group at King's College London and later in the
+Institute of Photonic Technology in Jena.
 
+I owe my sincere thanks to Kai Wicker, Jakub Nedbal, Susan Cox, Daniel
+Appelt, Ond\v rej Mandula, Ronny F\"orster, Ivana \v Sumanovac,
+Eckhard Birkner, Kathrin Klehs and all the other members of our group
+for valuable discussions, support and review of the manuscript.
+
+My sincere thanks to the European Union Framework Programme 7 (project
+number 2115597) for the studentship on this project.
 I also thank Erhard Ipp, G\"unter Z\"ochling, Vincent Galy, QueeLim
 Ch'ng, J\"org Heber, Mark Eckert, Dirk Berndt, Joel Seligson and
-Jean-Yves Tinevez.  Thanks to the European Union Framework Programme 7
-(project number 2115597) for the studentship on this project.  Further
-I thank the Miroslav Grajcar, Edward Rosten, Christophe Rhodes, Paul
-Khuong, Nikodemus Siivola, Levente M\'esz\'aros and Lu\' is Oliveira.
+Jean-Yves Tinevez for helpful collaboration.   
 
-Finally I want to thank the authors and contributors to the following
-free software projects: Linux, GCC, Emacs, SBCL, Maxima, Micromanager,
+Furthermore I highly appreciate the input of Miroslav Grajcar, Edward
+Rosten, Christophe Rhodes, Paul Khuong, Nikodemus Siivola, Levente
+M\'esz\'aros and Lu\' is Oliveira. Occasionally, the expertise and
+insight of them steered me into right direction or greatly simplified
+problems I faced.
+
+Finally, I wish to thank the authors and contributors to the following
+software projects: Linux, GCC, Emacs, SBCL, Maxima, Micromanager,
 DIPimage, Wireshark, Latex, Inkscape, Gimp, ImageJ/Fiji and Blender.
+These free software projects and their communities are invaluable to
+my work and greatly enhance my efficiency.
+
+\begin{flushright}
+  M.~K.
+\end{flushright}
+
+\noindent
+Jena, Germany
+
+\noindent
+July 2012
 
 \newpage
 \tableofcontents
