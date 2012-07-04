@@ -9,9 +9,9 @@
   control the illumination in the next.
 
   Whenever the camera is moved or the variable tubelens is changed, we
-  recalibrate the system with a fluorescent plane sample on which we
-  project single spots with known positions on the LCoS. Here we
-  describe a robust approach to find a rigid transform between LCoS
+  have to recalibrate the system with a fluorescent plane sample on
+  which we project single spots with known positions on the LCoS. Here
+  we describe a robust approach to find a rigid transform between LCoS
   and camera coordinates.
 \end{summary}
 \section{Description of the rigid transform}
@@ -27,16 +27,16 @@ as:
   \end{pmatrix}
 \end{align}
 where $\r^d$ is a point on the display, $\r^c$ is a point on the
-camera and $q$ can be either $+1$ or $-1$ dependent on if there is a
-reflection.
+camera and $q$ can be either $+1$ or $-1$. The value of $q$ is $-1$,
+if there is a reflection. It is $+1$ if there is no reflection.
 
 \begin{figure}[!hbt]
   \centering
   \input{calib-align.eps_tex}
-  \caption{Given $n\ge 4$ camera images of a display showing one point it
-    is possible to calculate the parameters of the rigid transform
-    parameters scaling $s$, rotation angle $\phi$, translation vector
-    $\vect t$.}
+  \caption{Given $n\ge 4$ camera images of a display showing one
+    point.  It is possible to calculate the parameters of the rigid
+    transform parameters scaling $s$, rotation angle $\phi$,
+    translation vector $\vect t$.}
   \label{fig:calib-align}
 \end{figure}
 
@@ -62,15 +62,9 @@ problem:
 \begin{verbatim}
 load(minpack)$
 q:-1;
-g(s,p,tx,ty):=[
-s*( cos(p)*<cx>+q*sin(p)*<cy>)+tx-<dx>,
-s*(-sin(p)*<cx>+q*cos(p)*<cy>)+ty-<dy>
-...
-]$
-minpack_lsquares(
-  g(s,p,tx,ty),
-  [s,p,tx,ty],
-  [0.88,-3.1,1200,-20]);
+g(s,p,tx,ty):=[s*( cos(p)*<cx>+q*sin(p)*<cy>)+tx-<dx>,
+               s*(-sin(p)*<cx>+q*cos(p)*<cy>)+ty-<dy>, ... ]$
+minpack_lsquares(g(s,p,tx,ty), [s,p,tx,ty], [0.88,-3.1,1200,-20]);
 \end{verbatim}
 We define the function \verb!g! to contain all the terms of the sum.
 This can easily written by a program that constructs the lines
@@ -79,26 +73,26 @@ with camera coordinates and \verb!<dx>!, \verb!<dy>! with display
 coordinates.
 
 The function \verb!minpack_lsquares! calls the subroutine \verb!lmder!
-from the Fortran package \verb!minpack!.
+which was originally developed for the Fortran\footnote{Rather than
+  calling a Fortran library Maxima calls a version of this function
+  that was automatically translated into Common Lisp via {\sf f2cl}.}
+package \verb!minpack!.
 
 {\small
 \begin{verbatim}
 c     subroutine lmder (http://www.netlib.org/minpack/lmder.f)
-c
 c     the purpose of lmder is to minimize the sum of the squares of
 c     m nonlinear functions in n variables by a modification of
 c     the levenberg-marquardt algorithm. the user must provide a
 c     subroutine which calculates the functions and the jacobian.
-c
 c     the subroutine statement is
-c
 c       subroutine lmder(fcn,m,n,x,fvec,fjac,ldfjac,ftol,xtol,gtol,
 c                        maxfev,diag,mode,factor,nprint,info,nfev,
 c                        njev,ipvt,qtf,wa1,wa2,wa3,wa4)
 \end{verbatim}
 }
 
-The reason for using Maxima is, that it calculates the symbolic
+\noindent The reason for using Maxima is, that it calculates the symbolic
 Jacobian for the problem. This makes it straight forward to change the
 simple rigid transform to a model with more parameters.
 
@@ -110,25 +104,21 @@ positions on the camera.
 {\small
 \begin{verbatim}
 (defun load-cam-to-lcos-matrix (&optional (x 0s0) (y 0s0))
-  (let* ((s 0.828333873909549)
-         (sx  s)
-         (sy  (- s))
-         (phi -3.101722728951688)
-         (sp (sin phi))
-         (cp (cos phi))
-         (tx 608.4330743004457)
-         (ty 168.9188383630887)
-         (a (make-array
-             (list 4 4) :element-type 'single-float
+  (let* ((s 0.828333873909549) (sx  s)        (sy  (- s))
+         (phi -3.102)          (sp (sin phi)) (cp (cos phi))
+         (tx 608.433)          (ty 168.918)
+         (a (make-array (list 4 4) :element-type 'single-float
              :initial-contents
-             (list (list (* sx cp)    (* sy sp)  .0  (+ x tx))
-                   (list (* -1 sx sp) (* sy cp)  .0  (+ y ty))
-                   (list .0     .0   1.0  .0)
-                   (list .0     .0    .0 1.0)))))
+             (list (list (* sx cp)    (* sy sp)  .0   (+ x tx))
+                   (list (* -1 sx sp) (* sy cp)  .0   (+ y ty))
+                   (list .0           .0        1.0   .0)
+                   (list .0           .0         .0  1.0)))))
     (gl:load-transpose-matrix (sb-ext:array-storage-vector a))))    
 \end{verbatim}
 }
   
+
+\noindent
 Alternatively, here is the equivalent code in C:
 
 {\small
@@ -186,9 +176,9 @@ tunnel illuminates the biggest possible area on the LCoS.
   \label{fig:rigid-compare}
 \end{figure}
 
-For the calibration $10\times10$ images (100 images with one bright
-spot at a different position in each) were captured with a disk of 24
-pixels diameter at the positions $(400+50i,500+50j)\ \forall i,j\in
+For the calibration $10\times10$ images (100 images, each containing
+one bright spot at a different position) were captured with a disk of
+24 pixels diameter at the positions $(400+50i,500+50j)\ \forall i,j\in
 [0,99]$. Furthermore, one uniformly illuminated image is used to
 correct for intensity fluctuations in the fluorescent plane.  The
 following Matlab/DIPimage code is used to normalize the images and
@@ -307,3 +297,16 @@ hold off;  plot(dpos(:,1),dpos(:,2),'.');
 hold on;   plot(mapped(11:end,1),mapped(11:end,2),'r+');
 \end{verbatim}}
 % print -depsc2 /home/martin/thesis/kielhorn/rigid/rigid-compare
+
+\section{Conclusion}
+The rigid transform and our method to estimate its parameters is a
+sufficient and robust method, to map the coordinates of our camera
+into those of the spatial display.
+
+The rigid transform can be done directly in OpenGL. Hence, it is
+trivial to render a properly transformed texture of the camera
+image which is then shown on the display.
+
+An advantage over other methods, e.g. finding a homology matrix via
+RANSAC, is that the result is not a transformation matrix but
+separated parameters for scaling, rotation and translation. 
