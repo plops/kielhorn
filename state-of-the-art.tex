@@ -24,9 +24,7 @@
 First we consider a very simple molecule: We move the nuclei of two
 hydrogen atoms and move them slowly together. When the nuclei have a
 big distance, the atoms exist as two separate entities without
-influence on each other. In the other extreme case the two nuclei are
-at the same position and the electrons have the orbitals of a helium
-atom.
+influence on each other.
 \begin{figure}[!hbt]
   \centering
   \input{flu-potential_my.eps_tex}
@@ -62,7 +60,7 @@ occurs, when a radiation field connects the two states. The connection
 is described by the transition dipole moment
 $\vmu_{0\rightarrow 1}$.
 \begin{align}
-  \vmu_{0\rightarrow 1} &= \int \psi^*_0 \vmu \psi_1 \textrm{d}^3V
+  \vmu_{0\rightarrow 1} &= \int \psi^*_0 \vmu \psi_1 \textrm{d}^3\r
 \end{align}
 where $\psi_0$ and $\psi_1$ are wavefunctions for the ground and
 excited state, respectively \citep{Klessinger1989}.
@@ -256,14 +254,16 @@ react.
 
 
 The ground state of the oxygen molecule is a triplet state ${}^3\O_2$,
-with two unpaired electrons of parallel spin in its $\pi^*-$orbitals
-(see \figref{fig:oxygen}). The triplet ground state and its abundance
-in typical microscope samples are the reasons why oxygen is so
-important when it comes to phototoxicity. If an oxygen molecule comes
-into physical contact with a $T_1$ fluorophore, e.g.\
-${}^3\textsf{Chlorophyll}^*$, the energy of the dye can be transferred
-to the oxygen by an electron exchange energy transfer mechanism in
-which the orbitals directly interact with each other
+with two unpaired electrons of parallel spin in its
+$\pi^*-$orbitals\footnote{The antibonding molecular orbital $\pi^*$ of
+  molecular oxygen is constructed by linear combination of two atomic
+  orbitals of oxygen.}  (see \figref{fig:oxygen}). The triplet ground
+state and its abundance in typical microscope samples are the reasons
+why oxygen is so important when it comes to phototoxicity. If an
+oxygen molecule comes into physical contact with a $T_1$ fluorophore,
+e.g.\ ${}^3\textsf{Chlorophyll}^*$, the energy of the dye can be
+transferred to the oxygen by an electron exchange energy transfer
+mechanism in which the orbitals directly interact with each other
 \citetext{\citealp[p.~438]{Haken2006} and \citealp{Linde2011a}}:
 \begin{align}
   {}^3\O_2 + {}^3\textsf{Chlorophyll}^* \rightarrow
@@ -283,13 +283,13 @@ oxygen is quite hazardous inside living creatures. Plants have
 developed several protection mechanisms against being exposed to too
 much light. Within the cells they reorient and shift their
 chloroplasts in order to expose them to less light \citetext{priv.\
-  comm.\ V. Sarafis}. % Today I heard, that he died.
+  comm.\ V. Sarafis}. % Today I heard, that he died. FIXME: check publication by Reshak with Rainer
 However, they even have a molecular protection
 mechanism: They transfer the energy of the chlorophyll onto carotenoid
 molecules and can prevent the hazardous \emph{phototoxicity} effects
 of singlet oxygen \citep{Krieger-Liszkay2005}.
 
-Nowadays many methods are known to reduce photobleaching. Supplant
+Nowadays many methods are known to reduce photobleaching. Substitute
 oxygen with noble gases or remove it enzymatically
 \citep[p.~89]{Sauer2011}. Depopulate the triplet state by adding
 reducing as well as oxidizing agents to the solvent
@@ -297,9 +297,9 @@ reducing as well as oxidizing agents to the solvent
 fluorophore \citep[p.~19]{Sauer2011}. For fixed samples it helps to
 change the solvent or polymer.
 
-All these techniques work after the hazardous chemicals have been
+All of these techniques work after the hazardous chemicals have been
 produced. In order to reduce phototoxicity even more it makes sense to
-think about the light management in the microscope. 
+think about the light management in the microscope.
 \section{Conventional microscopes}
 \begin{summary}
   Microscopes that are in common use today do not optimally excite
