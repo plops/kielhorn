@@ -22,69 +22,38 @@
 \nomenclature{MEMI}{Micro-mirror enhanced micro-imaging. EU FP7
   project reference 215597.}
 \section{Overview}
-
-
-
-\figref{fig:memi-simple} shows a simplified schematic of our optical
-system. The uniform light distribution from the end of a light mixing
-tunnel is imaged into the specimen. Two spatial light modulators allow
-to modify the light intensity and angular distribution of the light
-within the sample.
+For the EU funded MEMI project it was decided to build a microscope
+with two spatial light modulators as depicted in
+\figref{fig:memi-simple}. The idea was to image one display (SLM2)
+into the sample for spatial control. Work of other groups on
+controlled light exposure microscopy (see section \ref{sec:CLEM}),
+showed that it is possible to reduce unnecessary exposure of the
+sample.
 
 \begin{figure}[!hbt]
   \centering
   \def\svgscale{1.5}
   \input{memi-simple.eps_tex}
-  \caption{Simplified schematic of the MEMI system. Light coming from
-    the source is homogenized in an integrating tunnel. The light then
-    traverses two spatial light modulators. The first of which (MMA)
-    is imaged into the back focal plane of the objective and the
-    second (LCoS) into the sample.}
-  \label{fig:memi-simple}
+  \caption{Simplified schematic of the MEMI illumination system. A
+    homogeneous spatially incoherent light source illuminates from the
+    left. It is imaged by $L_1$ and $L_2$ into the intermediate image
+    $F'$. Then the tubelens $L_3$ and the objective $L_4$ form an
+    image of $F'$ in the sample plane $F$. The first spatial light
+    modulator SLM1 is in the plane P', which is conjugate to the pupil
+    (BFP) P of the objective. Using SLM1 we can control illumination
+    angles in the sample. SLM2 is directly imaged into the sample and
+    allows spatial illumination control.} \label{fig:memi-simple}
 \end{figure}
 
-\figref{fig:hourglass-all} visualizes how our optical system improves
-sample illumination. If the LCoS illuminates one in-focus
-bead\footnote{Note that the LCoS acts as a Fourier filter on the
-  information coming from the MMA. Therefore if all but a single pixel
-  of the LCoS block the light, no angular control is possible (see
-  also Appendix~\ref{sec:sim-angle}).}, the MMA can be used to prevent
-exposure of the out-of-focus bead in
-\figref{fig:hourglass-all}~(a). Not exciting the out-of-focus bead has
-two advantages:
-\begin{enumerate}
-\item There is less background light in the camera image, leading to a
-  clearer image of the in-focus information. It would be possible to
-  computationally distinguish and subtract out-of-focus light by
-  structured illumination methods but these methods will not remove
-  the Poisson distributed photon noise of the out-of-focus light.
-\item Not exciting the out-of-focus areas is especially important for
-  biological specimen in order to reduce the phototoxicity of the
-  imaging.
-\end{enumerate}
-If an extended in-focus area should be imaged
-(\figref{fig:hourglass-all}~(d)). Then multiple exposures, each with
-different patterns on LCoS and MMA, can be combined into an image of
-the in-focus information with minimal exposure of out-of-focus
-fluorophores.
-
-This technique requires prior knowledge about the fluorophore
-distribution in the sample. In three-dimensional time lapse imaging of
-developing embryos a good estimate is available when the stacks are
-acquired with high enough temporal resolution. Opto-genetics
-experiments can be designed such, that the three-dimensional
-distribution of neurons is known before single neurons are triggered
-by light without exposing its neighbours.
-
-For some sample types an estimation of the full three-dimensional
-fluorophore concentration within the sample is not practical and might
-be unnecessary. Instead, we believe we can project grating images with
-the LCoS and still vary the illumination direction with the mask on
-the MMA. The two camera images with structured illumination could then
-be used to recover a sectioned image of the in-focus fluorophore
-distribution \citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of
-several such images with different MMA masks would allow to find the
-angle with least out-of-focus contributions.
+An idea we haven't seen implemented so far, is to use another display
+(SLM1) for angular illumination control. SLM1 is imaged into the back
+focal plane of the objective. We hope to be able to reduce
+out-of-focus exposure similar to the ultramicroscopy technique (see
+section \ref{sec:light-sheet-microscopy}). However, our microscope
+would work with sample in standard slides. We wouldn't need
+sophisticated means of holding and rotating the specimen and our
+technique could be more easily employed in automatic high-throughput
+systems.
 
 \begin{figure}[!hbt]
   \centering
@@ -96,12 +65,185 @@ angle with least out-of-focus contributions.
     out-of-focus bead. {\bf (b)} Angular control allows selective
     illumination of the in-focus bead and results in a better image on
     the camera. {\bf (c)} Angular control is insufficient, when an
-    extended in focus area is illuminated. {\bf (d)} However,
+    extended in-focus area is illuminated. {\bf (d)} However,
     simultaneous spatial and angular control allows sequential
     excitation of the in-focus beads while excluding the out-of-focus
     bead.}
   \label{fig:hourglass-all}
 \end{figure}
+
+Unfortunately, the advantages of easy sample mount and reduced
+phototoxicity come at a cost. The difficulty comes from the
+illumination control itself. We have two displays that can display two
+patterns with approximately $250\times 250$ pixels each. These are a
+lot of degrees of freedom and choosing two patterns that will result
+in an optimal illumination depends on the fluorophore distribution
+within the sample.
+
+
+In \figref{fig:hourglass-all} we visualize in a simple ray-based
+model, how our optical system improves sample
+illumination. Fortunately, it turns out that for the most useful
+illumination strategies ray optics are sufficient. Nevertheless, some
+design decisions required wave optics and we will discuss them in the
+next section \ref{sec:wave-constraints}.
+
+\figref{fig:hourglass-all}~(a) depicts an illumination configuration,
+that resembles the illumination in a confocal microscope. SLM1
+transmits everything and the whole back focal plane of the objective
+is illuminated. The illumination light is coming from the top.  The
+pattern on SLM2 is a single bright spot and illuminates a fluorescent
+bead in the focal plane. The incoming cone of light excites the
+out-of-focus bead as well. The image on the right of the schematic
+shows how an exposure of this scene would look on the camera of a
+widefield microscope. The out-of-focus bead gives rise to blurry
+background fluorescent light.
+
+By changing the pattern on SLM1 we can limit the light rays, that
+would excite the out-of-focus bead. This is indicated in
+\figref{fig:hourglass-all}~(b). The camera would only show the image
+of the in-focus bead and no background fluorescence from the
+out-of-focus bead. Not exciting the out-of-focus bead has several
+advantages:
+\begin{description}
+\item[Less phototoxicity:] Not exciting the out-of-focus areas is
+  particularly useful for living biological specimen. Only with
+  reduced phototoxicity long term time lapse experiments will show
+  subtle biological effects. When imaging stacks the image quality of
+  the spatio-angular microscope will surpass widefield microscopes add
+  comparable overall dosage.
+\item[Less noise:] There is less background light in the camera image,
+  leading to a clearer image of the in-focus information. It would be
+  possible to computationally distinguish and subtract out-of-focus
+  light by structured illumination methods but these methods will not
+  remove the Poisson distributed photon noise of the out-of-focus
+  light.
+\item[Precise light control:] In un-caging experiments, a compound is
+  added to the medium, that breaks up or releases biologically active
+  chemicals, when illuminated. In opto-genetics protein functions,
+  e.g.\ an ion pump that can make a nerve cell fire, are controlled by
+  illumination.
+
+  If local change (e.g.\ activation of a single cell) is required,
+  2-photon excitation is the only option for those experiments. Only
+  with the excitation point spread function of 2-photon microscopes,
+  it is possible to confine the excited region to a limited volume.
+
+  The spatio-angular microscope may be programmed such that no
+  unwanted excitation of other cells occurs and allow experiments with
+  other light sources. Replacing the 2-photon laser may be beneficial
+  for some experiments. Maybe other un-caging compounds can be used or
+  less side-effects will be observed.
+\end{description}
+
+The two schematics in \figref{fig:hourglass-all}~(a) and (b)
+illuminate only one point in the focal plane. One could scan this
+point over the whole sample. Then one could computationally
+reconstruct a confocal image from the camera images but a tremendous
+amount of data would have to be acquired. Therefore, it is useful to
+simultaneously illuminate bigger regions in the sample.
+
+However, if these regions are not carefully chosen, angular control
+might not work any more. \figref{fig:hourglass-all}~(c) depicts a
+sample with two in-focus beads and an out-of-focus bead in between. In
+such a situation we would illuminate first one in-focus bead with an
+appropriate pattern on SLM1 to prevent exposure of the out-of-focus
+bead (\figref{fig:hourglass-all}~(d)) and then the other. 
+
+One drawback of this technique is, that we require prior knowledge
+about the fluorophore distribution in the sample, i.e.\ a three
+dimensional model of what is going to be imaged.
+
+In three-dimensional time lapse imaging of developing embryos a good
+estimate is available when the stacks are acquired with high enough
+temporal resolution. Opto-genetics experiments can be designed such,
+that the three-dimensional distribution of neurons is known before
+single neurons are triggered by light without exposing its neighbours.
+
+For some sample types an estimation of the full three-dimensional
+fluorophore concentration within the sample is not practical and might
+be unnecessary. Instead, we believe we can project grating images with
+the SLM2 and still vary the illumination direction with the mask on
+the SLM1. The two camera images with structured illumination could then
+be used to recover a sectioned image of the in-focus fluorophore
+distribution \citep{2008Lim,Bozinovic2008,2009Santos}. Acquisition of
+several such images with different MMA masks would allow to find the
+angle with least out-of-focus contributions.
+
+
+\subsubsection{Wave optical constraints in our spatio-angular microscope}
+\label{sec:wave-constraints}
+By design all lenses in \figref{fig:memi-simple} are placed such, that
+the back focal plane of one lens is the front focal plane of the
+following lens. There is no need for free space propagation. We only
+have to propagate the electric field from the front to the back focal
+plane for each lens. This is done by a Fourier transform
+\citep{Goodman1996}. At the objective $L_4$ we need to be careful. It
+needs to be treated differently because of its high aperture. The wave
+optical simulation is further complicated by the need to sum over many
+coherent propagations to properly represent spatially incoherent light
+source.  In Appendix~\ref{sec:sim-angle} we show how to simulate the
+system using Fourier optics.
+
+For the current discussion we just note, that the electric fields in
+the planes P' and F' in \figref{fig:memi-simple} form a Fourier
+transform pair, i.e.\ the electric field illuminating SLM2 is the
+Fourier transform of the field transmitted through SLM1. To discuss
+this more thoroughly we distinguish the following configurations of
+patterns on SLM1 and SLM2:
+\newcommand{\sm}[1]{\raisebox{-2.5mm}{\includegraphics{slm-#1}}}
+\begin{description}
+\item[full SLM1 \sm{full}, full SLM2 \sm{full}] This configuration
+  corresponds to a standard widefield microscope.
+\item[full SLM1 \sm{full}, point on SLM2 \sm{point}] This
+  configuration corresponds to the confocal illumination in
+  \figref{fig:hourglass-all}~(a). Angles from the full back focal
+  plane will produce a spot in the sample with a size at the
+  resolution limit of the objective.
+\item[grating on SLM1 \sm{grating-circle}, point SLM2 \sm{point}] The
+  grating on SLM1 gives rise to a diffraction pattern on SLM2. If the
+  illumination was spatially coherent, there would be at least three
+  spots, for $0^\textrm{th}$ and $\pm1^\textrm{st}$ orders. However,
+  in our microscope the illumination is spatially incoherent, i.e.\
+  each order would have an image of the light source attached to it.
+  The small point on the SLM2 only transmits light from the
+  $0^\textrm{th}$ order. Therefore, in the back focal would be
+  illuminated uniformly and all information of the pattern on SLM1
+  would be lost.
+  
+  For a grating on SLM1 with a big period, the images of the light
+  sources overlap and the point on SLM2 would also transmit light from
+  the first orders. However, the transmitted from the $+1^\textrm{st}$
+  order light comes from a different area of the source than the
+  transmitted light from the $-1^\textrm{st}$ order and they will not
+  interfere to form an image of the grating in the back focal plane of
+  the objective.
+
+  This mode is not useful for illumination. The same intensity
+  distribution can achieved more efficiently by a uniform pattern on
+  SLM1.
+\item[grating on SLM1 \sm{grating-circle}, full SLM2 \sm{full}]
+  Displaying a grating on SLM1 will give rise to a diffraction pattern
+  on SLM2. This will result in a bigger illuminated region in the
+  sample. This configuration is also not useful and should be avoided.
+\item[full SLM1 \sm{full}, grating on SLM2 \sm{grating}] The grating
+  on SLM2 will produce a diffraction pattern in the back focal plane
+  of the objective with an image of SLM1 attached to each order. Like
+  this: \sm{3bigger}. For a very fine grating, the first orders can be
+  far apart and only few of the rays can form an image (see also
+  Appendix \ref{sec:apotome}).
+\item[partial SLM1 \sm{half}, grating on SLM2\sm{grating}] To ensure a
+  high contrast of the grating in the sample, it is useful to limit
+  the angular range of angles using the pattern on SLM1, so that the
+  first orders completely fit\footnote{For a high contrast of a very
+    fine grating within the sample the described illumination scheme
+    alone is not sufficient. The polarization has to be turned
+    according to the grating orientation has well. This could be added
+    to our prototype, however it currently not implemented.} through
+  the back focal plane of the objective: \sm{3big}.
+\end{description}
+
+
 
 \section{Detailed explanation of the optical components}
 
