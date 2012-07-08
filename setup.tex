@@ -13,10 +13,17 @@
 \chapter{A prototype for spatio-angular illumination}
 \label{sec:setup}
 \begin{summary}
-  We give a general overview of the system, followed by more detailed
-  explanation of some if its components. Then we introduce a model
-  that allows to construct optimized masks for spatio-angular
-  illumination.
+  We give a general overview of our spatio-angular illumination
+  system. We augment a conventional fluorescence microscope with two
+  displays. One is imaged into the back focal plane of the objective
+  (for {\bf angular} control) and another display is imaged into the
+  sample (for {\bf spatial} control). We explain why we use a gray
+  value display for the angular control and why we placed this display
+  downstream of the display for spatial control.
+
+  Then we give a more detailed explanation of some if its
+  components. Finally we introduce a model that allows to construct
+  optimized patterns for spatio-angular illumination.
 \end{summary}
 
 \nomenclature{MEMI}{Micro-mirror enhanced micro-imaging. EU FP7
@@ -25,10 +32,8 @@
 For the EU funded MEMI project it was decided to build a microscope
 with two spatial light modulators as depicted in
 \figref{fig:memi-simple}. The idea was to image one display (SLM2)
-into the sample for spatial control. Work of other groups on
-controlled light exposure microscopy (see section \ref{sec:CLEM}),
-showed that it is possible to reduce unnecessary exposure of the
-sample.
+into the sample for spatial control. This gives one way of reducing
+unnecessary exposure of the sample (see section \ref{sec:CLEM}).
 
 \begin{figure}[!hbt]
   \centering
@@ -79,14 +84,14 @@ patterns with approximately $250\times 250$ pixels each. These are a
 lot of degrees of freedom.  When we compare this situation to the
 other techniques, we see: In ultramicroscopy no sample information is
 required. Controlled light exposure microscopy the feedback loop takes
-the local in-focus fluorophore concentration into account.
+the local in-focus fluorophore concentration point-wise into account.
 
 However, in a spatio-angular microscope, the feedback loop depends on
 a lot more data, i.e.\ the full three-dimensional fluorophore
 distribution in the specimen. Obviously, if this information was
-known, there would be no need for imaging in the first place. Let us
-assume, we know the exact sample, that we want to image. In reality,
-we might only have an estimate of the sample.
+known, there would be no need for imaging in the first place. For now
+let us assume, we know the exact sample, that we want to image --- in
+reality, we might only have an estimate of the sample.
 
 In \figref{fig:hourglass-all} we visualize in a simple ray-based
 model, how our optical system improves sample
@@ -102,9 +107,9 @@ is illuminated. The illumination light is coming from the top.  The
 pattern on SLM2 is a single bright spot and illuminates a fluorescent
 bead in the focal plane. The incoming cone of light excites the
 out-of-focus bead as well. The image on the right of the schematic
-shows how an exposure of this scene would look on the camera of a
-widefield microscope. The out-of-focus bead gives rise to blurry
-background fluorescent light.
+shows how an exposure of this scene would look on the camera of a wide
+field microscope. The out-of-focus bead gives rise to blurry
+background fluorescence light.
 
 By changing the pattern on SLM1 we can limit the light rays, that
 would excite the out-of-focus bead. This is indicated in
@@ -117,12 +122,12 @@ advantages:
   particularly useful for living biological specimen. Only with
   reduced phototoxicity long term time lapse experiments will show
   subtle biological effects. When imaging stacks the image quality of
-  the spatio-angular microscope will surpass widefield microscopes add
+  the spatio-angular microscope will surpass wide field microscopes add
   comparable overall dosage.
 \item[Less noise:] There is less background light in the camera image,
-  leading to a clearer image of the in-focus information. It would be
+  leading to a clearer image of the in-focus information. It is
   possible to computationally distinguish and subtract out-of-focus
-  light by structured illumination methods but these methods will not
+  light by structured illumination methods but these methods can not
   remove the Poisson distributed photon noise of the out-of-focus
   light.
 \item[Precise light control:] In uncaging experiments, a compound is
@@ -152,7 +157,8 @@ advantages:
   calculating the hologram is very different. In terms of current
   technology, their phase-only display is slower than our intensity
   modulators and potentially we could more easily provide a uniform
-  illumination and prevent speckle.
+  illumination and prevent speckle. At this point it is not obvious
+  which approach will be the best.
 \end{description}
 
 The two schematics in \figref{fig:hourglass-all}~(a) and (b)
@@ -267,7 +273,7 @@ patterns on SLM1 and SLM2:
     to our prototype, however it currently not implemented.} through
   the back focal plane of the objective: \sm{3big}.
 \item[full SLM1 \sm{full}, full SLM2 \sm{full}] This configuration
-  corresponds to a standard widefield microscope. This and similar
+  corresponds to a standard wide field microscope. This and similar
   patterns with big convex illuminated areas can be represented with
   good accuracy by a model based on ray optics.
 \end{description}
@@ -306,76 +312,8 @@ light modulator, that can display gray values.
 
 \section{Detailed explanation of the optical components}
 
-As opposed to the schematic in the previous system, our spatial light
-modulators are reflective.  Also, both displays are not direct
-intensity modulators.  \figref{fig:memi-real} shows a schematic of the
-light path in the combined angular and spatial control system.
 
-A laser light source is scrambled by a rotating micro-lens array and
-mixed in an integrating tunnel with a quadratic cross section.
-
-The distance between the exit of the integration tunnel and the lens
-$L_1$ is equal to the focal distance of $L_1$. The MMA is positioned
-in the other focal plane of $L_1$. The micro mirror array
-\citep{Berndt2007,Schmidt2010,Berndt2010} consists of $256\times 256$
-mirrors with a pitch of \unit[16]{$\mu$m} (see \figref{fig:mma} and
-\figref{fig:mma-closeup}). Each mirror hangs on two thin hinges and
-can be tilted by up to $2^\circ$ by electrostatic fields. This
-corresponds to out-of-plane deflections of $\pm\unit[250]{nm}$.  CMOS
-circuits below each mirror allow to maintain a constant tilt for
-hundreds of milliseconds. A dedicated control board can set new
-analogue voltages for each mirror in \unit[850]{$\mu$s}. An accuracy
-of $\lambda/100$ for the precision of the actuation is reported
-\citep{Berndt2011}. Therefore, the MMA is a programmable phase mask of
-high efficiency and can achieve frame rates of up to \unit[1]{kHz} at
-duty cycles up to \unit[50]{\%}. In a Fourier filtered configuration
-it can display gray value images without the need for
-time-multiplexing.  An On/Off-contrast from 300 to 800 in the
-wavelength range from the UV upto NIR can be achieved
-\citep{Berndt2011}.
-
-When all mirrors of the MMA are flat, an image of the tunnel exit $F'''$
-is formed in the plane of the aperture $B_1$. The size of the aperture
-is chosen to transmit just this image. When mirrors of the MMA are
-tilted, they will slightly deflect the light, so that it no longer
-passes through the aperture $B_1$. $B_1$ acts as a Fourier filter (or
-Schlieren optical system).
-
-If the mirrors of half of the device are deflected to fulfil the blaze
-conditions\footnote{This is limited by the maximum tilt angle and
-  possible for wavelengths up to \unit[1000]{nm}} then the mirrors will
-send all the light into the first order and nothing through the
-aperture $B_1$.  The region in the image in $P'$ corresponding to the
-tilted mirror will be dark.
-
-The lenses $L_2$ and $L_3$ relay the image of the tunnel exit $F'''$
-from $F''$ into the plane $F'$ with the LCoS (ForthDD SXGA, pixel
-pitch $\unit[13.62]{\mu m}$) \citep{Cartwright2007}. The polarizing
-beam splitter ($45^\circ$ wire grid polarizing beam splitter, Moxtek,
-UT, US) reflects linearly polarized light towards the LCoS\footnote{In
-  order to prevent spurious reflections at the PBS back surface
-  (without wire grid coating) and to improve contrast, the incoming
-  light should already be polarized}. The electric field vibrates
-perpendicular to the paper plane. Depending on the LCoS pixel state
-(on or off) an LCoS pixel can rotate the polarization of the returning
-light. Light that is polarized in the paper plane is
-transmitted\footnote{As it is used in transmission a curvature of the
-  PBS doesn't affect the quality of the LCoS image in the sample $F$
-  as if the PBS was used in reflection.}  into the illumination tube
-lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
-a photograph showing tube lens, PBS and LCoS). In order to project a
-very fine grating into the sample, the grating lines must be parallel
-to the paper plane.
-
-The LCoS is ferroelectric \citetext{\citealp[see][]{1991Saleh} and
-  \citealp[p.~192]{Goodman1996}}.  Its liquid crystals can be driven
-very fast between two bi-stable orientations. In order to prevent a
-net current, which would eventually destroy the device, its driver
-always displays an inverted image after the wanted one. Therefore it
-is necessary to modulate the light source accordingly.
-
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \def\svgscale{2}
   \input{memi-real.eps_tex}
@@ -389,28 +327,7 @@ is necessary to modulate the light source accordingly.
   \label{fig:memi-real}
 \end{figure}
 
-
-The lenses $L_3$ and $\textrm{TL}_\textrm{ill}$ relay the Fourier
-filtered MMA image from $P'$ into the pupil $P$ of the objective. In
-order to accommodate objectives with various back focal plane
-diameters, the illumination tube lens is built out of three lens
-groups. Its focal length can be varied from \unit[222.8]{mm} up to
-\unit[445.4]{mm} (see \figref{fig:memi-sketch} for a drawing with the
-focal length of the other lenses). The lens groups of
-$\textrm{TL}_\textrm{ill}$ move such, that the image of the LCoS
-behind $\textrm{TL}_\textrm{ill}$ stays in infinity and the MMA
-(plane $P''$) is imaged into the pupil $P$, which is \unit[250]{mm}
-behind the tube lens. Only the lens groups within the tube lens
-move, everything else in the system is
-fixed. \figref{fig:tubelens-bfp} shows the pupil plane $P$ for two
-different settings of the focal length of the tube lens.
-
-Fluorescence light returns from the objective and is reflected by the
-dichroitic beam splitter (DBS) through the detection tube lens
-$\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
-detection works with full efficiency.
-
-\begin{figure}
+\begin{figure}[!htbp]
    \centering
    \def\svgscale{2}
    \input{memi-sketch.eps_tex}
@@ -422,12 +339,54 @@ detection works with full efficiency.
    \label{fig:memi-sketch}
  \end{figure}
  
-
-\imagw{14cm}{setup-photo-blueprint}{The wide field epi-fluorescent
+\imagw{14cm}{setup-photo-blueprint}{The wide field epi-fluorescence
   microscope with attached illumination head. The positions of the two
   spatial light modulators (Micro mirror array (MMA) and liquid
   crystal on silicon display (LCoS)) are indicated. Drawing by Josef
   Wenisch (In-Vision, Austria).}
+
+As opposed to the schematic in the previous section
+(\figref{fig:memi-simple}), our spatial light modulators are
+reflective.  Also, both displays are not direct intensity modulators.
+\figref{fig:memi-real} shows a schematic of the light path in the
+combined angular and spatial control system. From now on we call the
+first display micro-mirror array (MMA) instead of SLM1 and the second
+display liquid crystal on silicon display (LCoS) instead of SLM2.
+
+\paragraph{Illumination.}
+A laser light source is scrambled by a rotating micro-lens array and
+mixed in an integrating tunnel\footnote{Integration tunnels are used
+  to improve the illumination uniformity. Our tunnel has a quadratic
+  cross section with \unit[4]{mm} on the side and a length of
+  \unit[250]{mm}. Looking into it, one can observe many copies of the
+  the entrance. Therefore the light at the tunnel exit comes from many
+  directions and forms a uniform profile. The introduction of beam
+  homogenization was a quantum step in mass spectroscopy the laser
+  ablation process is non-linear and uniform beam profiles allow to
+  ablate big areas of the sample with the same condition
+  \citetext{priv.\ comm.\ V.\ Deckert}.}.
+
+The distance between the exit of the integration tunnel and the lens
+$L_1$ is equal to the focal distance of $L_1$. The MMA is positioned
+in the other focal plane of $L_1$. 
+
+\paragraph{Angular control (SLM1).} The micro mirror array
+\citep{Berndt2007,Schmidt2010,Berndt2010} consists of $256\times 256$
+mirrors with a pitch of \unit[16]{$\mu$m} (see \figref{fig:mma} and
+\figref{fig:mma-closeup}). Each mirror hangs on two thin hinges and
+can be tilted by up to $2^\circ$ by electrostatic fields. This
+corresponds to out-of-plane deflections of $\pm\unit[250]{nm}$.  CMOS
+circuits below each mirror allow to maintain a constant tilt for
+hundreds of milliseconds. A control board can set new analogue
+voltages for each mirror. Loading the full image takes
+\unit[850]{$\mu$s}. An accuracy of $\lambda/100$ for the precision of
+the actuation is reported \citep{Berndt2011}. Therefore, the MMA is a
+programmable phase mask of high efficiency and can achieve frame rates
+of up to \unit[1]{kHz} at duty cycles up to \unit[50]{\%}. In a
+Fourier filtered configuration it can display gray value images
+without the need for time-multiplexing.  An On/Off-contrast from 300
+to 800 in the wavelength range from the UV upto NIR can be achieved
+\citep{Berndt2011}.
 
 \imagw{14cm}{mma}{{\bf left:} Scanning electron microscope image of
   the micro-mirror array (MMA).  The pixel pitch of the device is
@@ -448,7 +407,76 @@ detection works with full efficiency.
   \label{fig:mma-closeup}
 \end{figure}
 
-\begin{figure}[!hbt]
+When all mirrors of the MMA are flat, an image of the tunnel exit $F'''$
+is formed in the plane of the aperture $B_1$. The size of the aperture
+is chosen to transmit just this image. When mirrors of the MMA are
+tilted, they will slightly deflect the light, so that it no longer
+passes through the aperture $B_1$. $B_1$ acts as a Fourier filter (or
+Schlieren optical system).
+
+If the mirrors of half of the device are deflected to fulfil the blaze
+conditions\footnote{This is limited by the maximum tilt angle and
+  possible for wavelengths up to \unit[1000]{nm}} then the mirrors
+will send all the light into the first order and nothing through the
+aperture $B_1$.  The region in the image in $P'$ corresponding to the
+tilted mirror will be dark. The mirrors have no significant effect on
+the polarization of the light.
+
+\paragraph{Spatial Control (SLM2).}
+The lenses $L_2$ and $L_3$ relay the image of the tunnel exit $F'''$
+from $F''$ into the plane $F'$ with the LCoS (ForthDD SXGA, pixel
+pitch $\unit[13.62]{\mu m}$) \citep{Cartwright2007}. The polarizing
+beam splitter ($45^\circ$ wire grid polarizing beam splitter, Moxtek,
+UT, US) reflects linearly polarized light towards the LCoS\footnote{In
+  order to prevent spurious reflections at the PBS back surface
+  (without wire grid coating) and to improve contrast, the incoming
+  light should already be polarized}. The electric field vibrates
+perpendicular to the paper plane. Depending on the LCoS pixel state
+(on or off) an LCoS pixel can rotate the polarization of the returning
+light. Light that is polarized in the paper plane is
+transmitted\footnote{As it is used in transmission a curvature of the
+  PBS doesn't affect the quality of the LCoS image in the sample $F$
+  as if the PBS was used in reflection.}  into the illumination tube
+lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
+a photograph showing tube lens, PBS and LCoS). In order to project a
+very fine grating into the sample, the grating lines must be parallel
+to the paper plane.
+
+\imagw{5cm}{lcos}{The black cylinder on the left is the variable tube
+  lens. Behind this is the polarizing beam splitter and the
+  ferroelectric liquid crystal on silicon display.}
+
+The LCoS is of ferroelectric type \citetext{\citealp[see][]{1991Saleh}
+  and \citealp[p.~192]{Goodman1996}}.  Its liquid crystals can be
+driven very fast between two bi-stable orientations. In order to
+prevent a net current, which would eventually destroy the device, its
+driver always displays an inverted image after the wanted
+one. Therefore it is necessary to modulate the light source
+accordingly.
+
+
+\paragraph{Reimaging of SLM1 into the back focal plane P and SLM2 into
+  the sample plane F.}
+The lenses $L_3$ and $\textrm{TL}_\textrm{ill}$ relay the Fourier
+filtered MMA image from $P'$ into the pupil $P$ of the objective. In
+order to accommodate objectives with various back focal plane
+diameters, the illumination tube lens is built out of three lens
+groups. Its focal length can be varied from \unit[222.8]{mm} up to
+\unit[445.4]{mm}, keeping the positions of the focal planes
+constant(see \figref{fig:memi-sketch} for a drawing with the focal
+length of the other lenses). For this, the lens groups of
+$\textrm{TL}_\textrm{ill}$ move such, that the image of the LCoS
+behind $\textrm{TL}_\textrm{ill}$ stays in infinity and the MMA (plane
+$P''$) is imaged into the pupil $P$, which is \unit[250]{mm} behind
+the tube lens. Only the lens groups within the tube lens move,
+everything else in the system is fixed. In \figref{fig:tubelens-bfp}
+pupil plane $P$ is visible on a translucent plastic card as a screen
+\footnote{Later we made an improved screen by melting a drop of wax
+  between two coverslips. It gives a better image and fits into the
+  objective revolver.} for two different settings of the focal length
+of the tube lens.
+
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=7cm]{bfp1}
   \includegraphics[width=7cm]{bfp2}
@@ -458,10 +486,15 @@ detection works with full efficiency.
   \label{fig:tubelens-bfp}
 \end{figure}
 
-\imagw{5cm}{lcos}{The black cylinder on the left is the variable tube
-  lens. Behind this is the polarizing beam splitter and the
-  ferroelectric liquid crystal on silicon display.}
-\newpage
+
+\paragraph{Detection.}
+Fluorescence light returns from the objective and is reflected by the
+dichroitic beam splitter (DBS) through the detection tube lens
+$\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
+detection works with full efficiency, similar to a standard wide field
+fluorescence microscope.
+
+
 \section{Electronics for synchronization}
 Both spatial light modulators can run at most with $50\%$ duty
 cycle. Therefore it is necessary to synchronize the displays. Their
@@ -476,17 +509,17 @@ integrating. The output ``shutter'' goes high \unit[1]{ms} before
 ``fire'' and provides enough time (\unit[$>850$]{$\mu$s}) for the MMA
 controller to tilt and let the mirrors settle.
 
-The LCoS controller can only be programmed to a limited number of
-discrete image times (\unit[20]{ms}, \unit[10]{ms}, \unit[5]{ms},
-\unit[200]{$\mu$s}) and it is not straight forward to change this via
-USB interface. Therefore we always work with a fixed integration time
-of \unit[20]{ms}. The ``fire'' output of the camera also switches the
+The LCoS controller can display its images only for certain discrete
+times (\unit[20]{ms}, \unit[10]{ms}, \unit[5]{ms}, \unit[200]{$\mu$s})
+and it is not straight forward to change this via USB
+interface. Therefore we always work with a fixed LCoS display time of
+\unit[20]{ms}. The ``fire'' output of the camera also switches the
 laser on using an acousto-optic modulator (AOM).
 
 When the z-stage is used, the camera is stopped until the stage has
 reached its target position.
 
-\begin{figure}[!hbt]
+\begin{figure}[H]
   \centering
   \input{memi-electronics.eps_tex}
   \caption{The camera triggers both spatial light modulators with its
@@ -495,12 +528,27 @@ reached its target position.
   \label{fig:memi-electronics}
 \end{figure}
 
-\section{Alignment of the displays}
+\section{Mapping between the two displays and their respective
+  conjugate planes}
+\begin{summary}
+  It is very important that sample positions, which were obtained by
+  analyzing the camera images at specific $z-$stage positions, can be
+  fed back to both spatial light modulators. If the mapping between
+  sample plane and SLM2 (LCoS) is wrong, then the illumination will be
+  wrong. Then the whole illumination concept will break down because
+  camera images with the wrong illumination may not show anything.
+
+  The alignment of the SLM1 (MMA) is not as crucial. If the mapping
+  between SLM1 and the back focal plane is wrong, the sample will
+  still be illuminated just with the wrong angles.
+\end{summary}
+
+\subsection{Mapping of the LCoS to the CCD camera}
 
 In order to be able to predict which position on the camera will be
 illuminated by a particular pixel of the LCoS a calibration procedure
-is run. For this a fluorescent plane is selected as a specimen. Then
-single spots are scanned for a grid of $10\times10$ positions over the
+is run. For this a fluorescent plane is used as a sample. Then single
+spots are scanned through a grid of $10\times10$ positions over the
 LCoS. The resulting spots on the camera are located and four
 parameters defining the rigid transform between camera and LCoS are
 estimated (scale, rotation angle, translation in x and y, see
@@ -511,36 +559,96 @@ coordinates (see \figref{fig:screen_lcos-calib}). Changing the focal
 length of the illumination tube lens or a change on the camera position
 generally requires a new calibration.
 
-\imagw{7cm}{screen_lcos-calib}{{\bf left:} Mask that is displayed on
-  the LCoS. {\bf right:} Camera image of fluorescent plane illuminated
-  by mask. The orange lines indicate the borders of the original
-  pattern.}
+\imagw{7cm}{screen_lcos-calib}{Example of a perfectly fitting rigid
+  transform between LCoS and camera. {\bf left:} Mask that is
+  displayed on the LCoS. {\bf right:} Camera image of fluorescent
+  plane illuminated by mask. The orange lines indicate the borders of
+  the original pattern.}
 
-The MMA is aligned by displaying an annular ring on the MMA and
-matching it to the ring of a phase objective.
+\subsection{Mapping of the MMA to the back focal plane of the
+  objective}
+First the MMA is aligned to the center of the back focal plane by
+displaying an annular ring on the MMA and matching it to the ring of a
+phase objective. 
+
+The magnification can be measured by placing a camera on the objective
+revolver into the back focal plane. It is also possible to scan a
+small window over the MMA while imaging a fluorescent plane as in
+\figref{fig:immersion-bfp-scan}. Assuming the image of the MMA isn't
+too small, then the periphery of the back focal plane can be located.
 
 
 \section{Ray-based illumination optimization}
-In order to make use of the spatio-angular illumination system it is
-necessary to produce masks for the two spatial light modulators, that
-will reduce unnecessary illumination in the sample.
+\begin{summary}
+  In order to make use of the spatio-angular illumination system it is
+  necessary to compute patterns for the two spatial light modulators,
+  that will reduce unnecessary illumination in the sample.
 
-\subsection{Index matched sphere model}
+  Here we present a simple sphere model that can represent a
+  developing embryo. Then we describe a ray-optics based approach to
+  finding an optimal circular window to illuminate a target. We then
+  improve the optimization algorithm to find more general window
+  shapes.
+\end{summary}
+
+\subsection{Naive, compute-intensive optimization approach}
+When we started the project, we had to decide, how to approach the
+illumination optimization. One method is, to simulate the full
+spatio-angular microscope with scalar wave optics. Then one can choose
+a spatial and an angular pattern and compute the corresponding
+intensity distribution in the sample.
+
+Assuming we have a confocal stack of the fluorophore distribution by
+measurement or prediction, we can multiply the out-of-focus
+fluorophores with the illumination intensity distribution and thereby
+estimate a value for the out-of-focus excitation (figure of merrit).
+
+This is one step of the optimization. Now, for the typical
+optimization routine, one usually changes one element of the SLM1 and
+recompute. The change\footnote{The change is the gradient of the
+  figure of merrit in respect to the gray value of the changed pixel.
+  For some problems it is possible to calculate the gradients
+  analytically. Then the optimizations generally are a lot faster to
+  compute. However, if the analytical gradients are available for our
+  calculation, they would be similar to \citet{Thurman2009} and quite
+  complicated. Therefore we decided to abandon the full simulation.}
+of out-of-focus excitation can be used estimate in which direction to
+change the gray value of this element, in order decrease out-of-focus
+excitation.
+
+Here one step of the optimization --- the computation of the intensity
+distribution in the sample depending on the two SLM patterns ---
+involves a few tens to hundred three-dimensional Fourier transforms.
+
+A full optimization can quite certainly not be done in a reasonable
+time on todays computers.
+
+\subsection{Sphere model}
 \label{sec:shadow-map}
-One useful simple model are spheres. They can model fluorescent beads
-or nuclei in a \emph{C.~elegans} embryo. \figref{fig:render} displays
-a model of a \emph{C.~elegans} embryo, constructed from
-three-dimensional data of a confocal microscope. The nuclei are
-relatively sparse. In order to illuminate one or a few nuclei we might
-be able to find a path for the excitation light that doesn't intersect
-out-of-focus nuclei -- or at least avoids them. In our spatio-angular
-microscope the illumination pattern is represented by two masks. One
-for the LCoS and another one for the MMA. In the following we will
-construct an algorithm to find such optimized illumination
-patterns. For example the red rectangle (with $\sim\unit[4]{\mu m}$ on
-the side) would be selected for illumination with the LCoS. The red
-cylinder indicates the angle that would be least obscured by
-out-of-focus nuclei.
+One obvious simplification is to not represent the sample as a
+three-dimensional grid of measured data.  One useful model are
+spheres. In order to represent a \emph{C.~elegans} embryo it is not
+necessary to store $300\times 300\times 30$ gray values. Instead one
+can just use a few tens of spheres, defined by their center
+coordinates and a diameter.
+
+Of course the sphere model is rather crude, e.g.\ it does not describe
+the precise shape of a nucleus during division. In the case of a
+developing embryo, it is useful to predict one or two minutes into the
+future.
+
+\figref{fig:render} shows a model of a \emph{C.~elegans} embryo,
+constructed from three-dimensional data of a confocal microscope. The
+nuclei are relatively sparse. In order to illuminate one or a few
+nuclei we might be able to find a path for the excitation light that
+doesn't intersect out-of-focus nuclei --- or at least avoids them. In
+our spatio-angular microscope the illumination pattern is represented
+by two masks. One for the LCoS and another one for the MMA. In the
+following we will construct a ray optics-based algorithm to find such
+optimized illumination patterns. For example the red rectangle (with
+$\sim\unit[4]{\mu m}$ on the side) would be selected for illumination
+with the LCoS. The red cylinder indicates the angle that would be
+least obscured by out-of-focus nuclei.
 
 \imagw{6cm}{render}{Rendering of a sphere model, fitted to one time
   frame of a three-dimensional confocal video of a developing
@@ -548,7 +656,7 @@ out-of-focus nuclei.
   Tinevez (Institut Pasteur, Paris) by finding local maxima in the
   difference of Gaussian filtered data \citep{Santella2010}.}
 
-\subsection{Tracing in illumination direction}
+\subsection{Index-matched tracing in illumination direction}
 \imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{Test case
   for spatio-angular illumination. A target sphere is moved out of a
   layer of spheres. {\bf (a-c)} Rays from the back focal plane are
