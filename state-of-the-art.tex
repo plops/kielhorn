@@ -277,17 +277,18 @@ depicted on the right of \figref{fig:oxygen}. During the transition
 ${}^1\Sigma\rightarrow{}^1\Delta$ an infra-red photon with
 \unit[1268]{nm} wavelength is emitted \citep[p.~20]{Linde2011a}.
 
-The resulting singlet oxygen is very reactive and when it reacts with
+The resulting singlet oxygen ${}^1\Delta$ is very reactive. In a
+typical specimen it diffuses only a few tens of nanometre until it
+reacts with another molecule \citep{Sauer2011}. When it reacts with
 the fluorophore, it can destroy it (photobleaching) also the singlet
-oxygen is quite hazardous inside living creatures. Plants have
-developed several protection mechanisms against being exposed to too
-much light. Within the cells they reorient and shift their
-chloroplasts in order to expose them to less light \citetext{priv.\
-  comm.\ V. Sarafis}. % Today I heard, that he died. FIXME: check publication by Reshak with Rainer
-However, they even have a molecular protection
-mechanism: They transfer the energy of the chlorophyll onto carotenoid
-molecules and can prevent the hazardous \emph{phototoxicity} effects
-of singlet oxygen \citep{Krieger-Liszkay2005}.
+oxygen can damage the DNA of living creatures. Plants have developed
+several protection mechanisms against being exposed to too much
+light. Within the cells they reorient and shift their chloroplasts in
+order to expose them to less light \citep{Reshak2009}.  However, they
+even have a molecular protection mechanism: They transfer the energy
+of the chlorophyll onto carotenoid molecules and can prevent the
+hazardous \emph{phototoxicity} effects of singlet oxygen
+\citep{Krieger-Liszkay2005}.
 
 Nowadays many methods are known to reduce photobleaching. Substitute
 oxygen with noble gases or remove it enzymatically
@@ -297,9 +298,11 @@ reducing as well as oxidizing agents to the solvent
 fluorophore \citep[p.~19]{Sauer2011}. For fixed samples it helps to
 change the solvent or polymer.
 
-All of these techniques work after the hazardous chemicals have been
-produced. In order to reduce phototoxicity even more it makes sense to
-think about the light management in the microscope.
+In living specimen these techniques may reduce photobleaching, but
+they can also have an effect on the biological system itself. Removing
+oxygen will quite certainly have a negative effect. In order to reduce
+phototoxicity it makes sense to think about the light management in
+the microscope.
 
 
 \section{Conventional microscopes}
@@ -323,8 +326,8 @@ start to converge is called focal length and denoted by $f$.
   \centering
   \input{widefield-microscope.eps_tex}
   \caption{{\bf a)} Schematic of a modern microscope. The sample is in
-    the front focal plane of the objective. The detection tube lens TL1
-    forms a magnified image on the camera. {\bf b)} Wide field
+    the front focal plane of the objective. The detection tube lens
+    TL1 forms a magnified image on the camera. {\bf b)} Parallel laser
     epifluorescence excitation. The excitation tube lens focuses a
     laser into the back focal plane (BFP). The beam is reflected by a
     dichroitic beam splitter (BS) towards the objective. An extended
@@ -354,10 +357,14 @@ to the optical axis. The tube lens TL1 focuses the blue beam into a
 spot at $P'$ on its focal plane.
 
 The objective fulfils the Abbe sine condition -- it is aplanatic. The
-microscope forms stigmatic images of points from the front focal plane
-in the plane perpendicular to the optical axis, containing $O'$ and
-$P'$. The plane with the images is called intermediate image plane. It
-is magnified by the factor $M$:
+microscope forms stigmatic\footnote{An imaging system collects some of
+  the rays, that leave an object and directs them towards the
+  image. If all rays that leave an object point converge in the
+  conjugate image point, then we call the image point stigmatic.}
+images of points from the front focal plane in the plane perpendicular
+to the optical axis, containing $O'$ and $P'$. The plane with the
+images is called intermediate image plane. It is magnified by the
+factor $M$:
 \begin{align}
   M=\frac{\overline{O'P'}}{\overline{OP}}=\frac{f_\textrm{TL}}{f}.
 \end{align}
@@ -413,11 +420,13 @@ focal plane (BFP) of the objective. The beam is reflected at a
 dichroitic beam splitter (BS). This is a glass plate that has been
 coated with dielectric layers. The refractive index, thickness and
 sequence of the layers are designed so that the excitation light is
-reflected towards the objective but lower energy fluorescence light
-returning from the objective is transmitted towards the camera. Behind
-the objective the beam is parallel and illuminates the specimen. The
-\emph{field of view} is the demagnified diameter of the laser beam
-before TL2.
+reflected towards the objective. Excitation light, that is scattered
+or reflected in the sample and returns through the objective is
+reflected towards the light source. However, lower energy fluorescence
+light returning from the objective is transmitted towards the
+camera. Behind the objective the beam is parallel and illuminates the
+specimen. The field of view is the demagnified diameter of the laser
+beam before TL2.
 \subsubsection*{Non-uniformity due to coherent interference}
 Note that tiny dirt particles and coherent interference in laser beams
 can produce unwanted non-uniformities in the illumination. As a remedy
@@ -461,14 +470,13 @@ frequencies within the transfer function attenuate with defocus
 \begin{figure}[!hbt]
   \centering
   \input{missing-cone.eps_tex}
-  \caption{Schematic to depicting $k_xk_z-$cross sections of the
-    support of optical transfer function (see
-    Appendix~\ref{sec:app_hilo}) for microscope objectives with
-    different collection angles. {\bf left \& middle:} Objectives,
-    that only collect one light that is directed into one half space,
-    have the missing cone problem. There, low spatial frequencies
-    don't attenuate with defocus. {\bf right:} Theoretical objective
-    with larger collection angle and no missing cone.}
+  \caption{Schematic depicting $k_xk_z-$cross sections of the support
+    of optical transfer function (see Appendix~\ref{sec:app_hilo}) for
+    microscope objectives with different collection angles. {\bf
+      left:} Objectives, that only collect light that is directed into
+    one half space, have the missing cone problem. There, low spatial
+    frequencies don't attenuate with defocus. {\bf right:} Theoretical
+    objective with larger collection angle and no missing cone.}
   \label{fig:missing-cone}
 \end{figure}
 
@@ -491,27 +499,27 @@ out-of-focus fluorophores are still being excited by the hour-glass
 shaped illumination.
 
 The eponymous idea of the confocal microscope is to replace the camera
-with a pinhole PH1. This pinhole hardly affects the light detected
-from in-focus fluorophores. However, an out-of-focus fluorophore that
-is defocused by $\Delta z$ towards the objective will lead to a
-diverging beam (colorless) at the tube lens and will be imaged into a
-point behind the focal plane of the tube lens. The pinhole only
-transmits a part of the circle of confusion. Hence defocused
-fluorophores contribute less to the sensor signal.
+with a pinhole PH1. This pinhole, if aligned carefully to the position
+of the image of the focused laser spot, has no influence on the light
+detected from in-focus fluorophores. However, an out-of-focus
+fluorophore that is defocused by $\Delta z$ towards the objective will
+lead to a diverging beam (colorless) at the tube lens and will be
+imaged into a point behind the focal plane of the tube lens. The
+pinhole only transmits a part of the circle of confusion. Hence
+defocused fluorophores contribute less to the sensor signal.
 
 An image of the in-focus specimen is obtained by scanning the pinholes
-over the field of view and measuring intensity at each position
-individually. The optical removal of out-of-focus light prevents
-degradation of the signal by its shot noise and improves the
+PH1 and PH2 over the field of view and measuring intensity at each
+position individually. The optical removal of out-of-focus light
+prevents degradation of the signal by its shot noise and improves the
 point-spread function of the objective. The missing cone problem is
-fixed and the transversal resolution improved by a factor of $\sqrt
-2$. Note however, that information about out-of-focus fluorophores is
-lost which would be obtained in a wide field microscope with
-deconvolution. Therefore a wide field microscope will give better
-results when a lot is known about the sample structure and this
-knowledge is fed into the deconvolution. E.g.\ the localization of
-sparse beads of specific size will be better in a wide field
-microscope.
+fixed and the resolution improved by a factor of two. Note however,
+that information about out-of-focus fluorophores is lost which would
+be obtained in a wide field microscope with deconvolution. Therefore a
+wide field microscope will give better results when a lot is known
+about the sample structure and this knowledge is fed into the
+deconvolution. E.g.\ the localization of sparse beads of specific size
+will be better in a wide field microscope.
 
 The confocal microscope was invented in 1955 \todo{check patent
   citation} \citep{Minsky1961,Minsky1988} to reduce the influence of
@@ -529,17 +537,28 @@ The following chapter \ref{sec:approaches} will introduce other
 microscopy techniques that are more considerate of where to deposit
 excitation power within the specimen.
 \subsection{2-photon laser scanning fluorescence microscopy}
-If an intense subpicosecond pulse of infrared light is focused into a
-spot in the sample, non-linear 2-photon absorption can occur
-\citep{Denk1990}. Infrared light is scattered less than visible light
-of half the wavelength. For similar excitation rates, the
-phototoxicity in the focus is higher than in a single-photon
-microscope. However, there is no excitation in the out-of-focus
-region. Therefore a detection pin hole is not required.
+If the laser intensity in the focal spot of a confocal microscope is
+sufficiently high, then two infrared photons can be absorbed within
+\unit[$\sim 5$]{fs} and excite the same electronic state.
 
-This technique has greatly improved depth of penetration and
-sensitivity of in situ imaging
-\citep{Otsu2008}. % sentence from otsu 2008
+In this regime, the fluorescence emission increases quadratically with
+laser intensity. This non-linearity confines the excitation volume to
+the vincinity of the focal plane \citep{Denk1990}. Fluorophores
+outside of this region are not excited. Therefore this method produces
+sectioned images by default and there is no need for a detection
+pinhole.
+
+As an additional benefit infrared light is scattered less than visible
+light of half the wavelength. This increases penetration depth and
+image quality. Photodamage outside of the focal volume is unlikely and
+phototoxicity is much lower, compared to the single-photon confocal
+microscope, when $z-$stacks are acquired.
+
+However, the phototoxicity within the focal volume is higher and
+techniques like ultramicroskopy (section
+\ref{sec:light-sheet-microscopy}) with single-photon excitation are
+preferable, when low overall phototoxicity is a requirement.
+
 \section{Image detectors in wide field microscopy}
 \label{sec:ccd-intro}
 \begin{summary}

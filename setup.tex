@@ -125,22 +125,34 @@ advantages:
   light by structured illumination methods but these methods will not
   remove the Poisson distributed photon noise of the out-of-focus
   light.
-\item[Precise light control:] In un-caging experiments, a compound is
+\item[Precise light control:] In uncaging experiments, a compound is
   added to the medium, that breaks up or releases biologically active
   chemicals, when illuminated. In opto-genetics protein functions,
-  e.g.\ an ion pump that can make a nerve cell fire, are controlled by
-  illumination.
+  e.g.\ an ion pump that can make a nerve cell fire \cite{Nagel2003},
+  are controlled by illumination.
 
-  If local change (e.g.\ activation of a single cell) is required,
-  2-photon excitation is the only option for those experiments. Only
-  with the excitation point spread function of 2-photon microscopes,
-  it is possible to confine the excited region to a limited volume.
+  Often a spatially resolved effect (e.g.\ activation of a single
+  cell) is required. Until recently 2-photon excitation was the only
+  option \citep{Pettit1997,Shoham2005} for such experiments. Only with
+  the excitation point spread function of 2-photon microscopes, it is
+  possible to limit the excited region to a confined volume with
+  sufficiently small $z-$extent.
 
-  The spatio-angular microscope may be programmed such that no
-  unwanted excitation of other cells occurs and allow experiments with
-  other light sources. Replacing the 2-photon laser may be beneficial
-  for some experiments. Maybe other un-caging compounds can be used or
-  less side-effects will be observed.
+  Recently a holographic method was published that enables uncaging
+  experiments with single-photon excitation \citep{Zahid2010}. It
+  allows to sculpt the three-dimensional excitation volume and
+  selectively activate groups of cells.
+
+  Similarly our spatio-angular microscope could be
+  used\footnote{Presently we have only implemented an optimization
+    routine for a sphere model, this is probably not a good model to
+    represent neurons.}, to selectively expose target neurons and
+  prevent exposure of other cells. The holographic approach can
+  achieve a higher light efficiency. However, the method for
+  calculating the hologram is very different. In terms of current
+  technology, their phase-only display is slower than our intensity
+  modulators and potentially we could more easily provide a uniform
+  illumination and prevent speckle.
 \end{description}
 
 The two schematics in \figref{fig:hourglass-all}~(a) and (b)
