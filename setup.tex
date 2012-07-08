@@ -74,19 +74,26 @@ systems.
 
 Unfortunately, the advantages of easy sample mount and reduced
 phototoxicity come at a cost. The difficulty comes from the
-illumination control itself. We have two displays that can display two
+illumination control itself. We have two displays that can project two
 patterns with approximately $250\times 250$ pixels each. These are a
-lot of degrees of freedom and choosing two patterns that will result
-in an optimal illumination depends on the fluorophore distribution
-within the sample.
+lot of degrees of freedom.  When we compare this situation to the
+other techniques, we see: In ultramicroscopy no sample information is
+required. Controlled light exposure microscopy the feedback loop takes
+the local in-focus fluorophore concentration into account.
 
+However, in a spatio-angular microscope, the feedback loop depends on
+a lot more data, i.e.\ the full three-dimensional fluorophore
+distribution in the specimen. Obviously, if this information was
+known, there would be no need for imaging in the first place. Let us
+assume, we know the exact sample, that we want to image. In reality,
+we might only have an estimate of the sample.
 
 In \figref{fig:hourglass-all} we visualize in a simple ray-based
 model, how our optical system improves sample
 illumination. Fortunately, it turns out that for the most useful
 illumination strategies ray optics are sufficient. Nevertheless, some
-design decisions required wave optics and we will discuss them in the
-next section \ref{sec:wave-constraints}.
+design decisions require wave optics and we will discuss them on page
+\pageref{sec:wave-constraints}.
 
 \figref{fig:hourglass-all}~(a) depicts an illumination configuration,
 that resembles the illumination in a confocal microscope. SLM1
@@ -173,17 +180,25 @@ angle with least out-of-focus contributions.
 
 \subsubsection{Wave optical constraints in our spatio-angular microscope}
 \label{sec:wave-constraints}
+Earlier we claimed, that ray optics are sufficient to find good
+patterns for SLM1 and SLM2. Now we will argue with wave optics and we
+will see for which patterns the ray model will give wrong
+results. Then we discuss the some design decisions in our
+spatio-angular microscope.
+
 By design all lenses in \figref{fig:memi-simple} are placed such, that
 the back focal plane of one lens is the front focal plane of the
-following lens. There is no need for free space propagation. We only
-have to propagate the electric field from the front to the back focal
-plane for each lens. This is done by a Fourier transform
+following lens. This simplifies the wave optical treatment of our
+system. There is no need for free space propagation. We only have to
+propagate the electric field from the front to the back focal plane
+for each lens. This is done by a Fourier transform
 \citep{Goodman1996}. At the objective $L_4$ we need to be careful. It
-needs to be treated differently because of its high aperture. The wave
-optical simulation is further complicated by the need to sum over many
-coherent propagations to properly represent spatially incoherent light
-source.  In Appendix~\ref{sec:sim-angle} we show how to simulate the
-system using Fourier optics.
+needs to be treated differently than standard thin lenses because of
+its high aperture. The wave optical simulation is further complicated
+by the need to sum over many coherent propagations to properly
+represent spatially incoherent light source.  In
+Appendix~\ref{sec:sim-angle} we show how to simulate the system using
+Fourier optics.
 
 For the current discussion we just note, that the electric fields in
 the planes P' and F' in \figref{fig:memi-simple} form a Fourier
@@ -193,8 +208,6 @@ this more thoroughly we distinguish the following configurations of
 patterns on SLM1 and SLM2:
 \newcommand{\sm}[1]{\raisebox{-2.5mm}{\includegraphics{slm-#1}}}
 \begin{description}
-\item[full SLM1 \sm{full}, full SLM2 \sm{full}] This configuration
-  corresponds to a standard widefield microscope.
 \item[full SLM1 \sm{full}, point on SLM2 \sm{point}] This
   configuration corresponds to the confocal illumination in
   \figref{fig:hourglass-all}~(a). Angles from the full back focal
@@ -220,8 +233,8 @@ patterns on SLM1 and SLM2:
   the objective.
 
   This mode is not useful for illumination. The same intensity
-  distribution can achieved more efficiently by a uniform pattern on
-  SLM1.
+  distribution in the sample can achieved more efficiently by a
+  uniform pattern on SLM1.
 \item[grating on SLM1 \sm{grating-circle}, full SLM2 \sm{full}]
   Displaying a grating on SLM1 will give rise to a diffraction pattern
   on SLM2. This will result in a bigger illuminated region in the
@@ -241,9 +254,43 @@ patterns on SLM1 and SLM2:
     according to the grating orientation has well. This could be added
     to our prototype, however it currently not implemented.} through
   the back focal plane of the objective: \sm{3big}.
+\item[full SLM1 \sm{full}, full SLM2 \sm{full}] This configuration
+  corresponds to a standard widefield microscope. This and similar
+  patterns with big convex illuminated areas can be represented with
+  good accuracy by a model based on ray optics.
 \end{description}
 
+\subsubsection{Discussion of wave optical effects}
+From the comparison we see, that our configuration with the second SLM
+in the intermediate image F' (\figref{fig:memi-simple}) doesn't allow
+high frequency patterns on SLM1. High frequency components of the
+image of SLM1 in the back focal plane are heavily influenced by the
+pattern on SLM2.
 
+This configuration, which places more importance on SLM2 is a
+deliberate design decision.  We chose configuration because we think
+it is more important to have high resolution control of the spatial
+light distribution in sample space.
+
+One can estimate that with a $63\!\!\times\!\!/1.4$ objective it is
+sufficient to illuminate a window with 1\% of the back focal plane
+diameter, in order to illuminate an area with $\unit[3]{\mu m}$ in the
+sample.  Therefore, as long as the patterns on both SLMs are
+sufficiently simple, i.e.\ cover more than a few percent of the full
+area, are simply connected and convex, %FIXME simply connected?
+the ray-based model is a good representation of the system.
+
+Projecting fine gratings into the sample using SLM2 is possible, but
+higher diffraction orders fill more of the back focal plane. Therefore
+grating projection will limit the usefulness of angular illumination
+control.
+
+The electric fields after SLM1 and on SLM2 form a Fourier transform
+pair. Heisenberg's uncertainty relation prevents illumination of a
+small spot on SLM2 when SLM1 only transmits very little. It is known,
+that a Gaussian transmission function on SLM1 would achieve the
+smallest possible spot on SLM1. Therefore, we decided to use a spatial
+light modulator, that can display gray values.
 
 \section{Detailed explanation of the optical components}
 
@@ -299,12 +346,14 @@ UT, US) reflects linearly polarized light towards the LCoS\footnote{In
   light should already be polarized}. The electric field vibrates
 perpendicular to the paper plane. Depending on the LCoS pixel state
 (on or off) an LCoS pixel can rotate the polarization of the returning
-light, so that it is transmitted\footnote{As it is used in
-  transmission a curvature of the PBS doesn't affect the quality of
-  the LCoS image in the sample $F$ as if the PBS was used in
-  reflection.}  into the illumination tube lens
-$\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for a
-photograph showing tube lens, PBS and LCoS).
+light. Light that is polarized in the paper plane is
+transmitted\footnote{As it is used in transmission a curvature of the
+  PBS doesn't affect the quality of the LCoS image in the sample $F$
+  as if the PBS was used in reflection.}  into the illumination tube
+lens $\textrm{TL}_\textrm{ill}$ by the PBS (see \figref{fig:lcos} for
+a photograph showing tube lens, PBS and LCoS). In order to image
+project a very fine grating into the sample, the grating lines must be
+parallel to the paper plane.
 
 The LCoS is ferroelectric \citetext{\citealp[see][]{1991Saleh} and
   \citealp[p.~192]{Goodman1996}}.  Its liquid crystals can be driven
@@ -344,7 +393,7 @@ move, everything else in the system is
 fixed. \figref{fig:tubelens-bfp} shows the pupil plane $P$ for two
 different settings of the focal length of the tube lens.
 
-Fluorescent light returns from the objective and is reflected by the
+Fluorescence light returns from the objective and is reflected by the
 dichroitic beam splitter (DBS) through the detection tube lens
 $\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
 detection works with full efficiency.
