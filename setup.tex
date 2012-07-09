@@ -620,35 +620,39 @@ Here one step of the optimization --- the computation of the intensity
 distribution in the sample depending on the two SLM patterns ---
 involves a few tens to hundred three-dimensional Fourier transforms.
 
-A full optimization can quite certainly not be done in a reasonable
-time on todays computers.
+A full wave optics-based optimization can quite certainly not be done
+in a reasonable time on todays computers. Therefore we decided to use
+the ray optics-based approach, which we will describe in the following
+sections.
 
-\subsection{Sphere model}
+\subsection{Sphere model to represent the sample}
 \label{sec:shadow-map}
-One obvious simplification is to not represent the sample as a
-three-dimensional grid of measured data.  One useful model are
-spheres. In order to represent a \emph{C.~elegans} embryo it is not
-necessary to store $300\times 300\times 30$ gray values. Instead one
-can just use a few tens of spheres, defined by their center
-coordinates and a diameter.
+Even with ray optics, it seems unreasonably compute intensive, to
+represent the sample as a three-dimensional grid of measured data.
 
-Of course the sphere model is rather crude, e.g.\ it does not describe
-the precise shape of a nucleus during division. In the case of a
-developing embryo, it is useful to predict one or two minutes into the
-future.
+Rather than calculating on $300\times 300\times 30$ gray values which
+contain the fluorophores is one \emph{C.~elegans} embryo, we decided
+to model the sample as a set of spheres.  Then a few tens of spheres,
+defined by their center coordinates and a diameter describe the
+sample.
+
+Of course the sphere model is rather crude and it does not describe
+the precise shape of a nucleus during division. For a first prototype
+more precision does not seem necessary. 
 
 \figref{fig:render} shows a model of a \emph{C.~elegans} embryo,
 constructed from three-dimensional data of a confocal microscope. The
 nuclei are relatively sparse. In order to illuminate one or a few
 nuclei we might be able to find a path for the excitation light that
-doesn't intersect out-of-focus nuclei --- or at least avoids them. In
-our spatio-angular microscope the illumination pattern is represented
-by two masks. One for the LCoS and another one for the MMA. In the
-following we will construct a ray optics-based algorithm to find such
-optimized illumination patterns. For example the red rectangle (with
-$\sim\unit[4]{\mu m}$ on the side) would be selected for illumination
-with the LCoS. The red cylinder indicates the angle that would be
-least obscured by out-of-focus nuclei.
+does not intersect out-of-focus nuclei --- or at least avoids them. 
+
+For example the red rectangle (with $\sim\unit[4]{\mu m}$ on the side)
+would be selected for illumination with the LCoS. The red cylinder
+indicates the angle that would be least obscured by out-of-focus
+nuclei.
+
+In the following we will construct a ray optics-based algorithm to
+find optimized illumination patterns.
 
 \imagw{6cm}{render}{Rendering of a sphere model, fitted to one time
   frame of a three-dimensional confocal video of a developing
@@ -658,10 +662,12 @@ least obscured by out-of-focus nuclei.
 
 \subsection{Index-matched tracing in illumination direction}
 \imagw{12cm}{scan-mosaic_testsample_n100_3_7_5_big_label}{Test case
-  for spatio-angular illumination. A target sphere is moved out of a
-  layer of spheres. {\bf (a-c)} Rays from the back focal plane are
-  traced through the target sphere and the total intersection length
-  with out-of-focus spheres is plotted in the diagrams.}
+  for spatio-angular illumination.  {\bf (A-C)} Rays from the back
+  focal plane are traced through the target sphere and the total
+  intersection length with out-of-focus spheres is plotted in the
+  diagrams.  {\bf D)} The target sphere is moved out of a layer of
+  spheres. {\bf E)} Rays start from a circular window with radius $r$
+  in the back focal plane of the objective.}
 
 First we assume the beads are embedded in index matched medium. Then
 rays only refract at the Gaussian sphere of the objective lens and it
