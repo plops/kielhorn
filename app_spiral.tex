@@ -64,8 +64,7 @@ Note that we are only interested in solutions with $\Delta s=h$. We
 want the sampling step to be equal to the step height $h=2\pi a$ of
 the spiral. We therefore need to find the zero of the function:
 \begin{align} \label{eqn:g}
-  g(a)&=\frac{s(\theta_n)}{n-1}-2\pi a\\
-  &=\frac{a}{2}\frac{p\theta_n+\log p\theta_n}{n-1}-2\pi a\\
+  g(a)&=\frac{s(\theta_n)}{n-1}-2\pi a =\frac{a}{2}\frac{p\theta_n+\log p\theta_n}{n-1}-2\pi a\\
   &=\frac{a}{2}\frac{\sqrt{1+\frac{R^2}{a^2}}\frac{R}{a}+
     \log\(\sqrt{1+\frac{R^2}{a^2}}\frac{R}{a}\)}{n-1}-2\pi a.
 \end{align}
@@ -83,12 +82,12 @@ $\Delta s$ can be obtained and the circle drawn.
 % for i in *.pgm ; do potrace $i ;done
 \begin{figure}[h]
   \begin{center}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o0030}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o0100}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o0200}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o0300}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o0400}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/o1024}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o0030}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o0100}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o0200}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o0300}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o0400}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/o1024}
   \end{center}
   \caption{Equidistant sampling of a circle of the same radius
     $R=128$ with different number of points (from top left to bottom
@@ -118,12 +117,12 @@ Thus we can define the equivalent to \eqref{eqn:g1}:
 
 \begin{figure}[h]
   \begin{center}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q0030}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q0100}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q0200}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q0300}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q0400}
-    \includegraphics[width=.3\columnwidth]{../app_spiral/q1024}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q0030}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q0100}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q0200}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q0300}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q0400}
+    \includegraphics[width=.25\columnwidth]{../app_spiral/q1024}
   \end{center}
   \caption{A back focal plane of radius 100 is filled with equidistant
     spiral sampling, ensuring that the outermost disk is contained

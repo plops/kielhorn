@@ -21,9 +21,9 @@
         showspaces=false,
         showstringspaces=false,
         identifierstyle=\sffamily,
-        keywordstyle=\color[rgb]{0,0,1},
-        commentstyle=\color[rgb]{0.133,0.545,0.133},
-        stringstyle=\color[rgb]{0.627,0.126,0.1},
+        %keywordstyle=\color[rgb]{0,0,0},
+        %commentstyle=\color[rgb]{0.3,0.3,0.3},
+        %stringstyle=\color[rgb]{0.25,0.25,0.25},
 }
 \newcommand{\avg}[1]{\langle #1 \rangle}
 
@@ -197,8 +197,9 @@ Using non-uniform excitation light \cite{Neil1997} circumvent this
 problem. They project a grid pattern into the sample using incoherent
 illumination. For a fluorescent plane sample the modulation in the
 image is highest, when the sample is in focus. If the plane is moved
-out-of-focus, the modulation decreases. Hence it is possible to
-achieve z-sectioning in a wide field microscope.
+out-of-focus, the modulation of the sample illumination decreases also
+the pattern is blurred by the detection point spread function. Hence
+it is possible to achieve $z-$sectioning in a wide field microscope.
 
 For one optically sectioned image $I_p$ they combine three grating
 images $I_i$ (grating period
@@ -209,16 +210,16 @@ between grating and specimen plane) with different phases:
   \sim\left|2\frac{J_1(2u\tilde\nu(1-\tilde\nu/2))}{2u\tilde\nu(1-\tilde\nu/2)}\right|.
 \end{align}
 
-The last term is their result for the intensity of a fluorescent plane
-with the defocus $u=8\pi z\sin^2(\alpha/2)/\lambda$. If no grating is
-displayed ($\nu=0$) the resulting image $I_p$ is constant and the
-microscope has no sectioning capability. A fine grating gives best
-sectioning capability. However, there is also trade off to be made
-because a fine grating will give very low contrast in a thick
-specimen. Also for fine gratings a partially coherent illumination
-should be used, so that orders are not cut off at the periphery of the
-BFP \citetext{priv.\ comm.\ R.~Heintzmann}. This limits the field of
-view for fine gratings.
+The last term is their theoretical result for the intensity of a
+fluorescent plane with the defocus $u=8\pi
+z\sin^2(\alpha/2)/\lambda$. If no grating is displayed ($\nu=0$) the
+resulting image $I_p$ is constant and the microscope has no sectioning
+capability. A fine grating gives best sectioning capability. However,
+there is also trade off to be made because a fine grating will give
+very low contrast in a thick specimen. Also for fine gratings a
+partially coherent illumination should be used, so that orders are not
+cut off at the periphery of the BFP \citetext{priv.\ comm.\
+  R.~Heintzmann}. This limits the field of view for fine gratings.
 
 For their reconstruction method it is necessary to capture three
 images to compute one sectioned slice. This can be a problem if the

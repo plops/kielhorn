@@ -14,12 +14,12 @@
   refraction at the coverslip--medium interface for non-index matched
   media.
 \end{summary}
-\section{Refraction at plane surface}
-We begin by describing refraction at a plane surface\footnote{The
+\section{Refraction at planar surface}
+We begin by describing refraction at a planar surface\footnote{The
   equations are as in \citep{McClain1993}.}. The wavelength of the
-light defines the length of the wave vector $\k_0$. The lengths of the
-incident and transmitted wave vectors $\k_1$ and $\k_2$ are given by
-the refractive index in their respective half space:
+light in vacuum defines the length of the wave vector $\k_0$. The
+lengths of the incident and transmitted wave vectors $\k_1$ and $\k_2$
+are given by the refractive index in their respective half space:
 \begin{align}
   k_0&=2\pi/\lambda\\
   k_1&=n_1 k_0\\
@@ -132,7 +132,8 @@ corresponds to two solutions. In order to prevent numerical errors the following
   \centering
   \input{lens-fwd.eps_tex}
   \caption{Construction of a ray on a thin lens. The incident beam
-    with direction $\i$ hits the lens at the point $\vrho$.}
+    with direction $\i$ (from right) hits the lens at the point
+    $\vrho$.}
 \end{figure}
 The incident beam with direction $\i$ hits the lens at the point
 $\vrho$. A line parallel to $\i$ through the centre of the lens
@@ -144,7 +145,7 @@ identical because each of the lines are parallel:
 $\overline{CB} \parallel \overline{OA} \parallel \vrho$,
 $\overline{FA} \parallel \overline{CA}$ and $\overline{AB} \parallel
 \overline{OF} \parallel \i$. The side $\overline{OF}$ is hypotenuse of
-a right angled triangle. Its ancathete with respect to the angle
+a right angled triangle. Its adjacent with respect to the angle
 $\theta$ has length $f$. Therefore the we can deduce the length
 $\abs{\overline{OF}}=f/\cos\theta$.
 
@@ -171,7 +172,7 @@ equations:
   \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
 \end{align}
 
-\section{Refraction through oil objective (illumination)}
+\section{Refraction through high NA objective (illumination)}
 \begin{figure}[!hbt]
   \centering
   \input{obj-fwd.eps_tex}
@@ -183,7 +184,7 @@ equations:
 \end{figure}
 It is possible to augment the results of the calculation from the
 previous chapter to treat an aplanatic immersion objective
-\citep{Hwang2008}.
+\citep{Hwang2008} fulfilling the Abbe sine condition.
 
 We account for the immersion medium by shifting the focal plane in
 sample space to $nf$ using the focus difference vector $\a$.
@@ -398,7 +399,8 @@ needs more parameters (target depth, refractive index $n_e$) and a
 raytrace from sample space, through the back focal plane, tubelens and
 LCoS. However, it enriches the type of control, that can be
 implemented. Illumination with high angles will create thin slices of
-light.
+light (highly inclined and laminated optical sheet, see section
+\ref{sec:hilo}).
 
 Note that ray optics are not an sufficient approximation, when
 intensity features in the scale of the wavelength are to be

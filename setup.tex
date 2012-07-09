@@ -322,7 +322,7 @@ light modulator, that can display gray values.
     illuminate the full MMA and LCoS. $F$ is the field plane in the
     sample and its primed versions are conjugated planes. $P$ is the
     pupil of the objective. $B_0$ and $B_1$ are adjustable circular
-    apertures. PBS is a polarizing beam splitter. DBS is a dichroitic
+    apertures. PBS is a polarizing beam splitter. DBS is a dichromatic
     beam splitter.}
   \label{fig:memi-real}
 \end{figure}
@@ -489,7 +489,7 @@ of the tube lens.
 
 \paragraph{Detection.}
 Fluorescence light returns from the objective and is reflected by the
-dichroitic beam splitter (DBS) through the detection tube lens
+dichromatic beam splitter (DBS) through the detection tube lens
 $\textrm{TL}_\textrm{det}$ and is imaged on the camera. Note that the
 detection works with full efficiency, similar to a standard wide field
 fluorescence microscope.
@@ -627,18 +627,18 @@ sections.
 
 \subsection{Sphere model to represent the sample}
 \label{sec:shadow-map}
-Even with ray optics, it seems unreasonably compute intensive, to
+Even with ray optics, it seems unreasonably compute intensive to
 represent the sample as a three-dimensional grid of measured data.
 
-Rather than calculating on $300\times 300\times 30$ gray values which
-contain the fluorophores is one \emph{C.~elegans} embryo, we decided
-to model the sample as a set of spheres.  Then a few tens of spheres,
-defined by their center coordinates and a diameter describe the
-sample.
+Rather than calculating with $300\times 300\times 30$ gray values
+which contain the fluorophores in one \emph{C.~elegans} embryo, we
+decided to model the embryo as a set of spheres.  A few tens of
+spheres, defined by their center coordinates and a diameter describe
+the sample.
 
-Of course the sphere model is rather crude and it does not describe
-the precise shape of a nucleus during division. For a first prototype
-more precision does not seem necessary. 
+Of course the sphere model is rather crude and it can not convey the
+precise shape of a nucleus during division. For a first prototype more
+precision does not seem necessary.
 
 \figref{fig:render} shows a model of a \emph{C.~elegans} embryo,
 constructed from three-dimensional data of a confocal microscope. The
@@ -669,18 +669,21 @@ find optimized illumination patterns.
   spheres. {\bf E)} Rays start from a circular window with radius $r$
   in the back focal plane of the objective.}
 
-First we assume the beads are embedded in index matched medium. Then
-rays only refract at the Gaussian sphere of the objective lens and it
-is insignificant how far the target bead is from the interface between
-coverslip and medium. Other lenses, such as $\textrm{TL}_\textrm{ill}$
-are assumed to be perfect lenses and are not considered here.
+We send rays from the back focal plane into the sample, so that they
+hit one target sphere. For now, we assume the beads are embedded in
+index matched medium. The rays only refract at the Gaussian sphere of
+the objective lens and it is insignificant how far the target bead is
+from the interface between coverslip and medium. Other lenses, such as
+$\textrm{TL}_\textrm{ill}$ are assumed to be perfect lenses and are
+not considered here.
 
 Initially we investigated a very simple optimization routine (see
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}). A circular
-window with radius $r$ is placed into the back focal plane. Rays from
-the centre and periphery of the window are traced through the target
-and into out-of-focus spheres. The intersection length of each ray
-with each sphere is summed and plotted into a diagram.
+window with radius $r$ is placed into the back focal plane to limit
+the angular range of rays that illuminate the target. Rays from the
+centre and periphery of the window are traced through the target and
+into out-of-focus spheres. The intersection length of each ray with
+each out-of-focus sphere is summed and plotted into a diagram.
 
 \figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~a) depicts
 the collected values for a point-like window.
@@ -692,14 +695,10 @@ can hit the target without intersecting any other spheres. Increasing
 the window size blurs the features in the diagrams.
 
 Here we would choose the window with $r=0.15$
-(\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~c)). It
+(\figref{fig:scan-mosaic_testsample_n100_3_7_5_big_label}~C)). It
 still has a low minimum but the largest amount of light would reach
-the target. If we chose a too small value for $r$ we would on the one
-hand send only a very small amount of light into the specimen. On the
-other hand the field distribution in $P$ is related to the Fourier
-transform of the field distribution in $F$ and due to Heisenberg
-uncertainty relation a small $r$ in $P$ would illuminate the full
-field in $F$.
+the target. If we chose a too small value for $r$ we would send an
+unneccessary small amount of light into the specimen.
 
 If we chose a bigger value for $r$ many rays would intersect with
 out-of-focus objects.
@@ -707,16 +706,17 @@ out-of-focus objects.
 \imagw{12cm}{scan-mosaic_nuc12_n100_3_7_5_big_label}{Raytrace for
   circular window optimization in illumination direction. A window
   with 33\% BFP diameter would be used to illuminate the target
-  nucleus.}
+  nucleus. The table below the yellow BFP maps contains the maximum
+  and minimum values of each map.}
 
 \figref{fig:scan-mosaic_nuc12_n100_3_7_5_big_label} shows a similar
 raytrace for a sphere model of a \emph{C.~elegans} embryo and chooses
 a window size and position which in this sense is optimal.
 
-With the MMA we have a very versatile display and we don't
-have to limit ourselves to circular windows. Also the raytraced
-optimizations can look noisy when not enough rays are sent through the
-sample.
+With the MMA we have a very versatile display and we don't have to
+limit ourselves to circular windows. Also the raytrace are
+computationally expensive and the BFP maps can look noisy when not
+enough rays are sent through the sample.
 \subsection{Tracing in detection direction}
 \label{sec:trace-detect}
 For this reason we decided to trace rays from out-of-focus nuclei
@@ -758,17 +758,17 @@ displays a sphere model of three-dimensionally distributed beads
 ($\unit[2]{\mu m}$ diameter, yellow-green, in oil). We obtained this
 model with our microscope by displaying several gratings on the LCoS
 at full angular illumination and doing a structured illumination
-reconstruction (in each pixel the maximum of each pattern minus minimum
-of each pattern) of sectioned slices. A matching difference of
-Gaussian filter and local maximum search in the three-dimensional
+reconstruction (in each pixel the maximum pixel value minus the
+minimum over the patterns) of sectioned slices. A matching difference
+of Gaussian filter and local maximum search in the three-dimensional
 volume gives the centres of the beads.
 
-After constructing the model, the microscope continuously moves the
-z-stage onto each bead and illuminates them with their optimized
-illumination angles. Bead~26 has been illuminated with very high
-angles in order to prevent exposure of the bunch of beads further away
-from the objective. Bead~5 is far from any other beads and therefore
-more angles can be used for its illumination.
+After constructing the model, the microscope moved the z-stage onto
+each bead and illuminates them with their optimized illumination
+angles. Bead~26 has been illuminated with very high angles in order to
+prevent exposure of the bunch of beads further away from the
+objective. Bead~5 is far from any other beads and therefore more
+angles can be used for its illumination.
 
 
 \imagw{14cm}{img2-montage_hor}{{\bf A)} Schematic of the rays between

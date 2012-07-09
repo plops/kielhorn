@@ -5,12 +5,13 @@ As a general verification of the system and a second verify the
 alignment of the MMA on the back focal plane of the objective lens, we
 imaged three fluorescent plane samples with various embedding indices.
 
-The illumination in the sample is a disk of $\unit[30]{\mu m}$
+The illumination in the sample was set to a disk of $\unit[30]{\mu m}$
 diameter, spanning nearly the full field. Then a window of
-$15\times15$ pixels was scanned over the MMA and for each position, a
-camera image was captured. \figref{fig:immersion-bfp-scan} displays
-the integrated intensity in each image for each of the positions on
-the back focal plane.
+$15\times15$ pixels was scanned over the MMA (6\% of BFP diameter) and
+for each position, a camera image was
+captured. \figref{fig:immersion-bfp-scan} displays the integrated
+intensity in each image for each of the positions on the back focal
+plane.
 
 The left diagram shows an image of the pupil of the objective. Rays in
 the edges of the MMA are absorbed by the pupil aperture in the
@@ -51,10 +52,10 @@ coverslip--embedding interface.
 \section{Spatio-angular illumination of beads}
 Here we describe the experiment that generated the data in
 \figref{fig:bfp2-bfp-images-and-model}. The system configuration is
-described in Appendix~\ref{sec:dvi_slow}. The LCoS controller is
-connected to the graphics card. The camera exposure is fixed to
-\unit[16]{ms}. The MMA mirrors are deflected during the integration
-time. Between image changes on LCoS and MMA the system was given
+described in Appendix~\ref{sec:dvi_slow}. The LCoS controller was
+connected to the graphics card. The camera exposure was fixed to
+\unit[16]{ms}. The MMA mirrors were deflected during the integration
+time. Between image changes on LCoS and MMA the system was paused for
 several frames in order to prevent exposures with the wrong MMA or
 LCoS masks (see \figref{fig:dvi-mosaic}).
 
@@ -77,8 +78,8 @@ is a circle of \unit[25]{$\mu$m}.
   \centering
   \includegraphics[height=.9\textheight]{m_phase}
   \caption{Structured illumination images of the same of the beads
-    from \figref{fig:m_wf}. Of each $z-$slice four exposures with
-    different grating phase were captured.}
+    from \figref{fig:m_wf}. Of each $z-$slice (rows) four exposures
+    with different grating phase (columns) were captured.}
   \label{fig:m_phase}
 \end{figure}
 
@@ -90,24 +91,24 @@ $\unit[1.6]{\mu m}$ into the sample (see \figref{fig:m_phase}). In
 each slice, images of four different phases of the grating were
 obtained. 
 
-These were used to compute the optically sectioned sectioned images of
+These were used to compute the optically sectioned images of
 \figref{fig:m_sec}. The computation subtracts for each pixel the
 minimum in the four phase images from the maximum of the four
 images. Thereby unmodulated background fluorescence from out-of-focus
-fluorophores is suppressed. Note tht two beads were hardly in the
-field of view.
+fluorophores is suppressed. Note that two beads (4 and 7) were hardly
+in the field of view.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=12cm]{m_sec}
-  \caption{Computationally sectioned images. Note that two beads are
-    very close to the border of the field of view and not fully
-    illuminated.}
+  \caption{Computationally sectioned images. Note that two beads (4
+    and 7) are very close to the border of the field of view and not
+    fully illuminated.}
   \label{fig:m_sec}
 \end{figure}
 
 The sectioned images were processed with a three-dimensional
-difference-of-gaussian filter that was matched to enhance the signal
+difference-of-Gaussian filter that was matched to enhance the signal
 of the beads. Strong local maxima in the result were used as positions
 in a sphere model of the sample (see \figref{fig:model}).
 
@@ -123,10 +124,11 @@ in a sphere model of the sample (see \figref{fig:model}).
 % 25 um diameter of field of view
 
 The coordinates of the beads was then used to selectively illuminate
-each by displaying a disk at the appropriate position on the LCoS (see
-\figref{fig:m_clem}). Note that two beads, that were part in the
-model, are very dark in these images. These beads (4 and 7) were very
-close the border of the field of view.
+each by displaying a disk with \unit[3]{$\mu$ m} diameter at the
+appropriate position on the LCoS (see \figref{fig:m_clem}). Note that
+two beads, that were part in the model, are very dark in these
+images. These beads (4 and 7) were very close the border of the field
+of view.
 
 \begin{figure}[H]
   \centering
@@ -135,7 +137,9 @@ close the border of the field of view.
     \figref{fig:m_sec}. The top left image shows bead number zero and
     so forth, the second image in the top shows bead number one and so
     on. The MMA is fully white and the LCoS displays a disk at the
-    appropriate position to illuminate the target bead.}
+    appropriate position to illuminate the target bead. In comparison
+    to \figref{fig:m_wf} a strong reduction of out-of-focus
+    illumination can be observed.}
   \label{fig:m_clem}
 \end{figure}
 
@@ -217,12 +221,25 @@ produce a more uniform light distribution within the sample.
   \label{fig:mip}
 \end{figure}
 
+Finally, in \figref{fig:mip} we compare the maximum intensity
+projections of the widefield $z-$stack, the sectioned $z-$stack, the
+spatially selected beads and the spatio-angular illuminated beads.
+
+Of those the optically sectioned result looks best. However, a lot of
+out-of-focus illumination occured, when acquiring this
+image. \figref{fig:mip}~c) and d) show what typical images of our
+microscope will look like and one can also see some draw backs.
+
+The homogeneous fluorescent background in the embedding medium makes
+the spatially illuminated regions visible. However, this would not be
+a problem in nuclear tracking problems. For beads 4 and 7 the target
+area and illuminated area do not seem to overlap.
 
 \subsection{Conclusion for bead sectioning experiment}
 The images with spatial \figref{fig:m_clem} and spatio-angular control
 \figref{fig:m_ang} look very much identical. In order to show the
-improvement due to angular control it would have been useful to have
-less fluorescence from the embedding medium.
+improvement due to angular control more clearly it would have been
+useful to have less fluorescence from the embedding medium.
 
 The contrast in the structured illumination images
 (\figref{fig:m_phase}) could have been optimized by reducing the
@@ -234,7 +251,7 @@ The vertical line artifacts in the computationally reconstructed
 optical sections in \figref{fig:m_phase} only occured with laser
 illumination and not with LED illumination. In this experiment the
 artifacts do not influence the localization precision of the beads.
-
 However, we investigated other reconstruction algorithms in Appendix
 \ref{sec:app_hilo} which don't show these artifacts and can also work
 with only one patterned image and one uniform image.
+
