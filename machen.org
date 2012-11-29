@@ -1,3 +1,110 @@
+- mma system
+  - discuss, why circular window
+  - rectangular window would allow to fill the camera properly
+    - but it is more difficult to align
+
+
+- discuss holography method
+  - would higher resolution devices help?
+  - linear response?
+  - how many angles can be addressed
+  - discuss speckle
+  - (spatial) coherence of illumination
+
+- quote mehta thesis
+  - i should also call the mma condensor aperture slm
+    - at ffp of condensor
+  - use his expressions from page 24 to explain our dic setup
+  - note that in future we should apply his quantitative theory to predicting the values
+  - what is the patent for the dic method?
+  - think about the phase difference maybe with bias and flat mirrors
+    the algorithm that finds optimum positions is easier
+  - what would happen in our case with a small shear?
+  - argue that dic mma imaging is more 'linear', image doesn't depend
+    on what is displayed
+  - use kernel from p.39
+  - we could use the mma illumination to implement dpc reflection mode
+    with desired phase gradient contrast (p. 48)
+    - he actually mentions slm here
+    - its crucial to have gray level slm in condensor aperture
+    - for matched illumination (S=1) the illumination must be linear
+      - would dpc work in reflection? (i guess yes, but mehta doesn't mention)
+      - discuss that this works very fast with our slm
+      - but i'm not so sure how linear the slm with schlieren optics is
+      - our problem: only small field
+     
+- temporal focus
+  - aufloesungs problem
+  - alipasha palm temporal focussing
+
+- geschwindigkeit dmd schneller als kamera
+- stimmt aber nicht mehr
+- wenn camera readnoise ein problem ist
+- disadvantage:
+  - weniger flexibel
+  - leicht aliasing probleme
+  - eigntlich abbildungsoptik von dmd auf kamera mit kamera pixeln samplenñ
+    - kamera muessten 1/10 
+    - na von mik zu dmd ist klein (im bild)
+    - dmd hat scharfe pixel kanten und multipliziert mit gitter, imaging optik muss sehr grosse na haben (F=1, 45 grad detektion)
+
+quentin hanley
+nottingham oder trent
+
+0053_fedder-1994.pdf
+- mems
+
+achromatic dmd based system
+martial hartell journal.pone.0043942.pdf
+- references to jovins pam microscope
+- aod to overcome inefficiencies
+- alp-3 controller vialux chemnitz
+- +/-12 degree
+- explain my light sources
+- offner triplett arangement
+- 60 us frame update vs. 900us
+- lacks contrast
+
+
+
+
+rename cross section to profile, where applicable
+
+nice algorithm to find centers of spherical things
+TiBa11b.pdf
+ACCURATE EYE CENTRE LOCALISATION BY MEANS OF
+                    GRADIENTS
+              Fabian Timm and Erhardt Barth
+
+
+rainer zitiert dass fuer temporal focussing Oron D, Tal E and Silberberg Y 2005 Opt.
+In this method spatiotemporal pulse shaping is used to ensure that the pulsed excitation field is compressed as it propagates through the sample, resulting in maximum axial compression in the focal slice, where it will thus reach its peak intensity. Because of the two-photon absorption’s quadratic dependence on the illumination intensity this leads to a wide-field sectioning effect.
+© 2010 IOP Publishing Ltd Printed in the U
+
+cite picosim paper in my thesis concerning contrast enhancement
+
+Apotome, Qioptiq’s OptiGrid or Quorum’s Angstrom
+
+Hamamatsu-Life-Science-Cameras-Brochure-Fall-2012.pdf
+some things about excessive noise factor
+  CMOS -- Scientific complementary metal oxide semiconductor (sCMOS) image sensor. Differs from standard
+ s
+ CMOS by parallel row A/D converters.
+ - rolling shutter
+ - photoncounting emccd has no multiplicative noise
+ - cmos gain variation per pixel and per column? (how often to recalibrate)
+ - http://www.sony.net/Products/SC-HP/cx_news/vol47/pdf/featuring47.pdf
+   - sony column-parallel
+ - pco white paper
+   - shieding
+   - nir sensitivity reduced by cooling
+ - sony whitepaper
+   - Ultrahigh-Speed High Picture Quality CMOS Sensors Using
+     Column-Parallel A / D Conversion using column-parallel A / D
+     conversion a column-parallel digital A / D Conversion Technique
+A toolkit for the characterization of CCD cameras for transmission electron microscopy A toolkit for the characterization of
+   - pixel-at-a-time
+
 [1] Riehemann, S., Palme, M., Kuehmstedt, P., Notni, G., `LCoS based Projection Systems for Optical Metrology'. SID 2003 Digest 256 - 259 
 check forthdd reference
 
