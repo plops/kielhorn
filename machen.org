@@ -1,3 +1,15 @@
+- ondrejs references each contain a cited on (with page number) that
+  is useful
+
+- language
+  - thinlisp could have been used
+  - note cling
+
+- fluorescence
+  - linear image formation allows deconvolution
+  - refer to lithography, illumination simulation
+  - quasi-monochromatic
+
 - mma system
   - discuss, why circular window
   - rectangular window would allow to fill the camera properly
